@@ -1,7 +1,8 @@
 # Redveil
 
-<p>
-  <img src="./app/site/assets/brand/redveil-logo-full.png" alt="Redveil logo" width="520" />
+<p><img width="1536" height="1024" alt="레드베일 로고 디자인" src="https://github.com/user-attachments/assets/0aee87c2-a7cb-443a-bea7-c0916b825896" />
+
+ 
 </p>
 
 `Redveil`은 서울 소형 상가 매입 전에 숨은 리스크를 빠르게 점검하는 서비스입니다.  

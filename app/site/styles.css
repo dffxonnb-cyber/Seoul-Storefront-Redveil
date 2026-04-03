@@ -83,21 +83,14 @@ body {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
   text-decoration: none;
   color: inherit;
 }
 
-.brand-copy {
-  display: grid;
-  gap: 3px;
-}
-
-.brand-mark {
-  width: 38px;
-  height: 38px;
+.brand-lockup {
+  width: 168px;
+  height: auto;
   object-fit: contain;
-  flex: 0 0 auto;
 }
 
 .brand-kicker,
@@ -185,9 +178,9 @@ body {
 
 .hero-logo {
   display: block;
-  width: min(420px, 82%);
+  width: min(360px, 72%);
   height: auto;
-  margin: 10px 0 18px;
+  margin: 8px 0 18px;
 }
 
 .page-hero h1,

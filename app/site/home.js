@@ -93,7 +93,7 @@
             </div>
             <div class="homepage-entry-meta">
               <span>${item.meta}</span>
-              <a href="${item.href}">${item.label}</a>
+              <a class="homepage-action-button homepage-entry-link" href="${item.href}">${item.label}</a>
             </div>
           </article>
         `

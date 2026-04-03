@@ -49,7 +49,7 @@
     if (!highestRiskDistrict) return;
 
     document.getElementById("hero-description").textContent =
-      "서울 소형 상가 매입 전에 가격 부담, 거래 둔화, 변동성, 상권 과밀 신호를 먼저 확인하는 판단용 홈페이지입니다.";
+      "서울 소형 상가 매입 전에 가격 부담, 거래 둔화, 변동성, 상권 과밀 신호를 먼저 확인하는 간결한 진입 화면입니다.";
     document.getElementById("hero-caveat").textContent = `${payload.site.timeCaveat} ${payload.site.sampleCaveat}`;
 
     document.getElementById("hero-facts").innerHTML = [
@@ -103,7 +103,7 @@
 
   function renderReport() {
     document.getElementById("report-description").textContent =
-      "핵심 수치만 먼저 읽고, 더 자세한 정의와 한계는 데이터 페이지로 넘기는 방식으로 홈 정보를 줄였습니다.";
+      "홈에서는 전체 정의를 펼치지 않고, 신뢰 신호와 지금 먼저 볼 구만 짧게 보여줍니다.";
 
     document.getElementById("evidence-list").innerHTML = (content.trustSignals || [])
       .slice(0, 3)
@@ -117,31 +117,25 @@
       )
       .join("");
 
-    document.getElementById("source-list").innerHTML = (content.dataSources || [])
+    document.getElementById("district-brief-list").innerHTML = districts
       .slice(0, 3)
       .map(
         (item) => `
-          <article>
-            <strong>${item.name}</strong>
-            <p>${item.window} 기준 ${item.role}</p>
+          <article class="district-brief-item">
+            <div>
+              <strong>${item.name}</strong>
+              <p>${item.riskArchetype}</p>
+            </div>
+            <span>${formatNumber(item.riskScore, "점")}</span>
           </article>
         `
       )
       .join("");
 
-    document.getElementById("district-table-body").innerHTML = districts
-      .slice(0, 5)
-      .map(
-        (item) => `
-          <tr>
-            <td>${item.name}</td>
-            <td>${formatNumber(item.riskScore, "점")}</td>
-            <td>${item.riskArchetype}</td>
-            <td>${(item.objections || [item.riskSummary])[0]}</td>
-          </tr>
-        `
-      )
-      .join("");
+    const sources = (content.dataSources || []).slice(0, 2);
+    document.getElementById("source-note").textContent = sources
+      .map((item) => `${item.name} ${item.window}`)
+      .join(" / ");
   }
 
   function renderFeature() {
@@ -154,15 +148,6 @@
     document.getElementById("feature-body").textContent =
       feature.memo ||
       `${feature.riskArchetype} 유형으로 분류됐고, 가장 먼저 확인할 항목은 ${feature.objections?.[0] || feature.riskSummary} 입니다.`;
-
-    document.getElementById("feature-chips").innerHTML = [
-      `총 리스크 ${formatNumber(feature.riskScore, "점")}`,
-      feature.riskGrade || "",
-      `신뢰도 ${feature.sampleReliability || "확인 필요"}`,
-    ]
-      .filter(Boolean)
-      .map((item) => `<span>${item}</span>`)
-      .join("");
 
     document.getElementById("recent-review").innerHTML = recent
       ? `

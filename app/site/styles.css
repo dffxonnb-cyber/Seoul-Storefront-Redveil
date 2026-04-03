@@ -1,18 +1,18 @@
 :root {
-  --bg: #11161c;
-  --bg-elevated: #171e25;
-  --panel: rgba(20, 26, 35, 0.84);
-  --panel-strong: rgba(25, 32, 42, 0.94);
-  --ink: #f3eee7;
-  --muted: #a8b0bc;
-  --line: rgba(255, 255, 255, 0.08);
-  --accent: #df5a3a;
-  --accent-deep: #f08b6d;
-  --accent-soft: rgba(223, 90, 58, 0.14);
-  --accent-quiet: rgba(223, 90, 58, 0.08);
-  --gold: #d7b06a;
-  --teal: #79c1bc;
-  --shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+  --bg: #fbf8f4;
+  --bg-elevated: #fffdfb;
+  --panel: rgba(255, 255, 255, 0.92);
+  --panel-strong: rgba(255, 255, 255, 0.98);
+  --ink: #1f1714;
+  --muted: #746862;
+  --line: rgba(73, 37, 26, 0.11);
+  --accent: #c43f27;
+  --accent-deep: #a92d18;
+  --accent-soft: rgba(196, 63, 39, 0.12);
+  --accent-quiet: rgba(196, 63, 39, 0.06);
+  --gold: #c9a15a;
+  --teal: #6aa79f;
+  --shadow: 0 20px 52px rgba(74, 39, 27, 0.09);
   --radius-xl: 28px;
   --radius-lg: 20px;
   --radius-md: 16px;
@@ -34,9 +34,8 @@ body {
   word-break: keep-all;
   font-size: 16px;
   background:
-    radial-gradient(circle at top left, rgba(223, 90, 58, 0.16), transparent 22%),
-    radial-gradient(circle at 85% 18%, rgba(121, 193, 188, 0.1), transparent 18%),
-    linear-gradient(180deg, #10151b 0%, #131920 46%, #151b22 100%);
+    radial-gradient(circle at top left, rgba(196, 63, 39, 0.08), transparent 18%),
+    linear-gradient(180deg, #fbf8f4 0%, #f8f4ef 50%, #f5f0ea 100%);
 }
 
 body::before {
@@ -44,10 +43,10 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+    linear-gradient(rgba(97, 71, 62, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(97, 71, 62, 0.04) 1px, transparent 1px);
   background-size: 40px 40px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent 92%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 92%);
   pointer-events: none;
 }
 
@@ -75,7 +74,7 @@ a {
   left: -8vw;
   width: 30vw;
   height: 30vw;
-  background: rgba(255, 92, 57, 0.22);
+  background: rgba(196, 63, 39, 0.12);
 }
 
 .ambient-two {
@@ -83,7 +82,7 @@ a {
   top: 16vw;
   width: 24vw;
   height: 24vw;
-  background: rgba(95, 208, 194, 0.16);
+  background: rgba(196, 63, 39, 0.08);
 }
 
 .topbar,
@@ -120,7 +119,7 @@ a {
   height: 38px;
   border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 10px 24px rgba(255, 92, 57, 0.24);
+  box-shadow: 0 8px 18px rgba(196, 63, 39, 0.14);
 }
 
 .brand small,
@@ -133,7 +132,7 @@ a {
 .card-label {
   display: block;
   margin-bottom: 4px;
-  color: var(--accent-deep);
+  color: var(--accent);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -156,7 +155,7 @@ a {
   padding: 9px 13px;
   border-radius: 999px;
   text-decoration: none;
-  color: var(--muted);
+  color: #5f544f;
   font-size: 13px;
   font-weight: 700;
   transition: 150ms ease;
@@ -164,8 +163,8 @@ a {
 
 .topnav a:hover,
 .topnav a.is-active {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--ink);
+  background: var(--accent-soft);
+  color: var(--accent-deep);
 }
 
 .page-stack {
@@ -202,8 +201,8 @@ a {
 .panel-hero {
   padding: 32px;
   background:
-    linear-gradient(140deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01)),
-    radial-gradient(circle at top right, rgba(223, 90, 58, 0.13), transparent 28%),
+    linear-gradient(140deg, rgba(255, 255, 255, 1), rgba(255, 250, 246, 0.98)),
+    radial-gradient(circle at top right, rgba(196, 63, 39, 0.08), transparent 28%),
     var(--panel-strong);
 }
 
@@ -219,18 +218,18 @@ a {
 }
 
 .hero-copy h1 {
-  max-width: 11ch;
-  font-size: clamp(34px, 4.2vw, 52px);
+  max-width: 13ch;
+  font-size: clamp(28px, 3.2vw, 40px);
 }
 
 .console-topline h2 {
-  font-size: clamp(24px, 3vw, 32px);
+  font-size: clamp(22px, 2.2vw, 28px);
 }
 
 .section-head h2,
 .footer-cta h2 {
   max-width: 20ch;
-  font-size: clamp(22px, 2.5vw, 30px);
+  font-size: clamp(20px, 2vw, 26px);
 }
 
 .hero-body,
@@ -276,14 +275,14 @@ a {
 }
 
 .button-primary {
-  background: linear-gradient(135deg, var(--accent), #ff7d51);
+  background: linear-gradient(135deg, var(--accent), #de583c);
   color: #fff6f2;
 }
 
 .button-secondary {
   border-color: var(--line);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--ink);
+  background: #fff;
+  color: var(--accent-deep);
 }
 
 .button-wide {
@@ -294,8 +293,8 @@ a {
   margin-top: 24px;
   padding: 18px 20px;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(73, 37, 26, 0.09);
+  background: rgba(255, 252, 249, 0.95);
 }
 
 .hero-note p {
@@ -319,8 +318,8 @@ a {
 .review-mini {
   padding: 16px;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(73, 37, 26, 0.09);
+  background: rgba(255, 255, 255, 0.96);
 }
 
 .metric-card strong,
@@ -334,7 +333,7 @@ a {
 .hero-console {
   padding: 20px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(252, 248, 244, 0.96)),
     var(--panel-strong);
 }
 
@@ -360,47 +359,47 @@ a {
 
 .signal-pill {
   background: var(--accent-soft);
-  color: #ffd4c8;
-  border: 1px solid rgba(255, 92, 57, 0.18);
+  color: var(--accent-deep);
+  border: 1px solid rgba(196, 63, 39, 0.16);
 }
 
 .signal-pill.tone-high,
 .tone-pill.tone-high {
-  background: rgba(255, 99, 71, 0.14);
-  color: #ffb6a4;
+  background: rgba(196, 63, 39, 0.12);
+  color: var(--accent-deep);
 }
 
 .signal-pill.tone-mid,
 .tone-pill.tone-mid {
-  background: rgba(245, 196, 108, 0.14);
-  color: #f6d38c;
+  background: rgba(201, 161, 90, 0.12);
+  color: #8e6424;
 }
 
 .signal-pill.tone-low,
 .tone-pill.tone-low {
-  background: rgba(142, 207, 135, 0.14);
-  color: #bce5b7;
+  background: rgba(106, 167, 159, 0.12);
+  color: #356c65;
 }
 
 .rank-pill,
 .chip {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(73, 37, 26, 0.09);
+  background: #fff;
 }
 
 .chart-frame,
 .result-card,
 .memo-card {
   border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(73, 37, 26, 0.09);
 }
 
 .chart-frame {
   margin-top: 18px;
   padding: 16px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
-    rgba(5, 10, 16, 0.72);
+    linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(250, 245, 240, 0.96)),
+    rgba(255, 255, 255, 0.96);
 }
 
 .chart-head {
@@ -454,14 +453,14 @@ svg {
   height: 48px;
   padding: 0 14px;
   color: var(--ink);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(73, 37, 26, 0.11);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
+  background: #fff;
   font: inherit;
 }
 
 .field input::placeholder {
-  color: rgba(155, 168, 181, 0.72);
+  color: rgba(116, 104, 98, 0.72);
 }
 
 .result-card {
@@ -469,8 +468,8 @@ svg {
   margin-top: 14px;
   padding: 18px;
   background:
-    radial-gradient(circle at top right, rgba(255, 92, 57, 0.12), transparent 28%),
-    rgba(255, 255, 255, 0.03);
+    radial-gradient(circle at top right, rgba(196, 63, 39, 0.08), transparent 28%),
+    rgba(255, 255, 255, 0.96);
 }
 
 .result-card h3,
@@ -482,7 +481,7 @@ svg {
 .district-card strong,
 .case-card strong {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.35;
 }
 
@@ -501,7 +500,7 @@ svg {
 .result-score {
   display: block;
   margin-top: 12px;
-  font-size: 34px;
+  font-size: 30px;
   font-weight: 700;
   letter-spacing: -0.05em;
 }
@@ -554,7 +553,7 @@ svg {
 
 .tool-link,
 .text-link {
-  color: #ffd0c3;
+  color: var(--accent-deep);
   font-weight: 700;
   text-decoration: none;
 }
@@ -619,8 +618,8 @@ svg {
 .memo-card {
   padding: 20px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
-    rgba(255, 255, 255, 0.02);
+    linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(249, 243, 238, 0.96)),
+    rgba(255, 255, 255, 0.96);
 }
 
 .memo-card p {
@@ -674,8 +673,8 @@ svg {
   min-width: 180px;
   padding: 14px 16px;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(73, 37, 26, 0.09);
+  background: rgba(255, 255, 255, 0.96);
 }
 
 .hero-status strong {
@@ -715,8 +714,8 @@ svg {
 .progress-card {
   padding: 16px;
   border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(73, 37, 26, 0.09);
+  background: rgba(255, 255, 255, 0.96);
 }
 
 .form-stack {
@@ -727,15 +726,15 @@ svg {
   min-height: 120px;
   padding: 14px;
   color: var(--ink);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(73, 37, 26, 0.11);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
+  background: #fff;
   font: inherit;
   resize: vertical;
 }
 
 .field textarea::placeholder {
-  color: rgba(155, 168, 181, 0.72);
+  color: rgba(116, 104, 98, 0.72);
 }
 
 .full-span {
@@ -750,8 +749,8 @@ svg {
 .mini-compare-card {
   padding: 16px;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(73, 37, 26, 0.09);
+  background: rgba(255, 255, 255, 0.96);
 }
 
 .review-entry strong,
@@ -773,10 +772,10 @@ svg {
 .inline-chart-card {
   padding: 16px;
   border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(73, 37, 26, 0.09);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
-    rgba(5, 10, 16, 0.72);
+    linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(250, 245, 240, 0.96)),
+    rgba(255, 255, 255, 0.96);
 }
 
 .compare-selector-grid {
@@ -818,9 +817,9 @@ svg {
   width: 100%;
   padding: 14px 16px;
   text-align: left;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(73, 37, 26, 0.09);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.96);
   color: inherit;
   cursor: pointer;
   transition: 150ms ease;
@@ -850,12 +849,12 @@ svg {
   min-width: 164px;
   padding: 16px;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(196, 63, 39, 0.12);
+  background: rgba(255, 249, 246, 0.98);
 }
 
 .headline-score strong {
-  font-size: 32px;
+  font-size: 28px;
   letter-spacing: -0.05em;
 }
 
@@ -893,7 +892,7 @@ svg {
 .data-table th,
 .data-table td {
   padding: 12px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(73, 37, 26, 0.09);
   text-align: left;
   vertical-align: top;
 }
@@ -917,8 +916,8 @@ svg {
 .stacked-list article {
   padding: 14px 16px;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(73, 37, 26, 0.09);
+  background: rgba(255, 255, 255, 0.96);
 }
 
 .stacked-list article strong {

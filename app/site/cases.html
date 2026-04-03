@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>케이스 스터디 | Redveil</title>
-    <meta name="description" content="상위 위험 구를 실제 검토 메모 형식으로 확인합니다." />
+    <title>Redveil | 케이스 스터디</title>
+    <meta name="description" content="상위 위험 구를 실제 반대 논리와 현장 확인 포인트로 해석하는 Redveil 케이스 스터디입니다." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,34 +14,47 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body data-page="cases">
-    <div class="bg-orb bg-orb-left"></div>
-    <div class="bg-orb bg-orb-right"></div>
-    <div class="site-shell">
-      <header class="site-header">
+    <div class="page-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+
+      <header class="topbar">
         <a class="brand" href="./index.html" aria-label="Redveil 홈">
-          <span class="brand-kicker">서울 소형 상가 매입 리스크 판별 서비스</span>
-          <strong>Redveil</strong>
+          <img class="brand-mark" src="./assets/brand/redveil-logo-mark.png" alt="Redveil 로고" />
+          <span>
+            <small>Seoul Storefront Acquisition Intelligence</small>
+            <strong>Redveil</strong>
+          </span>
         </a>
-        <nav class="site-nav">
+        <nav class="topnav" aria-label="주요 이동">
           <a href="./index.html">홈</a>
-          <a href="./review.html">내 매물 검토</a>
+          <a href="./review.html">매물 검토</a>
           <a href="./assessment.html">3분 진단</a>
           <a href="./compare.html">후보 비교</a>
-          <a href="./districts.html">구별 리포트</a>
-          <a href="./cases.html">케이스 스터디</a>
+          <a href="./districts.html">구 리포트</a>
+          <a href="./cases.html">케이스</a>
           <a href="./methodology.html">방법론</a>
           <a href="./data.html">데이터</a>
         </nav>
       </header>
 
       <main class="page-stack">
-        <section class="page-hero section-card">
-          <p class="eyebrow">Case Studies</p>
-          <h1>상위 위험 구 해석</h1>
-          <p class="section-copy">실제 검토 메모 톤으로 정리했습니다.</p>
+        <section class="panel subhero">
+          <div class="subhero-copy">
+            <div>
+              <p class="section-label">Case Studies</p>
+              <h2>상위 위험 구를 점수표가 아니라 실제 검토 메모의 언어로 읽습니다.</h2>
+              <p>케이스는 숫자를 나열하는 대신 왜 보류 판단이 나오는지, 어떤 현장 질문을 더 해야 하는지까지 이어져야 합니다.</p>
+            </div>
+            <div class="hero-status">
+              <span class="card-label">Case Count</span>
+              <strong id="case-count"></strong>
+              <p class="compact-note">현재 공개 케이스 수</p>
+            </div>
+          </div>
         </section>
 
-        <section id="case-study-grid" class="case-study-grid"></section>
+        <section class="case-layout" id="case-grid"></section>
       </main>
     </div>
 

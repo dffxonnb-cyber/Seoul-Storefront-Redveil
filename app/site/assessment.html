@@ -3,11 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>3분 진단 | Redveil</title>
-    <meta
-      name="description"
-      content="예상 매입가와 보유 기간을 넣고 빠르게 매입 보류 신호를 확인합니다."
-    />
+    <title>Redveil | 3분 진단</title>
+    <meta name="description" content="구와 가격선, 보유 기간으로 빠르게 매입 보류 신호를 확인하는 Redveil 진단 화면입니다." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,53 +14,68 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body data-page="assessment">
-    <div class="bg-orb bg-orb-left"></div>
-    <div class="bg-orb bg-orb-right"></div>
-    <div class="site-shell">
-      <header class="site-header">
+    <div class="page-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+
+      <header class="topbar">
         <a class="brand" href="./index.html" aria-label="Redveil 홈">
-          <span class="brand-kicker">서울 소형 상가 매입 리스크 판별 서비스</span>
-          <strong>Redveil</strong>
+          <img class="brand-mark" src="./assets/brand/redveil-logo-mark.png" alt="Redveil 로고" />
+          <span>
+            <small>Seoul Storefront Acquisition Intelligence</small>
+            <strong>Redveil</strong>
+          </span>
         </a>
-        <nav class="site-nav">
+        <nav class="topnav" aria-label="주요 이동">
           <a href="./index.html">홈</a>
-          <a href="./review.html">내 매물 검토</a>
+          <a href="./review.html">매물 검토</a>
           <a href="./assessment.html">3분 진단</a>
           <a href="./compare.html">후보 비교</a>
-          <a href="./districts.html">구별 리포트</a>
-          <a href="./cases.html">케이스 스터디</a>
+          <a href="./districts.html">구 리포트</a>
+          <a href="./cases.html">케이스</a>
           <a href="./methodology.html">방법론</a>
           <a href="./data.html">데이터</a>
         </nav>
       </header>
 
       <main class="page-stack">
-        <section class="page-hero section-card">
-          <p class="eyebrow">Quick Assessment</p>
-          <h1>빠른 보류 신호 확인</h1>
-          <p class="section-copy">구, 가격, 보유 기간만 넣으면 됩니다.</p>
+        <section class="panel subhero">
+          <div class="subhero-copy">
+            <div>
+              <p class="section-label">Quick Assessment</p>
+              <h2>구, 가격선, 보유 기간만으로 보류 신호를 먼저 꺼냅니다.</h2>
+              <p>빠른 진단은 설명을 길게 읽는 화면이 아니라, 가설을 바로 깨보는 입력 중심 화면이어야 합니다.</p>
+            </div>
+            <div class="hero-status">
+              <span class="card-label">Latest Month</span>
+              <strong id="assessment-latest-month"></strong>
+              <p class="compact-note">payload 기준 최신 거래 월</p>
+            </div>
+          </div>
         </section>
 
-        <section class="two-column">
-          <article class="section-card">
+        <section class="app-grid">
+          <article class="panel section-block">
             <div class="section-head">
-              <p class="eyebrow">Input</p>
-              <h2>진단 조건</h2>
+              <div>
+                <p class="section-label">Scenario Input</p>
+                <h2>진단 조건</h2>
+              </div>
             </div>
-            <form id="assessment-form" class="form-grid">
-              <label class="form-field">
+            <form id="assessment-form" class="form-stack">
+              <label class="field">
                 <span>검토할 구</span>
                 <select id="district-code" required></select>
               </label>
-              <label class="form-field">
+              <label class="field">
                 <span>예상 매입가 (만원/㎡)</span>
                 <input id="asking-price" type="number" min="0" step="0.1" placeholder="예: 2500" />
               </label>
-              <label class="form-field">
-                <span>예상 보유 기간 (개월)</span>
+              <label class="field">
+                <span>보유 기간</span>
                 <input id="holding-months" type="number" min="6" max="180" step="6" value="36" />
               </label>
-              <label class="form-field">
+              <label class="field">
                 <span>우선순위</span>
                 <select id="priority">
                   <option value="cashflow">현금흐름</option>
@@ -71,16 +83,49 @@
                   <option value="growth">가격 상승</option>
                 </select>
               </label>
-              <button class="button primary" type="submit">진단 실행</button>
+              <div class="full-span">
+                <button class="button button-primary button-wide" type="submit">진단 실행</button>
+              </div>
             </form>
           </article>
 
-          <article class="section-card" id="assessment-result">
+          <article class="panel section-block" id="assessment-result">
             <div class="section-head">
-              <p class="eyebrow">Assessment Result</p>
-              <h2>진단 결과</h2>
+              <div>
+                <p class="section-label">Assessment Result</p>
+                <h2>조건을 넣으면 여기서 즉시 판정합니다.</h2>
+              </div>
             </div>
-            <p class="section-copy">조건을 넣고 바로 확인하세요.</p>
+            <p class="section-copy">리스크 점수, 근거, 체크리스트, 대체 후보를 한 번에 보여줍니다.</p>
+          </article>
+        </section>
+
+        <section class="app-grid">
+          <article class="panel section-block">
+            <div class="section-head">
+              <div>
+                <p class="section-label">District Snapshot</p>
+                <h2 id="assessment-spotlight-name"></h2>
+              </div>
+              <span class="signal-pill" id="assessment-spotlight-grade"></span>
+            </div>
+            <div class="inline-chart-card">
+              <div class="chart-head">
+                <strong>최근 가격선 흐름</strong>
+                <span id="assessment-spotlight-type"></span>
+              </div>
+              <svg id="assessment-spotlight-chart" viewBox="0 0 420 180" aria-label="구 가격 추이"></svg>
+            </div>
+          </article>
+
+          <article class="panel section-block">
+            <div class="section-head">
+              <div>
+                <p class="section-label">Risk Breakdown</p>
+                <h2>핵심 리스크 축</h2>
+              </div>
+            </div>
+            <div class="progress-list" id="assessment-progress-list"></div>
           </article>
         </section>
       </main>

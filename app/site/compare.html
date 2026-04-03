@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>후보 비교 | Redveil</title>
-    <meta name="description" content="여러 구를 같은 기준으로 비교해 더 안전한 대안을 찾습니다." />
+    <title>Redveil | 후보 비교</title>
+    <meta name="description" content="2~3개 구를 같은 기준으로 비교해 대체 후보를 고르는 Redveil 비교 화면입니다." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,52 +14,95 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body data-page="compare">
-    <div class="bg-orb bg-orb-left"></div>
-    <div class="bg-orb bg-orb-right"></div>
-    <div class="site-shell">
-      <header class="site-header">
+    <div class="page-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+
+      <header class="topbar">
         <a class="brand" href="./index.html" aria-label="Redveil 홈">
-          <span class="brand-kicker">서울 소형 상가 매입 리스크 판별 서비스</span>
-          <strong>Redveil</strong>
+          <img class="brand-mark" src="./assets/brand/redveil-logo-mark.png" alt="Redveil 로고" />
+          <span>
+            <small>Seoul Storefront Acquisition Intelligence</small>
+            <strong>Redveil</strong>
+          </span>
         </a>
-        <nav class="site-nav">
+        <nav class="topnav" aria-label="주요 이동">
           <a href="./index.html">홈</a>
-          <a href="./review.html">내 매물 검토</a>
+          <a href="./review.html">매물 검토</a>
           <a href="./assessment.html">3분 진단</a>
           <a href="./compare.html">후보 비교</a>
-          <a href="./districts.html">구별 리포트</a>
-          <a href="./cases.html">케이스 스터디</a>
+          <a href="./districts.html">구 리포트</a>
+          <a href="./cases.html">케이스</a>
           <a href="./methodology.html">방법론</a>
           <a href="./data.html">데이터</a>
         </nav>
       </header>
 
       <main class="page-stack">
-        <section class="page-hero section-card">
-          <p class="eyebrow">Compare</p>
-          <h1>후보 구 비교</h1>
-          <p class="section-copy">같은 예산 안에서 더 나은 대안을 찾습니다.</p>
-        </section>
-
-        <section class="section-card">
-          <div class="compare-controls">
-            <label class="form-field">
-              <span>후보 1</span>
-              <select id="compare-a"></select>
-            </label>
-            <label class="form-field">
-              <span>후보 2</span>
-              <select id="compare-b"></select>
-            </label>
-            <label class="form-field">
-              <span>후보 3</span>
-              <select id="compare-c"></select>
-            </label>
-            <button id="compare-run" class="button primary" type="button">비교 실행</button>
+        <section class="panel subhero">
+          <div class="subhero-copy">
+            <div>
+              <p class="section-label">Candidate Comparison</p>
+              <h2>총점만 보는 게 아니라, 왜 더 안전한 대안인지 같은 축에서 비교합니다.</h2>
+              <p>후보 비교는 하나의 추천 카드가 아니라, 리스크 축이 어떻게 달라지는지 읽히는 화면이어야 합니다.</p>
+            </div>
+            <div class="hero-status">
+              <span class="card-label">Coverage</span>
+              <strong id="compare-coverage"></strong>
+              <p class="compact-note">서울 전체 구 기준</p>
+            </div>
           </div>
         </section>
 
-        <section id="compare-grid" class="three-grid"></section>
+        <section class="panel section-block">
+          <div class="section-head">
+            <div>
+              <p class="section-label">Select Candidates</p>
+              <h2>비교할 구를 선택하세요.</h2>
+            </div>
+          </div>
+          <div class="compare-selector-grid">
+            <label class="field">
+              <span>후보 A</span>
+              <select id="compare-a"></select>
+            </label>
+            <label class="field">
+              <span>후보 B</span>
+              <select id="compare-b"></select>
+            </label>
+            <label class="field">
+              <span>후보 C</span>
+              <select id="compare-c"></select>
+            </label>
+          </div>
+          <div style="margin-top:14px">
+            <button class="button button-primary" id="compare-run" type="button">비교 실행</button>
+          </div>
+        </section>
+
+        <section class="compare-card-grid" id="compare-grid"></section>
+
+        <section class="comparison-grid">
+          <article class="panel section-block">
+            <div class="section-head">
+              <div>
+                <p class="section-label">Metric Comparison</p>
+                <h2>핵심 리스크 축 비교</h2>
+              </div>
+            </div>
+            <div class="progress-list" id="compare-metrics"></div>
+          </article>
+
+          <article class="panel section-block">
+            <div class="section-head">
+              <div>
+                <p class="section-label">Recommendation</p>
+                <h2>현재 조합에서 먼저 볼 만한 대안</h2>
+              </div>
+            </div>
+            <div class="panel-stack" id="compare-recommendation"></div>
+          </article>
+        </section>
       </main>
     </div>
 

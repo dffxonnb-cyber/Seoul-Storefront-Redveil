@@ -1,118 +1,127 @@
-(async function () {
-  const { fetchJson, formatNumber, drawLineChart, renderError } = window.SiteApi;
+(function () {
+  const { payload, formatNumber, riskTone, drawLineChart } = window.RedveilV2 || {};
+  if (!payload) return;
+
   const state = {
-    districts: [],
-    selectedCode: null,
-    cache: new Map(),
+    districts: payload.districts || [],
+    selectedCode: payload.districts?.[0]?.code || null,
   };
 
-  function filteredDistricts(query) {
-    if (!query.trim()) return state.districts;
-    return state.districts.filter((district) => district.name.includes(query.trim()));
+  document.getElementById("district-coverage").textContent = `${state.districts.length}개 구`;
+
+  function visibleDistricts(query) {
+    const trimmed = String(query || "").trim();
+    if (!trimmed) return state.districts;
+    return state.districts.filter((item) => item.name.includes(trimmed));
   }
 
-  function renderDistrictList(query = "") {
-    document.getElementById("district-list").innerHTML = filteredDistricts(query)
+  function renderList(query = "") {
+    const items = visibleDistricts(query);
+    document.getElementById("district-list").innerHTML = items
       .map(
-        (district) => `
-        <button class="district-item ${district.code === state.selectedCode ? "is-active" : ""}" data-code="${district.code}">
-          <strong>${district.name}</strong>
-          <span>${district.riskScore}점 · ${district.riskGrade}</span>
-          <span>${district.riskArchetype}</span>
-        </button>
-      `
+        (item) => `
+          <button class="district-select-button ${item.code === state.selectedCode ? "is-active" : ""}" data-code="${item.code}">
+            <strong>${item.name}</strong>
+            <span>${formatNumber(item.riskScore, "점")} · ${item.riskGrade}</span>
+            <span>${item.riskArchetype}</span>
+          </button>
+        `
       )
       .join("");
 
-    document.querySelectorAll(".district-item").forEach((button) => {
-      button.addEventListener("click", () => selectDistrict(button.dataset.code));
+    document.querySelectorAll(".district-select-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.selectedCode = button.dataset.code;
+        renderList(document.getElementById("district-search").value);
+        renderDetail();
+      });
     });
   }
 
-  function renderDetail(detail) {
-    document.getElementById("detail-name").textContent = detail.name;
+  function currentDistrict() {
+    return state.districts.find((item) => item.code === state.selectedCode) || state.districts[0];
+  }
+
+  function renderDetail() {
+    const detail = currentDistrict();
+    if (!detail) return;
+
+    document.getElementById("detail-name").textContent = `${detail.name} · ${detail.riskArchetype}`;
     document.getElementById("detail-memo").textContent = detail.memo;
     document.getElementById("detail-grade").textContent = detail.riskGrade;
-    document.getElementById("detail-score").textContent = `${detail.riskScore}점`;
+    document.getElementById("detail-score").textContent = formatNumber(detail.riskScore, "점");
 
-    document.getElementById("detail-metrics").innerHTML = [
-      ["가격 부담", `${detail.priceBurdenRiskScore}점`],
-      ["거래 유동성", `${detail.liquidityRiskScore}점`],
-      ["변동성", `${detail.volatilityRiskScore}점`],
-      ["상권 경쟁", `${detail.competitionRiskScore}점`],
-      ["음식업 비중", `${detail.foodStoreSharePct}%`],
+    document.getElementById("detail-summary-grid").innerHTML = [
+      ["대표 유형", detail.riskArchetype],
+      ["신뢰도", detail.sampleReliability],
+      ["음식업 비중", formatNumber(detail.foodStoreSharePct, "%")],
       ["행정동당 점포", formatNumber(detail.storesPerAdminDong)],
     ]
       .map(
         ([label, value]) => `
-      <div class="mini-metric">
-        <p>${label}</p>
-        <strong>${value}</strong>
-      </div>
-    `
+          <article class="stat-card">
+            <span class="card-label">${label}</span>
+            <strong>${value}</strong>
+          </article>
+        `
       )
       .join("");
 
-    document.getElementById("detail-objections").innerHTML = detail.objections
-      .slice(0, 3)
-      .map((item) => `<li>${item}</li>`)
-      .join("");
-    document.getElementById("detail-summary").textContent = detail.riskSummary;
-
-    const notes = [
-      `유형: ${detail.riskArchetype}`,
-      `권장: ${detail.recommendedAction}`,
-      `신뢰도: ${detail.sampleReliability}`,
-    ];
-    if (detail.lowSampleFlag) notes.push("최신 거래 표본이 적습니다.");
-    document.getElementById("detail-notes").innerHTML = notes.map((item) => `<div class="note-pill">${item}</div>`).join("");
-
-    const candidates = detail.replacementCandidates.length
-      ? detail.replacementCandidates.slice(0, 3)
-      : [{ name: "대체 후보 없음", score: "-", whyBetter: "현재 조건에서 바로 대체할 구를 찾지 못했습니다." }];
-    document.getElementById("replacement-candidates").innerHTML = candidates
+    document.getElementById("detail-metrics").innerHTML = [
+      ["총 리스크", detail.riskScore],
+      ["가격 부담", detail.priceBurdenRiskScore],
+      ["거래 유동성", detail.liquidityRiskScore],
+      ["변동성", detail.volatilityRiskScore],
+      ["상권 경쟁", detail.competitionRiskScore],
+    ]
       .map(
-        (item, index) => `
-      <article class="data-card compact-stack">
-        <span class="candidate-rank">대안 ${index + 1}</span>
-        <strong>${item.name}</strong>
-        <p>${typeof item.score === "number" ? `${item.score}점` : item.score}</p>
-        <p>${item.whyBetter}</p>
-      </article>
-    `
+        ([label, value]) => `
+          <div class="metric-row">
+            <header>
+              <span>${label}</span>
+              <span>${formatNumber(value, "점")}</span>
+            </header>
+            <div class="progress-track"><span style="width:${Math.max(8, Number(value || 0))}%"></span></div>
+          </div>
+        `
       )
       .join("");
 
-    drawLineChart("price-chart", detail.history, "medianPricePerSqm", "#b14b2d");
-    drawLineChart("volume-chart", detail.history, "transactionCount", "#c9983f");
+    document.getElementById("detail-checks").innerHTML = (detail.reviewChecklist || [])
+      .map((item) => `<article><strong>확인</strong><p>${item}</p></article>`)
+      .join("");
+
+    document.getElementById("detail-objections").innerHTML = (detail.objections || [])
+      .map((item) => `<article><strong>근거</strong><p>${item}</p></article>`)
+      .join("");
+
+    document.getElementById("replacement-candidates").innerHTML =
+      detail.replacementCandidates && detail.replacementCandidates.length
+        ? detail.replacementCandidates
+            .map(
+              (item) => `
+                <article>
+                  <strong>${item.name}</strong>
+                  <p>${formatNumber(item.score, "점")} · ${item.whyBetter}</p>
+                </article>
+              `
+            )
+            .join("")
+        : `<article><strong>대체 후보 없음</strong><p>현재 조건에서는 바로 제시할 대체 구가 없습니다.</p></article>`;
+
+    drawLineChart("price-chart", detail.history || [], "medianPricePerSqm", "#df5a3a");
+    drawLineChart("volume-chart", detail.history || [], "transactionCount", "#79c1bc");
   }
 
-  async function selectDistrict(code) {
-    state.selectedCode = code;
-    renderDistrictList(document.getElementById("district-search").value);
-    if (!state.cache.has(code)) {
-      state.cache.set(code, await fetchJson(`/api/districts/${code}`));
+  renderList();
+  renderDetail();
+
+  document.getElementById("district-search").addEventListener("input", (event) => {
+    const items = visibleDistricts(event.target.value);
+    if (!items.find((item) => item.code === state.selectedCode) && items[0]) {
+      state.selectedCode = items[0].code;
+      renderDetail();
     }
-    renderDetail(state.cache.get(code));
-  }
-
-  try {
-    const bootstrap = await fetchJson("/api/bootstrap");
-    state.districts = bootstrap.districts;
-    state.selectedCode = bootstrap.districts[0]?.code || null;
-    renderDistrictList();
-    if (state.selectedCode) await selectDistrict(state.selectedCode);
-
-    document.getElementById("district-search").addEventListener("input", async (event) => {
-      const query = event.target.value;
-      const visible = filteredDistricts(query);
-      if (!visible.find((item) => item.code === state.selectedCode) && visible[0]) {
-        await selectDistrict(visible[0].code);
-      } else {
-        renderDistrictList(query);
-      }
-    });
-  } catch (error) {
-    renderError(error);
-  }
+    renderList(event.target.value);
+  });
 })();

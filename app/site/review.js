@@ -1,113 +1,141 @@
-(async function () {
-  const { fetchJson, formatNumber, formatDateTime, renderError } = window.SiteApi;
+(function () {
+  const {
+    payload,
+    formatNumber,
+    formatDateTime,
+    riskTone,
+    loadReviews,
+    createReviewRecord,
+    persistReview,
+    drawLineChart,
+  } = window.RedveilV2 || {};
 
-  function renderHistory(reviews) {
+  if (!payload) return;
+
+  const districts = payload.districts || [];
+
+  function renderHistory() {
+    const reviews = loadReviews();
+    document.getElementById("review-count").textContent = `${reviews.length}건`;
     document.getElementById("review-history").innerHTML =
       reviews.length > 0
         ? reviews
             .slice(0, 6)
             .map(
               (item) => `
-          <article class="review-card compact-stack">
-            <span class="metric-pill">${item.verdict}</span>
-            <strong>${item.assetName}</strong>
-            <p>${item.districtName}${item.adminDongName ? ` · ${item.adminDongName}` : ""}</p>
-            <p>${item.customRiskScore}점 · ${item.riskArchetype}</p>
-            <p>${item.askingPriceTotal10k ? `${formatNumber(item.askingPriceTotal10k, "만원")} · ` : ""}${formatDateTime(item.createdAt)}</p>
-          </article>
-        `
+                <article class="review-entry">
+                  <span class="card-label">${item.verdict}</span>
+                  <strong>${item.assetName}</strong>
+                  <p>${item.districtName}${item.adminDongName ? ` · ${item.adminDongName}` : ""}</p>
+                  <p>${formatNumber(item.customRiskScore, "점")} · ${item.riskArchetype}</p>
+                  <p>${item.askingPriceTotal10k ? `${formatNumber(item.askingPriceTotal10k, "만원")} · ` : ""}${formatDateTime(item.createdAt)}</p>
+                </article>
+              `
             )
             .join("")
         : `
-          <article class="empty-card compact-stack">
-            <strong>아직 저장한 검토가 없습니다.</strong>
-            <p>첫 번째 매물을 입력해보세요.</p>
+          <article class="review-entry">
+            <span class="card-label">No History</span>
+            <strong>아직 저장된 검토가 없습니다.</strong>
+            <p>첫 번째 매물을 저장하면 이 영역에 기록이 쌓입니다.</p>
           </article>
         `;
+  }
+
+  function renderSpotlight(code) {
+    const district = districts.find((item) => item.code === code) || districts[0];
+    if (!district) return;
+
+    const grade = document.getElementById("review-spotlight-grade");
+    document.getElementById("review-spotlight-name").textContent = district.name;
+    document.getElementById("review-spotlight-type").textContent = district.riskArchetype;
+    grade.textContent = district.riskGrade;
+    grade.className = `signal-pill ${riskTone(district.riskScore)}`;
+
+    drawLineChart("review-spotlight-chart", district.history || [], "medianPricePerSqm", "#ff6f49");
+
+    document.getElementById("review-spotlight-stats").innerHTML = [
+      ["총 리스크", formatNumber(district.riskScore, "점")],
+      ["가격 부담", formatNumber(district.priceBurdenRiskScore, "점")],
+      ["유동성", formatNumber(district.liquidityRiskScore, "점")],
+      ["변동성", formatNumber(district.volatilityRiskScore, "점")],
+      ["경쟁", formatNumber(district.competitionRiskScore, "점")],
+      ["대표 유형", district.riskArchetype],
+    ]
+      .map(
+        ([label, value]) => `
+          <article class="stat-card">
+            <span class="card-label">${label}</span>
+            <strong>${value}</strong>
+          </article>
+        `
+      )
+      .join("");
   }
 
   function renderResult(result) {
     document.getElementById("review-result").innerHTML = `
       <div class="section-head">
-        <p class="eyebrow">Saved Output</p>
-        <h2>${result.assetName} · ${result.verdict}</h2>
+        <div>
+          <p class="section-label">Saved Output</p>
+          <h2>${result.assetName} · ${result.verdict}</h2>
+        </div>
+        <span class="signal-pill ${riskTone(result.customRiskScore)}">${result.riskArchetype}</span>
       </div>
-      <div class="two-column">
-        <article class="data-card compact-stack">
-          <span class="metric-pill">리스크 점수</span>
-          <strong class="metric-value">${result.customRiskScore}점</strong>
-          <p>${result.summary}</p>
-        </article>
-        <article class="data-card compact-stack">
-          <span class="metric-pill">유형</span>
-          <strong>${result.riskArchetype}</strong>
-          <p>${result.recommendedAction}</p>
-        </article>
-      </div>
-      <div class="two-column" style="margin-top:14px">
-        <article class="data-card compact-stack">
-          <strong>핵심 근거</strong>
-          <ul class="bullet-list">${result.reasons.slice(0, 3).map((item) => `<li>${item}</li>`).join("")}</ul>
-        </article>
-        <article class="data-card compact-stack">
-          <strong>다음 확인</strong>
-          <ul class="bullet-list">${result.checks.slice(0, 3).map((item) => `<li>${item}</li>`).join("")}</ul>
-        </article>
-      </div>
-      <div style="margin-top:14px">
-        <strong>대체 후보</strong>
-        <div class="three-grid" style="margin-top:12px">
-          ${result.replacementCandidates
-            .slice(0, 3)
-            .map(
-              (item, index) => `
-            <article class="data-card compact-stack">
-              <span class="candidate-rank">대안 ${index + 1}</span>
-              <strong>${item.name}</strong>
-              <p>${item.score}점</p>
-            </article>
-          `
-            )
+      <div class="result-card" style="margin-top:0">
+        <span class="result-label">Decision Memo</span>
+        <span class="result-score">${formatNumber(result.customRiskScore, "점")}</span>
+        <p class="result-copy">${result.summary}</p>
+        <div class="result-grid">
+          <div>
+            <span class="result-label">핵심 근거</span>
+            <ul class="result-list">${result.reasons.map((item) => `<li>${item}</li>`).join("")}</ul>
+          </div>
+          <div>
+            <span class="result-label">바로 확인할 것</span>
+            <ul class="result-list">${result.checks.map((item) => `<li>${item}</li>`).join("")}</ul>
+          </div>
+        </div>
+        <div class="chip-row">
+          ${(result.replacementCandidates || [])
+            .map((item) => `<span class="chip">대체 후보 ${item.name}</span>`)
             .join("")}
         </div>
-      </div>
-      <div class="footnote-block">
-        <p><strong>저장 시각</strong> ${formatDateTime(result.createdAt)}</p>
+        <p class="compact-note">저장 시각 ${formatDateTime(result.createdAt)}</p>
       </div>
     `;
   }
 
-  try {
-    const [bootstrap, reviews] = await Promise.all([fetchJson("/api/bootstrap"), fetchJson("/api/reviews")]);
-    document.getElementById("review-district-code").innerHTML = bootstrap.districts
-      .map((item) => `<option value="${item.code}">${item.name}</option>`)
-      .join("");
-    renderHistory(reviews);
+  document.getElementById("review-district-code").innerHTML = districts
+    .map((item) => `<option value="${item.code}">${item.name}</option>`)
+    .join("");
 
-    document.getElementById("review-form").addEventListener("submit", async (event) => {
-      event.preventDefault();
+  renderHistory();
+  renderSpotlight(document.getElementById("review-district-code").value);
 
-      const body = {
-        assetName: document.getElementById("asset-name").value.trim(),
-        districtCode: document.getElementById("review-district-code").value,
-        adminDongName: document.getElementById("admin-dong-name").value.trim(),
-        askingPriceTotal10k: Number(document.getElementById("asking-price-total").value || 0),
-        exclusiveAreaSqm: Number(document.getElementById("exclusive-area").value || 0),
-        holdingMonths: Number(document.getElementById("review-holding-months").value || 36),
-        priority: document.getElementById("review-priority").value,
-        targetTenant: document.getElementById("target-tenant").value.trim(),
-        memo: document.getElementById("review-memo").value.trim(),
-      };
+  document.getElementById("review-district-code").addEventListener("change", (event) => {
+    renderSpotlight(event.target.value);
+  });
 
-      const result = await fetchJson("/api/reviews", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      renderResult(result);
-      renderHistory(await fetchJson("/api/reviews"));
+  document.getElementById("review-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const record = createReviewRecord({
+      assetName: document.getElementById("asset-name").value.trim(),
+      districtCode: document.getElementById("review-district-code").value,
+      adminDongName: document.getElementById("admin-dong-name").value.trim(),
+      askingPriceTotal10k: Number(document.getElementById("asking-price-total").value || 0),
+      exclusiveAreaSqm: Number(document.getElementById("exclusive-area").value || 0),
+      holdingMonths: Number(document.getElementById("review-holding-months").value || 36),
+      priority: document.getElementById("review-priority").value,
+      targetTenant: document.getElementById("target-tenant").value.trim(),
+      memo: document.getElementById("review-memo").value.trim(),
     });
-  } catch (error) {
-    renderError(error);
-  }
+
+    if (!record) return;
+
+    persistReview(record);
+    renderResult(record);
+    renderHistory();
+  });
 })();

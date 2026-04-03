@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>데이터 | Redveil</title>
-    <meta name="description" content="데이터 출처와 현재 커버리지를 확인합니다." />
+    <title>Redveil | 데이터</title>
+    <meta name="description" content="데이터 출처, 현재 커버리지, 수요 취약 상권, 행정동 과밀 신호를 정리한 Redveil 데이터 페이지입니다." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,57 +14,80 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body data-page="data">
-    <div class="bg-orb bg-orb-left"></div>
-    <div class="bg-orb bg-orb-right"></div>
-    <div class="site-shell">
-      <header class="site-header">
+    <div class="page-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+
+      <header class="topbar">
         <a class="brand" href="./index.html" aria-label="Redveil 홈">
-          <span class="brand-kicker">서울 소형 상가 매입 리스크 판별 서비스</span>
-          <strong>Redveil</strong>
+          <img class="brand-mark" src="./assets/brand/redveil-logo-mark.png" alt="Redveil 로고" />
+          <span>
+            <small>Seoul Storefront Acquisition Intelligence</small>
+            <strong>Redveil</strong>
+          </span>
         </a>
-        <nav class="site-nav">
+        <nav class="topnav" aria-label="주요 이동">
           <a href="./index.html">홈</a>
-          <a href="./review.html">내 매물 검토</a>
+          <a href="./review.html">매물 검토</a>
           <a href="./assessment.html">3분 진단</a>
           <a href="./compare.html">후보 비교</a>
-          <a href="./districts.html">구별 리포트</a>
-          <a href="./cases.html">케이스 스터디</a>
+          <a href="./districts.html">구 리포트</a>
+          <a href="./cases.html">케이스</a>
           <a href="./methodology.html">방법론</a>
           <a href="./data.html">데이터</a>
         </nav>
       </header>
 
       <main class="page-stack">
-        <section class="page-hero section-card">
-          <p class="eyebrow">Data & Evidence</p>
-          <h1>데이터 범위</h1>
-          <p class="section-copy">출처와 커버리지만 먼저 보여줍니다.</p>
-        </section>
-
-        <section id="data-source-grid" class="two-column"></section>
-
-        <section class="section-card">
-          <div class="section-head">
-            <p class="eyebrow">Current Snapshot</p>
-            <h2>현재 커버리지</h2>
+        <section class="panel subhero">
+          <div class="subhero-copy">
+            <div>
+              <p class="section-label">Data & Evidence</p>
+              <h2>어떤 데이터로 점수를 만들고, 지금 무엇까지 커버하는지 먼저 보여줍니다.</h2>
+              <p>출처, 커버리지, 수요 취약 상권, 행정동 과밀 신호를 함께 공개해 점수의 배경을 숨기지 않습니다.</p>
+            </div>
+            <div class="hero-status">
+              <span class="card-label">Latest Window</span>
+              <strong id="data-latest-month"></strong>
+              <p class="compact-note">거래 데이터 최신 월</p>
+            </div>
           </div>
-          <div id="data-summary-grid" class="four-grid"></div>
         </section>
 
-        <section class="two-column">
-          <article class="section-card">
-            <div class="section-head">
-              <p class="eyebrow">FAQ</p>
-              <h2>데이터 질문</h2>
-            </div>
-            <div id="faq-list" class="faq-list"></div>
+        <section class="source-grid" id="data-source-grid"></section>
+
+        <section class="detail-grid" id="data-summary-grid"></section>
+
+        <section class="source-grid">
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">Demand Fragility</p><h2>수요 취약 상권 상위 구간</h2></div></div>
+            <table class="data-table">
+              <thead>
+                <tr><th>상권</th><th>유형</th><th>리스크</th><th>메모</th></tr>
+              </thead>
+              <tbody id="demand-table"></tbody>
+            </table>
           </article>
-          <article class="section-card">
-            <div class="section-head">
-              <p class="eyebrow">Glossary</p>
-              <h2>용어</h2>
-            </div>
-            <div id="glossary-list" class="stack-grid"></div>
+
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">Admin Dong Saturation</p><h2>점포 밀도 상위 행정동</h2></div></div>
+            <table class="data-table">
+              <thead>
+                <tr><th>행정동</th><th>총 점포</th><th>음식업 비중</th><th>상위 업종</th></tr>
+              </thead>
+              <tbody id="admin-table"></tbody>
+            </table>
+          </article>
+        </section>
+
+        <section class="source-grid">
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">FAQ</p><h2>자주 묻는 질문</h2></div></div>
+            <div class="stacked-list" id="faq-list"></div>
+          </article>
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">Glossary</p><h2>용어</h2></div></div>
+            <div class="stacked-list" id="glossary-list"></div>
           </article>
         </section>
       </main>

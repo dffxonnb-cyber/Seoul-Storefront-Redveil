@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>구별 리포트 | Redveil</title>
-    <meta name="description" content="서울 25개 구의 매입 리스크와 대체 후보를 확인합니다." />
+    <title>Redveil | 구 리포트</title>
+    <meta name="description" content="서울 25개 구의 매입 리스크, 유형, 추세, 대체 후보를 한 화면에서 보는 Redveil 구 리포트입니다." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,100 +14,146 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body data-page="districts">
-    <div class="bg-orb bg-orb-left"></div>
-    <div class="bg-orb bg-orb-right"></div>
-    <div class="site-shell">
-      <header class="site-header">
+    <div class="page-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+
+      <header class="topbar">
         <a class="brand" href="./index.html" aria-label="Redveil 홈">
-          <span class="brand-kicker">서울 소형 상가 매입 리스크 판별 서비스</span>
-          <strong>Redveil</strong>
+          <img class="brand-mark" src="./assets/brand/redveil-logo-mark.png" alt="Redveil 로고" />
+          <span>
+            <small>Seoul Storefront Acquisition Intelligence</small>
+            <strong>Redveil</strong>
+          </span>
         </a>
-        <nav class="site-nav">
+        <nav class="topnav" aria-label="주요 이동">
           <a href="./index.html">홈</a>
-          <a href="./review.html">내 매물 검토</a>
+          <a href="./review.html">매물 검토</a>
           <a href="./assessment.html">3분 진단</a>
           <a href="./compare.html">후보 비교</a>
-          <a href="./districts.html">구별 리포트</a>
-          <a href="./cases.html">케이스 스터디</a>
+          <a href="./districts.html">구 리포트</a>
+          <a href="./cases.html">케이스</a>
           <a href="./methodology.html">방법론</a>
           <a href="./data.html">데이터</a>
         </nav>
       </header>
 
       <main class="page-stack">
-        <section class="page-hero section-card">
-          <p class="eyebrow">District Report</p>
-          <h1>구별 리포트</h1>
-          <p class="section-copy">점수, 메모, 추세를 한 번에 봅니다.</p>
+        <section class="panel subhero">
+          <div class="subhero-copy">
+            <div>
+              <p class="section-label">District Report</p>
+              <h2>서울 25개 구를 같은 프레임에서 비교하고, 선택한 구의 리스크 맥락까지 한 번에 읽습니다.</h2>
+              <p>점수만 보여주지 않고, 왜 위험한지, 지금 무엇을 확인해야 하는지, 어떤 대체 구가 더 안전한지를 같이 보여줍니다.</p>
+            </div>
+            <div class="hero-status">
+              <span class="card-label">Coverage</span>
+              <strong id="district-coverage"></strong>
+              <p class="compact-note">전체 비교 가능한 구 수</p>
+            </div>
+          </div>
         </section>
 
-        <section class="district-layout-full">
-          <aside class="section-card district-sidebar">
-            <p class="eyebrow">District Selector</p>
-            <h2>구 선택</h2>
-            <label class="search-label" for="district-search">구 검색</label>
-            <input id="district-search" class="search-input" type="search" placeholder="예: 서초구" />
-            <div id="district-list" class="district-list"></div>
+        <section class="district-layout">
+          <aside class="panel section-block">
+            <div class="section-head">
+              <div>
+                <p class="section-label">District Selector</p>
+                <h2>구 선택</h2>
+              </div>
+            </div>
+            <label class="field">
+              <span>구 검색</span>
+              <input id="district-search" type="search" placeholder="예: 서초구" />
+            </label>
+            <div class="district-list-panel stacked-list" id="district-list"></div>
           </aside>
 
-          <section class="district-report">
-            <article class="section-card">
-              <div class="split-head align-top">
+          <section class="panel-stack">
+            <article class="panel section-block">
+              <div class="section-head">
                 <div>
-                  <p class="eyebrow">Selected District</p>
-                  <h1 id="detail-name"></h1>
-                  <p id="detail-memo" class="section-copy"></p>
+                  <p class="section-label">Selected District</p>
+                  <h2 id="detail-name"></h2>
+                  <p class="section-copy" id="detail-memo"></p>
                 </div>
-                <div class="score-panel">
-                  <span id="detail-grade"></span>
+                <div class="headline-score">
+                  <span class="card-label" id="detail-grade"></span>
                   <strong id="detail-score"></strong>
                 </div>
               </div>
-              <div id="detail-metrics" class="mini-metric-grid"></div>
+              <div class="detail-grid" id="detail-summary-grid"></div>
             </article>
 
-            <div class="two-column">
-              <article class="section-card">
+            <section class="detail-grid">
+              <article class="panel section-block">
                 <div class="section-head">
-                  <p class="eyebrow">Objections</p>
-                  <h2>핵심 근거</h2>
+                  <div>
+                    <p class="section-label">Risk Breakdown</p>
+                    <h2>핵심 리스크 축</h2>
+                  </div>
                 </div>
-                <ul id="detail-objections" class="bullet-list"></ul>
+                <div class="matrix-grid" id="detail-metrics"></div>
               </article>
-              <article class="section-card">
+
+              <article class="panel section-block">
                 <div class="section-head">
-                  <p class="eyebrow">Field Notes</p>
-                  <h2>현장 확인</h2>
+                  <div>
+                    <p class="section-label">Field Direction</p>
+                    <h2>바로 확인할 것</h2>
+                  </div>
                 </div>
-                <p id="detail-summary" class="section-copy"></p>
-                <div id="detail-notes" class="note-grid"></div>
+                <div class="stacked-list" id="detail-checks"></div>
               </article>
-            </div>
+            </section>
 
-            <article class="section-card">
-              <div class="section-head">
-                <p class="eyebrow">12-Month Trend</p>
-                <h2>최근 거래 추세</h2>
-              </div>
-              <div class="chart-grid">
-                <div>
-                  <p class="chart-label">면적당 중위 거래가</p>
-                  <svg id="price-chart" viewBox="0 0 420 180"></svg>
+            <section class="evidence-pair">
+              <article class="panel section-block">
+                <div class="section-head">
+                  <div>
+                    <p class="section-label">Objections</p>
+                    <h2>보류 사유</h2>
+                  </div>
                 </div>
-                <div>
-                  <p class="chart-label">거래 건수</p>
-                  <svg id="volume-chart" viewBox="0 0 420 180"></svg>
-                </div>
-              </div>
-            </article>
+                <div class="stacked-list" id="detail-objections"></div>
+              </article>
 
-            <article class="section-card">
-              <div class="section-head">
-                <p class="eyebrow">Replacement Candidates</p>
-                <h2>대체 후보</h2>
-              </div>
-              <div id="replacement-candidates" class="three-grid"></div>
-            </article>
+              <article class="panel section-block">
+                <div class="section-head">
+                  <div>
+                    <p class="section-label">Replacement Candidates</p>
+                    <h2>대체 후보</h2>
+                  </div>
+                </div>
+                <div class="stacked-list" id="replacement-candidates"></div>
+              </article>
+            </section>
+
+            <section class="detail-grid">
+              <article class="panel section-block">
+                <div class="section-head">
+                  <div>
+                    <p class="section-label">Price Trend</p>
+                    <h2>면적당 중위 거래가</h2>
+                  </div>
+                </div>
+                <div class="inline-chart-card">
+                  <svg id="price-chart" viewBox="0 0 420 180" aria-label="면적당 거래가 추이"></svg>
+                </div>
+              </article>
+
+              <article class="panel section-block">
+                <div class="section-head">
+                  <div>
+                    <p class="section-label">Volume Trend</p>
+                    <h2>월별 거래 건수</h2>
+                  </div>
+                </div>
+                <div class="inline-chart-card">
+                  <svg id="volume-chart" viewBox="0 0 420 180" aria-label="거래 건수 추이"></svg>
+                </div>
+              </article>
+            </section>
           </section>
         </section>
       </main>

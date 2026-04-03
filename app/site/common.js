@@ -1,30 +1,34 @@
 (function () {
+  const payload = window.__REDVEIL_PAYLOAD__;
   const STORAGE_KEY = "redveil-reviews";
 
-  function clone(value) {
-    return JSON.parse(JSON.stringify(value));
+  function formatNumber(value, suffix = "", maximumFractionDigits = 1) {
+    return `${Number(value || 0).toLocaleString("ko-KR", { maximumFractionDigits })}${suffix}`;
   }
 
-  function getPayload() {
-    return window.__REDVEIL_PAYLOAD__ || null;
-  }
-
-  function getDistrictByCode(code) {
-    const payload = getPayload();
-    return payload?.districts?.find((item) => item.code === code) || null;
+  function formatDateTime(value) {
+    if (!value) return "-";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return date.toLocaleString("ko-KR", { hour12: false });
   }
 
   function latestPricePerSqm(district) {
     const history = district?.history || [];
     if (!history.length) return 0;
-    return Number(history[history.length - 1].medianPricePerSqm || 0);
+    return Number(history[history.length - 1]?.medianPricePerSqm || 0);
+  }
+
+  function riskTone(score) {
+    if (score >= 70) return "tone-high";
+    if (score >= 50) return "tone-mid";
+    return "tone-low";
   }
 
   function loadReviews() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      const data = raw ? JSON.parse(raw) : [];
-      return Array.isArray(data) ? data : [];
+      const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      return Array.isArray(parsed) ? parsed : [];
     } catch {
       return [];
     }
@@ -34,59 +38,33 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
   }
 
-  function buildBootstrap(payload) {
-    return {
-      site: payload.site,
-      summary: payload.summary,
-      archetypes: payload.archetypes,
-      districts: payload.districts.map((item) => ({
-        code: item.code,
-        name: item.name,
-        riskScore: item.riskScore,
-        riskGrade: item.riskGrade,
-        riskArchetype: item.riskArchetype,
-        sampleReliability: item.sampleReliability,
-        lowSampleFlag: item.lowSampleFlag,
-      })),
-      topDistricts: payload.districts.slice(0, 5),
-    };
-  }
-
-  function buildComparePayload(payload, codes) {
-    const selected = codes
-      .map((code) => payload.districts.find((item) => item.code === code))
-      .filter(Boolean);
-    return { districts: selected, count: selected.length };
-  }
-
-  function buildAssessment(payload, body) {
-    const district = getDistrictByCode(String(body.districtCode || "").trim());
-    if (!district) {
-      throw new Error("District not found");
-    }
+  function buildAssessment(body) {
+    const districts = payload?.districts || [];
+    const district = districts.find((item) => item.code === String(body.districtCode || "").trim());
+    if (!district) return null;
 
     const askingPricePerSqm = Number(body.askingPricePerSqm || 0);
     const holdingMonths = Number(body.holdingMonths || 36);
     const priority = String(body.priority || "balanced");
-
     const districtPrice = latestPricePerSqm(district);
+
     let premiumPct = 0;
     if (districtPrice > 0 && askingPricePerSqm > 0) {
       premiumPct = (askingPricePerSqm / districtPrice - 1) * 100;
     }
 
-    let customScore = Number(district.riskScore);
+    let customScore = Number(district.riskScore || 0);
     if (askingPricePerSqm > 0) {
       if (premiumPct >= 25) customScore += 9;
       else if (premiumPct >= 10) customScore += 5;
       else if (premiumPct <= -10) customScore -= 4;
     }
 
-    if (priority === "cashflow") customScore += Number(district.priceBurdenRiskScore) * 0.08;
-    else if (priority === "growth") customScore += Number(district.volatilityRiskScore) * 0.04;
-    else customScore += Number(district.competitionRiskScore) * 0.03;
+    if (priority === "cashflow") customScore += Number(district.priceBurdenRiskScore || 0) * 0.08;
+    else if (priority === "growth") customScore += Number(district.volatilityRiskScore || 0) * 0.04;
+    else customScore += Number(district.competitionRiskScore || 0) * 0.03;
 
-    if (holdingMonths <= 24) customScore += Number(district.liquidityRiskScore) * 0.08;
+    if (holdingMonths <= 24) customScore += Number(district.liquidityRiskScore || 0) * 0.08;
     else if (holdingMonths >= 60) customScore -= 2;
 
     customScore = Math.max(0, Math.min(100, Math.round(customScore * 10) / 10));
@@ -98,17 +76,17 @@
 
     const summary =
       askingPricePerSqm > 0 && districtPrice > 0
-        ? `입력한 가격선은 최근 ${district.name} 중위 체결선 대비 ${premiumPct >= 0 ? "+" : ""}${premiumPct.toFixed(1)}%입니다.`
-        : "가격선을 입력하지 않아 현재 구 리스크를 기준으로 판단했습니다.";
+        ? `입력 가격선은 최근 ${district.name} 체결선 대비 ${premiumPct >= 0 ? "+" : ""}${premiumPct.toFixed(1)}%입니다.`
+        : "가격선을 넣지 않아 현재 구 리스크를 기준으로 판단했습니다.";
 
     const reasons = [...(district.objections || [])];
-    if (premiumPct >= 25) reasons.unshift("입력한 매입가가 최근 구 평균 체결선보다 크게 높습니다.");
-    else if (premiumPct <= -10) reasons.unshift("가격선은 낮지만 다른 리스크 축은 그대로 남아 있습니다.");
-    reasons.unshift(district.decisionQuestion || "이 구를 지금 사도 되는지 먼저 다시 물어봐야 합니다.");
+    if (premiumPct >= 25) reasons.unshift("입력한 매입가가 최근 체결선보다 크게 앞서 있습니다.");
+    else if (premiumPct <= -10) reasons.unshift("가격선은 낮지만 구 전체 리스크 축은 그대로 남아 있습니다.");
+    reasons.unshift(district.decisionQuestion || "지금 사도 되는지 먼저 다시 물어봐야 합니다.");
 
     const checks = [...(district.reviewChecklist || [])];
     if (holdingMonths <= 24) checks.unshift("보유 기간이 짧다면 최근 거래 회전 속도를 더 엄격하게 보세요.");
-    if (district.lowSampleFlag) checks.unshift("최근 거래 표본이 적어 인근 대체 구와 병행 비교가 필요합니다.");
+    if (district.lowSampleFlag) checks.unshift("최근 거래 표본이 얇아 인근 대체 구와 병행 비교가 필요합니다.");
 
     return {
       districtName: district.name,
@@ -131,10 +109,8 @@
     };
   }
 
-  function buildReviewRecord(payload, body) {
-    if (!body.assetName || !body.districtCode) {
-      throw new Error("assetName and districtCode are required");
-    }
+  function createReviewRecord(body) {
+    if (!body.assetName || !body.districtCode) return null;
     const totalPrice = Number(body.askingPriceTotal10k || 0);
     const area = Number(body.exclusiveAreaSqm || 0);
     let askingPricePerSqm = Number(body.askingPricePerSqm || 0);
@@ -142,12 +118,13 @@
       askingPricePerSqm = totalPrice / area;
     }
 
-    const assessment = buildAssessment(payload, {
+    const assessment = buildAssessment({
       districtCode: body.districtCode,
       askingPricePerSqm,
       holdingMonths: Number(body.holdingMonths || 36),
       priority: String(body.priority || "balanced"),
     });
+    if (!assessment) return null;
 
     return {
       id: `review-${Date.now()}`,
@@ -175,165 +152,83 @@
     };
   }
 
-  async function localApi(url, options = {}) {
-    const payload = getPayload();
-    if (!payload) throw new Error("Static payload was not loaded.");
-
-    const parsed = new URL(url, window.location.origin);
-    const path = parsed.pathname;
-    const method = String(options.method || "GET").toUpperCase();
-    const body = options.body ? JSON.parse(options.body) : {};
-
-    if (method === "GET") {
-      if (path === "/api/bootstrap") return buildBootstrap(payload);
-      if (path === "/api/summary") return clone(payload.summary);
-      if (path === "/api/case-studies") return clone(payload.caseStudies);
-      if (path === "/api/demand-fragility") return clone(payload.demandFragility);
-      if (path === "/api/admin-dongs") return clone(payload.adminDongSaturation);
-      if (path === "/api/methodology") return clone(payload.methodology);
-      if (path === "/api/content") return clone(payload.content);
-      if (path === "/api/site") return clone(payload.site);
-      if (path === "/api/archetypes") return clone(payload.archetypes);
-      if (path === "/api/reviews") return loadReviews();
-      if (path === "/api/districts") return clone(payload.districts);
-      if (path.startsWith("/api/districts/")) {
-        const code = path.split("/").pop();
-        const district = getDistrictByCode(code);
-        if (!district) throw new Error("District not found");
-        return clone(district);
-      }
-      if (path === "/api/compare") {
-        const codes = (parsed.searchParams.get("codes") || "")
-          .split(",")
-          .map((item) => item.trim())
-          .filter(Boolean);
-        return buildComparePayload(payload, codes);
-      }
-    }
-
-    if (method === "POST") {
-      if (path === "/api/assessment") return buildAssessment(payload, body);
-      if (path === "/api/reviews") {
-        const review = buildReviewRecord(payload, body);
-        const reviews = loadReviews();
-        reviews.unshift(review);
-        saveReviews(reviews.slice(0, 24));
-        return review;
-      }
-    }
-
-    throw new Error(`Unsupported static endpoint: ${method} ${path}`);
+  function persistReview(record) {
+    const reviews = loadReviews();
+    reviews.unshift(record);
+    saveReviews(reviews.slice(0, 24));
+    return record;
   }
 
-  window.SiteApi = {
-    async fetchJson(url, options = {}) {
-      if (getPayload() && url.startsWith("/api/")) {
-        return localApi(url, options);
-      }
-      const response = await fetch(url, {
-        headers: {
-          Accept: "application/json",
-          ...(options.headers || {}),
-        },
-        ...options,
-      });
-      if (!response.ok) {
-        throw new Error(`Request failed: ${url} (${response.status})`);
-      }
-      return response.json();
-    },
-    formatNumber(value, suffix = "") {
-      return `${Number(value || 0).toLocaleString("ko-KR")}${suffix}`;
-    },
-    formatPercent(value) {
-      return `${Number(value || 0).toLocaleString("ko-KR", { maximumFractionDigits: 1 })}%`;
-    },
-    formatDateTime(value) {
-      if (!value) return "-";
-      const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return value;
-      return date.toLocaleString("ko-KR", { hour12: false });
-    },
-    setActiveNav() {
-      const page = document.body.dataset.page;
-      document.querySelectorAll(".site-nav a").forEach((link) => {
-        const href = link.getAttribute("href") || "";
-        const name = href.replace("./", "").replace(".html", "") || "index";
-        const normalized = name === "index" ? "home" : name;
-        link.classList.toggle("is-active", normalized === page);
-      });
-    },
-    ensureReviewNav() {
-      const nav = document.querySelector(".site-nav");
-      if (!nav || nav.querySelector('a[href="./review.html"]')) return;
-      const anchor = document.createElement("a");
-      anchor.href = "./review.html";
-      anchor.textContent = "내 매물 검토";
-      const assessmentLink = nav.querySelector('a[href="./assessment.html"]');
-      if (assessmentLink) nav.insertBefore(anchor, assessmentLink);
-      else nav.appendChild(anchor);
-    },
-    drawLineChart(targetId, points, valueKey, color) {
-      const svg = document.getElementById(targetId);
-      if (!svg || !points.length) {
-        if (svg) svg.innerHTML = "";
-        return;
-      }
-      const width = 420;
-      const height = 180;
-      const paddingX = 28;
-      const paddingY = 24;
-      const values = points.map((item) => Number(item[valueKey]));
-      const min = Math.min(...values);
-      const max = Math.max(...values);
-      const range = max - min || 1;
-      const stepX = points.length === 1 ? 0 : (width - paddingX * 2) / (points.length - 1);
-      const coords = points.map((item, index) => ({
-        x: paddingX + stepX * index,
-        y: height - paddingY - ((Number(item[valueKey]) - min) / range) * (height - paddingY * 2),
-        label: item.month,
-      }));
-      const pathData = coords
-        .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`)
-        .join(" ");
-      const areaData = `${pathData} L ${coords[coords.length - 1].x.toFixed(1)} ${height - paddingY} L ${coords[0].x.toFixed(1)} ${height - paddingY} Z`;
-      const xLabels = coords
-        .map((point, index) => {
-          const visible = index === 0 || index === coords.length - 1 || index === Math.floor(coords.length / 2);
-          return visible
-            ? `<text x="${point.x}" y="${height - 8}" text-anchor="middle" font-size="11" fill="#7b685e">${point.label}</text>`
-            : "";
-        })
-        .join("");
-      const dots = coords
-        .map((point) => `<circle cx="${point.x}" cy="${point.y}" r="3.5" fill="${color}"></circle>`)
-        .join("");
+  function drawLineChart(targetId, points, key, color) {
+    const svg = document.getElementById(targetId);
+    if (!svg || !points?.length) return;
 
-      svg.innerHTML = `
-        <defs>
-          <linearGradient id="${targetId}-fill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="${color}" stop-opacity="0.28"></stop>
-            <stop offset="100%" stop-color="${color}" stop-opacity="0.03"></stop>
-          </linearGradient>
-        </defs>
-        <line x1="${paddingX}" y1="${height - paddingY}" x2="${width - paddingX}" y2="${height - paddingY}" stroke="rgba(43,26,18,0.12)" />
-        <path d="${areaData}" fill="url(#${targetId}-fill)"></path>
-        <path d="${pathData}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-        ${dots}
-        ${xLabels}
-      `;
-    },
-    renderError(error) {
-      document.body.innerHTML = `
-        <main style="padding:40px;font-family:'IBM Plex Sans KR',sans-serif">
-          <h1>사이트를 불러오지 못했습니다.</h1>
-          <p>정적 payload 파일 또는 로컬 서버가 정상적으로 로드됐는지 확인해 주세요.</p>
-          <pre>${error.message}</pre>
-        </main>
-      `;
-    },
+    const width = 420;
+    const height = 180;
+    const paddingX = 28;
+    const paddingY = 22;
+    const values = points.map((item) => Number(item[key] || 0));
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min || 1;
+    const stepX = points.length === 1 ? 0 : (width - paddingX * 2) / (points.length - 1);
+    const coords = points.map((item, index) => ({
+      x: paddingX + stepX * index,
+      y: height - paddingY - ((Number(item[key] || 0) - min) / range) * (height - paddingY * 2),
+      label: item.month,
+    }));
+    const path = coords
+      .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`)
+      .join(" ");
+    const area = `${path} L ${coords[coords.length - 1].x.toFixed(1)} ${height - paddingY} L ${coords[0].x.toFixed(1)} ${height - paddingY} Z`;
+    const labels = coords
+      .map((point, index) => {
+        const visible = index === 0 || index === coords.length - 1 || index === Math.floor(coords.length / 2);
+        return visible
+          ? `<text x="${point.x}" y="${height - 8}" text-anchor="middle" font-size="11" fill="#8ea0b2">${point.label}</text>`
+          : "";
+      })
+      .join("");
+    const dots = coords.map((point) => `<circle cx="${point.x}" cy="${point.y}" r="3.5" fill="${color}"></circle>`).join("");
+
+    svg.innerHTML = `
+      <defs>
+        <linearGradient id="${targetId}-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${color}" stop-opacity="0.35"></stop>
+          <stop offset="100%" stop-color="${color}" stop-opacity="0.04"></stop>
+        </linearGradient>
+      </defs>
+      <line x1="${paddingX}" y1="${height - paddingY}" x2="${width - paddingX}" y2="${height - paddingY}" stroke="rgba(255,255,255,0.10)" />
+      <path d="${area}" fill="url(#${targetId}-fill)"></path>
+      <path d="${path}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+      ${dots}
+      ${labels}
+    `;
+  }
+
+  function setActiveNav() {
+    const page = document.body.dataset.page;
+    if (!page) return;
+    document.querySelectorAll(".topnav a").forEach((link) => {
+      const href = link.getAttribute("href") || "";
+      const normalized = href.replace("./", "").replace(".html", "") || "index";
+      const target = normalized === "index" ? "home" : normalized;
+      link.classList.toggle("is-active", page === target);
+    });
+  }
+
+  window.RedveilV2 = {
+    payload,
+    formatNumber,
+    formatDateTime,
+    riskTone,
+    loadReviews,
+    buildAssessment,
+    createReviewRecord,
+    persistReview,
+    drawLineChart,
+    setActiveNav,
   };
 
-  window.SiteApi.ensureReviewNav();
-  window.SiteApi.setActiveNav();
+  setActiveNav();
 })();

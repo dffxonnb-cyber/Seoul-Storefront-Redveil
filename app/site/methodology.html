@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>방법론 | Redveil</title>
-    <meta name="description" content="리스크 모델과 제품 원칙을 간단히 정리합니다." />
+    <title>Redveil | 방법론</title>
+    <meta name="description" content="Redveil의 리스크 축, 제품 원칙, 구현 구조, 한계를 정리한 방법론 페이지입니다." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,84 +14,83 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body data-page="methodology">
-    <div class="bg-orb bg-orb-left"></div>
-    <div class="bg-orb bg-orb-right"></div>
-    <div class="site-shell">
-      <header class="site-header">
+    <div class="page-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+
+      <header class="topbar">
         <a class="brand" href="./index.html" aria-label="Redveil 홈">
-          <span class="brand-kicker">서울 소형 상가 매입 리스크 판별 서비스</span>
-          <strong>Redveil</strong>
+          <img class="brand-mark" src="./assets/brand/redveil-logo-mark.png" alt="Redveil 로고" />
+          <span>
+            <small>Seoul Storefront Acquisition Intelligence</small>
+            <strong>Redveil</strong>
+          </span>
         </a>
-        <nav class="site-nav">
+        <nav class="topnav" aria-label="주요 이동">
           <a href="./index.html">홈</a>
-          <a href="./review.html">내 매물 검토</a>
+          <a href="./review.html">매물 검토</a>
           <a href="./assessment.html">3분 진단</a>
           <a href="./compare.html">후보 비교</a>
-          <a href="./districts.html">구별 리포트</a>
-          <a href="./cases.html">케이스 스터디</a>
+          <a href="./districts.html">구 리포트</a>
+          <a href="./cases.html">케이스</a>
           <a href="./methodology.html">방법론</a>
           <a href="./data.html">데이터</a>
         </nav>
       </header>
 
       <main class="page-stack">
-        <section class="page-hero section-card">
-          <p class="eyebrow">Methodology</p>
-          <h1>모델 개요</h1>
-          <p id="problem-statement" class="section-copy"></p>
-        </section>
-
-        <section class="three-grid">
-          <article class="section-card">
-            <div class="section-head">
-              <p class="eyebrow">Principles</p>
-              <h2>제품 원칙</h2>
+        <section class="panel subhero">
+          <div class="subhero-copy">
+            <div>
+              <p class="section-label">Methodology</p>
+              <h2>이 사이트는 무엇을 점수화하고, 어디까지 믿어야 하는지 먼저 설명해야 합니다.</h2>
+              <p id="problem-statement"></p>
             </div>
-            <ul id="principles-list" class="bullet-list"></ul>
-          </article>
-          <article class="section-card">
-            <div class="section-head">
-              <p class="eyebrow">Pillars</p>
-              <h2>리스크 축</h2>
-            </div>
-            <ul id="pillars-list" class="bullet-list"></ul>
-          </article>
-          <article class="section-card">
-            <div class="section-head">
-              <p class="eyebrow">Outputs</p>
-              <h2>출력 결과</h2>
-            </div>
-            <ul id="outputs-list" class="bullet-list"></ul>
-          </article>
-        </section>
-
-        <section class="two-column">
-          <article class="section-card">
-            <div class="section-head">
-              <p class="eyebrow">Architecture</p>
-              <h2>구현 구조</h2>
-            </div>
-            <ul id="architecture-list" class="bullet-list"></ul>
-          </article>
-          <article class="section-card">
-            <div class="section-head">
-              <p class="eyebrow">Roadmap</p>
-              <h2>다음 단계</h2>
-            </div>
-            <ul id="roadmap-list" class="bullet-list"></ul>
-          </article>
-        </section>
-
-        <section class="section-card">
-          <div class="section-head">
-            <p class="eyebrow">Limitations</p>
-            <h2>한계와 주의점</h2>
           </div>
-          <div id="limitations-grid" class="three-grid"></div>
-          <div class="footnote-block">
-            <p id="time-caveat"></p>
-            <p id="sample-caveat"></p>
-          </div>
+        </section>
+
+        <section class="source-grid">
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">Principles</p><h2>제품 원칙</h2></div></div>
+            <div class="stacked-list" id="principles-list"></div>
+          </article>
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">Pillars</p><h2>리스크 축</h2></div></div>
+            <div class="stacked-list" id="pillars-list"></div>
+          </article>
+        </section>
+
+        <section class="source-grid">
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">Outputs</p><h2>출력 결과</h2></div></div>
+            <div class="stacked-list" id="outputs-list"></div>
+          </article>
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">Blueprint</p><h2>서비스 흐름</h2></div></div>
+            <div class="stacked-list" id="blueprint-list"></div>
+          </article>
+        </section>
+
+        <section class="source-grid">
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">Architecture</p><h2>구현 구조</h2></div></div>
+            <div class="stacked-list" id="architecture-list"></div>
+          </article>
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">Roadmap</p><h2>다음 단계</h2></div></div>
+            <div class="stacked-list" id="roadmap-list"></div>
+          </article>
+        </section>
+
+        <section class="source-grid">
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">Limitations</p><h2>한계와 주의점</h2></div></div>
+            <div class="stacked-list" id="limitations-list"></div>
+          </article>
+          <article class="panel section-block">
+            <div class="section-head"><div><p class="section-label">Glossary</p><h2>핵심 용어</h2></div></div>
+            <div class="stacked-list" id="glossary-list"></div>
+          </article>
         </section>
       </main>
     </div>

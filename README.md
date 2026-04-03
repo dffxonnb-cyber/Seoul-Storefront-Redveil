@@ -7,8 +7,8 @@
 
 ## 웹사이트
 
-- 저장소: [https://github.com/dffxonnb-cyber/seoul-storefront-red-team](https://github.com/dffxonnb-cyber/seoul-storefront-red-team)
-- 공개 사이트 예정 주소: [https://dffxonnb-cyber.github.io/seoul-storefront-red-team/](https://dffxonnb-cyber.github.io/seoul-storefront-red-team/)
+- 저장소: [https://github.com/dffxonnb-cyber/seoul-storefront-redteam](https://github.com/dffxonnb-cyber/seoul-storefront-redteam)
+- 공개 사이트 예정 주소: [https://dffxonnb-cyber.github.io/seoul-storefront-redteam/](https://dffxonnb-cyber.github.io/seoul-storefront-redteam/)
 
 GitHub Pages가 아직 열리지 않으면 저장소의 `Settings > Pages`에서 배포 소스를 `GitHub Actions`로 한 번만 설정하면 됩니다.
 

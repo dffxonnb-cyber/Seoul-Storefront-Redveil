@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3분 진단 | 서울 상가 투자 레드팀</title>
+    <meta
+      name="description"
+      content="희망 매입가와 보유 기간을 넣어 구 단위 매입 보류 신호를 빠르게 확인합니다."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="assessment">
+    <div class="bg-orb bg-orb-left"></div>
+    <div class="bg-orb bg-orb-right"></div>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="./index.html">
+          <span class="brand-kicker">Seoul Acquisition Red Team</span>
+          <strong>서울 상가 투자 레드팀</strong>
+        </a>
+        <nav class="site-nav">
+          <a href="./index.html">홈</a>
+          <a href="./review.html">내 매물 검토</a>
+          <a href="./assessment.html">3분 진단</a>
+          <a href="./compare.html">후보 비교</a>
+          <a href="./districts.html">구별 리포트</a>
+          <a href="./cases.html">케이스 스터디</a>
+          <a href="./methodology.html">방법론</a>
+          <a href="./data.html">데이터</a>
+        </nav>
+      </header>
+
+      <main class="page-stack">
+        <section class="page-hero section-card">
+          <p class="eyebrow">Quick Assessment</p>
+          <h1>지금 검토 중인 구가 왜 불안한지 3분 안에 먼저 확인합니다.</h1>
+          <p class="section-copy">
+            이 페이지는 매물 저장 전 빠른 1차 필터입니다. 희망 가격선과 보유 기간, 우선순위를 넣으면
+            현재 구 리스크를 기준으로 보류·비교·보수 검토 여부를 먼저 알려줍니다.
+          </p>
+        </section>
+
+        <section class="two-column">
+          <article class="section-card">
+            <div class="section-head">
+              <p class="eyebrow">Input</p>
+              <h2>진단 조건 입력</h2>
+            </div>
+            <form id="assessment-form" class="form-grid">
+              <label class="form-field">
+                <span>검토할 구</span>
+                <select id="district-code" required></select>
+              </label>
+              <label class="form-field">
+                <span>희망 매입가 (만원/㎡)</span>
+                <input id="asking-price" type="number" min="0" step="0.1" placeholder="예: 2500" />
+              </label>
+              <label class="form-field">
+                <span>예상 보유 기간 (개월)</span>
+                <input id="holding-months" type="number" min="6" max="180" step="6" value="36" />
+              </label>
+              <label class="form-field">
+                <span>우선순위</span>
+                <select id="priority">
+                  <option value="cashflow">현금흐름</option>
+                  <option value="balanced" selected>균형</option>
+                  <option value="growth">가격 상승</option>
+                </select>
+              </label>
+              <button class="button primary" type="submit">진단 실행</button>
+            </form>
+          </article>
+
+          <article class="section-card" id="assessment-result">
+            <div class="section-head">
+              <p class="eyebrow">Assessment Result</p>
+              <h2>진단 결과</h2>
+            </div>
+            <p class="section-copy">왼쪽 조건을 입력하고 진단을 실행하면 결과가 표시됩니다.</p>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="./common.js"></script>
+    <script src="./assessment.js"></script>
+  </body>
+</html>

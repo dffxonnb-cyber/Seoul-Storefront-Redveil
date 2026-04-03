@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>내 매물 검토 | 서울 상가 투자 레드팀</title>
+    <meta
+      name="description"
+      content="검토 중인 상가 매물을 입력하고 저장 가능한 레드팀 검토 메모를 생성합니다."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="review">
+    <div class="bg-orb bg-orb-left"></div>
+    <div class="bg-orb bg-orb-right"></div>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="./index.html">
+          <span class="brand-kicker">Seoul Acquisition Red Team</span>
+          <strong>서울 상가 투자 레드팀</strong>
+        </a>
+        <nav class="site-nav">
+          <a href="./index.html">홈</a>
+          <a href="./review.html">내 매물 검토</a>
+          <a href="./assessment.html">3분 진단</a>
+          <a href="./compare.html">후보 비교</a>
+          <a href="./districts.html">구별 리포트</a>
+          <a href="./cases.html">케이스 스터디</a>
+          <a href="./methodology.html">방법론</a>
+          <a href="./data.html">데이터</a>
+        </nav>
+      </header>
+
+      <main class="page-stack">
+        <section class="page-hero section-card">
+          <p class="eyebrow">Property Review</p>
+          <h1>검토 중인 매물을 서비스 안에서 바로 기록하고, 저장 가능한 반대 메모로 바꿉니다.</h1>
+          <p class="section-copy">
+            이 페이지는 단순한 구 리포트가 아니라 실제 투자 검토 워크플로우를 위한 화면입니다.
+            매물명, 구, 면적, 희망가, 보유 기간을 넣으면 레드팀 진단을 생성하고 저장할 수 있습니다.
+          </p>
+        </section>
+
+        <section class="two-column">
+          <article class="section-card">
+            <div class="section-head">
+              <p class="eyebrow">Input</p>
+              <h2>매물 정보를 입력하세요</h2>
+            </div>
+            <form id="review-form" class="form-grid">
+              <label class="form-field">
+                <span>매물명</span>
+                <input id="asset-name" type="text" placeholder="예: 서초역 역세권 코너 상가" required />
+              </label>
+              <label class="form-field">
+                <span>검토 구</span>
+                <select id="review-district-code" required></select>
+              </label>
+              <label class="form-field">
+                <span>행정동 (선택)</span>
+                <input id="admin-dong-name" type="text" placeholder="예: 서초동" />
+              </label>
+              <label class="form-field">
+                <span>희망 매입가 (만원)</span>
+                <input id="asking-price-total" type="number" min="0" step="100" placeholder="예: 85000" />
+              </label>
+              <label class="form-field">
+                <span>전용 면적 (㎡)</span>
+                <input id="exclusive-area" type="number" min="0" step="0.1" placeholder="예: 31.4" />
+              </label>
+              <label class="form-field">
+                <span>보유 기간 (개월)</span>
+                <input id="review-holding-months" type="number" min="6" max="180" step="6" value="36" />
+              </label>
+              <label class="form-field">
+                <span>우선순위</span>
+                <select id="review-priority">
+                  <option value="cashflow">현금흐름</option>
+                  <option value="balanced" selected>균형</option>
+                  <option value="growth">가격 상승</option>
+                </select>
+              </label>
+              <label class="form-field">
+                <span>상정 임차인 (선택)</span>
+                <input id="target-tenant" type="text" placeholder="예: 근린생활 업종, 커피, 약국" />
+              </label>
+              <label class="form-field">
+                <span>검토 메모 (선택)</span>
+                <textarea id="review-memo" rows="5" placeholder="예: 중개사가 역세권 희소성을 강조했음"></textarea>
+              </label>
+              <button class="button primary" type="submit">검토 저장하기</button>
+            </form>
+          </article>
+
+          <article class="section-card" id="review-result">
+            <div class="section-head">
+              <p class="eyebrow">Saved Output</p>
+              <h2>저장 가능한 검토 메모</h2>
+            </div>
+            <p class="section-copy">
+              매물 검토를 저장하면 여기에서 판정, 핵심 반대 근거, 다음 액션이 표시됩니다.
+            </p>
+          </article>
+        </section>
+
+        <section class="section-card">
+          <div class="section-head split-head">
+            <div>
+              <p class="eyebrow">Review History</p>
+              <h2>최근 저장된 매물 검토</h2>
+            </div>
+          </div>
+          <div id="review-history" class="three-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./common.js"></script>
+    <script src="./review.js"></script>
+  </body>
+</html>

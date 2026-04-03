@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>후보 비교 | 서울 상가 투자 레드팀</title>
+    <meta name="description" content="여러 구를 나란히 비교하는 페이지" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="compare">
+    <div class="bg-orb bg-orb-left"></div>
+    <div class="bg-orb bg-orb-right"></div>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="./index.html">
+          <span class="brand-kicker">Seoul Acquisition Red Team</span>
+          <strong>서울 상가 투자 레드팀</strong>
+        </a>
+        <nav class="site-nav">
+          <a href="./index.html">홈</a>
+          <a href="./assessment.html">3분 진단</a>
+          <a href="./compare.html">후보 비교</a>
+          <a href="./districts.html">구별 리포트</a>
+          <a href="./cases.html">케이스 스터디</a>
+          <a href="./methodology.html">방법론</a>
+          <a href="./data.html">데이터</a>
+        </nav>
+      </header>
+
+      <main class="page-stack">
+        <section class="page-hero section-card">
+          <p class="eyebrow">Compare</p>
+          <h1>후보 구를 같은 화면에서 비교합니다</h1>
+          <p class="section-copy">
+            직감으로 익숙한 구를 고르지 말고, 리스크 축과 대체 후보를 같은 프레임에서 비교하세요.
+          </p>
+        </section>
+
+        <section class="section-card">
+          <div class="compare-controls">
+            <label class="form-field">
+              <span>후보 1</span>
+              <select id="compare-a"></select>
+            </label>
+            <label class="form-field">
+              <span>후보 2</span>
+              <select id="compare-b"></select>
+            </label>
+            <label class="form-field">
+              <span>후보 3</span>
+              <select id="compare-c"></select>
+            </label>
+            <button id="compare-run" class="button primary" type="button">비교 실행</button>
+          </div>
+        </section>
+
+        <section id="compare-grid" class="three-grid"></section>
+      </main>
+    </div>
+
+    <script src="./common.js"></script>
+    <script src="./compare.js"></script>
+  </body>
+</html>

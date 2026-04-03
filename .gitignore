@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+data/
+
+site_server_test.log
+site_server_test.err.log
+streamlit_stdout.log
+streamlit_stderr.log
+
+.DS_Store
+Thumbs.db

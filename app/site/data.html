@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>데이터 | 서울 상가 투자 레드팀</title>
+    <meta name="description" content="데이터 출처, KPI, 용어를 정리한 페이지" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="data">
+    <div class="bg-orb bg-orb-left"></div>
+    <div class="bg-orb bg-orb-right"></div>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="./index.html">
+          <span class="brand-kicker">Seoul Acquisition Red Team</span>
+          <strong>서울 상가 투자 레드팀</strong>
+        </a>
+        <nav class="site-nav">
+          <a href="./index.html">홈</a>
+          <a href="./assessment.html">3분 진단</a>
+          <a href="./compare.html">후보 비교</a>
+          <a href="./districts.html">구별 리포트</a>
+          <a href="./cases.html">케이스 스터디</a>
+          <a href="./methodology.html">방법론</a>
+          <a href="./data.html">데이터</a>
+        </nav>
+      </header>
+
+      <main class="page-stack">
+        <section class="page-hero section-card">
+          <p class="eyebrow">Data & Evidence</p>
+          <h1>이 사이트가 무엇을 근거로 말하고 있는지 공개합니다</h1>
+          <p class="section-copy">
+            데이터 출처, 현재 커버리지, KPI, 용어를 함께 공개해 점수의 맥락과 한계를 투명하게 보여줍니다.
+          </p>
+        </section>
+
+        <section id="data-source-grid" class="two-column"></section>
+
+        <section class="section-card">
+          <div class="section-head">
+            <p class="eyebrow">Current Snapshot</p>
+            <h2>현재 데이터 스냅샷</h2>
+          </div>
+          <div id="data-summary-grid" class="four-grid"></div>
+        </section>
+
+        <section class="two-column">
+          <article class="section-card">
+            <div class="section-head">
+              <p class="eyebrow">FAQ</p>
+              <h2>데이터 관련 질문</h2>
+            </div>
+            <div id="faq-list" class="faq-list"></div>
+          </article>
+          <article class="section-card">
+            <div class="section-head">
+              <p class="eyebrow">Glossary</p>
+              <h2>핵심 용어</h2>
+            </div>
+            <div id="glossary-list" class="stack-grid"></div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="./common.js"></script>
+    <script src="./data.js"></script>
+  </body>
+</html>

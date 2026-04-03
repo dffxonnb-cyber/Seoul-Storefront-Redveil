@@ -11,7 +11,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 
-from redteam.pipelines.export_website_payload import build_payload
+from redveil.pipelines.export_website_payload import build_payload
 
 
 class WebsitePayloadTests(unittest.TestCase):

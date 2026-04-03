@@ -12,8 +12,8 @@ SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from redteam.utils.paths import project_root
-from redteam.utils.scoring import clip_score, percentile_rank
+from redveil.utils.paths import project_root
+from redveil.utils.scoring import clip_score, percentile_rank
 
 
 DEFAULT_STOREFRONT_BUILDING_USES = ("제1종근린생활", "제2종근린생활", "판매")

@@ -13,7 +13,7 @@
 | 핵심 방법 | 실거래가 수집, 상권 데이터 결합, 규칙 기반 리스크 스코어링, 리스크 유형화, 웹사이트 구현 |
 | 주요 도구 | Python, Pandas, scikit-learn, Streamlit, HTML/CSS/JavaScript, GitHub Pages |
 | 핵심 결과 | 서울 25개 구를 대상으로 매입 리스크를 점수화하고, 매물 검토 메모와 대체 후보 비교까지 가능한 웹서비스 형태로 구현 |
-| 공개 링크 | [GitHub 저장소](https://github.com/dffxonnb-cyber/seoul-storefront-redteam), [웹사이트](https://dffxonnb-cyber.github.io/seoul-storefront-redteam/) |
+| 공개 링크 | [GitHub 저장소](https://github.com/dffxonnb-cyber/Seoul-Storefront-Redveil), [웹사이트](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/) |
 
 ## 이 프로젝트가 해결한 질문
 
@@ -56,7 +56,7 @@
 |------|------|
 | `app/site/` | 공개 웹사이트 HTML, CSS, JS |
 | `app/server.py` | 로컬 검증용 Python 서버 |
-| `src/redteam/pipelines/` | 데이터 수집, 가공, 스코어링, 사이트 payload 생성 파이프라인 |
+| `src/redveil/pipelines/` | 데이터 수집, 가공, 스코어링, 사이트 payload 생성 파이프라인 |
 | `docs/` | PRD, 리스크 모델 정의, 사용자 여정, 검증 전략 문서 |
 | `dashboard/` | 배포용 시각화 및 참고 자산 |
 | `tests/` | 파이프라인 및 API 형태 테스트 |
@@ -67,7 +67,7 @@
 2. 웹사이트 payload 생성
 
 ```bash
-python src/redteam/pipelines/export_website_payload.py
+python src/redveil/pipelines/export_website_payload.py
 ```
 
 3. 로컬 서버 실행
@@ -97,5 +97,5 @@ http://127.0.0.1:8030/districts.html
 - [서비스 전략](./docs/SERVICE_STRATEGY.md)
 - [사용자 여정](./docs/USER_JOURNEY.md)
 - [검증 전략](./docs/VALIDATION_STRATEGY.md)
-- [PRD](./docs/PRD_RED_TEAM.md)
+- [PRD](./docs/PRD_REDVEIL.md)
 - [리스크 모델 정의](./docs/RISK_MODEL_SPEC.md)

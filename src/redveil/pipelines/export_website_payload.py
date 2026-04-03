@@ -13,7 +13,7 @@ SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from redteam.utils.paths import project_root
+from redveil.utils.paths import project_root
 
 
 GRADE_KR = {
@@ -176,7 +176,7 @@ def build_review_checklist(row: pd.Series, archetype: dict[str, str]) -> list[st
     return checklist[:4]
 
 
-def build_red_team_memo_kr(row: pd.Series, replacement_names: list[str], archetype: dict[str, str]) -> str:
+def build_risk_memo_kr(row: pd.Series, replacement_names: list[str], archetype: dict[str, str]) -> str:
     replacements = ", ".join(replacement_names) if replacement_names else "대체 후보 없음"
     sample_line = ""
     if bool(row.get("low_sample_flag", False)):
@@ -185,7 +185,7 @@ def build_red_team_memo_kr(row: pd.Series, replacement_names: list[str], archety
         f"{row['district_name']}는 {to_float(row['overall_acquisition_risk_score']):.1f}점,"
         f" '{risk_grade_kr(row['acquisition_risk_grade'])}' 구간입니다. "
         f"현재 이 구의 대표 유형은 '{archetype['label']}'이며, "
-        f"핵심 반대 근거는 {', '.join(translate_phrase(part) for part in split_phrases(row['primary_red_team_objections'])[:3])}입니다. "
+        f"핵심 반대 근거는 {', '.join(translate_phrase(part) for part in split_phrases(row['primary_risk_objections'])[:3])}입니다. "
         f"지금 바로 매입 결정을 내리기보다 {replacements}를 먼저 비교하는 것이 안전합니다.{sample_line}"
     )
 
@@ -279,7 +279,7 @@ def build_district_payload(
         memo_text = ""
         if district_code in memo_map.index:
             memo_row = pd.Series(memo_map.loc[district_code])
-            memo_text = build_red_team_memo_kr(
+            memo_text = build_risk_memo_kr(
                 memo_row,
                 [candidate["name"] for candidate in replacement_candidates],
                 archetype,
@@ -302,7 +302,7 @@ def build_district_payload(
                 "foodStoreSharePct": round(to_float(row.food_store_share) * 100, 1),
                 "storesPerAdminDong": round(to_float(row.stores_per_admin_dong), 1),
                 "topCategories": str(row.top_3_small_categories),
-                "objections": [translate_phrase(part) for part in split_phrases(row.primary_red_team_objections)],
+                "objections": [translate_phrase(part) for part in split_phrases(row.primary_risk_objections)],
                 "riskSummary": build_korean_summary(row_series),
                 "memo": memo_text,
                 "riskArchetype": archetype["label"],
@@ -340,7 +340,7 @@ def build_case_study_payload(case_df: pd.DataFrame, districts: list[dict[str, ob
                 "latestMedianPricePerSqm": round(to_float(row.latest_median_price_per_sqm_10k_krw), 1),
                 "sixMonthPriceChangePct": round(to_float(row.six_month_price_change_pct), 1),
                 "sixMonthTransactionChangePct": round(to_float(row.six_month_transaction_change_pct), 1),
-                "objections": [translate_phrase(part) for part in split_phrases(row.primary_red_team_objections)],
+                "objections": [translate_phrase(part) for part in split_phrases(row.primary_risk_objections)],
                 "riskSummary": translate_phrase(str(row.risk_summary)),
                 "topCategories": str(row.top_3_small_categories),
                 "replacementCandidates": [item.strip() for item in str(row.replacement_candidates).split("|") if item.strip()],
@@ -363,7 +363,7 @@ def build_demand_payload(demand_df: pd.DataFrame, top_n: int = 12) -> list[dict[
             "floatingPopulation": round(to_float(row.floating_population), 0),
             "salesAmount": to_int(row.total_sales_amount),
             "serviceCount": to_int(row.unique_service_count),
-            "objection": translate_phrase(str(row.red_team_objection)),
+            "objection": translate_phrase(str(row.risk_objection)),
         }
         for row in top_df.itertuples(index=False)
     ]
@@ -567,10 +567,10 @@ def build_methodology() -> dict[str, object]:
 
 
 def build_payload(root: Path) -> dict[str, object]:
-    acquisition_df = load_csv(root / "data" / "red_team" / "seoul_district_acquisition_risk.csv")
-    memo_df = load_csv(root / "data" / "red_team" / "seoul_district_red_team_memo.csv")
-    candidates_df = load_csv(root / "data" / "red_team" / "seoul_replacement_candidates.csv")
-    demand_df = load_csv(root / "data" / "red_team" / "seoul_trade_area_demand_fragility.csv")
+    acquisition_df = load_csv(root / "data" / "redveil" / "seoul_district_acquisition_risk.csv")
+    memo_df = load_csv(root / "data" / "redveil" / "seoul_district_risk_memo.csv")
+    candidates_df = load_csv(root / "data" / "redveil" / "seoul_replacement_candidates.csv")
+    demand_df = load_csv(root / "data" / "redveil" / "seoul_trade_area_demand_fragility.csv")
     case_df = load_csv(root / "data" / "processed" / "case_study_snapshots.csv")
     raw_sales_df = load_csv(root / "data" / "raw" / "molit_commercial_sales" / "seoul_commercial_sales.csv")
     history_df = load_csv(root / "data" / "processed" / "seoul_transaction_risk_history.csv")
@@ -615,7 +615,7 @@ def main() -> None:
     site_js_path = site_dir / "website_payload.js"
 
     json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    script_text = f"window.__RED_TEAM_PAYLOAD__ = {json.dumps(payload, ensure_ascii=False, indent=2)};\n"
+    script_text = f"window.__REDVEIL_PAYLOAD__ = {json.dumps(payload, ensure_ascii=False, indent=2)};\n"
     js_path.write_text(script_text, encoding="utf-8")
     site_js_path.write_text(script_text, encoding="utf-8")
     print(f"Saved website payload to {json_path}")

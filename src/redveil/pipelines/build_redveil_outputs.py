@@ -12,14 +12,14 @@ SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from redteam.utils.paths import project_root
-from redteam.utils.scoring import clip_score, percentile_rank
+from redveil.utils.paths import project_root
+from redveil.utils.scoring import clip_score, percentile_rank
 
 
 def parse_args() -> argparse.Namespace:
     root = project_root()
     parser = argparse.ArgumentParser(
-        description="Build demand fragility scores and red-team memo outputs."
+        description="Build demand fragility scores and Redveil memo outputs."
     )
     parser.add_argument(
         "--trade-area-activity-input",
@@ -38,8 +38,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--output-dir",
-        default=str(root / "data" / "red_team"),
-        help="Directory for red-team outputs.",
+        default=str(root / "data" / "redveil"),
+        help="Directory for Redveil outputs.",
     )
     return parser.parse_args()
 
@@ -98,7 +98,7 @@ def build_trade_area_demand_fragility(activity_df: pd.DataFrame) -> pd.DataFrame
         bins=[-1, 35, 55, 75, 100],
         labels=["Low", "Moderate", "High", "Very High"],
     ).astype(str)
-    latest_df["red_team_objection"] = latest_df.apply(make_trade_area_objection, axis=1)
+    latest_df["risk_objection"] = latest_df.apply(make_trade_area_objection, axis=1)
 
     ordered_columns = [
         "quarter_code",
@@ -121,7 +121,7 @@ def build_trade_area_demand_fragility(activity_df: pd.DataFrame) -> pd.DataFrame
         "low_population_instability_score",
         "demand_fragility_risk_score",
         "demand_fragility_grade",
-        "red_team_objection",
+        "risk_objection",
     ]
     return latest_df[ordered_columns].sort_values(
         ["demand_fragility_risk_score", "trade_area_code"], ascending=[False, True]
@@ -171,7 +171,7 @@ def merge_district_acquisition_risk(
         bins=[-1, 35, 55, 75, 100],
         labels=["Low", "Moderate", "High", "Very High"],
     ).astype(str)
-    merged["primary_red_team_objections"] = merged.apply(make_district_objections, axis=1)
+    merged["primary_risk_objections"] = merged.apply(make_district_objections, axis=1)
 
     ordered_columns = [
         "deal_year_month",
@@ -190,7 +190,7 @@ def merge_district_acquisition_risk(
         "food_store_share",
         "stores_per_admin_dong",
         "top_3_small_categories",
-        "primary_red_team_objections",
+        "primary_risk_objections",
         "risk_summary",
     ]
     return merged[ordered_columns].sort_values(
@@ -270,7 +270,7 @@ def build_replacement_candidates(acquisition_df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def make_red_team_memo(row: pd.Series) -> str:
+def make_risk_memo(row: pd.Series) -> str:
     replacement_text = row["replacement_candidates"]
     replacement_text = replacement_text if isinstance(replacement_text, str) and replacement_text else "no lower-risk peer was found yet"
     sample_note = ""
@@ -278,7 +278,7 @@ def make_red_team_memo(row: pd.Series) -> str:
         sample_note = " The latest district reading is based on a thin storefront transaction sample."
     return (
         f"{row['district_name']} posts an acquisition risk score of {row['overall_acquisition_risk_score']:.1f}. "
-        f"Primary objections: {row['primary_red_team_objections']}. "
+        f"Primary objections: {row['primary_risk_objections']}. "
         f"Replacement candidates: {replacement_text}.{sample_note}"
     )
 
@@ -296,7 +296,7 @@ def build_district_memo(acquisition_df: pd.DataFrame, candidates_df: pd.DataFram
         left_on="district_code",
         right_on="source_district_code",
     )
-    memo_df["red_team_memo"] = memo_df.apply(make_red_team_memo, axis=1)
+    memo_df["risk_memo"] = memo_df.apply(make_risk_memo, axis=1)
     ordered_columns = [
         "district_code",
         "district_name",
@@ -304,9 +304,9 @@ def build_district_memo(acquisition_df: pd.DataFrame, candidates_df: pd.DataFram
         "acquisition_risk_grade",
         "sample_reliability",
         "low_sample_flag",
-        "primary_red_team_objections",
+        "primary_risk_objections",
         "replacement_candidates",
-        "red_team_memo",
+        "risk_memo",
     ]
     return memo_df[ordered_columns].sort_values(
         ["overall_acquisition_risk_score", "district_code"], ascending=[False, True]
@@ -333,10 +333,10 @@ def main() -> int:
 
         acquisition_df.to_csv(output_dir / "seoul_district_acquisition_risk.csv", index=False, encoding="utf-8-sig")
         candidates_df.to_csv(output_dir / "seoul_replacement_candidates.csv", index=False, encoding="utf-8-sig")
-        memo_df.to_csv(output_dir / "seoul_district_red_team_memo.csv", index=False, encoding="utf-8-sig")
+        memo_df.to_csv(output_dir / "seoul_district_risk_memo.csv", index=False, encoding="utf-8-sig")
         print("Saved seoul_district_acquisition_risk.csv")
         print("Saved seoul_replacement_candidates.csv")
-        print("Saved seoul_district_red_team_memo.csv")
+        print("Saved seoul_district_risk_memo.csv")
     else:
         print("Skipped district acquisition outputs because transaction risk input was not found.")
 

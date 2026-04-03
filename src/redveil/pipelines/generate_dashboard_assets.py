@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DASHBOARD_DIR = PROJECT_ROOT / "dashboard"
-DATA_RED_TEAM = PROJECT_ROOT / "data" / "red_team"
+DATA_REDVEIL = PROJECT_ROOT / "data" / "redveil"
 DATA_EXTERNAL = PROJECT_ROOT / "data" / "external" / "processed"
 DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
 
@@ -155,11 +155,11 @@ def save_image(image: Image.Image, filename: str) -> None:
 
 def load_data() -> dict[str, pd.DataFrame]:
     return {
-        "risk": pd.read_csv(DATA_RED_TEAM / "seoul_district_acquisition_risk.csv"),
-        "memo": pd.read_csv(DATA_RED_TEAM / "seoul_district_red_team_memo.csv"),
-        "cand": pd.read_csv(DATA_RED_TEAM / "seoul_replacement_candidates.csv"),
+        "risk": pd.read_csv(DATA_REDVEIL / "seoul_district_acquisition_risk.csv"),
+        "memo": pd.read_csv(DATA_REDVEIL / "seoul_district_risk_memo.csv"),
+        "cand": pd.read_csv(DATA_REDVEIL / "seoul_replacement_candidates.csv"),
         "case": pd.read_csv(DATA_PROCESSED / "case_study_snapshots.csv"),
-        "demand": pd.read_csv(DATA_RED_TEAM / "seoul_trade_area_demand_fragility.csv"),
+        "demand": pd.read_csv(DATA_REDVEIL / "seoul_trade_area_demand_fragility.csv"),
         "dong": pd.read_csv(DATA_EXTERNAL / "seoul_store_competition_by_admin_dong.csv"),
         "kpi": pd.read_csv(DATA_PROCESSED / "case_study_snapshots.csv"),
         "trans": pd.read_csv(DATA_PROCESSED / "seoul_transaction_risk_scores.csv"),
@@ -170,7 +170,7 @@ def make_overview_png(data: dict[str, pd.DataFrame]) -> None:
     risk = data["risk"]
     case_df = data["case"]
     image, draw = create_canvas()
-    draw.text((60, 44), "Storefront Red Team", font=FONT_H1, fill=INK)
+    draw.text((60, 44), "Redveil", font=FONT_H1, fill=INK)
     draw.text((60, 100), "Acquisition objections before commitment", font=FONT_BODY, fill=MUTED)
 
     metrics = [
@@ -185,7 +185,7 @@ def make_overview_png(data: dict[str, pd.DataFrame]) -> None:
         x += 370
 
     draw_round_box(draw, (60, 330, 760, 820), fill=PANEL)
-    draw.text((88, 356), "Immediate Red-Team Queue", font=FONT_H2, fill=INK)
+    draw.text((88, 356), "Immediate Risk Queue", font=FONT_H2, fill=INK)
     top_rows = risk.sort_values("overall_acquisition_risk_score", ascending=False).head(6)
     row_y = 414
     for row in top_rows.itertuples(index=False):
@@ -193,7 +193,7 @@ def make_overview_png(data: dict[str, pd.DataFrame]) -> None:
         draw.text((108, row_y + 12), row.district_name, font=FONT_BODY, fill=INK)
         draw.text((270, row_y + 12), f"{row.overall_acquisition_risk_score:.1f}", font=FONT_H3, fill=ACCENT)
         draw.text((370, row_y + 14), row.acquisition_risk_grade, font=FONT_SMALL, fill=MUTED)
-        draw_text_block(draw, row.primary_red_team_objections, 480, row_y + 10, 230, FONT_SMALL, fill=MUTED, line_gap=2)
+        draw_text_block(draw, row.primary_risk_objections, 480, row_y + 10, 230, FONT_SMALL, fill=MUTED, line_gap=2)
         row_y += 64
 
     draw_round_box(draw, (800, 330, 1540, 820), fill=PANEL)
@@ -201,7 +201,7 @@ def make_overview_png(data: dict[str, pd.DataFrame]) -> None:
     draw.rounded_rectangle((828, 404, 1510, 484), radius=18, fill=WARN)
     draw_text_block(
         draw,
-        "Transaction risk uses 2025-04 to 2026-03 storefront trades. Demand fragility still uses 2024 Seoul trade-area files, so the product should be read as a red-team screen rather than a same-period causal model.",
+        "Transaction risk uses 2025-04 to 2026-03 storefront trades. Demand fragility still uses 2024 Seoul trade-area files, so the product should be read as a risk-review screen rather than a same-period causal model.",
         850,
         424,
         630,
@@ -222,7 +222,7 @@ def make_overview_png(data: dict[str, pd.DataFrame]) -> None:
     save_image(image, "01_overview.png")
 
 
-def make_district_red_team_png(data: dict[str, pd.DataFrame]) -> None:
+def make_district_risk_review_png(data: dict[str, pd.DataFrame]) -> None:
     risk = data["risk"]
     memo = data["memo"]
     cand = data["cand"]
@@ -232,7 +232,7 @@ def make_district_red_team_png(data: dict[str, pd.DataFrame]) -> None:
     cand_rows = cand.loc[cand["source_district_name"] == target].sort_values("candidate_rank")
 
     image, draw = create_canvas()
-    draw.text((60, 44), "District Red Team", font=FONT_H1, fill=INK)
+    draw.text((60, 44), "District Risk Review", font=FONT_H1, fill=INK)
     draw.text((60, 100), f"Focused memo for {target}", font=FONT_BODY, fill=MUTED)
 
     metric_cards = [
@@ -246,11 +246,11 @@ def make_district_red_team_png(data: dict[str, pd.DataFrame]) -> None:
         x += 320
 
     draw_round_box(draw, (60, 320, 840, 820), fill=PANEL)
-    draw.text((88, 350), "Red-Team Memo", font=FONT_H2, fill=INK)
-    draw_text_block(draw, memo_row["red_team_memo"], 88, 402, 700, FONT_BODY, fill=INK, line_gap=6)
+    draw.text((88, 350), "Risk Memo", font=FONT_H2, fill=INK)
+    draw_text_block(draw, memo_row["risk_memo"], 88, 402, 700, FONT_BODY, fill=INK, line_gap=6)
     draw.text((88, 520), "Objections", font=FONT_H3, fill=INK)
     objection_y = 558
-    for objection in str(memo_row["primary_red_team_objections"]).split("; "):
+    for objection in str(memo_row["primary_risk_objections"]).split("; "):
         draw.rounded_rectangle((88, objection_y, 808, objection_y + 50), radius=16, fill="#F8F3EC")
         draw_text_block(draw, objection, 110, objection_y + 14, 660, FONT_SMALL, fill=INK, line_gap=2)
         objection_y += 64
@@ -281,7 +281,7 @@ def make_district_red_team_png(data: dict[str, pd.DataFrame]) -> None:
     )
     draw.text((902, 526), "Replacement Candidates", font=FONT_H2, fill=INK)
 
-    save_image(image, "02_district_red_team.png")
+    save_image(image, "02_district_risk_review.png")
 
 
 def make_case_study_png(data: dict[str, pd.DataFrame]) -> None:
@@ -334,7 +334,7 @@ def make_demand_fragility_png(data: dict[str, pd.DataFrame]) -> None:
             row.trade_area_name,
             f"{row.demand_fragility_risk_score:.1f}",
             row.demand_fragility_grade,
-            row.red_team_objection,
+            row.risk_objection,
         ]
         for row in demand.itertuples(index=False)
     ]
@@ -387,7 +387,7 @@ def write_dashboard_links() -> None:
 Local PNG assets generated from the current project snapshot:
 
 - [01_overview.png](/Users/a0109/.jupyter/01_projects/retail_marketing/commercial_investment_risk/dashboard/01_overview.png)
-- [02_district_red_team.png](/Users/a0109/.jupyter/01_projects/retail_marketing/commercial_investment_risk/dashboard/02_district_red_team.png)
+- [02_district_risk_review.png](/Users/a0109/.jupyter/01_projects/retail_marketing/commercial_investment_risk/dashboard/02_district_risk_review.png)
 - [03_case_study.png](/Users/a0109/.jupyter/01_projects/retail_marketing/commercial_investment_risk/dashboard/03_case_study.png)
 - [04_demand_fragility.png](/Users/a0109/.jupyter/01_projects/retail_marketing/commercial_investment_risk/dashboard/04_demand_fragility.png)
 - [05_admin_dong_saturation.png](/Users/a0109/.jupyter/01_projects/retail_marketing/commercial_investment_risk/dashboard/05_admin_dong_saturation.png)
@@ -398,7 +398,7 @@ Local PNG assets generated from the current project snapshot:
 def main() -> int:
     data = load_data()
     make_overview_png(data)
-    make_district_red_team_png(data)
+    make_district_risk_review_png(data)
     make_case_study_png(data)
     make_demand_fragility_png(data)
     make_admin_dong_png(data)

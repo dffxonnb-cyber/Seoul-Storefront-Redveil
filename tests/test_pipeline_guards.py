@@ -13,9 +13,9 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 
-from redteam.pipelines.build_red_team_outputs import build_replacement_candidates
-from redteam.pipelines.build_transaction_risk_scores import build_latest_scores, build_summary_from_raw
-from redteam.pipelines.collect_molit_commercial_sales import parse_xml_response
+from redveil.pipelines.build_redveil_outputs import build_replacement_candidates
+from redveil.pipelines.build_transaction_risk_scores import build_latest_scores, build_summary_from_raw
+from redveil.pipelines.collect_molit_commercial_sales import parse_xml_response
 
 
 class PipelineGuardsTest(unittest.TestCase):

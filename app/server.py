@@ -16,7 +16,7 @@ SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from redteam.pipelines.export_website_payload import build_payload
+from redveil.pipelines.export_website_payload import build_payload
 
 
 SITE_DIR = PROJECT_ROOT / "app" / "site"
@@ -249,7 +249,7 @@ def persist_review(review: dict[str, object], path: Path = REVIEW_STORE_PATH) ->
     return review
 
 
-class RedTeamRequestHandler(SimpleHTTPRequestHandler):
+class RedveilRequestHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(SITE_DIR), **kwargs)
 
@@ -364,7 +364,7 @@ def main() -> int:
     args = parse_args()
     cached_payload()
     ensure_review_store()
-    server = ThreadingHTTPServer((args.host, args.port), RedTeamRequestHandler)
+    server = ThreadingHTTPServer((args.host, args.port), RedveilRequestHandler)
     print(f"Serving Redveil site at http://{args.host}:{args.port}")
     try:
         server.serve_forever()

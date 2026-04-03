@@ -13,13 +13,13 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 
-DATA_RED_TEAM = PROJECT_ROOT / "data" / "red_team"
+DATA_REDVEIL = PROJECT_ROOT / "data" / "redveil"
 DATA_EXTERNAL = PROJECT_ROOT / "data" / "external" / "processed"
 DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
 
 
 st.set_page_config(
-    page_title="Storefront Red Team",
+    page_title="Redveil",
     page_icon=":warning:",
     layout="wide",
 )
@@ -64,8 +64,8 @@ def show_overview(
     admin_dong_df: pd.DataFrame | None,
     case_df: pd.DataFrame | None,
 ) -> None:
-    st.title("Storefront Red Team")
-    st.caption("A Seoul acquisition red-team tool for small commercial-property decisions.")
+    st.title("Redveil")
+    st.caption("A Seoul acquisition risk-detection tool for small commercial-property decisions.")
 
     col1, col2, col3 = st.columns(3)
     col1.metric("District memos", len(district_df) if district_df is not None else 0)
@@ -83,18 +83,18 @@ def show_overview(
     )
     st.warning(
         "Transaction risk is based on storefront-oriented transactions from `2025-04` to `2026-03`, while the "
-        "current trade-area demand data comes from `2024` Seoul files. Treat the combined screen as a red-team "
+        "current trade-area demand data comes from `2024` Seoul files. Treat the combined screen as a risk-review "
         "checklist, not as a same-period causal comparison."
     )
 
     if district_df is not None:
-        st.subheader("Immediate red-team queue")
+        st.subheader("Immediate risk queue")
         overview_df = district_df[
             [
                 "district_name",
                 "overall_acquisition_risk_score",
                 "acquisition_risk_grade",
-                "primary_red_team_objections",
+                "primary_risk_objections",
             ]
         ].sort_values("overall_acquisition_risk_score", ascending=False)
         st.dataframe(overview_df.head(7), use_container_width=True, hide_index=True)
@@ -115,17 +115,17 @@ def show_overview(
         )
 
 
-def show_district_red_team() -> None:
-    district_df = load_csv(DATA_RED_TEAM / "seoul_district_acquisition_risk.csv")
-    memo_df = load_csv(DATA_RED_TEAM / "seoul_district_red_team_memo.csv")
-    candidates_df = load_csv(DATA_RED_TEAM / "seoul_replacement_candidates.csv")
+def show_district_risk_review() -> None:
+    district_df = load_csv(DATA_REDVEIL / "seoul_district_acquisition_risk.csv")
+    memo_df = load_csv(DATA_REDVEIL / "seoul_district_risk_memo.csv")
+    candidates_df = load_csv(DATA_REDVEIL / "seoul_replacement_candidates.csv")
     history_df = load_csv(DATA_PROCESSED / "seoul_transaction_risk_history.csv")
 
-    st.header("District Red Team")
+    st.header("District Risk Review")
     if district_df is None or memo_df is None:
         st.info(
             "District acquisition memo outputs are not available yet. "
-            "Run the transaction pipeline and then build_red_team_outputs.py."
+            "Run the transaction pipeline and then build_redveil_outputs.py."
         )
         return
 
@@ -153,7 +153,7 @@ def show_district_red_team() -> None:
     )
     memo_row = memo_df.loc[memo_df["district_name"] == selected_district].iloc[0]
     district_row = district_df.loc[district_df["district_name"] == selected_district].iloc[0]
-    objections = split_semicolon_text(memo_row["primary_red_team_objections"])
+    objections = split_semicolon_text(memo_row["primary_risk_objections"])
 
     with report_col:
         st.subheader(f"{selected_district} acquisition memo")
@@ -169,8 +169,8 @@ def show_district_red_team() -> None:
                 "storefront transaction month is based on a thin sample."
             )
 
-        st.markdown("**Red-team memo**")
-        st.write(memo_row["red_team_memo"])
+        st.markdown("**Risk memo**")
+        st.write(memo_row["risk_memo"])
 
         st.markdown("**Top objections**")
         if objections:
@@ -280,7 +280,7 @@ def show_case_studies() -> None:
     left, right = st.columns([1.0, 1.0])
     with left:
         st.markdown("**Primary objections**")
-        for item in split_semicolon_text(row["primary_red_team_objections"]):
+        for item in split_semicolon_text(row["primary_risk_objections"]):
             st.write(f"- {item}")
 
         st.markdown("**Merchant structure**")
@@ -301,7 +301,7 @@ def show_case_studies() -> None:
 
 
 def show_trade_area_demand() -> None:
-    demand_df = load_csv(DATA_RED_TEAM / "seoul_trade_area_demand_fragility.csv")
+    demand_df = load_csv(DATA_REDVEIL / "seoul_trade_area_demand_fragility.csv")
     st.header("Trade-Area Demand Fragility")
     if demand_df is None:
         st.warning("Demand fragility output was not found.")
@@ -341,7 +341,7 @@ def show_trade_area_demand() -> None:
                     "demand_fragility_grade",
                     "sales_per_floating_population_floor_1000",
                     "sales_per_transaction",
-                    "red_team_objection",
+                    "risk_objection",
                 ]
             ].sort_values("demand_fragility_risk_score", ascending=False),
             use_container_width=True,
@@ -383,18 +383,18 @@ def show_admin_dong_saturation() -> None:
 
 
 def main() -> None:
-    district_df = load_csv(DATA_RED_TEAM / "seoul_district_acquisition_risk.csv")
-    demand_df = load_csv(DATA_RED_TEAM / "seoul_trade_area_demand_fragility.csv")
+    district_df = load_csv(DATA_REDVEIL / "seoul_district_acquisition_risk.csv")
+    demand_df = load_csv(DATA_REDVEIL / "seoul_trade_area_demand_fragility.csv")
     admin_dong_df = load_csv(DATA_EXTERNAL / "seoul_store_competition_by_admin_dong.csv")
     case_df = load_csv(DATA_PROCESSED / "case_study_snapshots.csv")
 
     overview_tab, district_tab, case_tab, demand_tab, dong_tab = st.tabs(
-        ["Overview", "District Red Team", "Case Studies", "Demand Fragility", "Admin-Dong Saturation"]
+        ["Overview", "District Risk Review", "Case Studies", "Demand Fragility", "Admin-Dong Saturation"]
     )
     with overview_tab:
         show_overview(district_df, demand_df, admin_dong_df, case_df)
     with district_tab:
-        show_district_red_team()
+        show_district_risk_review()
     with case_tab:
         show_case_studies()
     with demand_tab:

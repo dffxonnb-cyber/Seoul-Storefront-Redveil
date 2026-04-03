@@ -6,7 +6,7 @@
   }
 
   function getPayload() {
-    return window.__RED_TEAM_PAYLOAD__ || null;
+    return window.__REDVEIL_PAYLOAD__ || null;
   }
 
   function getDistrictByCode(code) {

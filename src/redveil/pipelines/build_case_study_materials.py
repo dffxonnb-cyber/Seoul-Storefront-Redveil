@@ -13,7 +13,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 
-from redteam.utils.paths import project_root
+from redveil.utils.paths import project_root
 
 
 @dataclass
@@ -35,7 +35,7 @@ class CaseStudy:
     latest_median_price_per_sqm_10k_krw: float
     six_month_price_change_pct: float
     six_month_transaction_change_pct: float
-    primary_red_team_objections: str
+    primary_risk_objections: str
     risk_summary: str
     top_3_small_categories: str
     replacement_candidates: str
@@ -124,12 +124,12 @@ def build_case_studies(
                     first["transaction_count"],
                     latest["transaction_count"],
                 ),
-                primary_red_team_objections=str(row["primary_red_team_objections"]),
+                primary_risk_objections=str(row["primary_risk_objections"]),
                 risk_summary=str(row["risk_summary"]),
                 top_3_small_categories=str(row["top_3_small_categories"]),
                 replacement_candidates=replacement_candidates,
                 candidate_why_better=candidate_why_better,
-                field_checks=build_field_checks(str(row["primary_red_team_objections"])),
+                field_checks=build_field_checks(str(row["primary_risk_objections"])),
             )
         )
 
@@ -151,7 +151,7 @@ def build_markdown(case_df: pd.DataFrame) -> str:
                 f"## {idx}. {row.district_name}",
                 "",
                 f"- Verdict: `{row.acquisition_risk_grade}` ({row.acquisition_risk_score:.1f})",
-                f"- Core objections: {row.primary_red_team_objections}",
+                f"- Core objections: {row.primary_risk_objections}",
                 f"- Latest month: `{row.latest_month}` with {row.latest_transaction_count} trades and a median `sqm` price of {row.latest_median_price_per_sqm_10k_krw:.1f} (10k KRW)",
                 f"- Six-month price change: {format_pct(row.six_month_price_change_pct)}",
                 f"- Six-month transaction change: {format_pct(row.six_month_transaction_change_pct)}",
@@ -171,9 +171,9 @@ def build_markdown(case_df: pd.DataFrame) -> str:
 
 def main() -> int:
     root = project_root()
-    district_path = root / "data" / "red_team" / "seoul_district_acquisition_risk.csv"
+    district_path = root / "data" / "redveil" / "seoul_district_acquisition_risk.csv"
     history_path = root / "data" / "processed" / "seoul_transaction_risk_history.csv"
-    candidates_path = root / "data" / "red_team" / "seoul_replacement_candidates.csv"
+    candidates_path = root / "data" / "redveil" / "seoul_replacement_candidates.csv"
 
     district_df = load_required_csv(district_path)
     history_df = load_required_csv(history_path)

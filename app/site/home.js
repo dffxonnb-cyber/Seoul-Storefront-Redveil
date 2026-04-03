@@ -13,8 +13,15 @@
     document.getElementById("hero-highest-name").textContent = bootstrap.summary.highestRiskDistrict.name;
     document.getElementById("hero-highest-score").textContent =
       `${bootstrap.summary.highestRiskDistrict.score}점 · ${bootstrap.summary.highestRiskDistrict.grade}`;
-    document.getElementById("hero-caveat").textContent =
-      `${bootstrap.site.timeCaveat} ${bootstrap.site.sampleCaveat}`;
+    document.getElementById("hero-transaction-count").textContent = formatNumber(
+      bootstrap.summary.transactionCount,
+      "건"
+    );
+    document.getElementById("hero-case-count").textContent = formatNumber(
+      bootstrap.summary.caseStudyCount,
+      "개"
+    );
+
     document.getElementById("hero-primary-cta").textContent = bootstrap.site.primaryCta.label;
     document.getElementById("hero-primary-cta").setAttribute("href", bootstrap.site.primaryCta.href);
     document.getElementById("hero-secondary-cta").textContent = bootstrap.site.secondaryCta.label;
@@ -22,24 +29,24 @@
 
     document.getElementById("summary-grid").innerHTML = [
       {
-        label: "실거래 원천 건수",
+        label: "거래 원천",
         value: formatNumber(bootstrap.summary.transactionCount, "건"),
-        caption: `${bootstrap.summary.latestMonth} 기준 최근 12개월`,
+        caption: "최근 12개월",
       },
       {
         label: "구 커버리지",
         value: formatNumber(bootstrap.summary.districtCount, "개"),
-        caption: "서울 25개 구 전수 분석",
+        caption: "서울 전체",
       },
       {
-        label: "행정동 커버리지",
+        label: "행정동 범위",
         value: formatNumber(bootstrap.summary.adminDongCount, "개"),
-        caption: "상권 과밀도 참고 단위",
+        caption: "상권 구조 반영",
       },
       {
-        label: "케이스 스터디",
-        value: formatNumber(bootstrap.summary.caseStudyCount, "개"),
-        caption: "상위 위험 구 심층 해석",
+        label: "저표본 경고",
+        value: formatNumber(bootstrap.summary.lowSampleDistrictCount, "개"),
+        caption: "신뢰도 플래그",
       },
     ]
       .map(
@@ -53,62 +60,12 @@
       )
       .join("");
 
-    document.getElementById("thesis-headline").textContent = content.thesis.headline;
-    document.getElementById("thesis-body").textContent = content.thesis.body;
-    document.getElementById("northstar-title").textContent = content.northStar.title;
-    document.getElementById("northstar-body").textContent = content.northStar.body;
-
     document.getElementById("module-grid").innerHTML = content.modules
+      .slice(0, 3)
       .map(
         (item) => `
-      <article class="stack-card">
-        <span class="metric-pill">Module</span>
-        <strong>${item.title}</strong>
-        <p>${item.body}</p>
-      </article>
-    `
-      )
-      .join("");
-
-    document.getElementById("persona-grid").innerHTML = content.personas
-      .map(
-        (item) => `
-      <article class="stack-card">
-        <strong>${item.title}</strong>
-        <p>${item.description}</p>
-      </article>
-    `
-      )
-      .join("");
-
-    document.getElementById("decision-stage-grid").innerHTML = content.decisionStages
-      .map(
-        (item) => `
-      <article class="journey-step">
-        <span class="candidate-rank">${item.title}</span>
-        <p>${item.body}</p>
-      </article>
-    `
-      )
-      .join("");
-
-    document.getElementById("archetype-grid").innerHTML = bootstrap.archetypes
-      .map(
-        (item) => `
-      <article class="data-card">
-        <span class="metric-pill">${item.count}개 구</span>
-        <strong>${item.name}</strong>
-        <p>${item.description}</p>
-        <p class="chip-row">${item.examples.map((name) => `<span class="mini-chip">${name}</span>`).join("")}</p>
-      </article>
-    `
-      )
-      .join("");
-
-    document.getElementById("trust-grid").innerHTML = content.trustSignals
-      .map(
-        (item) => `
-      <article class="stack-card">
+      <article class="stack-card compact-stack">
+        <span class="metric-pill">Action</span>
         <strong>${item.title}</strong>
         <p>${item.body}</p>
       </article>
@@ -119,7 +76,7 @@
     document.getElementById("leaderboard-grid").innerHTML = bootstrap.topDistricts
       .map(
         (item, index) => `
-      <article class="leaderboard-card">
+      <article class="leaderboard-card compact-stack">
         <span class="candidate-rank">#${index + 1}</span>
         <strong>${item.name}</strong>
         <p>${item.riskScore}점 · ${item.riskGrade}</p>
@@ -135,7 +92,7 @@
             .slice(0, 3)
             .map(
               (item) => `
-          <article class="review-card compact">
+          <article class="review-card compact-stack">
             <strong>${item.assetName}</strong>
             <p>${item.districtName} · ${item.verdict}</p>
             <p>${item.customRiskScore}점 · ${item.riskArchetype}</p>
@@ -145,22 +102,11 @@
             )
             .join("")
         : `
-          <article class="empty-card">
-            <strong>아직 저장된 매물 검토가 없습니다.</strong>
-            <p>내 매물 검토 페이지에서 첫 번째 검토를 저장해 보세요.</p>
+          <article class="empty-card compact-stack">
+            <strong>아직 저장한 검토가 없습니다.</strong>
+            <p>내 매물 검토에서 첫 번째 판단을 저장해보세요.</p>
           </article>
         `;
-
-    document.getElementById("faq-list").innerHTML = content.faq
-      .map(
-        (item) => `
-      <article class="faq-item">
-        <strong>${item.question}</strong>
-        <p>${item.answer}</p>
-      </article>
-    `
-      )
-      .join("");
   } catch (error) {
     renderError(error);
   }

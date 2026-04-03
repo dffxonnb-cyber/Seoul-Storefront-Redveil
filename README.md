@@ -13,6 +13,7 @@
 - 영문 슬로건: `Uncover hidden risks before acquisition.`
 - GitHub: [Seoul-Storefront-Redveil](https://github.com/dffxonnb-cyber/Seoul-Storefront-Redveil)
 - Website: [GitHub Pages](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/)
+- Website V2: [GitHub Pages V2](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/)
 
 ## 프로젝트 한눈에 보기
 

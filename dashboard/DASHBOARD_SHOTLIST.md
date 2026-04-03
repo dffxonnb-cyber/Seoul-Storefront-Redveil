@@ -2,13 +2,13 @@
 
 ## 1. Overview
 
-- 목적: 프로젝트가 `추천`이 아니라 `레드팀`이라는 점을 한 장에서 설명
+- 목적: 프로젝트가 `추천`이 아니라 `리스크 판별` 서비스라는 점을 한 장에서 설명
 - 포함 요소:
-- `Immediate red-team queue`
+- `Immediate risk queue`
 - `Current case studies`
 - 시점 불일치 경고
 
-## 2. District Red Team
+## 2. District Risk Review
 
 - 목적: 한 구를 선택했을 때 `총점 -> 반대 메모 -> 근거 -> 대체 후보` 흐름이 보이게 저장
 - 추천 구:

@@ -5,7 +5,7 @@
 권장 구성:
 
 - `01_overview.png`
-- `02_district_red_team.png`
+- `02_district_risk_review.png`
 - `03_case_study.png`
 - `04_demand_fragility.png`
 - `05_admin_dong_saturation.png`

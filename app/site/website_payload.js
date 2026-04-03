@@ -1,4 +1,4 @@
-window.__RED_TEAM_PAYLOAD__ = {
+window.__REDVEIL_PAYLOAD__ = {
   "site": {
     "title": "Redveil",
     "subtitle": "서울 소형 상가 매입 리스크 판별 서비스",

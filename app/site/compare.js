@@ -6,22 +6,26 @@
   }
 
   function renderCompare(districts) {
-    document.getElementById("compare-grid").innerHTML = districts.map((item) => `
+    document.getElementById("compare-grid").innerHTML = districts
+      .map(
+        (item) => `
       <article class="section-card">
         <span class="score-badge">${item.riskScore}점 · ${item.riskGrade}</span>
         <h2>${item.name}</h2>
         <p>${item.memo}</p>
         <ul class="bullet-list">
-          <li>가격 부담: ${item.priceBurdenRiskScore}점</li>
-          <li>거래 유동성: ${item.liquidityRiskScore}점</li>
-          <li>가격 변동성: ${item.volatilityRiskScore}점</li>
-          <li>상권 포화: ${item.competitionRiskScore}점</li>
-          <li>표본 신뢰도: ${item.sampleReliability}</li>
+          <li>가격 부담 ${item.priceBurdenRiskScore}점</li>
+          <li>거래 유동성 ${item.liquidityRiskScore}점</li>
+          <li>가격 변동성 ${item.volatilityRiskScore}점</li>
+          <li>상권 과밀 ${item.competitionRiskScore}점</li>
+          <li>신뢰도 ${item.sampleReliability}</li>
         </ul>
         <p><strong>핵심 반대 근거</strong></p>
         <ul class="bullet-list">${item.objections.map((objection) => `<li>${objection}</li>`).join("")}</ul>
       </article>
-    `).join("");
+    `
+      )
+      .join("");
   }
 
   try {

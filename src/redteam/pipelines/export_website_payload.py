@@ -605,16 +605,18 @@ def main() -> None:
     root = project_root()
     payload = build_payload(root)
     output_dir = root / "data" / "website"
+    site_dir = root / "app" / "site"
     output_dir.mkdir(parents=True, exist_ok=True)
+    site_dir.mkdir(parents=True, exist_ok=True)
 
     json_path = output_dir / "website_payload.json"
     js_path = output_dir / "website_payload.js"
+    site_js_path = site_dir / "website_payload.js"
 
     json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    js_path.write_text(
-        f"window.__RED_TEAM_PAYLOAD__ = {json.dumps(payload, ensure_ascii=False, indent=2)};\n",
-        encoding="utf-8",
-    )
+    script_text = f"window.__RED_TEAM_PAYLOAD__ = {json.dumps(payload, ensure_ascii=False, indent=2)};\n"
+    js_path.write_text(script_text, encoding="utf-8")
+    site_js_path.write_text(script_text, encoding="utf-8")
     print(f"Saved website payload to {json_path}")
 
 

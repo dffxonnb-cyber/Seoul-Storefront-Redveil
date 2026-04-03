@@ -4,10 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>구별 리포트 | 서울 상가 투자 레드팀</title>
-    <meta name="description" content="서울 구별 매입 리스크와 대체 후보를 보는 리포트 페이지" />
+    <meta name="description" content="서울 25개 구의 매입 리스크와 대체 후보를 구별 리포트로 확인합니다." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body data-page="districts">
@@ -21,6 +24,7 @@
         </a>
         <nav class="site-nav">
           <a href="./index.html">홈</a>
+          <a href="./review.html">내 매물 검토</a>
           <a href="./assessment.html">3분 진단</a>
           <a href="./compare.html">후보 비교</a>
           <a href="./districts.html">구별 리포트</a>
@@ -33,9 +37,9 @@
       <main class="page-stack">
         <section class="page-hero section-card">
           <p class="eyebrow">District Report</p>
-          <h1>서울 25개 구를 실제 리포트처럼 읽습니다</h1>
+          <h1>서울 25개 구를 실제 투자 리포트처럼 읽을 수 있게 구성했습니다.</h1>
           <p class="section-copy">
-            왼쪽 목록에서 구를 선택하면 총점, 핵심 반대 근거, 최근 12개월 거래 추세, 대체 후보를 한 번에 볼 수 있습니다.
+            왼쪽에서 구를 고르면 총점, 리스크 유형, 핵심 반대 근거, 최근 12개월 거래 흐름, 대체 후보를 한 번에 볼 수 있습니다.
           </p>
         </section>
 
@@ -102,7 +106,7 @@
             <article class="section-card">
               <div class="section-head">
                 <p class="eyebrow">Replacement Candidates</p>
-                <h2>대체 검토 후보</h2>
+                <h2>먼저 비교할 대체 후보</h2>
               </div>
               <div id="replacement-candidates" class="three-grid"></div>
             </article>
@@ -111,6 +115,7 @@
       </main>
     </div>
 
+    <script src="./website_payload.js"></script>
     <script src="./common.js"></script>
     <script src="./districts.js"></script>
   </body>

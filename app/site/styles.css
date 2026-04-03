@@ -81,16 +81,10 @@ body {
 }
 
 .brand {
-  display: inline-flex;
-  align-items: center;
+  display: grid;
+  gap: 3px;
   text-decoration: none;
   color: inherit;
-}
-
-.brand-lockup {
-  width: 168px;
-  height: auto;
-  object-fit: contain;
 }
 
 .brand-kicker,
@@ -176,12 +170,6 @@ body {
   font-size: clamp(36px, 4.8vw, 64px);
 }
 
-.hero-logo {
-  display: block;
-  width: min(360px, 72%);
-  height: auto;
-  margin: 8px 0 18px;
-}
 
 .page-hero h1,
 .section-card h1 {

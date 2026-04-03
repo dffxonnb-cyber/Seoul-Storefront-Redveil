@@ -8,31 +8,30 @@
         <h2>${result.districtName} · ${result.verdict}</h2>
       </div>
       <div class="two-column">
-        <article class="data-card">
-          <span class="metric-pill">맞춤 리스크 점수</span>
+        <article class="data-card compact-stack">
+          <span class="metric-pill">리스크 점수</span>
           <strong class="metric-value">${result.customRiskScore}점</strong>
           <p>${result.summary}</p>
         </article>
-        <article class="data-card">
-          <span class="metric-pill">리스크 유형</span>
+        <article class="data-card compact-stack">
+          <span class="metric-pill">유형</span>
           <strong>${result.riskArchetype}</strong>
-          <p>${result.archetypeSummary}</p>
+          <p>${result.recommendedAction}</p>
         </article>
       </div>
       <div class="two-column" style="margin-top:14px">
-        <article class="data-card">
-          <strong>지금 보수적으로 봐야 하는 이유</strong>
-          <ul class="bullet-list">${result.reasons.map((item) => `<li>${item}</li>`).join("")}</ul>
+        <article class="data-card compact-stack">
+          <strong>핵심 근거</strong>
+          <ul class="bullet-list">${result.reasons.slice(0, 3).map((item) => `<li>${item}</li>`).join("")}</ul>
         </article>
-        <article class="data-card">
+        <article class="data-card compact-stack">
           <strong>바로 확인할 것</strong>
-          <ul class="bullet-list">${result.checks.map((item) => `<li>${item}</li>`).join("")}</ul>
+          <ul class="bullet-list">${result.checks.slice(0, 3).map((item) => `<li>${item}</li>`).join("")}</ul>
         </article>
       </div>
       <div class="footnote-block">
-        <p><strong>구 중위 체결가</strong> ${formatNumber(result.districtMedianPricePerSqm)} 만원/㎡</p>
+        <p><strong>구 중위 거래가</strong> ${formatNumber(result.districtMedianPricePerSqm)} 만원/㎡</p>
         <p><strong>입력 가격 프리미엄</strong> ${result.premiumPct}%</p>
-        <p><strong>추천 액션</strong> ${result.recommendedAction}</p>
       </div>
     `;
   }

@@ -8,7 +8,7 @@
             .slice(0, 6)
             .map(
               (item) => `
-          <article class="review-card">
+          <article class="review-card compact-stack">
             <span class="metric-pill">${item.verdict}</span>
             <strong>${item.assetName}</strong>
             <p>${item.districtName}${item.adminDongName ? ` · ${item.adminDongName}` : ""}</p>
@@ -19,9 +19,9 @@
             )
             .join("")
         : `
-          <article class="empty-card">
-            <strong>아직 저장된 매물 검토가 없습니다.</strong>
-            <p>첫 번째 매물을 입력해 리스크 메모를 저장해 보세요.</p>
+          <article class="empty-card compact-stack">
+            <strong>아직 저장한 검토가 없습니다.</strong>
+            <p>첫 번째 매물을 입력해보세요.</p>
           </article>
         `;
   }
@@ -33,38 +33,38 @@
         <h2>${result.assetName} · ${result.verdict}</h2>
       </div>
       <div class="two-column">
-        <article class="data-card">
-          <span class="metric-pill">커스텀 리스크 점수</span>
+        <article class="data-card compact-stack">
+          <span class="metric-pill">리스크 점수</span>
           <strong class="metric-value">${result.customRiskScore}점</strong>
           <p>${result.summary}</p>
         </article>
-        <article class="data-card">
-          <span class="metric-pill">리스크 유형</span>
+        <article class="data-card compact-stack">
+          <span class="metric-pill">유형</span>
           <strong>${result.riskArchetype}</strong>
           <p>${result.recommendedAction}</p>
         </article>
       </div>
       <div class="two-column" style="margin-top:14px">
-        <article class="data-card">
-          <strong>핵심 반대 근거</strong>
-          <ul class="bullet-list">${result.reasons.map((item) => `<li>${item}</li>`).join("")}</ul>
+        <article class="data-card compact-stack">
+          <strong>핵심 근거</strong>
+          <ul class="bullet-list">${result.reasons.slice(0, 3).map((item) => `<li>${item}</li>`).join("")}</ul>
         </article>
-        <article class="data-card">
-          <strong>다음 확인 항목</strong>
-          <ul class="bullet-list">${result.checks.map((item) => `<li>${item}</li>`).join("")}</ul>
+        <article class="data-card compact-stack">
+          <strong>다음 확인</strong>
+          <ul class="bullet-list">${result.checks.slice(0, 3).map((item) => `<li>${item}</li>`).join("")}</ul>
         </article>
       </div>
       <div style="margin-top:14px">
-        <strong>먼저 비교할 대체 구</strong>
+        <strong>대체 후보</strong>
         <div class="three-grid" style="margin-top:12px">
           ${result.replacementCandidates
+            .slice(0, 3)
             .map(
               (item, index) => `
-            <article class="data-card">
+            <article class="data-card compact-stack">
               <span class="candidate-rank">대안 ${index + 1}</span>
               <strong>${item.name}</strong>
               <p>${item.score}점</p>
-              <p>${item.whyBetter}</p>
             </article>
           `
             )
@@ -73,7 +73,6 @@
       </div>
       <div class="footnote-block">
         <p><strong>저장 시각</strong> ${formatDateTime(result.createdAt)}</p>
-        <p><strong>저장 ID</strong> ${result.id}</p>
       </div>
     `;
   }

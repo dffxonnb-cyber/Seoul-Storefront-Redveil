@@ -9,19 +9,17 @@
     document.getElementById("compare-grid").innerHTML = districts
       .map(
         (item) => `
-      <article class="section-card">
+      <article class="section-card compact-stack">
         <span class="score-badge">${item.riskScore}점 · ${item.riskGrade}</span>
         <h2>${item.name}</h2>
-        <p>${item.memo}</p>
+        <p>${item.riskArchetype}</p>
         <ul class="bullet-list">
           <li>가격 부담 ${item.priceBurdenRiskScore}점</li>
-          <li>거래 유동성 ${item.liquidityRiskScore}점</li>
-          <li>가격 변동성 ${item.volatilityRiskScore}점</li>
-          <li>상권 과밀 ${item.competitionRiskScore}점</li>
-          <li>신뢰도 ${item.sampleReliability}</li>
+          <li>유동성 ${item.liquidityRiskScore}점</li>
+          <li>변동성 ${item.volatilityRiskScore}점</li>
+          <li>경쟁 ${item.competitionRiskScore}점</li>
         </ul>
-        <p><strong>핵심 반대 근거</strong></p>
-        <ul class="bullet-list">${item.objections.map((objection) => `<li>${objection}</li>`).join("")}</ul>
+        <ul class="bullet-list">${item.objections.slice(0, 3).map((objection) => `<li>${objection}</li>`).join("")}</ul>
       </article>
     `
       )

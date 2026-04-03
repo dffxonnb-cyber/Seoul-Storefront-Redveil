@@ -6,7 +6,7 @@
     <title>내 매물 검토 | Redveil</title>
     <meta
       name="description"
-      content="검토 중인 상가 매물을 입력하고 저장 가능한 매입 리스크 검토 메모를 생성합니다."
+      content="검토 중인 상가 매물을 입력하고 저장 가능한 리스크 메모를 생성합니다."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -40,22 +40,20 @@
       <main class="page-stack">
         <section class="page-hero section-card">
           <p class="eyebrow">Property Review</p>
-          <h1>검토 중인 매물을 서비스 안에서 바로 기록하고, 저장 가능한 반대 메모로 바꿉니다.</h1>
-          <p class="section-copy">
-            매물명과 가격선을 넣으면 검토 메모를 만들고 바로 저장할 수 있습니다.
-          </p>
+          <h1>매물 검토 저장</h1>
+          <p class="section-copy">입력 후 바로 메모를 남길 수 있습니다.</p>
         </section>
 
         <section class="two-column">
           <article class="section-card">
             <div class="section-head">
               <p class="eyebrow">Input</p>
-              <h2>매물 정보를 입력하세요</h2>
+              <h2>매물 정보 입력</h2>
             </div>
             <form id="review-form" class="form-grid">
               <label class="form-field">
                 <span>매물명</span>
-                <input id="asset-name" type="text" placeholder="예: 서초역 역세권 코너 상가" required />
+                <input id="asset-name" type="text" placeholder="예: 서초역 대로변 코너 상가" required />
               </label>
               <label class="form-field">
                 <span>검토 구</span>
@@ -66,7 +64,7 @@
                 <input id="admin-dong-name" type="text" placeholder="예: 서초동" />
               </label>
               <label class="form-field">
-                <span>희망 매입가 (만원)</span>
+                <span>예상 매입가 (만원)</span>
                 <input id="asking-price-total" type="number" min="0" step="100" placeholder="예: 85000" />
               </label>
               <label class="form-field">
@@ -86,25 +84,23 @@
                 </select>
               </label>
               <label class="form-field">
-                <span>상정 임차인 (선택)</span>
-                <input id="target-tenant" type="text" placeholder="예: 근린생활 업종, 커피, 약국" />
+                <span>가정 업종 (선택)</span>
+                <input id="target-tenant" type="text" placeholder="예: 근린생활 업종, 카페, 학원" />
               </label>
               <label class="form-field">
-                <span>검토 메모 (선택)</span>
-                <textarea id="review-memo" rows="5" placeholder="예: 중개사가 역세권 희소성을 강조했음"></textarea>
+                <span>메모 (선택)</span>
+                <textarea id="review-memo" rows="5" placeholder="예: 중개사가 역세권 수요를 강조함"></textarea>
               </label>
-              <button class="button primary" type="submit">검토 저장하기</button>
+              <button class="button primary" type="submit">검토 저장</button>
             </form>
           </article>
 
           <article class="section-card" id="review-result">
             <div class="section-head">
               <p class="eyebrow">Saved Output</p>
-              <h2>저장 가능한 검토 메모</h2>
+              <h2>검토 메모</h2>
             </div>
-            <p class="section-copy">
-              매물 검토를 저장하면 여기에서 판정, 핵심 반대 근거, 다음 액션이 표시됩니다.
-            </p>
+            <p class="section-copy">저장 후 결과가 바로 나타납니다.</p>
           </article>
         </section>
 
@@ -112,7 +108,7 @@
           <div class="section-head split-head">
             <div>
               <p class="eyebrow">Review History</p>
-              <h2>최근 저장된 매물 검토</h2>
+              <h2>최근 저장한 검토</h2>
             </div>
           </div>
           <div id="review-history" class="three-grid"></div>

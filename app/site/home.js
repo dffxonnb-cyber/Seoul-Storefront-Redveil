@@ -23,48 +23,48 @@
     {
       label: "01",
       title: "내 매물 검토",
-      description: "검토 중인 상가를 저장하고 리스크 메모를 남기는 메인 진입점입니다.",
-      meta: "입력: 매물명, 구, 가격, 보유 기간",
+      description: "검토 중인 매물을 저장하고 메모를 남깁니다.",
+      meta: "입력: 매물명, 구, 가격",
       href: "./review.html",
       linkLabel: "매물 메모 열기",
     },
     {
       label: "02",
       title: "3분 진단",
-      description: "구, 가격선, 보유 기간만으로 빠른 보류 신호를 확인합니다.",
-      meta: "출력: 보류 여부, 리스크 유형, 체크리스트",
+      description: "구와 가격선으로 빠른 보류 신호를 봅니다.",
+      meta: "출력: 판정, 유형, 체크리스트",
       href: "./assessment.html",
       linkLabel: "빠른 진단 실행",
     },
     {
       label: "03",
       title: "후보 비교",
-      description: "같은 예산 안에서 더 안전한 대체 구를 붙여 보는 비교 화면입니다.",
-      meta: "출력: 점수 비교, 유형 비교, 대안 탐색",
+      description: "대체 후보를 같은 기준으로 비교합니다.",
+      meta: "출력: 점수 비교, 대안 탐색",
       href: "./compare.html",
       linkLabel: "대체 구 비교",
     },
     {
       label: "04",
       title: "구별 리포트",
-      description: "구 단위 리스크 점수, 추세, 메모를 하나의 리포트로 정리합니다.",
-      meta: "출력: 구 리포트, 추세 차트, 메모",
+      description: "구 단위 리스크와 추세를 한 화면에 정리합니다.",
+      meta: "출력: 리포트, 추세, 메모",
       href: "./districts.html",
       linkLabel: "전체 리포트 보기",
     },
     {
       label: "05",
       title: "케이스 스터디",
-      description: "상위 위험 구를 실제 검토 논리와 현장 체크 포인트로 풀어냅니다.",
-      meta: "출력: 리스크 해석, 교차 확인 포인트",
+      description: "상위 위험 구를 실제 검토 논리로 풀어냅니다.",
+      meta: "출력: 리스크 해석, 확인 포인트",
       href: "./cases.html",
       linkLabel: "케이스 읽기",
     },
     {
       label: "06",
       title: "방법론과 데이터",
-      description: "점수가 어떻게 만들어지고 어디까지 믿어야 하는지 확인합니다.",
-      meta: "출력: 모델 축, 데이터 범위, 한계",
+      description: "점수 구조와 데이터 범위를 확인합니다.",
+      meta: "출력: 모델 축, 범위, 한계",
       href: "./methodology.html",
       linkLabel: "방법론 보기",
     },
@@ -72,7 +72,7 @@
 
   function renderHero() {
     document.getElementById("hero-description").textContent =
-      "Redveil은 서울 소형 상가 매입 전에 가격 부담, 거래 둔화, 상권 과밀, 변동성 신호를 먼저 보여주는 판단용 웹사이트입니다.";
+      "서울 소형 상가 매입 전에 가격 부담, 거래 둔화, 상권 과밀 신호를 먼저 보여줍니다.";
     document.getElementById("hero-caveat").textContent =
       `${payload.site.timeCaveat} ${payload.site.sampleCaveat}`;
 
@@ -227,7 +227,7 @@
           <article class="review-mini">
             <span class="card-label">Saved Review</span>
             <strong>아직 저장된 검토가 없습니다.</strong>
-            <p>내 매물 검토에서 결과를 저장하면 여기에도 즉시 반영됩니다.</p>
+            <p>매물 검토 결과가 여기에도 반영됩니다.</p>
           </article>
         `;
   }

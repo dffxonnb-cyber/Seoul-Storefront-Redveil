@@ -11,7 +11,7 @@
     return;
   }
 
-  const districts = payload.districts || [];
+  const districts = [...(payload.districts || [])].sort((left, right) => Number(right.riskScore || 0) - Number(left.riskScore || 0));
   const summary = payload.summary || {};
   const content = payload.content || {};
   const caseStudies = payload.caseStudies || [];
@@ -20,23 +20,26 @@
 
   const entries = [
     {
+      index: "01",
       title: "내 매물 검토",
-      body: "검토 중인 매물을 저장하고 메모를 남깁니다.",
+      body: "검토 중인 매물 하나를 잡고, 구와 가격을 기준으로 바로 메모를 남깁니다.",
       meta: "매물명, 구, 가격 입력",
       href: "./review.html",
       label: "검토 시작",
     },
     {
+      index: "02",
       title: "3분 진단",
-      body: "구와 가격선으로 빠른 보류 신호를 봅니다.",
-      meta: "판정, 유형, 체크리스트",
+      body: "구와 희망 보유 기간만 넣고, 지금 보류해야 하는지 빠르게 확인합니다.",
+      meta: "판정, 리스크 유형, 체크리스트",
       href: "./assessment.html",
       label: "빠른 진단",
     },
     {
+      index: "03",
       title: "후보 비교",
-      body: "대체 후보를 같은 기준으로 비교합니다.",
-      meta: "점수 차이와 대안 탐색",
+      body: "비슷한 후보를 같은 기준선에서 놓고 더 나은 대안을 고릅니다.",
+      meta: "점수 차이, 대체 후보 탐색",
       href: "./compare.html",
       label: "후보 비교",
     },
@@ -46,15 +49,29 @@
     if (!highestRiskDistrict) return;
 
     document.getElementById("hero-description").textContent =
-      "서울 소형 상가 매입 전에 가격 부담, 거래 둔화, 상권 과밀 신호를 먼저 보여주는 판단용 홈페이지입니다.";
-    document.getElementById("hero-caveat").textContent =
-      `${payload.site.timeCaveat} ${payload.site.sampleCaveat}`;
+      "서울 소형 상가 매입 전에 가격 부담, 거래 둔화, 변동성, 상권 과밀 신호를 먼저 확인하는 판단용 홈페이지입니다.";
+    document.getElementById("hero-caveat").textContent = `${payload.site.timeCaveat} ${payload.site.sampleCaveat}`;
+
+    document.getElementById("hero-facts").innerHTML = [
+      ["거래 원천", formatNumber(summary.transactionCount, "건")],
+      ["비교 구", formatNumber(summary.districtCount, "개")],
+      ["행정동", formatNumber(summary.adminDongCount, "개")],
+    ]
+      .map(
+        ([label, value]) => `
+          <div>
+            <dt>${label}</dt>
+            <dd>${value}</dd>
+          </div>
+        `
+      )
+      .join("");
 
     document.getElementById("hero-preview-name").textContent = highestRiskDistrict.name;
     document.getElementById("hero-preview-type").textContent = highestRiskDistrict.riskArchetype;
     document.getElementById("hero-preview-grade").textContent = highestRiskDistrict.riskGrade;
     document.getElementById("hero-preview-grade").className = `signal-pill ${riskTone(highestRiskDistrict.riskScore)}`;
-    document.getElementById("hero-preview-score").textContent = `${formatNumber(highestRiskDistrict.riskScore, "점")} / ${highestRiskDistrict.riskArchetype}`;
+    document.getElementById("hero-preview-score").textContent = formatNumber(highestRiskDistrict.riskScore, "점");
     document.getElementById("hero-preview-summary").textContent = highestRiskDistrict.riskSummary;
     document.getElementById("hero-preview-list").innerHTML = (highestRiskDistrict.objections || [])
       .slice(0, 3)
@@ -64,33 +81,20 @@
     drawLineChart("hero-preview-chart", highestRiskDistrict.history || [], "medianPricePerSqm", "#c43f27");
   }
 
-  function renderMetrics() {
-    document.getElementById("hero-metrics").innerHTML = [
-      ["거래 원천", formatNumber(summary.transactionCount, "건")],
-      ["비교 구", formatNumber(summary.districtCount, "개")],
-      ["행정동", formatNumber(summary.adminDongCount, "개")],
-      ["상권 범위", formatNumber(summary.tradeAreaCount, "개")],
-    ]
-      .map(
-        ([label, value]) => `
-          <div class="stat-line">
-            <span>${label}</span>
-            <strong>${value}</strong>
-          </div>
-        `
-      )
-      .join("");
-  }
-
   function renderEntries() {
     document.getElementById("entry-grid").innerHTML = entries
       .map(
         (item) => `
-          <article class="entry-block">
-            <h3>${item.title}</h3>
-            <p>${item.body}</p>
-            <span>${item.meta}</span>
-            <a href="${item.href}">${item.label}</a>
+          <article class="homepage-entry">
+            <span class="homepage-entry-index">${item.index}</span>
+            <div>
+              <h3>${item.title}</h3>
+              <p>${item.body}</p>
+            </div>
+            <div class="homepage-entry-meta">
+              <span>${item.meta}</span>
+              <a href="${item.href}">${item.label}</a>
+            </div>
           </article>
         `
       )
@@ -99,7 +103,7 @@
 
   function renderReport() {
     document.getElementById("report-description").textContent =
-      "전체 데이터는 뒤쪽에서 짧은 리포트처럼 읽게 구성했습니다. 상위 위험 구와 데이터 범위를 먼저 훑고, 필요할 때 세부 페이지로 이동하면 됩니다.";
+      "핵심 수치만 먼저 읽고, 더 자세한 정의와 한계는 데이터 페이지로 넘기는 방식으로 홈 정보를 줄였습니다.";
 
     document.getElementById("evidence-list").innerHTML = (content.trustSignals || [])
       .slice(0, 3)
@@ -117,10 +121,10 @@
       .slice(0, 3)
       .map(
         (item) => `
-          <div>
-            <span>${item.name}</span>
-            <p>${item.window} · ${item.role}</p>
-          </div>
+          <article>
+            <strong>${item.name}</strong>
+            <p>${item.window} 기준 ${item.role}</p>
+          </article>
         `
       )
       .join("");
@@ -145,13 +149,16 @@
     const recent = loadReviews()[0];
     if (!feature) return;
 
-    document.getElementById("feature-kicker").textContent = feature.latestMonth || "Sample Note";
-    document.getElementById("feature-title").textContent = `${feature.name} · ${feature.riskArchetype}`;
-    document.getElementById("feature-body").textContent = feature.memo || feature.riskSummary;
+    document.getElementById("feature-kicker").textContent = feature.latestMonth || payload.site.latestMonth || "Current";
+    document.getElementById("feature-title").textContent = `${feature.name}에서 먼저 보이는 신호`;
+    document.getElementById("feature-body").textContent =
+      feature.memo ||
+      `${feature.riskArchetype} 유형으로 분류됐고, 가장 먼저 확인할 항목은 ${feature.objections?.[0] || feature.riskSummary} 입니다.`;
+
     document.getElementById("feature-chips").innerHTML = [
       `총 리스크 ${formatNumber(feature.riskScore, "점")}`,
       feature.riskGrade || "",
-      feature.replacementCandidates?.[0]?.name ? `대체 후보 ${feature.replacementCandidates[0].name}` : "",
+      `신뢰도 ${feature.sampleReliability || "확인 필요"}`,
     ]
       .filter(Boolean)
       .map((item) => `<span>${item}</span>`)
@@ -165,12 +172,11 @@
         `
       : `
           <strong>아직 저장된 검토가 없습니다.</strong>
-          <p>매물 검토를 저장하면 최근 메모가 여기에 표시됩니다.</p>
+          <p>매물 검토에서 저장한 메모가 여기에 가장 최근 순서로 표시됩니다.</p>
         `;
   }
 
   renderHero();
-  renderMetrics();
   renderEntries();
   renderReport();
   renderFeature();

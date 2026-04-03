@@ -25,7 +25,7 @@ REVIEW_STORE_PATH = PROJECT_ROOT / "data" / "app" / "property_reviews.json"
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Serve the Korean storefront red-team website.")
+    parser = argparse.ArgumentParser(description="Serve the Redveil website.")
     parser.add_argument("--host", default="127.0.0.1", help="Host to bind the local web server.")
     parser.add_argument("--port", default=8030, type=int, help="Port to bind the local web server.")
     return parser.parse_args()
@@ -365,7 +365,7 @@ def main() -> int:
     cached_payload()
     ensure_review_store()
     server = ThreadingHTTPServer((args.host, args.port), RedTeamRequestHandler)
-    print(f"Serving Korean red-team site at http://{args.host}:{args.port}")
+    print(f"Serving Redveil site at http://{args.host}:{args.port}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

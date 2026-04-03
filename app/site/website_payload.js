@@ -1,7 +1,8 @@
 window.__RED_TEAM_PAYLOAD__ = {
   "site": {
-    "title": "서울 상가 투자 레드팀",
-    "subtitle": "매물 검토 전에 사지 말아야 할 이유를 먼저 보여주는 서울 상가 매입 판단 서비스",
+    "title": "Redveil",
+    "subtitle": "서울 소형 상가 매입 리스크 판별 서비스",
+    "tagline": "Uncover hidden risks before acquisition.",
     "latestMonth": "2026.03",
     "timeCaveat": "거래 데이터는 2025.04~2026.03, 상권 수요 데이터는 2024 스냅샷입니다.",
     "sampleCaveat": "최근 거래 표본이 얇은 구는 신뢰도 경고를 함께 표시합니다.",
@@ -4098,7 +4099,7 @@ window.__RED_TEAM_PAYLOAD__ = {
     "outputs": [
       "구 단위 종합 리스크 점수",
       "리스크 유형(고가 선행형·거래 둔화형 등)",
-      "문장형 레드팀 메모",
+      "문장형 리스크 메모",
       "대체 구 추천",
       "현장 검증 체크리스트"
     ]

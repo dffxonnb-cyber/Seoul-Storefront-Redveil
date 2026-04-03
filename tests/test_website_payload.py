@@ -18,7 +18,9 @@ class WebsitePayloadTests(unittest.TestCase):
     def test_build_payload_contains_service_content(self) -> None:
         payload = build_payload(PROJECT_ROOT)
 
-        self.assertEqual(payload["site"]["title"], "서울 상가 투자 레드팀")
+        self.assertEqual(payload["site"]["title"], "Redveil")
+        self.assertEqual(payload["site"]["subtitle"], "서울 소형 상가 매입 리스크 판별 서비스")
+        self.assertEqual(payload["site"]["tagline"], "Uncover hidden risks before acquisition.")
         self.assertGreater(len(payload["districts"]), 0)
         self.assertIn("summary", payload)
         self.assertIn("caseStudies", payload)

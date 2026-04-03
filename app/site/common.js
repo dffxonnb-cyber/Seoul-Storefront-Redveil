@@ -1,5 +1,5 @@
 (function () {
-  const STORAGE_KEY = "storefront-red-team-reviews";
+  const STORAGE_KEY = "redveil-reviews";
 
   function clone(value) {
     return JSON.parse(JSON.stringify(value));

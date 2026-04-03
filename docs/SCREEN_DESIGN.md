@@ -4,7 +4,7 @@
 
 Goal:
 
-- communicate that the product is a red-team tool, not a recommender
+- communicate that the product is a risk-detection tool, not a recommender
 - show the riskiest districts first
 - move the user into a memo workflow
 
@@ -12,7 +12,7 @@ Main blocks:
 
 - search and district selector
 - highest-risk district ranking
-- quick explanation of the red-team concept
+- quick explanation of the Redveil concept
 - shortcut links to district memo, demand fragility, and admin-dong drilldown
 
 ## 2. District Memo

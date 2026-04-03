@@ -1,8 +1,8 @@
-# Storefront Red Team
+# Redveil
 
 ## One-line concept
 
-A Seoul-focused acquisition red-team service that tries to stop small commercial-property investors from making bad purchases.
+A Seoul-focused acquisition risk detection service for small commercial-property investors.
 
 ## Product stance
 
@@ -61,4 +61,4 @@ This project should read as:
 1. Product strategy: define a contrarian decision-support product
 2. Data engineering: build pipelines across public and downloaded datasets
 3. Analytics: turn raw signals into explainable risk scores
-4. Application engineering: deliver the red-team memo and comparisons in a usable interface
+4. Application engineering: deliver the risk memo and comparisons in a usable interface

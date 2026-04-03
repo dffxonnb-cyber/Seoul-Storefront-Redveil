@@ -1,4 +1,4 @@
-# PRD: Storefront Red Team
+# PRD: Redveil
 
 ## 1. Problem
 
@@ -23,7 +23,7 @@ If the product is designed to challenge the purchase decision instead of support
 
 - Retail investor buying a small commercial unit in Seoul
 - Budget-sensitive and yield-sensitive
-- Needs a pre-purchase red-flag check, not a full institutional underwriting model
+- Needs a pre-purchase risk check, not a full institutional underwriting model
 
 ### Secondary
 
@@ -101,7 +101,7 @@ The product suggests districts with:
 
 ## 8. User-facing screens
 
-### Screen 1: Red-team home
+### Screen 1: Redveil home
 
 - search box
 - Seoul district risk ranking

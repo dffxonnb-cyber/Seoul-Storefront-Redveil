@@ -83,7 +83,7 @@ Current value:
 
 ### 3. Case-study plausibility
 
-- red-team objections should match domain intuition for 3 to 5 manual case studies
+- risk objections should match domain intuition for 3 to 5 manual case studies
 
 Current value:
 

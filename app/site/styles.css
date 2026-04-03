@@ -172,6 +172,351 @@ a {
   gap: 18px;
 }
 
+.editorial-home {
+  gap: 48px;
+  padding-top: 18px;
+}
+
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+  gap: 34px;
+  align-items: start;
+  padding: 18px 0 0;
+}
+
+.home-hero-copy {
+  display: grid;
+  gap: 18px;
+  padding-top: 24px;
+}
+
+.home-hero-copy h1 {
+  margin: 0;
+  max-width: 11ch;
+  font-family: "Noto Serif KR", Georgia, serif;
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.home-hero-body {
+  max-width: 30ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.home-inline-note {
+  max-width: 38rem;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.home-inline-note p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.home-hero-preview {
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: var(--shadow);
+}
+
+.preview-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.preview-head h2 {
+  margin: 0;
+  font-family: "Noto Serif KR", Georgia, serif;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.preview-chart {
+  margin-top: 18px;
+  padding: 16px 0 10px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.preview-scoreline {
+  margin-top: 18px;
+}
+
+.preview-scoreline strong {
+  display: block;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+}
+
+.preview-scoreline p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.preview-list {
+  margin: 16px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.preview-list li + li {
+  margin-top: 8px;
+}
+
+.home-stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.stat-line {
+  display: grid;
+  gap: 6px;
+}
+
+.stat-line span {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stat-line strong {
+  font-size: 24px;
+  letter-spacing: -0.04em;
+}
+
+.editorial-section {
+  display: grid;
+  gap: 24px;
+  padding: 32px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.section-intro {
+  display: grid;
+  gap: 10px;
+}
+
+.section-intro h2 {
+  margin: 0;
+  max-width: 22ch;
+  font-family: "Noto Serif KR", Georgia, serif;
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1.22;
+  letter-spacing: -0.03em;
+}
+
+.split-intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.entry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.entry-block {
+  display: grid;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 2px solid var(--accent-soft);
+}
+
+.entry-block h3 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.entry-block p,
+.entry-block span {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.entry-block span {
+  font-size: 14px;
+}
+
+.entry-block a {
+  margin-top: 6px;
+  color: var(--accent-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.report-layout,
+.feature-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 28px;
+}
+
+.report-copy {
+  display: grid;
+  gap: 18px;
+}
+
+.plain-list,
+.source-list-plain {
+  display: grid;
+  gap: 14px;
+}
+
+.plain-list article,
+.source-list-plain div {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.plain-list strong,
+.source-list-plain span {
+  display: block;
+  font-size: 15px;
+}
+
+.plain-list p,
+.source-list-plain p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.report-table-wrap {
+  overflow: auto;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.report-table th,
+.report-table td {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.report-table th {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.report-table td {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.editorial-feature {
+  padding-bottom: 12px;
+}
+
+.feature-copy {
+  display: grid;
+  gap: 14px;
+}
+
+.feature-kicker {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.feature-copy h3 {
+  margin: 0;
+  max-width: 18ch;
+  font-family: "Noto Serif KR", Georgia, serif;
+  font-size: 28px;
+  line-height: 1.25;
+}
+
+.feature-copy p {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.feature-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.feature-chips span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.feature-side {
+  display: grid;
+  gap: 18px;
+}
+
+.feature-side-block {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.feature-side-block strong {
+  display: block;
+  font-size: 18px;
+}
+
+.feature-side-block p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.feature-links {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.feature-links a {
+  color: var(--accent-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+
 .hero-grid,
 .two-column-block,
 .field-group,
@@ -1001,6 +1346,9 @@ svg {
 }
 
 @media (max-width: 1200px) {
+  .home-hero,
+  .report-layout,
+  .feature-layout,
   .hero-grid,
   .two-column-block,
   .tool-grid,
@@ -1042,6 +1390,10 @@ svg {
     align-items: flex-start;
   }
 
+  .home-stat-strip,
+  .entry-grid,
+  .report-layout,
+  .feature-layout,
   .metric-ribbon,
   .console-stats,
   .field-group,
@@ -1075,6 +1427,7 @@ svg {
   }
 
   .hero-copy h1,
+  .home-hero-copy h1,
   .console-topline h2,
   .section-head h2,
   .footer-cta h2 {
@@ -1084,10 +1437,20 @@ svg {
 
   .section-head,
   .subhero-copy,
+  .split-intro,
   .chart-head,
   .console-topline,
   .footer-cta {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .home-hero {
+    gap: 20px;
+    padding-top: 6px;
+  }
+
+  .editorial-home {
+    gap: 34px;
   }
 }

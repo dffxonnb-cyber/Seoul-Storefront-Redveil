@@ -24,6 +24,8 @@
       title: "내 매물 검토",
       body: "검토 중인 매물 하나를 잡고, 구와 가격을 기준으로 바로 메모를 남깁니다.",
       meta: "매물명, 구, 가격 입력",
+      input: "매물명, 구, 희망 가격",
+      output: "리스크 점수, 보류 메모, 저장 기록",
       href: "./review.html",
       label: "매물 검토 페이지 열기",
     },
@@ -32,6 +34,8 @@
       title: "3분 진단",
       body: "구와 희망 보유 기간만 넣고, 지금 보류해야 하는지 빠르게 확인합니다.",
       meta: "판정, 리스크 유형, 체크리스트",
+      input: "구, 평당가, 보유 기간",
+      output: "즉시 판정, 리스크 유형, 체크리스트",
       href: "./assessment.html",
       label: "3분 진단 시작하기",
     },
@@ -40,6 +44,8 @@
       title: "후보 비교",
       body: "비슷한 후보를 같은 기준선에서 놓고 더 나은 대안을 고릅니다.",
       meta: "점수 차이, 대체 후보 탐색",
+      input: "후보 2~3개 선택",
+      output: "점수 차이, 대체 후보, 비교 메모",
       href: "./compare.html",
       label: "후보 비교 화면 열기",
     },
@@ -67,6 +73,29 @@
       )
       .join("");
 
+    document.getElementById("hero-impact-strip").innerHTML = [
+      {
+        title: "이번 달 리스크 상승 1위",
+        value: highestRiskDistrict.name,
+        detail: `${formatNumber(highestRiskDistrict.riskScore, "점")} · ${highestRiskDistrict.riskGrade}`,
+      },
+      {
+        title: "최근 6개월 거래량 감소율",
+        value: formatNumber(Math.abs(Number(caseStudies[0]?.sixMonthTransactionChangePct || 0)), "%"),
+        detail: `${caseStudies[0]?.name || highestRiskDistrict.name} 기준`,
+      },
+    ]
+      .map(
+        (item) => `
+          <article class="impact-card">
+            <span>${item.title}</span>
+            <strong>${item.value}</strong>
+            <p>${item.detail}</p>
+          </article>
+        `
+      )
+      .join("");
+
     document.getElementById("hero-preview-name").textContent = highestRiskDistrict.name;
     document.getElementById("hero-preview-type").textContent = highestRiskDistrict.riskArchetype;
     document.getElementById("hero-preview-grade").textContent = highestRiskDistrict.riskGrade;
@@ -90,6 +119,10 @@
             <div>
               <h3>${item.title}</h3>
               <p>${item.body}</p>
+            </div>
+            <div class="entry-io">
+              <p><strong>입력</strong>${item.input}</p>
+              <p><strong>출력</strong>${item.output}</p>
             </div>
             <div class="homepage-entry-meta">
               <span>${item.meta}</span>
@@ -196,7 +229,7 @@
     document.getElementById("feature-title").textContent = `${feature.name}에서 먼저 보이는 신호`;
     document.getElementById("feature-body").textContent =
       feature.memo ||
-      `${feature.riskArchetype} 유형으로 분류됐고, 가장 먼저 확인할 항목은 ${feature.objections?.[0] || feature.riskSummary} 입니다.`;
+      `${feature.riskArchetype} 유형으로 분류됐고, 최근 6개월 가격은 ${formatNumber(feature.sixMonthPriceChangePct, "%")} 움직였고 거래는 ${formatNumber(feature.sixMonthTransactionChangePct, "%")} 변했습니다. 가장 먼저 확인할 항목은 ${feature.objections?.[0] || feature.riskSummary} 입니다.`;
 
     document.getElementById("recent-review").innerHTML = recent
       ? `

@@ -102,8 +102,45 @@
   }
 
   function renderReport() {
+    const topFactors = [
+      ["가격 부담", Number(highestRiskDistrict?.priceBurdenRiskScore || 0)],
+      ["거래 둔화", Number(highestRiskDistrict?.transactionRiskScore || 0)],
+      ["유동성", Number(highestRiskDistrict?.liquidityRiskScore || 0)],
+      ["변동성", Number(highestRiskDistrict?.volatilityRiskScore || 0)],
+      ["상권 과밀", Number(highestRiskDistrict?.competitionRiskScore || 0)],
+    ].sort((left, right) => right[1] - left[1]);
+
     document.getElementById("report-description").textContent =
-      "홈에서는 전체 정의를 펼치지 않고, 신뢰 신호와 지금 먼저 볼 구만 짧게 보여줍니다.";
+      "첫인상에서 바로 보이도록, 대표 구의 점수 근거와 표본 범위, 검증 흔적을 홈으로 끌어올렸습니다.";
+
+    document.getElementById("validation-lead").textContent = `${highestRiskDistrict.name}는 ${topFactors
+      .slice(0, 3)
+      .map(([label, score]) => `${label} ${formatNumber(score, "점")}`)
+      .join(", ")}이 겹쳐 총 ${formatNumber(highestRiskDistrict.riskScore, "점")}으로 계산됩니다.`;
+
+    document.getElementById("validation-grid").innerHTML = [
+      {
+        title: "표본 범위",
+        body: `최근 거래 ${formatNumber(summary.transactionCount, "건")}과 ${formatNumber(summary.adminDongCount, "개")} 행정동을 함께 봅니다.`,
+      },
+      {
+        title: "저표본 경고",
+        body: `${formatNumber(summary.lowSampleDistrictCount, "개")} 구는 표본이 얇다고 별도 경고를 남깁니다.`,
+      },
+      {
+        title: "케이스 역검증",
+        body: `${formatNumber(summary.caseStudyCount, "개")} 케이스에 최근 거래 변화와 현장 체크 항목을 같이 붙였습니다.`,
+      },
+    ]
+      .map(
+        (item) => `
+          <article class="validation-card">
+            <strong>${item.title}</strong>
+            <p>${item.body}</p>
+          </article>
+        `
+      )
+      .join("");
 
     document.getElementById("evidence-list").innerHTML = (content.trustSignals || [])
       .slice(0, 3)
@@ -128,6 +165,18 @@
             </div>
             <span>${formatNumber(item.riskScore, "점")}</span>
           </article>
+        `
+      )
+      .join("");
+
+    document.getElementById("score-breakdown").innerHTML = topFactors
+      .slice(0, 3)
+      .map(
+        ([label, score]) => `
+          <div class="score-row">
+            <span>${label}</span>
+            <strong>${formatNumber(score, "점")}</strong>
+          </div>
         `
       )
       .join("");

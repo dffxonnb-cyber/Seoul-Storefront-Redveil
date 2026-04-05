@@ -432,6 +432,39 @@ body[data-page="home"] .page-shell {
   gap: 18px;
 }
 
+.validation-lead {
+  margin: 0;
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.03em;
+}
+
+.validation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.validation-card {
+  padding: 16px 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(196, 63, 39, 0.12);
+  background: rgba(255, 248, 245, 0.92);
+}
+
+.validation-card strong {
+  display: block;
+  font-size: 15px;
+}
+
+.validation-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
 .report-lines,
 .source-lines {
   display: grid;
@@ -497,6 +530,31 @@ body[data-page="home"] .page-shell {
   display: grid;
   gap: 10px;
   margin-top: 16px;
+}
+
+.score-breakdown {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(73, 37, 26, 0.08);
+}
+
+.score-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.score-row span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.score-row strong {
+  color: var(--accent-deep);
+  font-size: 16px;
 }
 
 .district-brief-item {
@@ -1833,6 +1891,10 @@ svg {
   }
 
   .homepage-entry-list {
+    grid-template-columns: 1fr;
+  }
+
+  .validation-grid {
     grid-template-columns: 1fr;
   }
 

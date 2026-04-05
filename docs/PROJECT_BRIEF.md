@@ -1,64 +1,35 @@
-# Redveil
+# Redveil 프로젝트 개요
 
-## One-line concept
+## 한 줄 설명
 
-A Seoul-focused acquisition risk detection service for small commercial-property investors.
+서울 소형 상가 매입 전에 숨은 리스크를 먼저 드러내는 매입 리스크 판별 서비스.
 
-## Product stance
+## 제품 관점
 
-Most real-estate tools try to recommend where to buy.
+대부분의 부동산 도구는 어디를 사야 하는지 추천합니다.
 
-This product does the opposite:
+Redveil은 반대로 움직입니다.
 
-- it assumes the investor already wants to buy
-- it looks for disconfirming evidence first
-- it produces a structured "do not buy yet" memo before any positive recommendation
+- 사용자가 이미 사고 싶어 하는 지역이나 매물을 들고 들어온다고 가정합니다.
+- 먼저 매입을 보류해야 할 근거를 찾습니다.
+- 긍정 추천보다 `아직 사지 말아야 하는 이유`를 구조화된 메모로 보여줍니다.
 
-## Core user
+## 핵심 사용자
 
-- Individual investor buying a small retail or mixed-use commercial unit in Seoul
-- Secondary user: a broker, analyst, or advisor preparing a pre-acquisition risk memo
+- 서울 소형 상가나 근린생활시설을 매입하려는 개인 투자자
+- 검토 메모를 먼저 정리해야 하는 중개사, 분석가, 자문 인력
 
-## Core question
+## 핵심 질문
 
-"What are the strongest data-backed reasons not to buy this area right now?"
+- 지금 검토 중인 매물의 보류 사유는 무엇인가
+- 이 구가 다른 구보다 더 위험한 이유는 무엇인가
+- 지금 사지 않는다면 먼저 비교할 대체 후보는 어디인가
 
-## Product promise
+## 산출물
 
-Before the investor commits to a district or area, the product should surface:
-
-- price distortion
-- transaction illiquidity
-- oversaturated merchant mix
-- weak demand signals
-- better alternative areas
-
-## Phase 1 analysis unit
-
-- District (`gu`) for integrated risk ranking
-- Admin dong for merchant saturation detail
-- Trade area for sales and foot-traffic context
-
-## Phase 1 outputs
-
-- overall acquisition risk score
-- price burden risk
-- liquidity risk
-- competition risk
-- risk memo with top objections
-- replacement candidates with lower risk
-
-## What makes it different
-
-- It is not a simple dashboard.
-- It is not a hot-area recommender.
-- It behaves like an analyst trying to break an investment thesis.
-
-## Portfolio story
-
-This project should read as:
-
-1. Product strategy: define a contrarian decision-support product
-2. Data engineering: build pipelines across public and downloaded datasets
-3. Analytics: turn raw signals into explainable risk scores
-4. Application engineering: deliver the risk memo and comparisons in a usable interface
+- 공개 웹사이트
+- 구 리포트
+- 매물 검토 화면
+- 3분 진단 화면
+- 후보 비교 화면
+- 방법론과 검증 문서

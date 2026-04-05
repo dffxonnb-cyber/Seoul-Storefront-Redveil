@@ -1,91 +1,55 @@
-# KPI Definition
+# KPI 정의
 
-## Product KPIs
+## 제품 KPI
 
-### 1. Memo readability
+### 1. 메모 가독성
 
-Definition:
+정의:
 
-- A user can identify the top three objections for a district within 30 seconds
+- 사용자가 30초 안에 한 구의 핵심 보류 사유 3개를 읽을 수 있어야 합니다.
 
-### 2. Comparison usefulness
+### 2. 비교 유용성
 
-Definition:
+정의:
 
-- Every high-risk district should surface at least one lower-risk replacement candidate
+- 높은 위험 구마다 최소 1개 이상의 낮은 위험 대체 후보가 보여야 합니다.
 
-### 3. Explainability coverage
+### 3. 설명 가능성
 
-Definition:
+정의:
 
-- Every risk score shown in the UI must be traceable to visible source metrics
+- 총 리스크 점수 옆에 축별 점수와 문장형 이유가 함께 노출되어야 합니다.
 
-## Current Snapshot
+## 데이터 KPI
 
-As of `2026-04-03`:
+### 1. 최신성
 
-- district memos available: `25`
-- replacement-candidate coverage for high-risk districts: `100%`
-- manual case studies completed: `3`
-- current highest acquisition risk district: `서초구`
-- current lowest acquisition risk district: `구로구`
-- low-sample districts in the latest transaction month: `8`
+정의:
 
-## Data KPIs
+- 거래 데이터는 최근 12개월 범위를 유지하고, 시점 표기를 화면에 함께 남깁니다.
 
-### 1. Transaction data freshness
+### 2. 표본 경고 범위
 
-- months collected from the MOLIT API
-- last available month in processed files
+정의:
 
-Current value:
+- 표본이 얇은 구는 별도 신뢰도 경고를 붙여 동일 강도로 읽히지 않게 합니다.
 
-- months collected: `12`
-- latest available month: `202603`
+### 3. 커버리지
 
-### 2. District coverage
+정의:
 
-- number of Seoul districts covered in transaction risk
-- number of districts covered in competition risk
+- 서울 25개 구, 428개 행정동, 1,570개 상권 취약 구간을 지속적으로 유지합니다.
 
-Current value:
+## 분석 KPI
 
-- transaction risk district coverage: `25`
-- competition risk district coverage: `25`
-- current transaction window: `2025-04` to `2026-03`
-- current demand-data window: `2024`
+### 1. 케이스 재현 가능성
 
-### 3. Admin-dong coverage
+정의:
 
-- number of admin dongs in the saturation output
+- 대표 사례는 최근 거래 변화, 가격 변화, 현장 확인 항목으로 다시 설명할 수 있어야 합니다.
 
-Current value:
+### 2. 출력 연결성
 
-- admin-dong coverage: `428`
+정의:
 
-## Analytics KPIs
-
-### 1. Score stability
-
-- month-to-month change distribution for transaction risk
-
-Current value:
-
-- mean absolute month-to-month change in median `sqm` transaction price: `256.2` (10k KRW)
-
-### 2. Candidate quality
-
-- replacement candidates should have lower overall acquisition risk than the source district
-
-Current value:
-
-- candidate quality pass rate: `100.0%`
-
-### 3. Case-study plausibility
-
-- risk objections should match domain intuition for 3 to 5 manual case studies
-
-Current value:
-
-- completed manual case studies: `3`
-- selected districts: `서초구`, `강남구`, `중구`
+- 총점, 보류 사유, 대체 후보, 현장 확인 질문이 하나의 흐름으로 이어져야 합니다.

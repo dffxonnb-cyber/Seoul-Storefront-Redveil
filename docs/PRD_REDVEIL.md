@@ -1,175 +1,52 @@
 # PRD: Redveil
 
-## 1. Problem
+## 1. 문제 정의
 
-Small commercial-property investors often anchor on a good-looking location, a familiar district, or broker narratives.
-They underweight the counter-evidence:
+소형 상가 투자자는 보기 좋은 입지, 익숙한 구, 중개사 설명에 먼저 끌리는 경우가 많습니다.
+그 과정에서 아래 반대 근거를 충분히 보지 못합니다.
 
-- prices that have run ahead of commercial demand
-- thinning transaction liquidity
-- merchant oversaturation
-- weak local sales productivity
+- 상권 수요보다 앞서 올라간 가격
+- 줄어드는 거래 유동성
+- 이미 높은 업종 과밀도
+- 취약한 지역 수요
 
-The result is a predictable failure mode:
-the investor buys into a story, not into resilient area fundamentals.
+결과적으로 사용자는 이야기로 매입하고, 지역 기초 체력으로 매입하지 못합니다.
 
-## 2. Product thesis
+## 2. 제품 가설
 
-If the product is designed to challenge the purchase decision instead of supporting it, investors will make fewer weak acquisitions and compare alternatives more rationally.
+제품이 매입을 돕는 도구가 아니라 매입을 멈추게 하는 도구로 설계되면,
+사용자는 더 적은 약한 매입을 하고 대체 후보를 더 합리적으로 비교할 수 있습니다.
 
-## 3. Target user
+## 3. 목표 사용자
 
-### Primary
+- 서울 소형 상가를 검토 중인 개인 투자자
+- 매입 전 리스크 메모를 먼저 만드는 중개사와 분석가
 
-- Retail investor buying a small commercial unit in Seoul
-- Budget-sensitive and yield-sensitive
-- Needs a pre-purchase risk check, not a full institutional underwriting model
+## 4. 핵심 경험
 
-### Secondary
+1. 사용자는 구나 매물을 입력한다.
+2. 시스템은 가격 부담, 거래 둔화, 변동성, 상권 과밀 신호를 계산한다.
+3. 시스템은 총 리스크 점수와 보류 사유를 먼저 보여준다.
+4. 사용자는 대체 후보와 현장 확인 질문까지 이어서 본다.
 
-- Analyst or broker preparing a short investment note
-- Wants a fast objection list and comparable lower-risk districts
+## 5. 주요 화면
 
-## 4. Core job to be done
+- 홈: 서비스 소개와 빠른 진입
+- 내 매물 검토: 매물 단위 메모 작성
+- 3분 진단: 빠른 판정과 체크리스트
+- 후보 비교: 대체 구 비교
+- 구 리포트: 구 단위 전체 위험 읽기
+- 케이스: 실제 사례 해석
+- 방법론: 점수 계산 기준과 검증 방식
 
-When I am about to buy a small commercial property in Seoul,
-help me see the strongest reasons to pause, reject, or compare alternatives before I commit.
+## 6. 성공 기준
 
-## 5. Product principles
+- 사용자가 30초 안에 주요 보류 사유를 읽을 수 있다.
+- 높은 위험 구마다 최소 1개 이상의 대체 후보가 제시된다.
+- 총점뿐 아니라 축별 근거와 현장 확인 질문이 함께 제공된다.
 
-- Objection-first: show the strongest negatives before any positive signal
-- Explainable: every score must map to visible evidence
-- Comparable: risk is more useful when shown against nearby or peer districts
-- Actionable: every warning should imply a next step
+## 7. 비목표
 
-## 6. MVP scope
-
-### Geography
-
-- Seoul only
-
-### Analysis units
-
-- District (`gu`) for the integrated risk rank
-- Admin dong for merchant-density drilldown
-- Trade area for sales and floating-population evidence
-
-### User inputs
-
-- district name
-- admin dong name
-- optional building price assumptions in later phase
-
-### Outputs
-
-- overall acquisition risk score
-- top three objections
-- sub-scores by pillar
-- comparable lower-risk districts
-- merchant saturation profile
-- trade-area demand context
-
-## 7. Key use cases
-
-### Use case 1: Fast pre-check
-
-The investor enters `Mapo-gu`.
-The product returns:
-
-- overall risk
-- strongest objections
-- peer districts with lower risk
-
-### Use case 2: Drilldown
-
-The investor opens `Seogyo-dong`.
-The product returns:
-
-- merchant density
-- top merchant categories
-- food-share saturation
-- nearby district-level transaction context
-
-### Use case 3: Alternative search
-
-The investor likes a high-risk district.
-The product suggests districts with:
-
-- lower acquisition risk
-- similar merchant mix
-- better liquidity or lower price burden
-
-## 8. User-facing screens
-
-### Screen 1: Redveil home
-
-- search box
-- Seoul district risk ranking
-- "Do not buy yet" cards for the riskiest districts
-
-### Screen 2: District memo
-
-- overall score
-- objection summary
-- sub-score breakdown
-- time-series transaction context
-- merchant saturation snapshot
-- replacement candidates
-
-### Screen 3: Admin dong drilldown
-
-- merchant count
-- food-share
-- top categories
-- area reference information
-
-### Screen 4: Trade-area evidence
-
-- top service category
-- total sales
-- floating population
-- sales-per-population metrics
-- caveat flags for unstable denominators
-
-## 9. Success metrics
-
-### Product metrics
-
-- user can identify top three objections in under 30 seconds
-- user can compare at least two alternatives in one flow
-- each red flag can be traced to a source metric
-
-### Portfolio metrics
-
-- the product story clearly connects planning, data, analytics, and implementation
-- the scoring logic is explainable and reproducible
-- the application demonstrates decision support, not passive visualization
-
-## 10. Out of scope for phase 1
-
-- property-level rent-roll analysis
-- cap-rate estimation
-- exact vacancy-rate prediction
-- machine-learned price forecasting
-- formal underwriting for individual buildings
-
-## 11. Delivery plan
-
-### Phase 1
-
-- finalize product framing and risk pillars
-- produce district transaction risk
-- produce district/admin-dong competition risk
-- ship memo-first UI
-
-### Phase 2
-
-- integrate trade-area demand into scoring
-- introduce alternative district recommendation logic
-- add stronger explanation templates
-
-### Phase 3
-
-- add property-level inputs
-- add scenario analysis
-- test model calibration against real case studies
+- 개별 건물 수익률을 정밀 예측하는 도구
+- 매입 추천 순위를 뽑아주는 추천 엔진
+- 임대차 조건과 건물 상태까지 포함한 최종 실사 도구

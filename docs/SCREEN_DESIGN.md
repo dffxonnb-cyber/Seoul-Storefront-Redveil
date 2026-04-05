@@ -1,60 +1,66 @@
-# Screen Design
+# 화면 설계
 
-## 1. Home
+## 1. 홈
 
-Goal:
+목표:
 
-- communicate that the product is a risk-detection tool, not a recommender
-- show the riskiest districts first
-- move the user into a memo workflow
+- 이 서비스가 추천 서비스가 아니라 리스크 판별 서비스라는 점을 바로 이해시키기
+- 가장 먼저 확인할 구와 대표 숫자를 보여주기
+- 매물 검토, 3분 진단, 후보 비교로 빠르게 이동시키기
 
-Main blocks:
+주요 블록:
 
-- search and district selector
-- highest-risk district ranking
-- quick explanation of the Redveil concept
-- shortcut links to district memo, demand fragility, and admin-dong drilldown
+- 핵심 문장
+- 리스크 상승 구 미리보기
+- 입력과 출력이 드러나는 세 가지 진입
+- 점수 근거와 데이터 범위
 
-## 2. District Memo
+## 2. 구 리포트
 
-Goal:
+목표:
 
-- answer "Why should I hesitate before buying here?"
+- 한 구의 총점, 보류 사유, 대체 후보를 차분히 읽게 하기
 
-Main blocks:
+주요 블록:
 
-- overall acquisition risk score
-- top three objections
-- price/liquidity/competition breakdown
-- replacement candidates
-- top merchant categories
+- 총 리스크 점수
+- 리스크 유형
+- 보류 사유
+- 대체 후보
+- 현장 확인 질문
 
-## 3. Demand Fragility
+## 3. 내 매물 검토
 
-Goal:
+목표:
 
-- show where trade-area demand looks weaker than headline sales may suggest
+- 사용자가 검토 중인 매물을 직접 메모할 수 있게 하기
 
-Main blocks:
+주요 블록:
 
-- trade-area type filter
-- risk-grade filter
-- ranked table with objection text
+- 매물 입력 폼
+- 점수와 판정 결과
+- 저장 메모
 
-## 4. Admin-Dong Saturation
+## 4. 3분 진단
 
-Goal:
+목표:
 
-- drill into merchant crowding at a finer grain than district level
+- 빠른 1차 판정을 제공하기
 
-Main blocks:
+주요 블록:
 
-- district selector
-- competition summary metrics
-- admin-dong table with store count, food share, top categories
+- 최소 입력 필드
+- 즉시 판정
+- 체크리스트
 
-## 5. Phase 2 UI additions
+## 5. 후보 비교
 
-- memo export as PDF or markdown
-- district comparison view
-- map layer for district and admin-dong risk
+목표:
+
+- 비슷한 후보를 같은 기준선에서 비교하기
+
+주요 블록:
+
+- 후보 선택
+- 점수 차이
+- 대체 후보와 메모

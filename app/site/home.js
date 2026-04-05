@@ -55,7 +55,7 @@
     if (!highestRiskDistrict) return;
 
     document.getElementById("hero-description").textContent =
-      "서울 소형 상가 매입 전에 가격 부담, 거래 둔화, 변동성, 상권 과밀 신호를 먼저 확인하는 간결한 진입 화면입니다.";
+      "서울 소형 상가 매입 전에 가격 부담, 거래 둔화, 변동성, 상권 과밀 신호를 먼저 확인할 수 있습니다.";
     document.getElementById("hero-caveat").textContent = `${payload.site.timeCaveat} ${payload.site.sampleCaveat}`;
 
     document.getElementById("hero-facts").innerHTML = [
@@ -144,7 +144,7 @@
     ].sort((left, right) => right[1] - left[1]);
 
     document.getElementById("report-description").textContent =
-      "첫인상에서 바로 보이도록, 대표 구의 점수 근거와 표본 범위, 검증 흔적을 홈으로 끌어올렸습니다.";
+      "대표 구의 점수 근거와 표본 범위를 먼저 보고, 자세한 계산 기준은 뒤에서 확인할 수 있습니다.";
 
     document.getElementById("validation-lead").textContent = `${highestRiskDistrict.name}는 ${topFactors
       .slice(0, 3)
@@ -161,8 +161,8 @@
         body: `${formatNumber(summary.lowSampleDistrictCount, "개")} 구는 표본이 얇다고 별도 경고를 남깁니다.`,
       },
       {
-        title: "케이스 역검증",
-        body: `${formatNumber(summary.caseStudyCount, "개")} 케이스에 최근 거래 변화와 현장 체크 항목을 같이 붙였습니다.`,
+        title: "사례 확인",
+        body: `${formatNumber(summary.caseStudyCount, "개")} 사례에 최근 거래 변화와 현장 체크 항목을 같이 붙였습니다.`,
       },
     ]
       .map(

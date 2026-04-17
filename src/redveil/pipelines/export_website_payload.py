@@ -53,11 +53,47 @@ PHRASE_KR = {
     "validate recent tenant replacement velocity and broker inventory before underwriting": "최종 검토 전 임차인 교체 속도와 중개 재고를 확인하세요",
 }
 
+SNAPSHOT_PREFIX = "window.__REDVEIL_PAYLOAD__ = "
+
 
 def load_csv(path: Path) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(f"Required file was not found: {path}")
     return pd.read_csv(path)
+
+
+def required_payload_inputs(root: Path) -> list[Path]:
+    return [
+        root / "data" / "redveil" / "seoul_district_acquisition_risk.csv",
+        root / "data" / "redveil" / "seoul_district_risk_memo.csv",
+        root / "data" / "redveil" / "seoul_replacement_candidates.csv",
+        root / "data" / "redveil" / "seoul_trade_area_demand_fragility.csv",
+        root / "data" / "processed" / "case_study_snapshots.csv",
+        root / "data" / "raw" / "molit_commercial_sales" / "seoul_commercial_sales.csv",
+        root / "data" / "processed" / "seoul_transaction_risk_history.csv",
+        root / "data" / "external" / "processed" / "seoul_store_competition_by_admin_dong.csv",
+    ]
+
+
+def load_snapshot_payload(root: Path) -> dict[str, object]:
+    json_path = root / "data" / "website" / "website_payload.json"
+    js_path = root / "app" / "site" / "website_payload.js"
+
+    if json_path.exists():
+        return json.loads(json_path.read_text(encoding="utf-8"))
+
+    if js_path.exists():
+        raw_text = js_path.read_text(encoding="utf-8").strip()
+        if raw_text.startswith(SNAPSHOT_PREFIX):
+            raw_text = raw_text[len(SNAPSHOT_PREFIX) :]
+        if raw_text.endswith(";"):
+            raw_text = raw_text[:-1]
+        return json.loads(raw_text)
+
+    raise FileNotFoundError(
+        "No public-safe payload snapshot was found. Expected data/website/website_payload.json "
+        "or app/site/website_payload.js."
+    )
 
 
 def to_float(value: object, default: float = 0.0) -> float:
@@ -567,6 +603,10 @@ def build_methodology() -> dict[str, object]:
 
 
 def build_payload(root: Path) -> dict[str, object]:
+    required_paths = required_payload_inputs(root)
+    if not all(path.exists() for path in required_paths):
+        return load_snapshot_payload(root)
+
     acquisition_df = load_csv(root / "data" / "redveil" / "seoul_district_acquisition_risk.csv")
     memo_df = load_csv(root / "data" / "redveil" / "seoul_district_risk_memo.csv")
     candidates_df = load_csv(root / "data" / "redveil" / "seoul_replacement_candidates.csv")

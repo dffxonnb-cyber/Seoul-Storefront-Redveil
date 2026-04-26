@@ -167,10 +167,10 @@ http://127.0.0.1:8030/districts.html
 - 홈과 상세 페이지 카피를 사용자 중심 문장으로 다듬고 공개본에 반영했습니다.
 
 ## References
-프로젝트 개요
-서비스 전략
-사용자 여정
-검증 전략
-PRD
-리스크 모델 정의
-라이선스
+- [프로젝트 개요](./docs/PROJECT_BRIEF.md)
+- [서비스 전략](./docs/SERVICE_STRATEGY.md)
+- [사용자 여정](./docs/USER_JOURNEY.md)
+- [검증 전략](./docs/VALIDATION_STRATEGY.md)
+- [PRD](./docs/PRD_REDVEIL.md)
+- [리스크 모델 정의](./docs/RISK_MODEL_SPEC.md)
+- [라이선스](./LICENSE)

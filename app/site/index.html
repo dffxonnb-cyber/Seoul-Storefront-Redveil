@@ -23,7 +23,7 @@
 
       <header class="topbar">
         <a class="brand" href="./index.html" aria-label="Redveil 홈">
-          <img class="brand-mark" src="./assets/brand/redveil-logo-mark.png" alt="Redveil 로고" />
+          <span class="brand-mark brand-monogram" aria-hidden="true">R</span>
           <span>
             <small>Seoul Storefront Acquisition Intelligence</small>
             <strong>Redveil</strong>
@@ -35,7 +35,7 @@
           <a href="./review.html">매물 검토</a>
           <a href="./assessment.html">3분 진단</a>
           <a href="./compare.html">후보 비교</a>
-          <a href="./districts.html">구 리포트</a>
+          <a href="./districts.html">구별 리포트</a>
         </nav>
       </header>
 
@@ -43,17 +43,21 @@
         <section class="homepage-hero">
           <div class="homepage-copy">
             <p class="section-label">Seoul Storefront Acquisition Intelligence</p>
-            <h1>좋아 보이는 매물일수록, 먼저 보류 사유부터 확인합니다.</h1>
+            <h1>
+              좋아 보이는 매물일수록,<br />
+              먼저 보류 사유부터<br />
+              확인합니다.
+            </h1>
             <p class="homepage-summary" id="hero-description"></p>
 
             <div class="hero-actions">
               <a class="button button-primary" href="./review.html">매물 1개 바로 검토하기</a>
-              <a class="homepage-action-button homepage-action-button-outline" href="./districts.html">서울 25개 구 리포트 보기</a>
+              <a class="homepage-action-button homepage-action-button-outline" href="./districts.html">서울 구별 보류 사유 보기</a>
             </div>
 
             <div class="hero-impact-strip" id="hero-impact-strip"></div>
             <dl class="hero-facts" id="hero-facts"></dl>
-            <p class="homepage-footnote" id="hero-caveat"></p>
+            <div class="homepage-footnote" id="hero-caveat"></div>
           </div>
 
           <div class="homepage-screen" aria-label="실제 화면 미리보기">
@@ -66,7 +70,7 @@
             <div class="screen-surface">
               <div class="screen-overview">
                 <div>
-                  <p class="screen-label">이번 달 리스크 상승 1위 구</p>
+                  <p class="screen-label">이번 달 리스크 상승 1위</p>
                   <h2 id="hero-preview-name"></h2>
                 </div>
 
@@ -79,16 +83,30 @@
               <p class="screen-summary" id="hero-preview-summary"></p>
 
               <div class="screen-panel">
-                <div class="chart-head">
-                  <strong>최근 가격 흐름</strong>
+                <div class="chart-head hero-chart-head">
+                  <strong>최근 ㎡당 거래가 흐름</strong>
                   <span id="hero-preview-type"></span>
                 </div>
-                <svg id="hero-preview-chart" viewBox="0 0 420 180" aria-label="최근 가격 추이"></svg>
+                <svg id="hero-preview-chart" viewBox="0 0 420 180" aria-label="최근 ㎡당 거래가 추이"></svg>
                 <p class="screen-subtitle">먼저 보는 보류 사유</p>
                 <ul class="screen-list" id="hero-preview-list"></ul>
               </div>
             </div>
           </div>
+        </section>
+
+        <section class="homepage-project-strip" aria-label="프로젝트 요약">
+          <article class="project-summary-card">
+            <p class="section-label">Project Summary / 프로젝트 요약</p>
+            <p>
+              Redveil은 서울 소형 상가 매입 전, 추천보다 보류 사유를 먼저 제시하는 리스크 진단 서비스입니다.
+              상가 실거래와 상권 수요 데이터를 바탕으로 가격 부담, 거래 유동성, 상권 과밀, 가격 변동성 신호를 구조화했습니다.
+            </p>
+          </article>
+          <article class="project-summary-card">
+            <p class="section-label">My Role / 담당 범위</p>
+            <p>기획 · 데이터 수집/전처리 · 리스크 지표 설계 · 대체 후보 로직 · 웹 UI 구현</p>
+          </article>
         </section>
 
         <section class="homepage-section homepage-entry-section">

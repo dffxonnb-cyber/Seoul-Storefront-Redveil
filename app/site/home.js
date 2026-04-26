@@ -17,6 +17,20 @@
   const caseStudies = payload.caseStudies || [];
   const highestRiskDistrict =
     districts.find((item) => item.name === summary?.highestRiskDistrict?.name) || districts[0] || null;
+  const featuredCaseStudy =
+    caseStudies.find((item) => item.name === highestRiskDistrict?.name) || caseStudies[0] || highestRiskDistrict;
+
+  const objectionCopyMap = new Map([
+    ["같은 권역 대비 매입 가격 부담이 큽니다", "같은 권역 대비 매입가 부담이 큽니다."],
+    ["상권 내 점포 과밀도가 높습니다", "상권 내 점포 과밀도가 높습니다."],
+    ["최근 실거래 가격 변동성이 큽니다", "최근 실거래 가격 변동성이 확대됐습니다."],
+  ]);
+
+  function polishObjection(text) {
+    if (!text) return "";
+    const normalized = objectionCopyMap.get(text) || text;
+    return /[.!?]$/.test(normalized) ? normalized : `${normalized}.`;
+  }
 
   const entries = [
     {
@@ -54,13 +68,20 @@
   function renderHero() {
     if (!highestRiskDistrict) return;
 
+    const chartType = document.getElementById("hero-preview-type");
+    const chartSvg = document.getElementById("hero-preview-chart");
+    const polishedObjections = (highestRiskDistrict.objections || []).slice(0, 3).map(polishObjection);
+
     document.getElementById("hero-description").textContent =
-      "서울 소형 상가 매입 전에 가격 부담, 거래 둔화, 변동성, 상권 과밀 신호를 먼저 확인할 수 있습니다.";
-    document.getElementById("hero-caveat").textContent = `${payload.site.timeCaveat} ${payload.site.sampleCaveat}`;
+      "서울 소형 상가 매입 전, 가격 부담·거래 둔화·상권 과밀 신호를 먼저 확인해 보류 여부와 추가 검토 지점을 정리합니다.";
+    document.getElementById("hero-caveat").innerHTML = `
+      <span class="homepage-footnote-label">데이터 기준</span>
+      <p>거래 데이터는 2025.04~2026.03, 상권 수요 데이터는 2024 스냅샷입니다. 최근 거래 표본이 적은 구는 신뢰도 경고를 함께 표시합니다.</p>
+    `;
 
     document.getElementById("hero-facts").innerHTML = [
-      ["거래 원천", formatNumber(summary.transactionCount, "건")],
-      ["비교 구", formatNumber(summary.districtCount, "개")],
+      ["상가 실거래", formatNumber(summary.transactionCount, "건")],
+      ["분석 구역", `${formatNumber(summary.districtCount, "개")} 구`],
       ["행정동", formatNumber(summary.adminDongCount, "개")],
     ]
       .map(
@@ -77,12 +98,12 @@
       {
         title: "이번 달 리스크 상승 1위",
         value: highestRiskDistrict.name,
-        detail: `${formatNumber(highestRiskDistrict.riskScore, "점")} · ${highestRiskDistrict.riskGrade}`,
+        detail: `${formatNumber(highestRiskDistrict.riskScore, "점")} · 가격 부담·상권 과밀 동시 상승`,
       },
       {
         title: "최근 6개월 거래량 감소율",
-        value: formatNumber(Math.abs(Number(caseStudies[0]?.sixMonthTransactionChangePct || 0)), "%"),
-        detail: `${caseStudies[0]?.name || highestRiskDistrict.name} 기준`,
+        value: formatNumber(Math.abs(Number(featuredCaseStudy?.sixMonthTransactionChangePct || 0)), "%"),
+        detail: `${featuredCaseStudy?.name || highestRiskDistrict.name} 기준, 거래 유동성 약화 신호`,
       },
     ]
       .map(
@@ -97,15 +118,22 @@
       .join("");
 
     document.getElementById("hero-preview-name").textContent = highestRiskDistrict.name;
-    document.getElementById("hero-preview-type").textContent = highestRiskDistrict.riskArchetype;
+    chartType.textContent = highestRiskDistrict.riskArchetype;
+    chartType.title = "가격 상승 신호가 거래 회복보다 먼저 나타난 유형";
+    chartType.setAttribute(
+      "aria-label",
+      `${highestRiskDistrict.riskArchetype}: 가격 상승 신호가 거래 회복보다 먼저 나타난 유형`
+    );
     document.getElementById("hero-preview-grade").textContent = highestRiskDistrict.riskGrade;
     document.getElementById("hero-preview-grade").className = `signal-pill ${riskTone(highestRiskDistrict.riskScore)}`;
     document.getElementById("hero-preview-score").textContent = formatNumber(highestRiskDistrict.riskScore, "점");
-    document.getElementById("hero-preview-summary").textContent = highestRiskDistrict.riskSummary;
-    document.getElementById("hero-preview-list").innerHTML = (highestRiskDistrict.objections || [])
-      .slice(0, 3)
-      .map((item) => `<li>${item}</li>`)
-      .join("");
+    document.getElementById("hero-preview-summary").textContent = `가격 부담 ${formatNumber(
+      highestRiskDistrict.priceBurdenRiskScore,
+      "점"
+    )}, 상권 과밀 ${formatNumber(highestRiskDistrict.competitionRiskScore, "점")}. 같은 권역 대비 매입가 부담이 크고, 최근 가격 변동성도 확대되어 체결가 재확인이 필요합니다.`;
+    document.getElementById("hero-preview-list").innerHTML = polishedObjections.map((item) => `<li>${item}</li>`).join("");
+
+    chartSvg.setAttribute("aria-label", `${highestRiskDistrict.name} 최근 ㎡당 거래가 흐름`);
 
     drawLineChart("hero-preview-chart", highestRiskDistrict.history || [], "medianPricePerSqm", "#c43f27");
   }

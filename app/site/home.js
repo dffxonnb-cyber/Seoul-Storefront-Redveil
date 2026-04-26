@@ -3,7 +3,7 @@
 
   if (!payload) {
     document.body.innerHTML = `
-      <main style="padding:40px;color:#1f1714;background:#fbf8f4;font-family:'SUIT','Pretendard','Noto Sans KR',system-ui,-apple-system,BlinkMacSystemFont,sans-serif">
+      <main style="padding:40px;color:#1f1714;background:#fbf8f4;font-family:'Wanted Sans Variable','Wanted Sans','SUIT','Pretendard','Noto Sans KR',system-ui,-apple-system,BlinkMacSystemFont,sans-serif">
         <h1>payload를 불러오지 못했습니다.</h1>
         <p><code>./website_payload.js</code> 경로가 유효한지 확인하세요.</p>
       </main>

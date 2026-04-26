@@ -37,31 +37,51 @@
       index: "01",
       title: "내 매물 검토",
       body: "검토 중인 매물 하나를 잡고, 구와 가격을 기준으로 바로 메모를 남깁니다.",
-      meta: "매물명, 구, 가격 입력",
       input: "매물명, 구, 희망 가격",
       output: "리스크 점수, 보류 메모, 저장 기록",
       href: "./review.html",
-      label: "매물 검토 페이지 열기",
+      actionLabel: "바로 검토하기",
     },
     {
       index: "02",
       title: "3분 진단",
       body: "구와 희망 보유 기간만 넣고, 지금 보류해야 하는지 빠르게 확인합니다.",
-      meta: "판정, 리스크 유형, 체크리스트",
       input: "구, 평당가, 보유 기간",
       output: "즉시 판정, 리스크 유형, 체크리스트",
       href: "./assessment.html",
-      label: "3분 진단 시작하기",
+      actionLabel: "3분 진단하기",
     },
     {
       index: "03",
       title: "후보 비교",
       body: "비슷한 후보를 같은 기준선에서 놓고 더 나은 대안을 고릅니다.",
-      meta: "점수 차이, 대체 후보 탐색",
       input: "후보 2~3개 선택",
       output: "점수 차이, 대체 후보, 비교 메모",
       href: "./compare.html",
-      label: "후보 비교 화면 열기",
+      actionLabel: "후보 비교하기",
+    },
+  ];
+
+  const evidenceAxes = [
+    {
+      index: "01",
+      title: "가격 부담",
+      body: "같은 권역 대비 매입가 수준을 비교합니다.",
+    },
+    {
+      index: "02",
+      title: "거래 유동성",
+      body: "최근 거래량 변화와 표본 두께를 함께 봅니다.",
+    },
+    {
+      index: "03",
+      title: "상권 과밀",
+      body: "점포 밀도와 경쟁 압박을 확인합니다.",
+    },
+    {
+      index: "04",
+      title: "가격 변동성",
+      body: "최근 체결가 흐름의 흔들림을 확인합니다.",
     },
   ];
 
@@ -142,21 +162,19 @@
     document.getElementById("entry-grid").innerHTML = entries
       .map(
         (item) => `
-          <article class="homepage-entry">
+          <a class="homepage-entry homepage-entry-card" href="${item.href}" aria-label="${item.title} 페이지 열기">
             <span class="homepage-entry-index">${item.index}</span>
-            <div>
+            <div class="homepage-entry-head">
               <h3>${item.title}</h3>
-              <p>${item.body}</p>
+              <span class="homepage-entry-arrow" aria-hidden="true">→</span>
             </div>
-            <div class="entry-io">
-              <p><strong>입력</strong>${item.input}</p>
-              <p><strong>출력</strong>${item.output}</p>
+            <p class="homepage-entry-body">${item.body}</p>
+            <div class="entry-chip-list">
+              <span class="entry-chip"><strong>입력</strong>${item.input}</span>
+              <span class="entry-chip"><strong>출력</strong>${item.output}</span>
             </div>
-            <div class="homepage-entry-meta">
-              <span>${item.meta}</span>
-              <a class="homepage-action-button homepage-entry-link" href="${item.href}">${item.label}</a>
-            </div>
-          </article>
+            <span class="homepage-entry-linkline">${item.actionLabel}</span>
+          </a>
         `
       )
       .join("");
@@ -178,6 +196,18 @@
       .slice(0, 3)
       .map(([label, score]) => `${label} ${formatNumber(score, "점")}`)
       .join(", ")}이 겹쳐 총 ${formatNumber(highestRiskDistrict.riskScore, "점")}으로 계산됩니다.`;
+
+    document.getElementById("evidence-axis-grid").innerHTML = evidenceAxes
+      .map(
+        (item) => `
+          <article class="evidence-axis-card">
+            <span class="evidence-axis-index">${item.index}</span>
+            <strong>${item.title}</strong>
+            <p>${item.body}</p>
+          </article>
+        `
+      )
+      .join("");
 
     document.getElementById("validation-grid").innerHTML = [
       {
@@ -242,10 +272,22 @@
       )
       .join("");
 
-    const sources = (content.dataSources || []).slice(0, 2);
-    document.getElementById("source-note").textContent = sources
-      .map((item) => `${item.name} ${item.window}`)
-      .join(" / ");
+    const sources = (content.dataSources || []).slice(0, 2).map((item) => `${item.name} ${item.window}`).join(" / ");
+    document.getElementById("source-note").innerHTML = `
+      <div class="source-note-row">
+        <span>거래 데이터</span>
+        <strong>2025.04~2026.03</strong>
+      </div>
+      <div class="source-note-row">
+        <span>상권 수요 데이터</span>
+        <strong>2024 스냅샷</strong>
+      </div>
+      <div class="source-note-row">
+        <span>신뢰도 안내</span>
+        <strong>표본이 적은 구는 경고 표시</strong>
+      </div>
+      ${sources ? `<p class="source-note-meta">${sources}</p>` : ""}
+    `;
   }
 
   function renderFeature() {
@@ -261,13 +303,17 @@
 
     document.getElementById("recent-review").innerHTML = recent
       ? `
-          <strong>${recent.assetName}</strong>
-          <p>${recent.districtName} · ${recent.verdict}</p>
-          <p>${formatNumber(recent.customRiskScore, "점")} · ${recent.riskArchetype}</p>
+          <div class="review-note">
+            <strong>${recent.assetName}</strong>
+            <p>${recent.districtName} · ${recent.verdict}</p>
+            <p>${formatNumber(recent.customRiskScore, "점")} · ${recent.riskArchetype}</p>
+          </div>
         `
       : `
-          <strong>아직 저장된 검토가 없습니다.</strong>
-          <p>매물 검토에서 저장한 메모가 여기에 가장 최근 순서로 표시됩니다.</p>
+          <div class="review-empty">
+            <strong>아직 저장된 검토 메모가 없습니다.</strong>
+            <p>매물 검토에서 첫 메모를 남겨보세요.</p>
+          </div>
         `;
   }
 

@@ -97,17 +97,30 @@
         </section>
 
         <section class="homepage-project-strip" aria-label="프로젝트 요약">
-          <article class="project-summary-card">
-            <p class="section-label">Project Summary / 프로젝트 요약</p>
-            <p>
-              Redveil은 서울 소형 상가 매입 전, 추천보다 보류 사유를 먼저 제시하는 리스크 진단 서비스입니다.
-              상가 실거래와 상권 수요 데이터를 바탕으로 가격 부담, 거래 유동성, 상권 과밀, 가격 변동성 신호를 구조화했습니다.
-            </p>
-          </article>
-          <article class="project-summary-card">
-            <p class="section-label">My Role / 담당 범위</p>
-            <p>기획 · 데이터 수집/전처리 · 리스크 지표 설계 · 대체 후보 로직 · 웹 UI 구현</p>
-          </article>
+          <div class="project-identity-panel">
+            <article class="project-summary-card project-summary-primary">
+              <p class="section-label">Project Summary / 프로젝트 요약</p>
+              <p class="project-summary-lead">
+                Redveil은 서울 소형 상가 매입 전, 추천보다 보류 사유를 먼저 제시하는 리스크 진단 서비스입니다.
+                상가 실거래와 상권 수요 데이터를 바탕으로 가격 부담, 거래 유동성, 상권 과밀, 가격 변동성 신호를 구조화했습니다.
+              </p>
+              <div class="project-principle-list" aria-label="프로젝트 원칙">
+                <span class="project-pill">보류 사유 우선</span>
+                <span class="project-pill">상가 실거래 기반</span>
+                <span class="project-pill">상권 수요 결합</span>
+              </div>
+            </article>
+            <aside class="project-summary-card project-summary-role" aria-label="담당 범위">
+              <p class="section-label">My Role / 담당 범위</p>
+              <div class="role-chip-list">
+                <span class="role-chip">기획</span>
+                <span class="role-chip">데이터 수집/전처리</span>
+                <span class="role-chip">리스크 지표 설계</span>
+                <span class="role-chip">대체 후보 로직</span>
+                <span class="role-chip">웹 UI 구현</span>
+              </div>
+            </aside>
+          </div>
         </section>
 
         <section class="homepage-section homepage-entry-section">
@@ -134,43 +147,47 @@
           <div class="homepage-evidence-layout">
             <div class="homepage-evidence-copy">
               <p class="validation-lead" id="validation-lead"></p>
+              <div class="evidence-axis-grid" id="evidence-axis-grid"></div>
               <div class="validation-grid" id="validation-grid"></div>
               <div class="report-lines" id="evidence-list"></div>
             </div>
 
-            <aside class="homepage-mini-board">
-              <div class="table-panel-head">
-                <span>Risk Snapshot</span>
-                <strong>지금 먼저 볼 구</strong>
-              </div>
+            <aside class="homepage-mini-board homepage-info-grid">
+              <article class="homepage-info-card homepage-info-card-primary">
+                <div class="table-panel-head">
+                  <span>Risk Snapshot</span>
+                  <strong>지금 먼저 볼 구</strong>
+                </div>
 
-              <div class="district-brief-list" id="district-brief-list"></div>
-              <div class="score-breakdown" id="score-breakdown"></div>
+                <div class="district-brief-list" id="district-brief-list"></div>
+                <div class="score-breakdown" id="score-breakdown"></div>
+                <a class="homepage-action-button homepage-action-button-soft" href="./districts.html">구별 리포트 보기</a>
+              </article>
 
-              <div class="homepage-side-section">
+              <article class="homepage-info-card">
                 <p class="homepage-side-label" id="feature-kicker"></p>
                 <strong id="feature-title"></strong>
                 <p id="feature-body"></p>
-              </div>
+              </article>
 
-              <div class="homepage-side-section">
+              <article class="homepage-info-card">
                 <p class="homepage-side-label">최근 저장 메모</p>
                 <div id="recent-review"></div>
-              </div>
+              </article>
 
-              <div class="homepage-side-section">
+              <article class="homepage-info-card homepage-data-card">
                 <p class="homepage-side-label">데이터 범위</p>
-                <p class="source-note" id="source-note"></p>
+                <div class="source-note" id="source-note"></div>
                 <a class="homepage-action-button homepage-action-button-soft" href="./data.html">사용한 데이터 기준 자세히 보기</a>
-              </div>
+              </article>
 
-              <div class="homepage-side-section">
+              <article class="homepage-info-card homepage-info-card-actions">
                 <p class="homepage-side-label">더 자세히 보기</p>
                 <div class="evidence-action-row">
                   <a class="homepage-action-button homepage-action-button-outline" href="./cases.html">판단 사례 보기</a>
                   <a class="homepage-action-button homepage-action-button-outline" href="./methodology.html">점수 계산 기준 보기</a>
                 </div>
-              </div>
+              </article>
             </aside>
           </div>
         </section>

@@ -160,12 +160,6 @@ http://127.0.0.1:8030/compare.html
 http://127.0.0.1:8030/districts.html
 ```
 
-## Recent Updates
-- README를 포트폴리오 중심 구조로 재작성하고 대표 화면 캡처를 추가했습니다.
-- 공개 웹사이트 링크와 세부 페이지 링크를 정리했습니다.
-- 방법론, 케이스, 검증 문서를 한국어 중심으로 통일했습니다.
-- 홈과 상세 페이지 카피를 사용자 중심 문장으로 다듬고 공개본에 반영했습니다.
-
 ## References
 - [프로젝트 개요](./docs/PROJECT_BRIEF.md)
 - [서비스 전략](./docs/SERVICE_STRATEGY.md)

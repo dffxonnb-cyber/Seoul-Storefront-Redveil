@@ -92,8 +92,8 @@
     const chartSvg = document.getElementById("hero-preview-chart");
     const polishedObjections = (highestRiskDistrict.objections || []).slice(0, 3).map(polishObjection);
 
-    document.getElementById("hero-description").textContent =
-      "서울 소형 상가 매입 전, 가격 부담·거래 둔화·상권 과밀 신호를 먼저 확인해 보류 여부와 추가 검토 지점을 정리합니다.";
+    document.getElementById("hero-description").innerHTML =
+      '서울 소형 상가 매입 전, 가격 부담·거래 둔화·상권 과밀 신호를 먼저 확인해 <br class="hero-description-break" />보류 여부와 추가 검토 지점을 정리합니다.';
     document.getElementById("hero-caveat").innerHTML = `
       <span class="homepage-footnote-label">데이터 기준</span>
       <p>거래 데이터는 2025.04~2026.03, 상권 수요 데이터는 2024 스냅샷입니다. 최근 거래 표본이 적은 구는 신뢰도 경고를 함께 표시합니다.</p>

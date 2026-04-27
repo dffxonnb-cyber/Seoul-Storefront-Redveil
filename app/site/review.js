@@ -14,6 +14,28 @@
 
   const districts = payload.districts || [];
 
+  function districtForRecord(record) {
+    return districts.find((item) => item.code === record.districtCode) || null;
+  }
+
+  function latestHistoryValue(district, key) {
+    const history = district?.history || [];
+    return Number(history[history.length - 1]?.[key] || 0);
+  }
+
+  function riskFactors(district) {
+    if (!district) return [];
+    return [
+      ["총 리스크", district.riskScore],
+      ["가격 부담", district.priceBurdenRiskScore],
+      ["거래 유동성", district.liquidityRiskScore],
+      ["가격 변동성", district.volatilityRiskScore],
+      ["상권 과밀", district.competitionRiskScore],
+    ]
+      .map(([label, value]) => ({ label, value: Number(value || 0) }))
+      .sort((left, right) => right.value - left.value);
+  }
+
   function renderHistory() {
     const reviews = loadReviews();
     document.getElementById("review-count").textContent = `${reviews.length}건`;
@@ -160,6 +182,96 @@
     `;
   }
 
+  function renderReviewDetail(result) {
+    const district = districtForRecord(result);
+    const marketPrice = latestHistoryValue(district, "medianPricePerSqm");
+    const askingPrice = Number(result.askingPricePerSqm || 0);
+    const premium = marketPrice > 0 && askingPrice > 0 ? (askingPrice / marketPrice - 1) * 100 : Number(result.premiumPct || 0);
+    const factors = riskFactors(district).slice(0, 3);
+    const detail = document.getElementById("review-detail");
+    if (!detail) return;
+
+    detail.innerHTML = `
+      <div class="section-head">
+        <div>
+          <p class="section-label">Review Detail</p>
+          <h2>${result.assetName} 상세 판단 리포트</h2>
+          <p class="section-copy">${result.districtName} 리스크 맥락과 입력 가격선을 함께 다시 봅니다.</p>
+        </div>
+        <span class="signal-pill ${riskTone(result.customRiskScore)}">${result.verdict}</span>
+      </div>
+
+      <div class="review-detail-grid">
+        <article class="review-detail-hero">
+          <span class="result-label">Decision Snapshot</span>
+          <strong>${formatNumber(result.customRiskScore, "점")} · ${result.riskArchetype}</strong>
+          <p>${result.summary}</p>
+          <div class="review-detail-kpis">
+            <div>
+              <span>입력 가격선</span>
+              <strong>${askingPrice ? formatNumber(askingPrice, "만원/㎡") : "미입력"}</strong>
+            </div>
+            <div>
+              <span>구 기준선</span>
+              <strong>${marketPrice ? formatNumber(marketPrice, "만원/㎡") : "확인 필요"}</strong>
+            </div>
+            <div>
+              <span>기준선 대비</span>
+              <strong>${askingPrice && marketPrice ? `${premium >= 0 ? "+" : ""}${premium.toFixed(1)}%` : "보류"}</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-detail-chart-card">
+          <div class="chart-head">
+            <strong>${result.districtName} 최근 가격선</strong>
+            <span>입력 매물 비교</span>
+          </div>
+          <svg id="review-detail-price-chart" viewBox="0 0 420 180" aria-label="저장 매물 가격선 비교"></svg>
+        </article>
+      </div>
+
+      <div class="review-detail-sections">
+        <section>
+          <span class="result-label">핵심 위험 축</span>
+          ${factors
+            .map(
+              (factor) => `
+                <div class="review-detail-factor">
+                  <header><strong>${factor.label}</strong><span>${formatNumber(factor.value, "점")}</span></header>
+                  <div class="progress-track"><span style="width:${Math.max(8, factor.value)}%"></span></div>
+                </div>
+              `
+            )
+            .join("")}
+        </section>
+        <section>
+          <span class="result-label">다음 확인 항목</span>
+          <ul class="result-list">${(result.checks || []).map((item) => `<li>${item}</li>`).join("")}</ul>
+        </section>
+        <section>
+          <span class="result-label">대체 후보</span>
+          <div class="review-detail-candidates">
+            ${(result.replacementCandidates || [])
+              .map(
+                (item) => `
+                  <article>
+                    <strong>${item.name}</strong>
+                    <p>${formatNumber(item.score, "점")} · ${item.whyBetter || "총 리스크가 더 낮습니다"}</p>
+                  </article>
+                `
+              )
+              .join("") || "<article><strong>대체 후보 없음</strong><p>현재 조건에서는 별도 후보가 표시되지 않았습니다.</p></article>"}
+          </div>
+        </section>
+      </div>
+    `;
+
+    if (district?.history?.length) {
+      drawLineChart("review-detail-price-chart", district.history || [], "medianPricePerSqm", "#c43f27");
+    }
+  }
+
   document.getElementById("review-district-code").innerHTML = `
     <option value="" selected disabled>검토 구 선택</option>
     ${districts.map((item) => `<option value="${item.code}">${item.name}</option>`).join("")}
@@ -191,6 +303,7 @@
 
     persistReview(record);
     renderResult(record);
+    renderReviewDetail(record);
     renderHistory();
   });
 
@@ -198,6 +311,10 @@
     const button = event.target.closest("[data-review-id]");
     if (!button) return;
     const review = loadReviews().find((item) => item.id === button.dataset.reviewId);
-    if (review) renderResult(review);
+    if (review) {
+      renderResult(review);
+      renderReviewDetail(review);
+      document.getElementById("review-result")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   });
 })();

@@ -42,6 +42,17 @@
     return state.districts.find((item) => item.code === state.selectedCode) || state.districts[0];
   }
 
+  function riskFactors(detail) {
+    return [
+      ["가격 부담", detail.priceBurdenRiskScore, "같은 권역 대비 매입 가격선이 앞서 있는지 확인합니다."],
+      ["거래 유동성", detail.liquidityRiskScore, "최근 거래가 얇아졌다면 회수 가능성을 보수적으로 봅니다."],
+      ["가격 변동성", detail.volatilityRiskScore, "최근 체결선이 흔들렸는지 이상 거래를 분리해 봅니다."],
+      ["상권 과밀", detail.competitionRiskScore, "동일 업종이 밀집되어 임차인 교체 리스크가 커지는지 봅니다."],
+    ]
+      .map(([label, value, body]) => ({ label, value: Number(value || 0), body }))
+      .sort((left, right) => right.value - left.value);
+  }
+
   function renderDetail() {
     const detail = currentDistrict();
     if (!detail) return;
@@ -66,6 +77,31 @@
         `
       )
       .join("");
+
+    document.getElementById("district-drilldown").innerHTML = `
+      <article class="district-drilldown-lead">
+        <span class="result-label">Pause Trigger</span>
+        <strong>${detail.decisionQuestion || detail.recommendedAction}</strong>
+        <p>${detail.archetypeSummary || detail.memo}</p>
+      </article>
+      <div class="district-factor-list">
+        ${riskFactors(detail)
+          .slice(0, 4)
+          .map(
+            (factor, index) => `
+              <article class="${index === 0 ? "is-primary" : ""}">
+                <div>
+                  <span>${String(index + 1).padStart(2, "0")}</span>
+                  <strong>${factor.label}</strong>
+                  <p>${factor.body}</p>
+                </div>
+                <em>${formatNumber(factor.value, "점")}</em>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    `;
 
     document.getElementById("detail-metrics").innerHTML = [
       ["총 리스크", detail.riskScore],

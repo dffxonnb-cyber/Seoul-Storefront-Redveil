@@ -209,16 +209,11 @@
   function setActiveNav() {
     const page = document.body.dataset.page;
     if (!page) return;
-    const navPage = {
-      cases: "home",
-      methodology: "home",
-      data: "home",
-    }[page] || page;
     document.querySelectorAll(".topnav a").forEach((link) => {
       const href = link.getAttribute("href") || "";
       const normalized = href.replace("./", "").replace(".html", "") || "index";
       const target = normalized === "index" ? "home" : normalized;
-      link.classList.toggle("is-active", navPage === target);
+      link.classList.toggle("is-active", page === target);
     });
   }
 

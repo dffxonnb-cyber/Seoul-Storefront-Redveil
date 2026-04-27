@@ -112,11 +112,53 @@
     `;
   }
 
+  function renderDecisionMemo(items) {
+    const sorted = [...items].sort((a, b) => Number(a.riskScore) - Number(b.riskScore));
+    const safest = sorted[0];
+    const riskiest = sorted[sorted.length - 1];
+    const biggestGap = [
+      ["가격 부담", "priceBurdenRiskScore"],
+      ["거래 유동성", "liquidityRiskScore"],
+      ["가격 변동성", "volatilityRiskScore"],
+      ["상권 과밀", "competitionRiskScore"],
+    ]
+      .map(([label, key]) => {
+        const values = items.map((item) => Number(item[key] || 0));
+        return { label, key, gap: Math.max(...values) - Math.min(...values) };
+      })
+      .sort((a, b) => b.gap - a.gap)[0];
+    const caution = Number(riskiest?.riskScore || 0) >= 70 ? "매입 보류" : Number(riskiest?.riskScore || 0) >= 60 ? "강한 비교 필요" : "추가 검토";
+
+    document.getElementById("compare-memo").innerHTML = `
+      <div class="compare-decision-grid">
+        <article class="compare-decision-summary">
+          <span class="result-label">Memo Output</span>
+          <strong>${safest.name}을 먼저 보고, ${riskiest.name}은 ${caution}로 둡니다.</strong>
+          <p>${safest.name}은 현재 선택 조합에서 총 리스크가 가장 낮습니다. ${riskiest.name}은 ${formatNumber(
+            riskiest.riskScore,
+            "점"
+          )}으로 가장 높아 가격선과 현장 조건을 더 보수적으로 확인해야 합니다.</p>
+        </article>
+        <article>
+          <span class="result-label">가장 크게 갈리는 축</span>
+          <strong>${biggestGap.label}</strong>
+          <p>선택 후보 간 격차가 ${formatNumber(biggestGap.gap, "점")}입니다. 이 축을 중심으로 후보를 다시 좁히는 것이 좋습니다.</p>
+        </article>
+        <article>
+          <span class="result-label">다음 액션</span>
+          <strong>낮은 리스크 후보를 기준선으로 삼기</strong>
+          <p>${safest.name}의 가격선과 상권 과밀도를 기준으로 나머지 후보의 초과 위험을 비교하세요.</p>
+        </article>
+      </div>
+    `;
+  }
+
   function runCompare() {
     const items = selectedDistricts();
     renderCards(items);
     renderMetrics(items);
     renderRecommendation(items);
+    renderDecisionMemo(items);
   }
 
   document.getElementById("compare-run").addEventListener("click", runCompare);

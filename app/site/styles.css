@@ -241,6 +241,18 @@ body[data-page="home"] .homepage-action-button {
   letter-spacing: 0;
 }
 
+.brand-logo {
+  display: block;
+  width: 34px;
+  height: 34px;
+  padding: 2px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: rgba(255, 250, 246, 0.98);
+  border-color: rgba(155, 51, 46, 0.2);
+  box-shadow: 0 8px 16px rgba(73, 37, 26, 0.12);
+}
+
 .brand small,
 .section-label,
 .note-kicker,
@@ -998,65 +1010,90 @@ body[data-page="home"] .homepage-screen::before {
 .validation-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 16px;
 }
 
 .validation-card {
-  padding: 18px 18px 20px;
+  position: relative;
+  overflow: hidden;
+  padding: 20px 20px 21px;
   border-radius: 18px;
-  border: 1px solid rgba(73, 37, 26, 0.16);
+  border: 1px solid rgba(155, 51, 46, 0.2);
   background:
-    linear-gradient(180deg, rgba(255, 253, 249, 0.98), rgba(252, 245, 239, 0.92)),
-    var(--card-bg-strong);
-  box-shadow: 0 10px 20px rgba(73, 37, 26, 0.04);
+    linear-gradient(180deg, rgba(255, 251, 246, 0.99), rgba(253, 241, 233, 0.95)),
+    var(--card-bg);
+  box-shadow: 0 15px 30px rgba(73, 37, 26, 0.075);
+}
+
+.validation-card::before,
+.report-lines article::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, rgba(155, 51, 46, 0.54), rgba(201, 161, 90, 0.24));
 }
 
 .validation-card strong {
   display: block;
-  font-size: 15px;
-  font-weight: 700;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.38;
   letter-spacing: 0;
 }
 
 .validation-card p {
-  margin: 8px 0 0;
-  color: var(--text-muted);
-  font-weight: 450;
-  line-height: 1.7;
+  margin: 10px 0 0;
+  color: rgba(54, 38, 32, 0.82);
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.72;
 }
 
 .report-lines,
 .source-lines {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 16px;
 }
 
 .report-lines article,
 .source-lines article {
-  padding: 18px;
-  border: 1px solid rgba(73, 37, 26, 0.16);
+  position: relative;
+  overflow: hidden;
+  padding: 20px 20px 21px;
+  border: 1px solid rgba(155, 51, 46, 0.19);
   border-radius: 18px;
   background:
-    linear-gradient(180deg, rgba(255, 253, 249, 0.98), rgba(252, 245, 239, 0.92)),
+    linear-gradient(180deg, rgba(255, 251, 246, 0.99), rgba(253, 242, 234, 0.95)),
     var(--card-bg);
-  box-shadow: 0 12px 24px rgba(73, 37, 26, 0.05);
+  box-shadow: 0 15px 30px rgba(73, 37, 26, 0.075);
 }
 
 .report-lines strong,
 .source-lines strong {
   display: block;
-  font-size: 15px;
-  font-weight: 700;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.38;
   letter-spacing: 0;
 }
 
 .report-lines p,
 .source-lines p {
-  margin: 6px 0 0;
-  color: var(--text-muted);
-  font-weight: 450;
+  margin: 10px 0 0;
+  color: rgba(54, 38, 32, 0.82);
+  font-size: 14.5px;
+  font-weight: 500;
   line-height: 1.75;
+}
+
+.evidence-number {
+  color: var(--accent-deep);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
 }
 
 .homepage-mini-board {
@@ -2877,6 +2914,12 @@ body[data-page="home"] .hero-actions .homepage-action-button {
     gap: 12px;
     padding: 12px 14px;
     margin-bottom: 12px;
+  }
+
+  body[data-page="home"] .brand-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
   }
 
   body[data-page="home"] .topnav {

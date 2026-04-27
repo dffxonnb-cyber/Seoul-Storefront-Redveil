@@ -32,6 +32,13 @@
     return /[.!?]$/.test(normalized) ? normalized : `${normalized}.`;
   }
 
+  function emphasizeEvidenceNumbers(text) {
+    return String(text || "").replace(
+      /(2026\.03|2025\.04~2026\.03|2024|(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?(?:개월|건|개|점|%)?)/g,
+      '<span class="evidence-number">$1</span>'
+    );
+  }
+
   const entries = [
     {
       index: "01",
@@ -227,7 +234,7 @@
         (item) => `
           <article class="validation-card">
             <strong>${item.title}</strong>
-            <p>${item.body}</p>
+            <p>${emphasizeEvidenceNumbers(item.body)}</p>
           </article>
         `
       )
@@ -238,8 +245,8 @@
       .map(
         (item) => `
           <article>
-            <strong>${item.title}</strong>
-            <p>${item.body}</p>
+            <strong>${emphasizeEvidenceNumbers(item.title)}</strong>
+            <p>${emphasizeEvidenceNumbers(item.body)}</p>
           </article>
         `
       )

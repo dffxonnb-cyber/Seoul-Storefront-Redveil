@@ -96,13 +96,8 @@ button:focus-visible {
 
 .page-shell {
   position: relative;
-  width: min(1320px, calc(100% - 40px));
-  margin: 0 auto;
-  padding: 24px 0 56px;
-}
-
-body[data-page="home"] .page-shell {
   width: min(var(--home-page-max), calc(100% - (var(--home-page-padding) * 2)));
+  margin: 0 auto;
   padding: 22px 0 64px;
 }
 
@@ -161,19 +156,12 @@ body[data-page="home"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  padding: 12px 16px;
-  border-radius: 999px;
-  margin-bottom: 18px;
-}
-
-body[data-page="home"] .topbar {
   gap: 20px;
   padding: 13px 18px;
+  border-radius: 999px;
   margin-bottom: clamp(14px, 2.2vw, 24px);
 }
 
-body[data-page="home"] .brand small,
 body[data-page="home"] .section-label,
 body[data-page="home"] .screen-label,
 body[data-page="home"] .screen-subtitle,
@@ -187,12 +175,6 @@ body[data-page="home"] .homepage-entry-index {
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-}
-
-body[data-page="home"] .brand strong {
-  font-family: var(--font-sans);
-  font-weight: 650;
-  letter-spacing: 0;
 }
 
 body[data-page="home"] .topnav a,
@@ -268,6 +250,7 @@ body[data-page="home"] .homepage-action-button {
 .brand strong {
   display: block;
   font-size: 17px;
+  font-weight: 750;
   letter-spacing: 0;
 }
 
@@ -3632,12 +3615,12 @@ body[data-page="home"] .hero-actions .homepage-action-button {
 }
 
 @media (max-width: 991px) {
-  body[data-page="home"] .page-shell {
+  .page-shell {
     width: min(100% - 40px, 1120px);
     padding-top: 18px;
   }
 
-  body[data-page="home"] .topbar {
+  .topbar {
     margin-bottom: 16px;
   }
 
@@ -3761,31 +3744,31 @@ body[data-page="home"] .hero-actions .homepage-action-button {
     padding-top: 8px;
   }
 
-  body[data-page="home"] .page-shell {
+  .page-shell {
     width: min(100% - 24px, 1000px);
     padding: 16px 0 48px;
   }
 
-  body[data-page="home"] .topbar {
+  .topbar {
     gap: 12px;
     padding: 12px 14px;
     margin-bottom: 12px;
   }
 
-  body[data-page="home"] .brand-logo {
+  .brand-logo {
     width: 32px;
     height: 32px;
     border-radius: 9px;
   }
 
-  body[data-page="home"] .topnav {
+  .topnav {
     width: 100%;
     flex-wrap: wrap;
     overflow-x: visible;
     padding-bottom: 0;
   }
 
-  body[data-page="home"] .topnav a {
+  .topnav a {
     flex: 0 0 auto;
   }
 
@@ -3996,23 +3979,6 @@ body[data-page="home"] .hero-actions .homepage-action-button {
 }
 
 @media (min-width: 768px) and (max-width: 900px) {
-  body[data-page="review"] .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    border-radius: 28px;
-  }
-
-  body[data-page="review"] .topnav {
-    width: 100%;
-    flex-wrap: wrap;
-    overflow-x: visible;
-    padding-bottom: 0;
-  }
-
-  body[data-page="review"] .topnav a {
-    flex: 0 0 auto;
-  }
-
   body[data-page="review"] .review-output-preview,
   body[data-page="review"] .review-result-sections {
     grid-template-columns: 1fr;

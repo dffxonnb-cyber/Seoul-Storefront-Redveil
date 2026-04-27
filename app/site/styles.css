@@ -2662,33 +2662,45 @@ body[data-page="review"] .panel {
 }
 
 .review-subhero {
-  padding: 24px 26px;
+  padding: 19px 24px;
 }
 
 .review-subhero .subhero-copy {
   align-items: center;
+  gap: clamp(22px, 4vw, 64px);
+}
+
+.review-subhero .subhero-copy > div:first-child {
+  display: grid;
+  gap: 8px;
 }
 
 .review-subhero h2 {
   margin: 0;
   max-width: 24ch;
   font-family: var(--font-display);
-  font-size: clamp(27px, 2.2vw, 34px);
+  font-size: clamp(26px, 2.05vw, 32px);
   font-weight: 750;
-  line-height: 1.26;
+  line-height: 1.22;
   letter-spacing: 0;
 }
 
 .review-subhero .subhero-copy p:not(.section-label):not(.compact-note) {
+  margin: 0;
   max-width: 50ch;
   color: var(--text-muted);
   font-size: 15.5px;
   font-weight: 450;
-  line-height: 1.75;
+  line-height: 1.62;
 }
 
 .review-status-card {
-  min-width: 190px;
+  display: grid;
+  align-self: center;
+  justify-self: end;
+  width: min(184px, 100%);
+  min-width: 176px;
+  padding: 12px 15px;
   border-color: rgba(155, 51, 46, 0.22);
   background:
     linear-gradient(180deg, rgba(255, 248, 244, 1), rgba(255, 240, 234, 0.94)),
@@ -2697,11 +2709,19 @@ body[data-page="review"] .panel {
 }
 
 .review-status-card strong {
+  margin-top: 3px;
   color: var(--accent-deep);
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 800;
   line-height: 1.1;
   font-variant-numeric: tabular-nums;
+}
+
+.review-status-card .compact-note {
+  margin: 5px 0 0;
+  color: rgba(75, 48, 39, 0.7);
+  font-size: 12.5px;
+  line-height: 1.35;
 }
 
 .review-workspace {
@@ -2770,16 +2790,17 @@ body[data-page="review"] .panel {
   gap: 16px;
   margin: 0;
   padding: 18px;
-  border: 1px solid rgba(73, 37, 26, 0.14);
+  border: 1px solid rgba(73, 37, 26, 0.095);
   border-radius: 18px;
-  background: rgba(255, 250, 246, 0.72);
+  background: rgba(255, 251, 247, 0.48);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.68);
 }
 
 .review-form-group legend {
   padding: 0 8px;
   color: var(--accent-deep);
   font-size: 12px;
-  font-weight: 750;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -2867,7 +2888,7 @@ body[data-page="review"] .button-wide:hover {
 .review-context-card {
   display: grid;
   align-content: start;
-  min-height: 720px;
+  min-height: 640px;
   border-color: rgba(155, 51, 46, 0.18);
   background:
     linear-gradient(180deg, rgba(255, 251, 247, 0.98), rgba(252, 241, 234, 0.94)),
@@ -2884,8 +2905,11 @@ body[data-page="review"] .button-wide:hover {
   padding: 18px;
   border-color: rgba(155, 51, 46, 0.16);
   background:
+    linear-gradient(rgba(155, 51, 46, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(155, 51, 46, 0.04) 1px, transparent 1px),
     linear-gradient(180deg, rgba(255, 250, 246, 0.98), rgba(252, 242, 235, 0.94)),
     var(--card-bg-muted);
+  background-size: 42px 42px, 42px 42px, auto, auto;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76);
 }
 
@@ -2894,15 +2918,37 @@ body[data-page="review"] .button-wide:hover {
 }
 
 .chart-empty-title {
-  fill: rgba(54, 38, 32, 0.74);
+  fill: rgba(54, 38, 32, 0.82);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 750;
 }
 
 .chart-empty-copy {
-  fill: rgba(75, 48, 39, 0.58);
+  fill: rgba(75, 48, 39, 0.64);
   font-size: 12px;
-  font-weight: 550;
+  font-weight: 600;
+}
+
+.chart-empty-grid line {
+  stroke: rgba(155, 51, 46, 0.08);
+  stroke-width: 1;
+}
+
+.chart-empty-area {
+  fill: rgba(196, 63, 39, 0.07);
+}
+
+.chart-empty-line {
+  fill: none;
+  stroke: rgba(196, 63, 39, 0.32);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 5 7;
+}
+
+.chart-empty-dot {
+  fill: rgba(196, 63, 39, 0.36);
 }
 
 .review-spotlight-stats {

@@ -63,8 +63,16 @@
       document.getElementById("review-spotlight-grade").textContent = "Ready";
       document.getElementById("review-spotlight-grade").className = "signal-pill";
       chart.innerHTML = `
-        <text x="50%" y="45%" text-anchor="middle" class="chart-empty-title">구를 선택하면 차트가 표시됩니다</text>
-        <text x="50%" y="58%" text-anchor="middle" class="chart-empty-copy">최근 가격선 흐름과 리스크 신호를 함께 봅니다</text>
+        <g class="chart-empty-grid">
+          <line x1="34" y1="52" x2="386" y2="52"></line>
+          <line x1="34" y1="92" x2="386" y2="92"></line>
+          <line x1="34" y1="132" x2="386" y2="132"></line>
+        </g>
+        <path class="chart-empty-area" d="M 38 138 C 92 112 126 124 164 102 C 204 80 238 118 274 94 C 318 64 348 82 384 56 L 384 148 L 38 148 Z"></path>
+        <path class="chart-empty-line" d="M 38 138 C 92 112 126 124 164 102 C 204 80 238 118 274 94 C 318 64 348 82 384 56"></path>
+        <circle class="chart-empty-dot" cx="384" cy="56" r="4"></circle>
+        <text x="50%" y="74" text-anchor="middle" class="chart-empty-title">구를 선택하면 차트가 표시됩니다</text>
+        <text x="50%" y="96" text-anchor="middle" class="chart-empty-copy">최근 가격선 흐름과 리스크 신호를 함께 봅니다</text>
       `;
       document.getElementById("review-spotlight-stats").innerHTML = `
         <article class="review-context-empty">

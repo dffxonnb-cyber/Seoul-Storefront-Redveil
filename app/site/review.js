@@ -24,27 +24,61 @@
             .map(
               (item) => `
                 <article class="review-entry">
-                  <span class="card-label">${item.verdict}</span>
+                  <div class="review-entry-head">
+                    <span class="signal-pill ${riskTone(item.customRiskScore)}">${item.verdict}</span>
+                    <span class="review-entry-time">${formatDateTime(item.createdAt)}</span>
+                  </div>
                   <strong>${item.assetName}</strong>
-                  <p>${item.districtName}${item.adminDongName ? ` · ${item.adminDongName}` : ""}</p>
-                  <p>${formatNumber(item.customRiskScore, "점")} · ${item.riskArchetype}</p>
-                  <p>${item.askingPriceTotal10k ? `${formatNumber(item.askingPriceTotal10k, "만원")} · ` : ""}${formatDateTime(item.createdAt)}</p>
+                  <p class="review-entry-meta">${item.districtName}${item.adminDongName ? ` · ${item.adminDongName}` : ""}${
+                item.targetTenant ? ` · ${item.targetTenant}` : ""
+              }</p>
+                  <div class="review-entry-risk">
+                    <span>${formatNumber(item.customRiskScore, "점")}</span>
+                    <p>${item.riskArchetype}</p>
+                  </div>
+                  <p>${item.summary}</p>
+                  <button class="homepage-action-button homepage-action-button-soft review-replay-button" type="button" data-review-id="${item.id}">
+                    메모 다시 보기
+                  </button>
                 </article>
               `
             )
             .join("")
         : `
-          <article class="review-entry">
+          <article class="review-entry review-entry-empty">
             <span class="card-label">No History</span>
             <strong>아직 저장된 검토가 없습니다.</strong>
-            <p>첫 번째 매물을 저장하면 이 영역에 기록이 쌓입니다.</p>
+            <p>첫 매물을 입력하면 이곳에 검토 이력이 쌓입니다.</p>
           </article>
         `;
   }
 
   function renderSpotlight(code) {
-    const district = districts.find((item) => item.code === code) || districts[0];
-    if (!district) return;
+    const district = districts.find((item) => item.code === code);
+    const chart = document.getElementById("review-spotlight-chart");
+
+    if (!district) {
+      document.getElementById("review-spotlight-name").textContent = "검토 구 선택 전";
+      document.getElementById("review-spotlight-type").textContent = "지역 맥락 대기";
+      document.getElementById("review-spotlight-grade").textContent = "Ready";
+      document.getElementById("review-spotlight-grade").className = "signal-pill";
+      chart.innerHTML = `
+        <text x="50%" y="45%" text-anchor="middle" class="chart-empty-title">구를 선택하면 차트가 표시됩니다</text>
+        <text x="50%" y="58%" text-anchor="middle" class="chart-empty-copy">최근 가격선 흐름과 리스크 신호를 함께 봅니다</text>
+      `;
+      document.getElementById("review-spotlight-stats").innerHTML = `
+        <article class="review-context-empty">
+          <strong>검토 구를 선택하면 최근 가격선 흐름과 지역 리스크 신호가 표시됩니다.</strong>
+          <div class="review-context-chips">
+            <span>최근 6개월</span>
+            <span>가격 부담</span>
+            <span>거래 둔화</span>
+            <span>표본 주의</span>
+          </div>
+        </article>
+      `;
+      return;
+    }
 
     const grade = document.getElementById("review-spotlight-grade");
     document.getElementById("review-spotlight-name").textContent = district.name;
@@ -52,7 +86,7 @@
     grade.textContent = district.riskGrade;
     grade.className = `signal-pill ${riskTone(district.riskScore)}`;
 
-    drawLineChart("review-spotlight-chart", district.history || [], "medianPricePerSqm", "#ff6f49");
+    drawLineChart("review-spotlight-chart", district.history || [], "medianPricePerSqm", "#c43f27");
 
     document.getElementById("review-spotlight-stats").innerHTML = [
       ["총 리스크", formatNumber(district.riskScore, "점")],
@@ -82,33 +116,46 @@
         </div>
         <span class="signal-pill ${riskTone(result.customRiskScore)}">${result.riskArchetype}</span>
       </div>
-      <div class="result-card" style="margin-top:0">
-        <span class="result-label">Decision Memo</span>
-        <span class="result-score">${formatNumber(result.customRiskScore, "점")}</span>
-        <p class="result-copy">${result.summary}</p>
-        <div class="result-grid">
+      <div class="result-card review-result-memo">
+        <div class="review-result-scoreline">
           <div>
+            <span class="result-label">Decision Memo</span>
+            <strong>${result.verdict}</strong>
+          </div>
+          <span class="result-score">${formatNumber(result.customRiskScore, "점")}</span>
+        </div>
+        <p class="result-copy">${result.summary}</p>
+        <div class="review-result-sections">
+          <section>
+            <span class="result-label">보류 판단</span>
+            <p>${result.recommendedAction}</p>
+          </section>
+          <section>
             <span class="result-label">핵심 근거</span>
             <ul class="result-list">${result.reasons.map((item) => `<li>${item}</li>`).join("")}</ul>
-          </div>
-          <div>
-            <span class="result-label">바로 확인할 것</span>
+          </section>
+          <section>
+            <span class="result-label">다음 확인 항목</span>
             <ul class="result-list">${result.checks.map((item) => `<li>${item}</li>`).join("")}</ul>
-          </div>
-        </div>
-        <div class="chip-row">
-          ${(result.replacementCandidates || [])
-            .map((item) => `<span class="chip">대체 후보 ${item.name}</span>`)
-            .join("")}
+          </section>
+          <section>
+            <span class="result-label">대체 후보</span>
+            <div class="chip-row">
+              ${(result.replacementCandidates || [])
+                .map((item) => `<span class="chip">대체 후보 ${item.name}</span>`)
+                .join("") || '<span class="chip">추가 후보 없음</span>'}
+            </div>
+          </section>
         </div>
         <p class="compact-note">저장 시각 ${formatDateTime(result.createdAt)}</p>
       </div>
     `;
   }
 
-  document.getElementById("review-district-code").innerHTML = districts
-    .map((item) => `<option value="${item.code}">${item.name}</option>`)
-    .join("");
+  document.getElementById("review-district-code").innerHTML = `
+    <option value="" selected disabled>검토 구 선택</option>
+    ${districts.map((item) => `<option value="${item.code}">${item.name}</option>`).join("")}
+  `;
 
   renderHistory();
   renderSpotlight(document.getElementById("review-district-code").value);
@@ -137,5 +184,12 @@
     persistReview(record);
     renderResult(record);
     renderHistory();
+  });
+
+  document.getElementById("review-history").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-review-id]");
+    if (!button) return;
+    const review = loadReviews().find((item) => item.id === button.dataset.reviewId);
+    if (review) renderResult(review);
   });
 })();

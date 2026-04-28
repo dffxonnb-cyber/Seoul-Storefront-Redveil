@@ -63,34 +63,44 @@
         </div>
         <span class="signal-pill ${riskTone(result.customRiskScore)}">${result.riskArchetype}</span>
       </div>
-      <div class="result-card" style="margin-top:0">
-        <span class="result-label">Risk Score</span>
-        <span class="result-score">${formatNumber(result.customRiskScore, "점")}</span>
-        ${renderBenchmarkLine(result.customRiskScore, district)}
-        ${renderReliabilityBadges(district, { includeNote: true })}
-        <p class="result-copy">${polishCopy(result.summary)}</p>
-        ${renderRiskOverlap(district)}
-        <div class="chip-row">
-          <span class="chip">구 중위 거래가 ${formatNumber(result.districtMedianPricePerSqm, "만원/㎡")}</span>
-          <span class="chip">입력 가격 프리미엄 ${formatNumber(result.premiumPct, "%")}</span>
-          <span class="chip">보유 기간 ${result.holdingMonths}개월</span>
+      <div class="result-card diagnosis-result-card">
+        <div class="diagnosis-result-section diagnosis-score-section">
+          <span class="result-label">Risk Score</span>
+          <span class="result-score">${formatNumber(result.customRiskScore, "점")}</span>
+          ${renderBenchmarkLine(result.customRiskScore, district)}
+          ${renderReliabilityBadges(district, { includeNote: true })}
         </div>
-        <div class="result-grid">
-          <div>
-            <span class="result-label">핵심 근거</span>
-            <ul class="result-list">${result.reasons.map((item) => `<li>${polishCopy(item)}</li>`).join("")}</ul>
-          </div>
-          <div>
-            <span class="result-label">바로 확인할 것</span>
-            <ul class="result-list">${result.checks.map((item) => `<li>${polishCopy(item)}</li>`).join("")}</ul>
+        <div class="diagnosis-result-section">
+          <p class="result-copy">${polishCopy(result.summary)}</p>
+          ${renderRiskOverlap(district)}
+        </div>
+        <div class="diagnosis-result-section">
+          <div class="chip-row">
+            <span class="chip">구 중위 거래가 ${formatNumber(result.districtMedianPricePerSqm, "만원/㎡")}</span>
+            <span class="chip">입력 가격 프리미엄 ${formatNumber(result.premiumPct, "%")}</span>
+            <span class="chip">보유 기간 ${result.holdingMonths}개월</span>
           </div>
         </div>
-        <div class="chip-row">
-          ${(result.replacementCandidates || [])
-            .map((item) => `<span class="chip">대체 후보 ${item.name}</span>`)
-            .join("")}
+        <div class="diagnosis-result-section">
+          <div class="result-grid">
+            <div>
+              <span class="result-label">핵심 근거</span>
+              <ul class="result-list">${result.reasons.map((item) => `<li>${polishCopy(item)}</li>`).join("")}</ul>
+            </div>
+            <div>
+              <span class="result-label">바로 확인할 것</span>
+              <ul class="result-list">${result.checks.map((item) => `<li>${polishCopy(item)}</li>`).join("")}</ul>
+            </div>
+          </div>
         </div>
-        ${renderAlternativeRationale(district, result, { compact: true })}
+        <div class="diagnosis-result-section">
+          <div class="chip-row">
+            ${(result.replacementCandidates || [])
+              .map((item) => `<span class="chip">대체 후보 ${item.name}</span>`)
+              .join("")}
+          </div>
+          ${renderAlternativeRationale(district, result, { compact: true })}
+        </div>
       </div>
     `;
   }

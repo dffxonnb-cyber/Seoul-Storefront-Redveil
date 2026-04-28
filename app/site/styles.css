@@ -151,8 +151,8 @@ body[data-page="home"] {
 }
 
 .topbar {
-  position: sticky;
-  top: 16px;
+  position: relative;
+  top: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2589,10 +2589,28 @@ svg {
   gap: 20px;
 }
 
-.subhero-copy p {
+.subhero-copy > div:first-child {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.subhero h2 {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-display);
+  font-size: clamp(25px, 1.85vw, 29px);
+  font-weight: 750;
+  line-height: 1.24;
+  letter-spacing: 0;
+}
+
+.subhero-copy p:not(.section-label):not(.compact-note) {
   max-width: 42ch;
   margin: 10px 0 0;
   color: var(--muted);
+  font-size: 15.5px;
+  font-weight: 450;
+  line-height: 1.76;
 }
 
 .hero-status {
@@ -2613,6 +2631,98 @@ svg {
   display: grid;
   grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
   gap: 18px;
+}
+
+.app-grid.assessment-workspace {
+  grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.18fr);
+  align-items: start;
+}
+
+.app-grid.assessment-insight-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.app-grid.assessment-insight-grid > .panel {
+  min-width: 0;
+}
+
+body[data-page="assessment"] .subhero {
+  padding: 22px 24px;
+}
+
+body[data-page="assessment"] .section-label,
+body[data-page="assessment"] .card-label,
+body[data-page="assessment"] .result-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
+body[data-page="assessment"] .section-head h2 {
+  max-width: none;
+  font-family: var(--font-display);
+  font-size: clamp(23px, 1.8vw, 28px);
+  font-weight: 750;
+  line-height: 1.28;
+  letter-spacing: 0;
+}
+
+body[data-page="assessment"] .section-copy,
+body[data-page="assessment"] .result-copy,
+body[data-page="assessment"] .progress-card p {
+  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 450;
+  line-height: 1.74;
+}
+
+.diagnosis-result-card {
+  display: grid;
+  gap: 0;
+  min-height: 0;
+  margin-top: 0;
+  padding: 0 18px;
+}
+
+.diagnosis-result-section {
+  padding: 16px 0;
+}
+
+.diagnosis-result-section + .diagnosis-result-section {
+  border-top: 1px solid rgba(73, 37, 26, 0.12);
+}
+
+.diagnosis-score-section {
+  padding-top: 18px;
+}
+
+.diagnosis-result-card .result-score {
+  margin-top: 8px;
+  color: var(--accent-deep);
+  font-size: 34px;
+  font-weight: 820;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.08;
+}
+
+.diagnosis-result-card .result-copy {
+  margin: 0;
+}
+
+.diagnosis-result-card .risk-overlap-block,
+.diagnosis-result-card .alternative-rationale,
+.diagnosis-result-card .benchmark-line,
+.diagnosis-result-card .interpretation-strip,
+.diagnosis-result-card .result-grid,
+.diagnosis-result-card .chip-row {
+  margin-top: 12px;
+}
+
+.diagnosis-result-card .result-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
 }
 
 .app-grid-wide {
@@ -3054,13 +3164,7 @@ body[data-page="review"] .panel {
 }
 
 .review-subhero h2 {
-  margin: 0;
-  max-width: 24ch;
-  font-family: var(--font-display);
-  font-size: clamp(26px, 2.05vw, 32px);
-  font-weight: 750;
-  line-height: 1.22;
-  letter-spacing: 0;
+  max-width: none;
 }
 
 .review-subhero .subhero-copy p:not(.section-label):not(.compact-note) {
@@ -3070,6 +3174,12 @@ body[data-page="review"] .panel {
   font-size: 15.5px;
   font-weight: 450;
   line-height: 1.62;
+}
+
+@media (min-width: 1180px) {
+  .review-subhero h2 {
+    white-space: nowrap;
+  }
 }
 
 .review-status-card {
@@ -4047,6 +4157,17 @@ body[data-page="home"] .hero-actions .homepage-action-button {
   .detail-grid,
   .evidence-pair {
     grid-template-columns: 1fr;
+  }
+
+  .app-grid.assessment-workspace,
+  .app-grid.assessment-insight-grid,
+  .diagnosis-result-card .result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .subhero h2 {
+    font-size: clamp(24px, 6.2vw, 29px);
+    line-height: 1.28;
   }
 
   .homepage-shell {

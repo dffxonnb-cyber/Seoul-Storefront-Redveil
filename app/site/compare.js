@@ -3,6 +3,7 @@
     payload,
     formatNumber,
     riskTone,
+    polishCopy,
     renderReliabilityBadges,
     renderBenchmarkLine,
     renderRiskOverlap,
@@ -47,7 +48,7 @@
             </div>
             <strong>${item.name}</strong>
             <p>${item.riskArchetype}</p>
-            <p>${item.riskSummary}</p>
+            <p>${polishCopy(item.riskSummary)}</p>
             ${renderBenchmarkLine(item.riskScore, item)}
             ${renderReliabilityBadges(item)}
             <div class="chip-row">
@@ -56,7 +57,10 @@
             </div>
             ${renderRiskOverlap(item, { compact: true })}
             <ul class="case-list">
-              ${(item.objections || []).slice(0, 3).map((objection) => `<li>${objection}</li>`).join("")}
+              ${(item.objections || [])
+                .slice(0, 3)
+                .map((objection) => `<li>${polishCopy(objection)}</li>`)
+                .join("")}
             </ul>
           </article>
         `

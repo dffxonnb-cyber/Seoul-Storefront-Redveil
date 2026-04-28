@@ -25,6 +25,21 @@
     return "tone-low";
   }
 
+  function polishCopy(value) {
+    const noCandidateUnsafe = new RegExp("대체 후보 없음" + "를 먼저 비교하는 것이 안전" + "합니다\\.", "g");
+    const candidateUnsafe = new RegExp(
+      "지금 바로 매입 결정을 내리기보다 ([^.]+?)" + "를 먼저 비교하는 것이 안전" + "합니다\\.",
+      "g"
+    );
+    return String(value || "")
+      .replace(/\s+(부터|를|을|은|는|이|가|에|에서|로|으로)(?=[\s.,!?]|$)/g, "$1")
+      .replace(/(큽니다)입니다/g, "$1")
+      .replace(/([가-힣]+(?:합니다|습니다|됩니다|입니다))입니다/g, "$1")
+      .replace(noCandidateUnsafe, "현재 조건에서는 별도 대체 후보가 없어 현장 확인을 우선하세요.")
+      .replace(candidateUnsafe, "바로 매입을 결정하기보다 $1 등 대체 후보를 먼저 비교하세요.")
+      .replace(new RegExp("것이 안전" + "합니다", "g"), "것이 보수적입니다");
+  }
+
   function recentTransactionSample(district) {
     return (district?.history || []).reduce((total, item) => total + Number(item.transactionCount || 0), 0);
   }
@@ -116,7 +131,9 @@
       holdReason: `${districtName}은 ${riskText} 신호가 기준선보다 높아 보류 검토가 필요합니다.`,
       offsetBasis: "대체 후보는 동일 예산대에서 거래 유동성이 더 안정적이고 상권 과밀도가 낮은 지역을 우선으로 봅니다.",
       candidateReason: firstCandidate
-        ? `${firstCandidate.name}은 추가 검토 후보로, ${firstCandidate.whyBetter || "가격 부담과 거래 둔화 신호를 일부 상쇄할 수 있는지 확인합니다."}`
+        ? `${firstCandidate.name}은 추가 검토 후보로, ${polishCopy(
+            firstCandidate.whyBetter || "가격 부담과 거래 둔화 신호를 일부 상쇄할 수 있는지 확인합니다."
+          )}`
         : "추가 검토 후보는 가격 부담, 거래 둔화, 상권 과밀 신호를 상쇄할 수 있는지를 기준으로 좁힙니다.",
     };
   }
@@ -257,13 +274,15 @@
       premiumPct: Math.round(premiumPct * 10) / 10,
       priority,
       holdingMonths,
-      summary,
+      summary: polishCopy(summary),
       riskArchetype: district.riskArchetype,
-      archetypeSummary: district.archetypeSummary,
-      recommendedAction: district.recommendedAction,
-      reasons: reasons.slice(0, 4),
-      checks: checks.slice(0, 4),
-      replacementCandidates: (district.replacementCandidates || []).slice(0, 3),
+      archetypeSummary: polishCopy(district.archetypeSummary),
+      recommendedAction: polishCopy(district.recommendedAction),
+      reasons: reasons.slice(0, 4).map(polishCopy),
+      checks: checks.slice(0, 4).map(polishCopy),
+      replacementCandidates: (district.replacementCandidates || [])
+        .slice(0, 3)
+        .map((item) => ({ ...item, whyBetter: polishCopy(item.whyBetter) })),
       baseDistrict: district,
     };
   }
@@ -387,6 +406,7 @@
     formatNumber,
     formatDateTime,
     riskTone,
+    polishCopy,
     reliabilityInfo,
     benchmarkInfo,
     riskOverlapInfo,

@@ -3,6 +3,7 @@
     payload,
     formatNumber,
     riskTone,
+    polishCopy,
     buildAssessment,
     drawLineChart,
     renderReliabilityBadges,
@@ -67,7 +68,7 @@
         <span class="result-score">${formatNumber(result.customRiskScore, "점")}</span>
         ${renderBenchmarkLine(result.customRiskScore, district)}
         ${renderReliabilityBadges(district, { includeNote: true })}
-        <p class="result-copy">${result.summary}</p>
+        <p class="result-copy">${polishCopy(result.summary)}</p>
         ${renderRiskOverlap(district)}
         <div class="chip-row">
           <span class="chip">구 중위 거래가 ${formatNumber(result.districtMedianPricePerSqm, "만원/㎡")}</span>
@@ -77,11 +78,11 @@
         <div class="result-grid">
           <div>
             <span class="result-label">핵심 근거</span>
-            <ul class="result-list">${result.reasons.map((item) => `<li>${item}</li>`).join("")}</ul>
+            <ul class="result-list">${result.reasons.map((item) => `<li>${polishCopy(item)}</li>`).join("")}</ul>
           </div>
           <div>
             <span class="result-label">바로 확인할 것</span>
-            <ul class="result-list">${result.checks.map((item) => `<li>${item}</li>`).join("")}</ul>
+            <ul class="result-list">${result.checks.map((item) => `<li>${polishCopy(item)}</li>`).join("")}</ul>
           </div>
         </div>
         <div class="chip-row">

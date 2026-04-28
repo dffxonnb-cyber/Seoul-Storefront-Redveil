@@ -4,6 +4,7 @@
     formatNumber,
     formatDateTime,
     riskTone,
+    polishCopy,
     loadReviews,
     createReviewRecord,
     persistReview,
@@ -62,7 +63,7 @@
                     <span>${formatNumber(item.customRiskScore, "점")}</span>
                     <p>${item.riskArchetype}</p>
                   </div>
-                  <p>${item.summary}</p>
+                  <p>${polishCopy(item.summary)}</p>
                   <button class="homepage-action-button homepage-action-button-soft review-replay-button" type="button" data-review-id="${item.id}">
                     메모 다시 보기
                   </button>
@@ -162,20 +163,20 @@
         </div>
         ${renderBenchmarkLine(result.customRiskScore, district)}
         ${renderReliabilityBadges(district, { includeNote: true })}
-        <p class="result-copy">${result.summary}</p>
+        <p class="result-copy">${polishCopy(result.summary)}</p>
         ${renderRiskOverlap(district)}
         <div class="review-result-sections">
           <section>
             <span class="result-label">보류 판단</span>
-            <p>${result.recommendedAction}</p>
+            <p>${polishCopy(result.recommendedAction)}</p>
           </section>
           <section>
             <span class="result-label">핵심 근거</span>
-            <ul class="result-list">${result.reasons.map((item) => `<li>${item}</li>`).join("")}</ul>
+            <ul class="result-list">${result.reasons.map((item) => `<li>${polishCopy(item)}</li>`).join("")}</ul>
           </section>
           <section>
             <span class="result-label">다음 확인 항목</span>
-            <ul class="result-list">${result.checks.map((item) => `<li>${item}</li>`).join("")}</ul>
+            <ul class="result-list">${result.checks.map((item) => `<li>${polishCopy(item)}</li>`).join("")}</ul>
           </section>
           <section>
             <span class="result-label">대체 후보</span>
@@ -215,7 +216,7 @@
         <article class="review-detail-hero">
           <span class="result-label">Decision Snapshot</span>
           <strong>${formatNumber(result.customRiskScore, "점")} · ${result.riskArchetype}</strong>
-          <p>${result.summary}</p>
+          <p>${polishCopy(result.summary)}</p>
           <div class="review-detail-kpis">
             <div>
               <span>입력 가격선</span>
@@ -257,7 +258,7 @@
         </section>
         <section>
           <span class="result-label">다음 확인 항목</span>
-          <ul class="result-list">${(result.checks || []).map((item) => `<li>${item}</li>`).join("")}</ul>
+          <ul class="result-list">${(result.checks || []).map((item) => `<li>${polishCopy(item)}</li>`).join("")}</ul>
         </section>
         <section>
           <span class="result-label">대체 후보</span>
@@ -267,7 +268,7 @@
                 (item) => `
                   <article>
                     <strong>${item.name}</strong>
-                    <p>${formatNumber(item.score, "점")} · ${item.whyBetter || "총 리스크가 더 낮습니다"}</p>
+                    <p>${formatNumber(item.score, "점")} · ${polishCopy(item.whyBetter || "총 리스크가 더 낮습니다")}</p>
                   </article>
                 `
               )

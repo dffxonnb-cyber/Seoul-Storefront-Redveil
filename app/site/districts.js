@@ -4,6 +4,7 @@
     formatNumber,
     riskTone,
     drawLineChart,
+    polishCopy,
     reliabilityInfo,
     renderReliabilityBadges,
     renderBenchmarkLine,
@@ -68,7 +69,7 @@
     if (!detail) return;
 
     document.getElementById("detail-name").textContent = `${detail.name} · ${detail.riskArchetype}`;
-    document.getElementById("detail-memo").textContent = detail.memo;
+    document.getElementById("detail-memo").textContent = polishCopy(detail.memo);
     document.getElementById("detail-grade").textContent = detail.riskGrade;
     document.getElementById("detail-score").textContent = formatNumber(detail.riskScore, "점");
     const reliability = reliabilityInfo(detail);
@@ -94,7 +95,7 @@
       <article class="district-drilldown-lead">
         <span class="result-label">Pause Trigger</span>
         <strong>${detail.decisionQuestion || detail.recommendedAction}</strong>
-        <p>${detail.archetypeSummary || detail.memo}</p>
+        <p>${polishCopy(detail.archetypeSummary || detail.memo)}</p>
         ${renderBenchmarkLine(detail.riskScore, detail)}
         ${renderReliabilityBadges(detail, { includeNote: true })}
       </article>
@@ -108,7 +109,7 @@
                 <div>
                   <span>${String(index + 1).padStart(2, "0")}</span>
                   <strong>${factor.label}</strong>
-                  <p>${factor.body}</p>
+                  <p>${polishCopy(factor.body)}</p>
                 </div>
                 <em>${formatNumber(factor.value, "점")}</em>
               </article>
@@ -139,11 +140,11 @@
       .join("");
 
     document.getElementById("detail-checks").innerHTML = (detail.reviewChecklist || [])
-      .map((item) => `<article><strong>확인</strong><p>${item}</p></article>`)
+      .map((item) => `<article><strong>확인</strong><p>${polishCopy(item)}</p></article>`)
       .join("");
 
     document.getElementById("detail-objections").innerHTML = (detail.objections || [])
-      .map((item) => `<article><strong>근거</strong><p>${item}</p></article>`)
+      .map((item) => `<article><strong>근거</strong><p>${polishCopy(item)}</p></article>`)
       .join("");
 
     document.getElementById("replacement-candidates").innerHTML =
@@ -153,7 +154,7 @@
               (item) => `
                 <article>
                   <strong>${item.name}</strong>
-                  <p>${formatNumber(item.score, "점")} · 추가 검토 후보입니다. ${item.whyBetter}</p>
+                  <p>${formatNumber(item.score, "점")} · 추가 검토 후보입니다. ${polishCopy(item.whyBetter)}</p>
                 </article>
               `
             )

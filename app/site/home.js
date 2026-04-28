@@ -306,7 +306,7 @@
     document.getElementById("feature-title").textContent = `${feature.name}에서 먼저 보이는 신호`;
     document.getElementById("feature-body").textContent =
       feature.memo ||
-      `${feature.riskArchetype} 유형으로 분류됐고, 최근 6개월 가격은 ${formatNumber(feature.sixMonthPriceChangePct, "%")} 움직였고 거래는 ${formatNumber(feature.sixMonthTransactionChangePct, "%")} 변했습니다. 가장 먼저 확인할 항목은 ${feature.objections?.[0] || feature.riskSummary} 입니다.`;
+      `${feature.riskArchetype} 유형으로 분류됐고, 최근 6개월 가격은 ${formatNumber(feature.sixMonthPriceChangePct, "%")} 움직였고 거래는 ${formatNumber(feature.sixMonthTransactionChangePct, "%")} 변했습니다. 가장 먼저 확인할 항목은 ${feature.objections?.[0] || feature.riskSummary}입니다.`;
 
     document.getElementById("recent-review").innerHTML = recent
       ? `

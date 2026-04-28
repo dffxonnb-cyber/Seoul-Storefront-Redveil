@@ -2634,16 +2634,25 @@ svg {
 }
 
 .app-grid.assessment-workspace {
-  grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.18fr);
+  grid-template-columns: minmax(560px, 0.98fr) minmax(0, 1.02fr);
   align-items: start;
 }
 
-.app-grid.assessment-insight-grid {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: stretch;
+.assessment-input-column {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
 }
 
-.app-grid.assessment-insight-grid > .panel {
+.assessment-insight-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.assessment-insight-grid > .panel {
   min-width: 0;
 }
 
@@ -2700,7 +2709,7 @@ body[data-page="assessment"] .progress-card p {
 
 .diagnosis-result-card .result-score {
   margin-top: 8px;
-  color: var(--accent-deep);
+  color: var(--text-main);
   font-size: 34px;
   font-weight: 820;
   font-variant-numeric: tabular-nums;
@@ -2709,6 +2718,10 @@ body[data-page="assessment"] .progress-card p {
 
 .diagnosis-result-card .result-copy {
   margin: 0;
+}
+
+body[data-page="assessment"] .diagnosis-result-card .diagnosis-helper-copy {
+  font-weight: 600;
 }
 
 .diagnosis-result-card .risk-overlap-block,
@@ -4090,6 +4103,10 @@ body[data-page="home"] .hero-actions .homepage-action-button {
     grid-template-columns: 1fr;
     align-items: start;
   }
+
+  .app-grid.assessment-workspace {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 767px) {
@@ -4160,7 +4177,7 @@ body[data-page="home"] .hero-actions .homepage-action-button {
   }
 
   .app-grid.assessment-workspace,
-  .app-grid.assessment-insight-grid,
+  .assessment-insight-grid,
   .diagnosis-result-card .result-grid {
     grid-template-columns: 1fr;
   }

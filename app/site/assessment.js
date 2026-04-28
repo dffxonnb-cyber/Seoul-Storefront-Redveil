@@ -55,6 +55,7 @@
 
   function renderResult(result) {
     const district = result.baseDistrict || districts.find((item) => item.code === result.districtCode);
+    const usesDistrictBaseline = result.summary === "가격선을 넣지 않아 현재 구 리스크를 기준으로 판단했습니다.";
     document.getElementById("assessment-result").innerHTML = `
       <div class="section-head">
         <div>
@@ -71,7 +72,7 @@
           ${renderReliabilityBadges(district, { includeNote: true })}
         </div>
         <div class="diagnosis-result-section">
-          <p class="result-copy">${polishCopy(result.summary)}</p>
+          <p class="result-copy${usesDistrictBaseline ? " diagnosis-helper-copy" : ""}">${polishCopy(result.summary)}</p>
           ${renderRiskOverlap(district)}
         </div>
         <div class="diagnosis-result-section">

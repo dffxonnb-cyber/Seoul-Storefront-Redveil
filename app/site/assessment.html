@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="./assets/redveil-logo.png" />
-    <link rel="stylesheet" href="./styles.css?v=20260429-typography" />
+    <link rel="stylesheet" href="./styles.css?v=20260429-diagnosis-final" />
   </head>
   <body data-page="assessment">
     <div class="page-shell">
@@ -53,39 +53,70 @@
         </section>
 
         <section class="app-grid assessment-workspace">
-          <article class="panel section-block">
-            <div class="section-head">
-              <div>
-                <p class="section-label">Scenario Input</p>
-                <h2>진단 조건</h2>
+          <div class="assessment-input-column">
+            <article class="panel section-block">
+              <div class="section-head">
+                <div>
+                  <p class="section-label">Scenario Input</p>
+                  <h2>진단 조건</h2>
+                </div>
               </div>
-            </div>
-            <form id="assessment-form" class="form-stack">
-              <label class="field">
-                <span>검토할 구</span>
-                <select id="district-code" required></select>
-              </label>
-              <label class="field">
-                <span>예상 매입가 (만원/㎡)</span>
-                <input id="asking-price" type="number" min="0" step="0.1" placeholder="예: 2500" />
-              </label>
-              <label class="field">
-                <span>보유 기간</span>
-                <input id="holding-months" type="number" min="6" max="180" step="6" value="36" />
-              </label>
-              <label class="field">
-                <span>우선순위</span>
-                <select id="priority">
-                  <option value="cashflow">현금흐름</option>
-                  <option value="balanced" selected>균형</option>
-                  <option value="growth">가격 상승</option>
-                </select>
-              </label>
-              <div class="full-span">
-                <button class="button button-primary button-wide" type="submit">진단 실행</button>
-              </div>
-            </form>
-          </article>
+              <form id="assessment-form" class="form-stack">
+                <label class="field">
+                  <span>검토할 구</span>
+                  <select id="district-code" required></select>
+                </label>
+                <label class="field">
+                  <span>예상 매입가 (만원/㎡)</span>
+                  <input id="asking-price" type="number" min="0" step="0.1" placeholder="예: 2500" />
+                </label>
+                <label class="field">
+                  <span>보유 기간</span>
+                  <input id="holding-months" type="number" min="6" max="180" step="6" value="36" />
+                </label>
+                <label class="field">
+                  <span>우선순위</span>
+                  <select id="priority">
+                    <option value="cashflow">현금흐름</option>
+                    <option value="balanced" selected>균형</option>
+                    <option value="growth">가격 상승</option>
+                  </select>
+                </label>
+                <div class="full-span">
+                  <button class="button button-primary button-wide" type="submit">진단 실행</button>
+                </div>
+              </form>
+            </article>
+
+            <section class="assessment-insight-grid">
+              <article class="panel section-block">
+                <div class="section-head">
+                  <div>
+                    <p class="section-label">District Snapshot</p>
+                    <h2 id="assessment-spotlight-name"></h2>
+                  </div>
+                  <span class="signal-pill" id="assessment-spotlight-grade"></span>
+                </div>
+                <div class="inline-chart-card">
+                  <div class="chart-head">
+                    <strong>최근 가격선 흐름</strong>
+                    <span id="assessment-spotlight-type"></span>
+                  </div>
+                  <svg id="assessment-spotlight-chart" viewBox="0 0 420 180" aria-label="구 가격 추이"></svg>
+                </div>
+              </article>
+
+              <article class="panel section-block">
+                <div class="section-head">
+                  <div>
+                    <p class="section-label">Risk Breakdown</p>
+                    <h2>핵심 리스크 축</h2>
+                  </div>
+                </div>
+                <div class="progress-list" id="assessment-progress-list"></div>
+              </article>
+            </section>
+          </div>
 
           <article class="panel section-block" id="assessment-result">
             <div class="section-head">
@@ -95,35 +126,6 @@
               </div>
             </div>
             <p class="section-copy">리스크 점수, 근거, 체크리스트, 대체 후보를 한 번에 보여줍니다.</p>
-          </article>
-        </section>
-
-        <section class="app-grid assessment-insight-grid">
-          <article class="panel section-block">
-            <div class="section-head">
-              <div>
-                <p class="section-label">District Snapshot</p>
-                <h2 id="assessment-spotlight-name"></h2>
-              </div>
-              <span class="signal-pill" id="assessment-spotlight-grade"></span>
-            </div>
-            <div class="inline-chart-card">
-              <div class="chart-head">
-                <strong>최근 가격선 흐름</strong>
-                <span id="assessment-spotlight-type"></span>
-              </div>
-              <svg id="assessment-spotlight-chart" viewBox="0 0 420 180" aria-label="구 가격 추이"></svg>
-            </div>
-          </article>
-
-          <article class="panel section-block">
-            <div class="section-head">
-              <div>
-                <p class="section-label">Risk Breakdown</p>
-                <h2>핵심 리스크 축</h2>
-              </div>
-            </div>
-            <div class="progress-list" id="assessment-progress-list"></div>
           </article>
         </section>
       </main>

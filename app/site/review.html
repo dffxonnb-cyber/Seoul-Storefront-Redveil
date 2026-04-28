@@ -58,35 +58,35 @@
               <div>
                 <p class="section-label">Input</p>
                 <h2>매물 정보 입력</h2>
-                <p class="section-copy">검토 중인 매물의 기본 정보와 매입 조건을 넣어 보류 여부를 기록합니다.</p>
+                <p class="section-copy">빠른 검토에 필요한 값만 먼저 입력하세요. 나머지는 선택 입력으로 남겨도 됩니다.</p>
               </div>
             </div>
             <form id="review-form" class="form-stack">
-              <fieldset class="review-form-group">
-                <legend>기본 정보</legend>
-                <label class="field">
-                  <span>매물명</span>
-                  <input id="asset-name" type="text" placeholder="예: 서초역 대로변 코너 상가" required />
-                </label>
+              <fieldset class="review-form-group review-form-group-required">
+                <legend>빠른 검토 필수</legend>
                 <label class="field">
                   <span>검토 구</span>
                   <select id="review-district-code" required></select>
                 </label>
                 <label class="field">
                   <span>행정동</span>
-                  <input id="admin-dong-name" type="text" placeholder="예: 서초동" />
+                  <input id="admin-dong-name" type="text" placeholder="예: 서초동" required />
+                </label>
+                <label class="field">
+                  <span>예상 매입가 (만원)</span>
+                  <input id="asking-price-total" type="number" min="0" step="100" placeholder="예: 85000" required />
                 </label>
                 <label class="field">
                   <span>가정 업종</span>
-                  <input id="target-tenant" type="text" placeholder="예: 카페, 근린생활 업종" />
+                  <input id="target-tenant" type="text" placeholder="예: 카페, 근린생활 업종" required />
                 </label>
               </fieldset>
 
-              <fieldset class="review-form-group">
-                <legend>매입 조건</legend>
+              <fieldset class="review-form-group review-form-group-optional">
+                <legend>선택 입력</legend>
                 <label class="field">
-                  <span>예상 매입가 (만원)</span>
-                  <input id="asking-price-total" type="number" min="0" step="100" placeholder="예: 85000" />
+                  <span>매물명</span>
+                  <input id="asset-name" type="text" placeholder="예: 서초역 대로변 코너 상가" />
                 </label>
                 <label class="field">
                   <span>전용 면적 (㎡)</span>
@@ -96,10 +96,6 @@
                   <span>보유 기간</span>
                   <input id="review-holding-months" type="number" min="6" max="180" step="6" value="36" />
                 </label>
-              </fieldset>
-
-              <fieldset class="review-form-group review-form-group-compact">
-                <legend>판단 기준</legend>
                 <label class="field">
                   <span>우선순위</span>
                   <select id="review-priority">
@@ -108,10 +104,6 @@
                     <option value="growth">가격 상승</option>
                   </select>
                 </label>
-              </fieldset>
-
-              <fieldset class="review-form-group review-form-group-memo">
-                <legend>검토 메모</legend>
                 <label class="field full-span">
                   <span>메모</span>
                   <textarea id="review-memo" rows="5" placeholder="예: 중개사가 역세권 수요와 희소성을 강조함"></textarea>
@@ -148,33 +140,30 @@
             <div>
               <p class="section-label">Saved Output</p>
               <h2>저장 후 결과가 여기서 바로 메모 형태로 정리됩니다.</h2>
+              <p class="section-copy">저장 전에는 생성될 메모 구조만 미리 보여줍니다.</p>
             </div>
           </div>
           <div class="review-output-preview">
-            <p>매물을 저장하면 보류 여부, 근거, 다음 확인 항목, 대체 후보까지 한 번에 보여줍니다.</p>
             <div class="review-memo-outline">
-              <span>보류 판단</span>
-              <span>핵심 근거</span>
-              <span>다음 확인 항목</span>
-              <span>대체 후보</span>
+              <article>
+                <span>보류 판단</span>
+                <p>조건을 저장하면 매입 보류 여부가 먼저 정리됩니다.</p>
+              </article>
+              <article>
+                <span>핵심 근거</span>
+                <p>가격 부담, 유동성, 상권 과밀 같은 근거가 묶입니다.</p>
+              </article>
+              <article>
+                <span>다음 확인 항목</span>
+                <p>현장에서 다시 볼 체크 포인트가 이어집니다.</p>
+              </article>
+              <article>
+                <span>대체 후보</span>
+                <p>조건이 더 나은 비교 후보가 함께 표시됩니다.</p>
+              </article>
             </div>
           </div>
         </article>
-
-        <section class="panel section-block review-detail-panel" id="review-detail">
-          <div class="section-head">
-            <div>
-              <p class="section-label">Review Detail</p>
-              <h2>저장한 매물의 판단 근거를 상세 리포트로 다시 봅니다.</h2>
-              <p class="section-copy">저장 후 가격선 비교, 핵심 위험 축, 현장 확인 항목을 한 번 더 펼쳐봅니다.</p>
-            </div>
-          </div>
-          <div class="review-detail-empty">
-            <span class="card-label">Waiting for saved review</span>
-            <strong>검토를 저장하면 상세 리포트가 생성됩니다.</strong>
-            <p>검토 이력에서 다시 보기를 눌러도 이 영역에 동일한 리포트가 복원됩니다.</p>
-          </div>
-        </section>
 
         <section class="panel section-block review-history-panel">
           <div class="section-head">

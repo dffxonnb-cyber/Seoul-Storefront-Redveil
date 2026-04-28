@@ -81,8 +81,8 @@
 
     if (!district) {
       document.getElementById("review-spotlight-name").textContent = "검토 구 선택 전";
-      document.getElementById("review-spotlight-type").textContent = "지역 맥락 대기";
-      document.getElementById("review-spotlight-grade").textContent = "Ready";
+      document.getElementById("review-spotlight-type").textContent = "가격선 분석 준비";
+      document.getElementById("review-spotlight-grade").textContent = "지역 선택 대기";
       document.getElementById("review-spotlight-grade").className = "signal-pill";
       chart.innerHTML = `
         <g class="chart-empty-grid">
@@ -93,11 +93,12 @@
         <path class="chart-empty-area" d="M 38 138 C 92 112 126 124 164 102 C 204 80 238 118 274 94 C 318 64 348 82 384 56 L 384 148 L 38 148 Z"></path>
         <path class="chart-empty-line" d="M 38 138 C 92 112 126 124 164 102 C 204 80 238 118 274 94 C 318 64 348 82 384 56"></path>
         <circle class="chart-empty-dot" cx="384" cy="56" r="4"></circle>
-        <text x="50%" y="74" text-anchor="middle" class="chart-empty-title">구를 선택하면 차트가 표시됩니다</text>
+        <text x="50%" y="72" text-anchor="middle" class="chart-empty-title">구를 선택하면 차트가 표시됩니다</text>
         <text x="50%" y="96" text-anchor="middle" class="chart-empty-copy">최근 가격선 흐름과 리스크 신호를 함께 봅니다</text>
       `;
       document.getElementById("review-spotlight-stats").innerHTML = `
         <article class="review-context-empty">
+          <span class="review-context-status">Ready</span>
           <strong>검토 구를 선택하면 최근 가격선 흐름과 지역 리스크 신호가 표시됩니다.</strong>
           <div class="review-context-chips">
             <span>최근 6개월</span>
@@ -287,15 +288,22 @@
   document.getElementById("review-form").addEventListener("submit", (event) => {
     event.preventDefault();
 
+    const districtSelect = document.getElementById("review-district-code");
+    const adminDongName = document.getElementById("admin-dong-name").value.trim();
+    const targetTenant = document.getElementById("target-tenant").value.trim();
+    const fallbackName = [districtSelect.selectedOptions[0]?.textContent.trim(), adminDongName || targetTenant]
+      .filter(Boolean)
+      .join(" · ");
+
     const record = createReviewRecord({
-      assetName: document.getElementById("asset-name").value.trim(),
-      districtCode: document.getElementById("review-district-code").value,
-      adminDongName: document.getElementById("admin-dong-name").value.trim(),
+      assetName: document.getElementById("asset-name").value.trim() || fallbackName || "이름 없는 매물",
+      districtCode: districtSelect.value,
+      adminDongName,
       askingPriceTotal10k: Number(document.getElementById("asking-price-total").value || 0),
       exclusiveAreaSqm: Number(document.getElementById("exclusive-area").value || 0),
       holdingMonths: Number(document.getElementById("review-holding-months").value || 36),
       priority: document.getElementById("review-priority").value,
-      targetTenant: document.getElementById("target-tenant").value.trim(),
+      targetTenant,
       memo: document.getElementById("review-memo").value.trim(),
     });
 

@@ -25,6 +25,165 @@
     return "tone-low";
   }
 
+  function recentTransactionSample(district) {
+    return (district?.history || []).reduce((total, item) => total + Number(item.transactionCount || 0), 0);
+  }
+
+  function reliabilityInfo(district) {
+    const sampleCount = recentTransactionSample(district);
+    const isLowSample = Boolean(district?.lowSampleFlag) || (sampleCount > 0 && sampleCount < 36);
+    const level = isLowSample ? "저표본 주의" : sampleCount >= 120 ? "높음" : "보통";
+
+    return {
+      level,
+      sampleCount,
+      isLowSample,
+      label: isLowSample ? "저표본 주의" : `데이터 신뢰도 ${level}`,
+      sampleLabel: sampleCount > 0 ? `기반 표본 ${formatNumber(sampleCount, "건", 0)}` : "기반 표본 확인 필요",
+      windowLabel: "최근 12개월 거래 표본",
+      note: isLowSample
+        ? "표본이 적은 구는 신뢰도 경고를 함께 표시합니다."
+        : "최근 12개월 거래 표본 기준으로 해석합니다.",
+    };
+  }
+
+  function benchmarkInfo(score, district) {
+    const numericScore = Number(score || district?.riskScore || 0);
+    let label = "서울 25개 구 기준 관찰 구간";
+    if (numericScore >= 70) label = "서울 25개 구 기준 고위험 구간";
+    else if (numericScore >= 60) label = "동일 구 평균 대비 주의 구간";
+
+    let detail = "기준선보다 높은 리스크 신호";
+    if (Number(district?.priceBurdenRiskScore || 0) >= 70) {
+      detail = "서울 평균 대비 높은 가격 부담";
+    } else if (Number(district?.liquidityRiskScore || 0) >= 60 || Number(district?.transactionRiskScore || 0) >= 60) {
+      detail = "거래 유동성은 서울 평균보다 약함";
+    } else if (numericScore < 60) {
+      detail = "개별 매물 조건과 동일 구 평균을 함께 확인";
+    }
+
+    return { label, detail };
+  }
+
+  function riskOverlapInfo(district) {
+    const categories = [
+      {
+        label: "가격 부담",
+        score: Number(district?.priceBurdenRiskScore || 0),
+        active: Number(district?.priceBurdenRiskScore || 0) >= 60,
+      },
+      {
+        label: "거래 둔화",
+        score: Math.max(Number(district?.transactionRiskScore || 0), Number(district?.liquidityRiskScore || 0)),
+        active: Number(district?.transactionRiskScore || 0) >= 60 || Number(district?.liquidityRiskScore || 0) >= 60,
+      },
+      {
+        label: "상권 과밀",
+        score: Number(district?.competitionRiskScore || 0),
+        active: Number(district?.competitionRiskScore || 0) >= 60,
+      },
+      {
+        label: "수요 취약",
+        score: Number(district?.liquidityRiskScore || 0),
+        active: Number(district?.liquidityRiskScore || 0) >= 70 && Number(district?.transactionRiskScore || 0) >= 60,
+      },
+    ];
+    const activeLabels = categories.filter((item) => item.active).map((item) => item.label);
+
+    let sentence = "뚜렷한 중첩 신호는 낮지만, 동일 구 평균과 개별 매물 조건을 함께 확인하세요.";
+    if (activeLabels.includes("가격 부담") && activeLabels.includes("거래 둔화")) {
+      sentence = "가격 부담과 거래 둔화 신호가 함께 나타나는 중첩 리스크 구간입니다.";
+    } else if (activeLabels.includes("가격 부담") && activeLabels.includes("상권 과밀")) {
+      sentence = "가격 부담에 상권 과밀 신호가 겹쳐 임차 수요와 퇴거 조건을 함께 확인해야 합니다.";
+    } else if (activeLabels.includes("거래 둔화") && activeLabels.includes("수요 취약")) {
+      sentence = "거래 흐름이 얇고 수요 취약 신호가 겹쳐 진입보다 보류 검토가 우선입니다.";
+    } else if (activeLabels.length >= 2) {
+      sentence = `${activeLabels.slice(0, 2).join(" · ")} 신호가 함께 나타나 추가 확인이 필요한 구간입니다.`;
+    } else if (activeLabels.length === 1) {
+      sentence = `${activeLabels[0]} 신호가 기준선보다 높아 추가 확인이 필요합니다.`;
+    }
+
+    return { categories, activeLabels, sentence };
+  }
+
+  function alternativeRationale(district, result) {
+    const overlap = riskOverlapInfo(district);
+    const riskText = overlap.activeLabels.length ? overlap.activeLabels.slice(0, 2).join(" · ") : "핵심 리스크";
+    const firstCandidate = (result?.replacementCandidates || district?.replacementCandidates || [])[0];
+    const districtName = result?.districtName || district?.name || "해당 구";
+
+    return {
+      holdReason: `${districtName}은 ${riskText} 신호가 기준선보다 높아 보류 검토가 필요합니다.`,
+      offsetBasis: "대체 후보는 동일 예산대에서 거래 유동성이 더 안정적이고 상권 과밀도가 낮은 지역을 우선으로 봅니다.",
+      candidateReason: firstCandidate
+        ? `${firstCandidate.name}은 추가 검토 후보로, ${firstCandidate.whyBetter || "가격 부담과 거래 둔화 신호를 일부 상쇄할 수 있는지 확인합니다."}`
+        : "추가 검토 후보는 가격 부담, 거래 둔화, 상권 과밀 신호를 상쇄할 수 있는지를 기준으로 좁힙니다.",
+    };
+  }
+
+  function renderReliabilityBadges(district, options = {}) {
+    const info = reliabilityInfo(district);
+    const className = options.className ? ` ${options.className}` : "";
+    return `
+      <div class="interpretation-strip${className}">
+        <span class="interpretation-badge ${info.isLowSample ? "is-caution" : ""}">${info.label}</span>
+        <span class="interpretation-badge">${info.windowLabel}</span>
+        <span class="interpretation-badge">${info.sampleLabel}</span>
+      </div>
+      ${options.includeNote ? `<p class="interpretation-note">${info.note}</p>` : ""}
+    `;
+  }
+
+  function renderBenchmarkLine(score, district) {
+    const benchmark = benchmarkInfo(score, district);
+    return `
+      <div class="benchmark-line">
+        <strong>${benchmark.label}</strong>
+        <span>${benchmark.detail}</span>
+      </div>
+    `;
+  }
+
+  function renderRiskOverlap(district, options = {}) {
+    const overlap = riskOverlapInfo(district);
+    const compactClass = options.compact ? " risk-overlap-compact" : "";
+    return `
+      <section class="risk-overlap-block${compactClass}">
+        <span class="result-label">리스크 중첩 해석</span>
+        <div class="risk-chip-list">
+          ${overlap.categories
+            .map((item) => `<span class="risk-chip ${item.active ? "is-active" : ""}">${item.label}</span>`)
+            .join("")}
+        </div>
+        <p>${overlap.sentence}</p>
+      </section>
+    `;
+  }
+
+  function renderAlternativeRationale(district, result, options = {}) {
+    const rationale = alternativeRationale(district, result);
+    const compactClass = options.compact ? " alternative-rationale-compact" : "";
+    return `
+      <section class="alternative-rationale${compactClass}">
+        <span class="result-label">대체 후보 선정 이유</span>
+        <div class="rationale-grid">
+          <article>
+            <strong>보류 사유</strong>
+            <p>${rationale.holdReason}</p>
+          </article>
+          <article>
+            <strong>상쇄 기준</strong>
+            <p>${rationale.offsetBasis}</p>
+          </article>
+          <article>
+            <strong>대체 후보 선정 이유</strong>
+            <p>${rationale.candidateReason}</p>
+          </article>
+        </div>
+      </section>
+    `;
+  }
+
   function loadReviews() {
     try {
       const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
@@ -228,6 +387,14 @@
     formatNumber,
     formatDateTime,
     riskTone,
+    reliabilityInfo,
+    benchmarkInfo,
+    riskOverlapInfo,
+    alternativeRationale,
+    renderReliabilityBadges,
+    renderBenchmarkLine,
+    renderRiskOverlap,
+    renderAlternativeRationale,
     loadReviews,
     buildAssessment,
     createReviewRecord,

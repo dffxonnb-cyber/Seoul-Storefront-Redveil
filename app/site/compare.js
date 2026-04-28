@@ -1,5 +1,13 @@
 (function () {
-  const { payload, formatNumber, riskTone } = window.RedveilV2 || {};
+  const {
+    payload,
+    formatNumber,
+    riskTone,
+    renderReliabilityBadges,
+    renderBenchmarkLine,
+    renderRiskOverlap,
+    renderAlternativeRationale,
+  } = window.RedveilV2 || {};
 
   if (!payload) return;
 
@@ -40,10 +48,13 @@
             <strong>${item.name}</strong>
             <p>${item.riskArchetype}</p>
             <p>${item.riskSummary}</p>
+            ${renderBenchmarkLine(item.riskScore, item)}
+            ${renderReliabilityBadges(item)}
             <div class="chip-row">
               <span class="chip">총 리스크 ${formatNumber(item.riskScore, "점")}</span>
               <span class="chip">가격 부담 ${formatNumber(item.priceBurdenRiskScore, "점")}</span>
             </div>
+            ${renderRiskOverlap(item, { compact: true })}
             <ul class="case-list">
               ${(item.objections || []).slice(0, 3).map((objection) => `<li>${objection}</li>`).join("")}
             </ul>
@@ -98,6 +109,7 @@
         <span class="card-label">Lowest Total Risk</span>
         <strong>${best.name}</strong>
         <p>${formatNumber(best.riskScore, "점")} · ${best.riskArchetype}</p>
+        ${renderBenchmarkLine(best.riskScore, best)}
       </article>
       <article class="mini-compare-card">
         <span class="card-label">Lowest Competition</span>
@@ -145,11 +157,15 @@
           <p>선택 후보 간 격차가 ${formatNumber(biggestGap.gap, "점")}입니다. 이 축을 중심으로 후보를 다시 좁히는 것이 좋습니다.</p>
         </article>
         <article>
+          ${renderRiskOverlap(riskiest, { compact: true })}
+        </article>
+        <article>
           <span class="result-label">다음 액션</span>
           <strong>낮은 리스크 후보를 기준선으로 삼기</strong>
           <p>${safest.name}의 가격선과 상권 과밀도를 기준으로 나머지 후보의 초과 위험을 비교하세요.</p>
         </article>
       </div>
+      ${renderAlternativeRationale(riskiest, null, { compact: true })}
     `;
   }
 

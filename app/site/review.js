@@ -8,6 +8,10 @@
     createReviewRecord,
     persistReview,
     drawLineChart,
+    renderReliabilityBadges,
+    renderBenchmarkLine,
+    renderRiskOverlap,
+    renderAlternativeRationale,
   } = window.RedveilV2 || {};
 
   if (!payload) return;
@@ -139,6 +143,7 @@
   }
 
   function renderResult(result) {
+    const district = districtForRecord(result);
     document.getElementById("review-result").innerHTML = `
       <div class="section-head">
         <div>
@@ -155,7 +160,10 @@
           </div>
           <span class="result-score">${formatNumber(result.customRiskScore, "점")}</span>
         </div>
+        ${renderBenchmarkLine(result.customRiskScore, district)}
+        ${renderReliabilityBadges(district, { includeNote: true })}
         <p class="result-copy">${result.summary}</p>
+        ${renderRiskOverlap(district)}
         <div class="review-result-sections">
           <section>
             <span class="result-label">보류 판단</span>
@@ -178,6 +186,7 @@
             </div>
           </section>
         </div>
+        ${renderAlternativeRationale(district, result)}
         <p class="compact-note">저장 시각 ${formatDateTime(result.createdAt)}</p>
       </div>
     `;

@@ -1,5 +1,15 @@
 (function () {
-  const { payload, formatNumber, riskTone, buildAssessment, drawLineChart } = window.RedveilV2 || {};
+  const {
+    payload,
+    formatNumber,
+    riskTone,
+    buildAssessment,
+    drawLineChart,
+    renderReliabilityBadges,
+    renderBenchmarkLine,
+    renderRiskOverlap,
+    renderAlternativeRationale,
+  } = window.RedveilV2 || {};
 
   if (!payload) return;
 
@@ -43,6 +53,7 @@
   }
 
   function renderResult(result) {
+    const district = result.baseDistrict || districts.find((item) => item.code === result.districtCode);
     document.getElementById("assessment-result").innerHTML = `
       <div class="section-head">
         <div>
@@ -54,7 +65,10 @@
       <div class="result-card" style="margin-top:0">
         <span class="result-label">Risk Score</span>
         <span class="result-score">${formatNumber(result.customRiskScore, "점")}</span>
+        ${renderBenchmarkLine(result.customRiskScore, district)}
+        ${renderReliabilityBadges(district, { includeNote: true })}
         <p class="result-copy">${result.summary}</p>
+        ${renderRiskOverlap(district)}
         <div class="chip-row">
           <span class="chip">구 중위 거래가 ${formatNumber(result.districtMedianPricePerSqm, "만원/㎡")}</span>
           <span class="chip">입력 가격 프리미엄 ${formatNumber(result.premiumPct, "%")}</span>
@@ -75,6 +89,7 @@
             .map((item) => `<span class="chip">대체 후보 ${item.name}</span>`)
             .join("")}
         </div>
+        ${renderAlternativeRationale(district, result, { compact: true })}
       </div>
     `;
   }

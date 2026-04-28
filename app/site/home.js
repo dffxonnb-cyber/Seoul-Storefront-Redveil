@@ -1,5 +1,13 @@
 (function () {
-  const { payload, formatNumber, riskTone, loadReviews, drawLineChart } = window.RedveilV2 || {};
+  const {
+    payload,
+    formatNumber,
+    riskTone,
+    loadReviews,
+    drawLineChart,
+    renderReliabilityBadges,
+    renderBenchmarkLine,
+  } = window.RedveilV2 || {};
 
   if (!payload) {
     document.body.innerHTML = `
@@ -158,6 +166,10 @@
       highestRiskDistrict.priceBurdenRiskScore,
       "점"
     )}, 상권 과밀 ${formatNumber(highestRiskDistrict.competitionRiskScore, "점")}. 같은 권역 대비 매입가 부담이 크고, 최근 가격 변동성도 확대되어 체결가 재확인이 필요합니다.`;
+    document.getElementById("hero-preview-signals").innerHTML = `
+      ${renderBenchmarkLine(highestRiskDistrict.riskScore, highestRiskDistrict)}
+      ${renderReliabilityBadges(highestRiskDistrict)}
+    `;
     document.getElementById("hero-preview-list").innerHTML = polishedObjections.map((item) => `<li>${item}</li>`).join("");
 
     chartSvg.setAttribute("aria-label", `${highestRiskDistrict.name} 최근 ㎡당 거래가 흐름`);
@@ -267,17 +279,21 @@
       )
       .join("");
 
-    document.getElementById("score-breakdown").innerHTML = topFactors
-      .slice(0, 3)
-      .map(
-        ([label, score]) => `
-          <div class="score-row">
-            <span>${label}</span>
-            <strong>${formatNumber(score, "점")}</strong>
-          </div>
-        `
-      )
-      .join("");
+    document.getElementById("score-breakdown").innerHTML = `
+      ${renderBenchmarkLine(highestRiskDistrict.riskScore, highestRiskDistrict)}
+      ${renderReliabilityBadges(highestRiskDistrict, { includeNote: true })}
+      ${topFactors
+        .slice(0, 3)
+        .map(
+          ([label, score]) => `
+            <div class="score-row">
+              <span>${label}</span>
+              <strong>${formatNumber(score, "점")}</strong>
+            </div>
+          `
+        )
+        .join("")}
+    `;
 
     const sources = (content.dataSources || []).slice(0, 2).map((item) => `${item.name} ${item.window}`).join(" / ");
     document.getElementById("source-note").innerHTML = `

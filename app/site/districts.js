@@ -1,5 +1,15 @@
 (function () {
-  const { payload, formatNumber, riskTone, drawLineChart } = window.RedveilV2 || {};
+  const {
+    payload,
+    formatNumber,
+    riskTone,
+    drawLineChart,
+    reliabilityInfo,
+    renderReliabilityBadges,
+    renderBenchmarkLine,
+    renderRiskOverlap,
+    renderAlternativeRationale,
+  } = window.RedveilV2 || {};
   if (!payload) return;
 
   const state = {
@@ -61,10 +71,12 @@
     document.getElementById("detail-memo").textContent = detail.memo;
     document.getElementById("detail-grade").textContent = detail.riskGrade;
     document.getElementById("detail-score").textContent = formatNumber(detail.riskScore, "점");
+    const reliability = reliabilityInfo(detail);
 
     document.getElementById("detail-summary-grid").innerHTML = [
       ["대표 유형", detail.riskArchetype],
-      ["신뢰도", detail.sampleReliability],
+      ["데이터 신뢰도", reliability.level],
+      ["기반 표본", reliability.sampleCount ? formatNumber(reliability.sampleCount, "건", 0) : "확인 필요"],
       ["음식업 비중", formatNumber(detail.foodStoreSharePct, "%")],
       ["행정동당 점포", formatNumber(detail.storesPerAdminDong)],
     ]
@@ -83,7 +95,10 @@
         <span class="result-label">Pause Trigger</span>
         <strong>${detail.decisionQuestion || detail.recommendedAction}</strong>
         <p>${detail.archetypeSummary || detail.memo}</p>
+        ${renderBenchmarkLine(detail.riskScore, detail)}
+        ${renderReliabilityBadges(detail, { includeNote: true })}
       </article>
+      ${renderRiskOverlap(detail)}
       <div class="district-factor-list">
         ${riskFactors(detail)
           .slice(0, 4)
@@ -138,11 +153,11 @@
               (item) => `
                 <article>
                   <strong>${item.name}</strong>
-                  <p>${formatNumber(item.score, "점")} · ${item.whyBetter}</p>
+                  <p>${formatNumber(item.score, "점")} · 추가 검토 후보입니다. ${item.whyBetter}</p>
                 </article>
               `
             )
-            .join("")
+            .join("") + renderAlternativeRationale(detail, null, { compact: true })
         : `<article><strong>대체 후보 없음</strong><p>현재 조건에서는 바로 제시할 대체 구가 없습니다.</p></article>`;
 
     drawLineChart("price-chart", detail.history || [], "medianPricePerSqm", "#df5a3a");

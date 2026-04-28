@@ -194,7 +194,12 @@ body[data-page="home"] .homepage-action-button {
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
   text-decoration: none;
+}
+
+.brand span {
+  min-width: 0;
 }
 
 .brand-mark {
@@ -258,6 +263,7 @@ body[data-page="home"] .homepage-action-button {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  min-width: 0;
 }
 
 .topnav a {
@@ -296,6 +302,7 @@ body[data-page="home"] .homepage-action-button {
 .page-stack {
   display: grid;
   gap: 18px;
+  padding-top: 8px;
 }
 
 .homepage-shell {
@@ -317,7 +324,7 @@ body[data-page="home"] .homepage-action-button {
 body[data-page="home"] .homepage-hero::after {
   content: "";
   position: absolute;
-  inset: 4% -8% 8% 52%;
+  inset: 4% 0 8% 52%;
   background: radial-gradient(circle at 38% 44%, rgba(155, 51, 46, 0.08), transparent 46%);
   filter: blur(4px);
   pointer-events: none;
@@ -636,7 +643,7 @@ body[data-page="home"] .screen-panel::before {
 body[data-page="home"] .homepage-screen::before {
   content: "";
   position: absolute;
-  inset: -48px -32px -48px -32px;
+  inset: -48px 0;
   background: radial-gradient(circle at 70% 42%, rgba(155, 51, 46, 0.08), transparent 58%);
   pointer-events: none;
   z-index: -1;
@@ -3761,6 +3768,12 @@ body[data-page="home"] .hero-actions .homepage-action-button {
     border-radius: 9px;
   }
 
+  .brand small {
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
   .topnav {
     width: 100%;
     flex-wrap: wrap;
@@ -4039,5 +4052,12 @@ body[data-page="home"] .hero-actions .homepage-action-button {
 
   body[data-page="review"] .review-replay-button {
     width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand small {
+    font-size: 8.5px;
+    letter-spacing: 0.04em;
   }
 }

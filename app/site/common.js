@@ -213,7 +213,13 @@
       const href = link.getAttribute("href") || "";
       const normalized = href.replace("./", "").replace(".html", "") || "index";
       const target = normalized === "index" ? "home" : normalized;
-      link.classList.toggle("is-active", page === target);
+      const isActive = page === target;
+      link.classList.toggle("is-active", isActive);
+      if (isActive) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
     });
   }
 

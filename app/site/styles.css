@@ -2656,7 +2656,7 @@ svg {
   min-width: 0;
 }
 
-body[data-page="assessment"] .subhero {
+body[data-page="assessment"] .subhero:not(.service-subhero) {
   padding: 22px 24px;
 }
 
@@ -3162,25 +3162,31 @@ body[data-page="review"] .panel {
   box-shadow: var(--shadow-card);
 }
 
-.review-subhero {
+.review-subhero,
+.service-subhero {
   padding: 19px 24px;
 }
 
-.review-subhero .subhero-copy {
+.review-subhero .subhero-copy,
+.service-subhero .subhero-copy {
   align-items: center;
   gap: clamp(22px, 4vw, 64px);
 }
 
-.review-subhero .subhero-copy > div:first-child {
+.review-subhero .subhero-copy > div:first-child,
+.service-subhero .subhero-copy > div:first-child {
   display: grid;
   gap: 8px;
 }
 
-.review-subhero h2 {
+.review-subhero h2,
+.service-subhero h2 {
   max-width: none;
+  text-wrap: balance;
 }
 
-.review-subhero .subhero-copy p:not(.section-label):not(.compact-note) {
+.review-subhero .subhero-copy p:not(.section-label):not(.compact-note),
+.service-subhero .subhero-copy p:not(.section-label):not(.compact-note) {
   margin: 0;
   max-width: 50ch;
   color: var(--text-muted);
@@ -3195,7 +3201,8 @@ body[data-page="review"] .panel {
   }
 }
 
-.review-status-card {
+.review-status-card,
+.service-status-card {
   display: grid;
   align-self: center;
   justify-self: end;
@@ -3209,7 +3216,8 @@ body[data-page="review"] .panel {
   box-shadow: 0 14px 28px rgba(73, 37, 26, 0.07);
 }
 
-.review-status-card strong {
+.review-status-card strong,
+.service-status-card strong {
   margin-top: 3px;
   color: var(--accent-deep);
   font-size: 28px;
@@ -3218,7 +3226,8 @@ body[data-page="review"] .panel {
   font-variant-numeric: tabular-nums;
 }
 
-.review-status-card .compact-note {
+.review-status-card .compact-note,
+.service-status-card .compact-note {
   margin: 5px 0 0;
   color: rgba(75, 48, 39, 0.7);
   font-size: 12.5px;
@@ -4450,6 +4459,8 @@ body[data-page="home"] .hero-actions .homepage-action-button {
 
 @media (max-width: 767px) {
   body[data-page="review"] .review-subhero,
+  body[data-page="assessment"] .service-subhero,
+  .service-subhero,
   body[data-page="review"] .review-input-panel,
   body[data-page="review"] .review-context-card,
   body[data-page="review"] .review-output-card,
@@ -4457,11 +4468,13 @@ body[data-page="home"] .hero-actions .homepage-action-button {
     padding: 20px 18px;
   }
 
-  body[data-page="review"] .review-subhero .subhero-copy {
+  body[data-page="review"] .review-subhero .subhero-copy,
+  .service-subhero .subhero-copy {
     align-items: stretch;
   }
 
-  body[data-page="review"] .review-status-card {
+  body[data-page="review"] .review-status-card,
+  .service-status-card {
     width: 100%;
   }
 

@@ -3071,10 +3071,23 @@ body[data-page="compare"] .panel {
 body[data-page="compare"] .section-head h2 {
   max-width: none;
   font-family: var(--font-display);
-  font-size: clamp(23px, 1.8vw, 28px);
-  font-weight: 750;
+  font-size: 24px;
+  font-weight: 700;
   line-height: 1.28;
   letter-spacing: 0;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  text-wrap: balance;
+}
+
+body[data-page="compare"] .compare-heading-phrase {
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  body[data-page="compare"] .section-head h2.compare-section-title-keep {
+    white-space: nowrap;
+  }
 }
 
 body[data-page="compare"] .section-label,

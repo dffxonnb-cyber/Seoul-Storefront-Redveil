@@ -3044,20 +3044,92 @@ body[data-page="assessment"] .diagnosis-result-card .diagnosis-helper-copy {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+body[data-page="compare"],
+body[data-page="compare"] * {
+  font-family: var(--font-sans);
+}
+
+body[data-page="compare"] {
+  color: var(--text-main);
+  font-weight: 400;
+  letter-spacing: 0;
+  overflow-x: hidden;
+}
+
+body[data-page="compare"] .page-stack {
+  gap: 20px;
+}
+
+body[data-page="compare"] .panel {
+  border-color: var(--line-card);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.97), rgba(252, 244, 237, 0.93)),
+    var(--card-bg);
+  box-shadow: var(--shadow-card);
+}
+
+body[data-page="compare"] .section-head h2 {
+  max-width: none;
+  font-family: var(--font-display);
+  font-size: clamp(23px, 1.8vw, 28px);
+  font-weight: 750;
+  line-height: 1.28;
+  letter-spacing: 0;
+}
+
+body[data-page="compare"] .section-label,
+body[data-page="compare"] .card-label,
+body[data-page="compare"] .result-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+}
+
 .compare-card {
+  display: grid;
+  gap: 13px;
   position: relative;
   overflow: hidden;
+  min-height: 100%;
+  padding: 18px;
 }
 
-.compare-card .benchmark-line,
-.compare-card .risk-overlap-block,
-.compare-card .interpretation-strip,
-.mini-compare-card .benchmark-line {
-  margin-top: 12px;
+.compare-card-head,
+.candidate-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.compare-card .risk-overlap-block p {
-  font-size: 13.5px;
+.candidate-title {
+  flex-direction: column;
+  gap: 3px;
+}
+
+.candidate-title strong {
+  display: block;
+  color: var(--ink);
+  font-size: 21px;
+  font-weight: 850;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.candidate-title p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.compare-card .benchmark-line {
+  margin-top: 0;
+}
+
+.compare-card .chip-row {
+  margin-top: 0;
 }
 
 .compare-card::before {
@@ -3068,8 +3140,172 @@ body[data-page="assessment"] .diagnosis-result-card .diagnosis-helper-copy {
   background: linear-gradient(180deg, var(--accent), var(--gold));
 }
 
+.risk-signal-board {
+  display: grid;
+  gap: 9px;
+}
+
+.risk-signal-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.risk-signal-card {
+  display: grid;
+  grid-template-columns: minmax(78px, 0.7fr) auto minmax(110px, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 9px 11px;
+  border: 1px solid rgba(73, 37, 26, 0.1);
+  border-radius: 14px;
+  background: rgba(255, 253, 249, 0.86);
+}
+
+.risk-signal-card.tone-high {
+  border-color: rgba(155, 51, 46, 0.2);
+  background: rgba(255, 246, 241, 0.94);
+}
+
+.risk-signal-card span,
+.risk-delta-card span,
+.decision-memo-row span {
+  color: var(--text-label);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.risk-signal-card strong {
+  color: var(--accent-deep);
+  font-size: 16px;
+  font-weight: 850;
+  line-height: 1.1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.risk-signal-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.decision-cue {
+  padding: 12px 13px;
+  border: 1px solid rgba(155, 51, 46, 0.14);
+  border-radius: 15px;
+  background: rgba(255, 248, 244, 0.72);
+}
+
+.decision-cue span {
+  display: block;
+  color: var(--accent-deep);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.decision-cue p {
+  margin: 5px 0 0;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
 .comparison-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+
+#compare-metrics {
+  gap: 12px;
+}
+
+.metric-compare-card {
+  display: grid;
+  gap: 10px;
+  padding: 17px;
+  border: 1px solid rgba(73, 37, 26, 0.11);
+  border-radius: 18px;
+  background: rgba(255, 253, 249, 0.9);
+  box-shadow: 0 10px 22px rgba(73, 37, 26, 0.04);
+}
+
+.metric-compare-card strong {
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 850;
+  line-height: 1.3;
+}
+
+.metric-scoreline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.metric-scoreline span {
+  color: var(--accent-deep);
+  font-size: 30px;
+  font-weight: 850;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-scoreline em {
+  color: var(--text-label);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.metric-compare-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14.5px;
+  font-weight: 550;
+  line-height: 1.58;
+}
+
+.metric-mini-bars {
+  display: grid;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.metric-mini-row {
+  display: grid;
+  grid-template-columns: minmax(94px, 1fr) auto;
+  gap: 8px 10px;
+  align-items: center;
+}
+
+.metric-mini-row span,
+.metric-mini-row strong {
+  font-size: 12.5px;
+  font-weight: 750;
+}
+
+.metric-mini-row span {
+  color: var(--text-muted);
+}
+
+.metric-mini-row strong {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-mini-row .progress-track {
+  grid-column: 1 / -1;
+  height: 7px;
 }
 
 .compare-memo-card {
@@ -3077,6 +3313,146 @@ body[data-page="assessment"] .diagnosis-result-card .diagnosis-helper-copy {
   background:
     linear-gradient(180deg, rgba(255, 251, 247, 0.98), rgba(252, 242, 235, 0.93)),
     var(--card-bg-muted);
+}
+
+.alternative-board {
+  display: grid;
+  gap: 14px;
+  height: 100%;
+  padding: 17px;
+  border: 1px solid rgba(155, 51, 46, 0.16);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.96), rgba(255, 247, 242, 0.9)),
+    var(--card-bg);
+  box-shadow: 0 10px 22px rgba(73, 37, 26, 0.04);
+}
+
+.alternative-hero {
+  display: grid;
+  gap: 5px;
+}
+
+.alternative-hero strong {
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.alternative-hero p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14.5px;
+  font-weight: 650;
+}
+
+.risk-delta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.risk-delta-card {
+  padding: 12px;
+  border: 1px solid rgba(73, 37, 26, 0.1);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.risk-delta-card strong {
+  display: block;
+  margin-top: 7px;
+  color: var(--accent-deep);
+  font-size: 20px;
+  font-weight: 850;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.risk-delta-card p {
+  margin: 7px 0 0;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.alternative-support-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.alternative-support-grid section {
+  padding: 13px;
+  border: 1px solid rgba(73, 37, 26, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 253, 249, 0.74);
+}
+
+.compact-checklist {
+  display: grid;
+  gap: 7px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compact-checklist li {
+  position: relative;
+  padding-left: 13px;
+  color: var(--text-muted);
+  font-size: 13.5px;
+  font-weight: 650;
+  line-height: 1.42;
+}
+
+.compact-checklist li::before {
+  content: "";
+  position: absolute;
+  top: 0.72em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.decision-memo-board {
+  display: grid;
+  gap: 10px;
+}
+
+.decision-memo-row {
+  display: grid;
+  grid-template-columns: minmax(96px, 0.34fr) minmax(180px, 0.8fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 15px 16px;
+  border: 1px solid rgba(73, 37, 26, 0.12);
+  border-radius: 17px;
+  background: rgba(255, 253, 249, 0.82);
+}
+
+.decision-memo-row.is-primary {
+  border-color: rgba(155, 51, 46, 0.22);
+  background: rgba(255, 247, 242, 0.9);
+}
+
+.decision-memo-row strong {
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 850;
+  line-height: 1.34;
+}
+
+.decision-memo-row p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 1.58;
 }
 
 .compare-decision-grid {
@@ -4139,6 +4515,27 @@ body[data-page="home"] .hero-actions .homepage-action-button {
 
   .interpretation-badge {
     white-space: normal;
+  }
+
+  .risk-signal-card,
+  .decision-memo-row {
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+  }
+
+  .risk-signal-card p {
+    text-align: left;
+  }
+
+  .risk-delta-grid,
+  .alternative-support-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-scoreline {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
   }
 
   .district-drilldown-grid > .risk-overlap-block,

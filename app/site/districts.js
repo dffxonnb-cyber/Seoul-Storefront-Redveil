@@ -9,7 +9,6 @@
     renderReliabilityBadges,
     renderBenchmarkLine,
     renderRiskOverlap,
-    renderAlternativeRationale,
   } = window.RedveilV2 || {};
   if (!payload) return;
 
@@ -55,27 +54,83 @@
 
   function riskFactors(detail) {
     return [
-      ["가격 부담", detail.priceBurdenRiskScore, "같은 권역 대비 매입 가격선이 앞서 있는지 확인합니다."],
-      ["거래 유동성", detail.liquidityRiskScore, "최근 거래가 얇아졌다면 회수 가능성을 보수적으로 봅니다."],
-      ["가격 변동성", detail.volatilityRiskScore, "최근 체결선이 흔들렸는지 이상 거래를 분리해 봅니다."],
-      ["상권 과밀", detail.competitionRiskScore, "동일 업종이 밀집되어 임차인 교체 리스크가 커지는지 봅니다."],
+      [
+        "가격 부담",
+        detail.priceBurdenRiskScore,
+        "같은 권역 대비 매입 가격선이 앞서 있는지 확인합니다.",
+        "권역 비교 기준",
+      ],
+      [
+        "거래 유동성",
+        detail.liquidityRiskScore,
+        "팔고 싶을 때 바로 빠져나올 수 있는 시장인지 점검합니다.",
+        "최근 12개월 거래 표본",
+      ],
+      [
+        "가격 변동성",
+        detail.volatilityRiskScore,
+        "최근 몇 건이 전체 시장을 왜곡한 이상 거래인지 살펴봅니다.",
+        "체결 레벨 분리 기준",
+      ],
+      [
+        "상권 과밀",
+        detail.competitionRiskScore,
+        "같은 형식의 점포가 얼마나 중복되어 있는지 확인합니다.",
+        "행정동 점포 밀도 기준",
+      ],
     ]
-      .map(([label, value, body]) => ({ label, value: Number(value || 0), body }))
+      .map(([label, value, question, helper]) => ({ label, value: Number(value || 0), question, helper }))
       .sort((left, right) => right.value - left.value);
+  }
+
+  function compactReasonLabel(value) {
+    const text = String(value || "");
+    if (text.includes("가격") && text.includes("부담")) return "가격 부담";
+    if (text.includes("과밀") || text.includes("점포")) return "점포 과밀";
+    if (text.includes("변동")) return "가격 변동성";
+    if (text.includes("유동") || text.includes("거래")) return "거래 유동성";
+    if (text.includes("표본")) return "표본 주의";
+    if (text.includes("복합") || text.includes("한 가지")) return "복합 점검";
+    return text.length > 18 ? `${text.slice(0, 18)}...` : text;
+  }
+
+  function districtJudgment(detail) {
+    const source = detail.objections?.[0] || detail.riskSummary || detail.decisionQuestion || detail.recommendedAction;
+    const polished = polishCopy(source || detail.archetypeSummary || detail.memo);
+    if (!polished) return "매물 단위 조건과 대체 후보를 함께 비교해야 합니다.";
+    return /[.!?。]$/.test(polished) ? polished : `${polished}.`;
+  }
+
+  function replacementNames(detail) {
+    return (detail.replacementCandidates || [])
+      .slice(0, 3)
+      .map((item) => (typeof item === "string" ? item : item.name))
+      .filter(Boolean);
   }
 
   function renderDetail() {
     const detail = currentDistrict();
     if (!detail) return;
 
-    document.getElementById("detail-name").textContent = `${detail.name} · ${detail.riskArchetype}`;
-    document.getElementById("detail-memo").textContent = polishCopy(detail.memo);
-    document.getElementById("detail-grade").textContent = detail.riskGrade;
+    document.getElementById("detail-name").textContent = detail.name;
+    document.getElementById("detail-type").textContent = detail.riskArchetype;
+    const gradeEl = document.getElementById("detail-grade");
+    gradeEl.textContent = detail.riskGrade;
+    gradeEl.className = `risk-level-badge ${typeof riskTone === "function" ? riskTone(detail.riskScore) : ""}`;
     document.getElementById("detail-score").textContent = formatNumber(detail.riskScore, "점");
     const reliability = reliabilityInfo(detail);
+    const pauseReasons = (detail.objections && detail.objections.length ? detail.objections : riskFactors(detail).map((item) => item.label)).slice(0, 3);
+    const alternatives = replacementNames(detail);
+
+    document.getElementById("detail-judgment").textContent = districtJudgment(detail);
+    document.getElementById("detail-pause-reasons").innerHTML = pauseReasons
+      .map((item) => `<span>${compactReasonLabel(polishCopy(item))}</span>`)
+      .join("");
+    document.getElementById("detail-alternative-pills").innerHTML = alternatives.length
+      ? alternatives.map((name) => `<span>${name}</span>`).join("")
+      : `<span class="is-muted">현장 확인 우선</span>`;
 
     document.getElementById("detail-summary-grid").innerHTML = [
-      ["대표 유형", detail.riskArchetype],
       ["데이터 신뢰도", reliability.level],
       ["기반 표본", reliability.sampleCount ? formatNumber(reliability.sampleCount, "건", 0) : "확인 필요"],
       ["음식업 비중", formatNumber(detail.foodStoreSharePct, "%")],
@@ -107,9 +162,9 @@
             (factor, index) => `
               <article class="${index === 0 ? "is-primary" : ""}">
                 <div>
-                  <span>${String(index + 1).padStart(2, "0")}</span>
-                  <strong>${factor.label}</strong>
-                  <p>${polishCopy(factor.body)}</p>
+                  <span class="district-factor-axis">${factor.label}</span>
+                  <strong>${polishCopy(factor.question)}</strong>
+                  <span class="district-factor-meta">${factor.helper}</span>
                 </div>
                 <em>${formatNumber(factor.value, "점")}</em>
               </article>
@@ -144,7 +199,15 @@
       .join("");
 
     document.getElementById("detail-objections").innerHTML = (detail.objections || [])
-      .map((item) => `<article><strong>근거</strong><p>${polishCopy(item)}</p></article>`)
+      .slice(0, 4)
+      .map(
+        (item, index) => `
+          <article class="objection-row">
+            <strong>${String(index + 1).padStart(2, "0")}</strong>
+            <p>${polishCopy(item)}</p>
+          </article>
+        `
+      )
       .join("");
 
     document.getElementById("replacement-candidates").innerHTML =
@@ -158,7 +221,13 @@
                 </article>
               `
             )
-            .join("") + renderAlternativeRationale(detail, null, { compact: true })
+            .join("") +
+          `
+            <section class="replacement-summary-strip">
+              <span class="result-label">비교 기준</span>
+              <p>같은 예산대에서 가격 부담, 거래 유동성, 상권 과밀 신호를 함께 낮춰 볼 수 있는 구를 우선 비교합니다.</p>
+            </section>
+          `
         : `<article><strong>대체 후보 없음</strong><p>현재 조건에서는 바로 제시할 대체 구가 없습니다.</p></article>`;
 
     drawLineChart("price-chart", detail.history || [], "medianPricePerSqm", "#df5a3a");

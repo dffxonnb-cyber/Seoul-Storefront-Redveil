@@ -6,6 +6,7 @@
     drawLineChart,
     polishCopy,
     reliabilityInfo,
+    benchmarkInfo,
     renderReliabilityBadges,
     renderBenchmarkLine,
     renderRiskOverlap,
@@ -119,8 +120,20 @@
     gradeEl.className = `risk-level-badge ${typeof riskTone === "function" ? riskTone(detail.riskScore) : ""}`;
     document.getElementById("detail-score").textContent = formatNumber(detail.riskScore, "점");
     const reliability = reliabilityInfo(detail);
+    const benchmark =
+      typeof benchmarkInfo === "function"
+        ? benchmarkInfo(detail.riskScore, detail)
+        : {
+            label: "서울 25개 구 기준 고위험 구간",
+            detail: "서울 평균 대비 높은 가격 부담",
+          };
     const pauseReasons = (detail.objections && detail.objections.length ? detail.objections : riskFactors(detail).map((item) => item.label)).slice(0, 3);
     const alternatives = replacementNames(detail);
+
+    document.getElementById("district-context-chips").innerHTML = [benchmark.label, benchmark.detail]
+      .filter(Boolean)
+      .map((item) => `<span>${item}</span>`)
+      .join("");
 
     document.getElementById("detail-judgment").textContent = districtJudgment(detail);
     document.getElementById("detail-pause-reasons").innerHTML = pauseReasons

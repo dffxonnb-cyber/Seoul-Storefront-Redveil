@@ -2835,12 +2835,33 @@ body[data-page="assessment"] .diagnosis-result-card .diagnosis-helper-copy {
 
 .district-layout {
   display: grid;
-  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
-  gap: 18px;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  gap: 20px;
   align-items: start;
 }
 
+body[data-page="districts"] .district-layout {
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+}
+
+body[data-page="districts"] .district-layout > .panel-stack {
+  display: contents;
+}
+
+body[data-page="districts"] .selected-district-card {
+  grid-column: 2;
+}
+
+body[data-page="districts"] .district-drilldown-card,
+body[data-page="districts"] .district-decision-support-grid,
+body[data-page="districts"] .evidence-pair,
+body[data-page="districts"] .district-trend-grid {
+  grid-column: 1 / -1;
+}
+
 .district-drilldown-card {
+  display: grid;
+  gap: 0;
   border-color: rgba(155, 51, 46, 0.16);
   background:
     linear-gradient(180deg, rgba(255, 253, 249, 0.98), rgba(252, 244, 237, 0.94)),
@@ -2849,18 +2870,22 @@ body[data-page="assessment"] .diagnosis-result-card .diagnosis-helper-copy {
 
 .district-drilldown-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
   align-items: start;
 }
 
+body[data-page="districts"] .district-drilldown-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .district-drilldown-grid > .risk-overlap-block {
-  grid-column: 2;
+  grid-column: auto;
   margin-top: 0;
 }
 
 .district-drilldown-grid > .district-factor-list {
-  grid-column: 1 / -1;
+  grid-column: auto;
   grid-row: auto;
 }
 
@@ -2938,6 +2963,22 @@ body[data-page="assessment"] .diagnosis-result-card .diagnosis-helper-copy {
 .evidence-pair {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
+}
+
+body[data-page="districts"] .district-decision-support-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+
+body[data-page="districts"] .evidence-pair {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 18px;
+}
+
+body[data-page="districts"] .district-trend-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
 }
 
 .district-list-panel {
@@ -3243,17 +3284,24 @@ body[data-page="districts"] .district-select-button.is-active {
 
 .district-drilldown-card .district-drilldown-lead {
   display: grid;
-  gap: 10px;
+  gap: 12px;
+  padding: 22px;
+  border-color: rgba(155, 51, 46, 0.18);
+  background:
+    linear-gradient(180deg, rgba(255, 252, 248, 0.98), rgba(255, 247, 242, 0.9)),
+    var(--card-bg-risk);
 }
 
 .district-drilldown-card .district-drilldown-lead strong {
-  font-size: clamp(18px, 1.45vw, 21px);
-  line-height: 1.42;
+  max-width: 68ch;
+  font-size: clamp(21px, 2vw, 28px);
+  line-height: 1.34;
 }
 
 .district-drilldown-card .district-drilldown-lead p {
-  max-width: 68ch;
-  line-height: 1.62;
+  max-width: 74ch;
+  font-size: 15px;
+  line-height: 1.68;
 }
 
 .district-drilldown-card .benchmark-line,
@@ -3280,12 +3328,127 @@ body[data-page="districts"] .district-select-button.is-active {
   margin-top: 0;
 }
 
+body[data-page="districts"] .district-drilldown-card .risk-overlap-block {
+  padding: 16px 18px;
+  border-color: rgba(73, 37, 26, 0.13);
+  background: rgba(255, 253, 249, 0.82);
+}
+
+body[data-page="districts"] .district-drilldown-card .district-factor-list {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
 .district-factor-list article {
   min-height: 74px;
 }
 
+body[data-page="districts"] .district-drilldown-card .district-factor-list article {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  min-height: 100%;
+  padding: 16px;
+}
+
+body[data-page="districts"] .district-drilldown-card .district-factor-list em {
+  justify-self: start;
+}
+
+body[data-page="districts"] .district-risk-breakdown-card {
+  padding: 19px 20px;
+  border-color: rgba(73, 37, 26, 0.13);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.94), rgba(250, 244, 238, 0.86)),
+    var(--card-bg-muted);
+  box-shadow: var(--shadow-card);
+}
+
+body[data-page="districts"] .district-risk-breakdown-card .section-head {
+  margin-bottom: 14px;
+}
+
+body[data-page="districts"] .district-risk-breakdown-card .matrix-grid {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+body[data-page="districts"] .district-risk-breakdown-card .metric-row {
+  padding: 13px 14px;
+  border: 1px solid rgba(73, 37, 26, 0.1);
+  border-radius: 15px;
+  background: rgba(255, 253, 249, 0.78);
+}
+
+body[data-page="districts"] .district-field-direction-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(21px, 2.4vw, 28px);
+  border-color: rgba(155, 51, 46, 0.28);
+  background:
+    linear-gradient(180deg, rgba(255, 249, 245, 0.98), rgba(255, 242, 235, 0.9)),
+    var(--card-bg-risk);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 18px 36px rgba(155, 51, 46, 0.09);
+}
+
+body[data-page="districts"] .district-field-direction-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent), var(--gold));
+}
+
+body[data-page="districts"] .district-field-direction-card .section-head {
+  margin-bottom: 17px;
+}
+
+body[data-page="districts"] .district-field-direction-card .section-label {
+  margin-bottom: 7px;
+}
+
+body[data-page="districts"] .district-field-direction-card .section-head h2 {
+  color: var(--accent-deep);
+  font-size: clamp(25px, 2.25vw, 33px);
+  font-weight: 880;
+  line-height: 1.18;
+}
+
+body[data-page="districts"] .district-field-direction-card #detail-checks {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+body[data-page="districts"] .district-field-direction-card #detail-checks article {
+  min-height: 100%;
+  padding: 16px 17px;
+  border-color: rgba(155, 51, 46, 0.16);
+  background: rgba(255, 253, 249, 0.88);
+}
+
+body[data-page="districts"] .district-field-direction-card #detail-checks article strong {
+  color: var(--accent-deep);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body[data-page="districts"] .district-field-direction-card #detail-checks article p {
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 650;
+  line-height: 1.62;
+}
+
 .district-objections-card {
   align-self: start;
+  border-color: rgba(155, 51, 46, 0.18);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.96), rgba(255, 247, 242, 0.88)),
+    var(--card-bg);
 }
 
 .district-objections-card .section-head {
@@ -3301,7 +3464,7 @@ body[data-page="districts"] .district-select-button.is-active {
   grid-template-columns: auto minmax(0, 1fr);
   align-items: start;
   gap: 10px;
-  padding: 11px 12px;
+  padding: 13px 14px;
   border-radius: 14px;
   border-color: rgba(155, 51, 46, 0.14);
   background: rgba(255, 249, 245, 0.82);
@@ -3324,13 +3487,17 @@ body[data-page="districts"] .district-select-button.is-active {
 .district-objections-card .objection-row p {
   margin: 1px 0 0;
   color: var(--ink);
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 650;
-  line-height: 1.48;
+  line-height: 1.58;
 }
 
 .district-replacement-card {
   align-self: start;
+  border-color: rgba(106, 167, 159, 0.2);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.96), rgba(247, 252, 250, 0.88)),
+    var(--card-bg);
 }
 
 .district-replacement-card .section-head {
@@ -3342,7 +3509,7 @@ body[data-page="districts"] .district-select-button.is-active {
 }
 
 .district-replacement-card #replacement-candidates > article {
-  padding: 12px 14px;
+  padding: 14px 15px;
   border-radius: 14px;
 }
 
@@ -3356,9 +3523,9 @@ body[data-page="districts"] .district-select-button.is-active {
 .district-replacement-card #replacement-candidates > article p {
   margin-top: 6px;
   color: var(--text-muted);
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 540;
-  line-height: 1.52;
+  line-height: 1.6;
 }
 
 .replacement-summary-strip {
@@ -3381,9 +3548,60 @@ body[data-page="districts"] .district-select-button.is-active {
   line-height: 1.52;
 }
 
+body[data-page="districts"] .district-trend-card {
+  min-width: 0;
+  border-color: rgba(73, 37, 26, 0.15);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.97), rgba(252, 244, 237, 0.92)),
+    var(--card-bg);
+}
+
+body[data-page="districts"] .district-trend-card .section-head {
+  margin-bottom: 14px;
+}
+
+body[data-page="districts"] .district-trend-card .inline-chart-card {
+  min-width: 0;
+  padding: 18px;
+}
+
+body[data-page="districts"] .district-trend-card svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
 @media (max-width: 980px) {
+  body[data-page="districts"] .district-layout,
+  body[data-page="districts"] .district-decision-support-grid,
+  body[data-page="districts"] .evidence-pair,
+  body[data-page="districts"] .district-trend-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="districts"] .selected-district-card,
+  body[data-page="districts"] .district-drilldown-card,
+  body[data-page="districts"] .district-decision-support-grid,
+  body[data-page="districts"] .evidence-pair,
+  body[data-page="districts"] .district-trend-grid {
+    grid-column: auto;
+  }
+
   .district-decision-grid,
   .district-drilldown-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="districts"] .district-drilldown-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="districts"] .district-drilldown-card .district-factor-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="districts"] .district-field-direction-card #detail-checks {
     grid-template-columns: 1fr;
   }
 
@@ -3405,6 +3623,15 @@ body[data-page="districts"] .district-select-button.is-active {
 }
 
 @media (max-width: 767px) {
+  body[data-page="districts"] .district-drilldown-card .district-factor-list,
+  body[data-page="districts"] .district-risk-breakdown-card .matrix-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="districts"] .district-field-direction-card {
+    padding: 21px 18px;
+  }
+
   .selected-district-hero,
   .selected-district-card .headline-score {
     align-items: flex-start;

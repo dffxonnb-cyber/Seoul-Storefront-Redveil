@@ -104,18 +104,8 @@
               <div class="district-drilldown-grid" id="district-drilldown"></div>
             </article>
 
-            <section class="detail-grid">
-              <article class="panel section-block">
-                <div class="section-head">
-                  <div>
-                    <p class="section-label">Risk Breakdown</p>
-                    <h2>핵심 리스크 축</h2>
-                  </div>
-                </div>
-                <div class="matrix-grid" id="detail-metrics"></div>
-              </article>
-
-              <article class="panel section-block">
+            <section class="detail-grid district-decision-support-grid">
+              <article class="panel section-block district-field-direction-card">
                 <div class="section-head">
                   <div>
                     <p class="section-label">Field Direction</p>
@@ -123,6 +113,16 @@
                   </div>
                 </div>
                 <div class="stacked-list" id="detail-checks"></div>
+              </article>
+
+              <article class="panel section-block district-risk-breakdown-card">
+                <div class="section-head">
+                  <div>
+                    <p class="section-label">Risk Breakdown</p>
+                    <h2>핵심 리스크 축</h2>
+                  </div>
+                </div>
+                <div class="matrix-grid" id="detail-metrics"></div>
               </article>
             </section>
 
@@ -148,8 +148,8 @@
               </article>
             </section>
 
-            <section class="detail-grid">
-              <article class="panel section-block">
+            <section class="detail-grid district-trend-grid">
+              <article class="panel section-block district-trend-card">
                 <div class="section-head">
                   <div>
                     <p class="section-label">Price Trend</p>
@@ -161,7 +161,7 @@
                 </div>
               </article>
 
-              <article class="panel section-block">
+              <article class="panel section-block district-trend-card">
                 <div class="section-head">
                   <div>
                     <p class="section-label">Volume Trend</p>

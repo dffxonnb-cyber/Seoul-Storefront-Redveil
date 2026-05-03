@@ -27,6 +27,7 @@
 - Live Site: [GitHub Pages](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/)
 - Local Run: `pip install -r requirements.txt` → `python src/redveil/pipelines/export_website_payload.py` → `python app/server.py --host 127.0.0.1 --port 8030`
 - Windows Scripts: `run_site.ps1`, `run_site.bat`, `run_streamlit.ps1`, `run_streamlit.bat`
+- Verification Scope: [VERIFY.md](./VERIFY.md)
 
 ## Preview
 

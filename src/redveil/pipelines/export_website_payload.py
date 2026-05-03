@@ -79,16 +79,16 @@ def load_snapshot_payload(root: Path) -> dict[str, object]:
     json_path = root / "data" / "website" / "website_payload.json"
     js_path = root / "app" / "site" / "website_payload.js"
 
-    if json_path.exists():
-        return json.loads(json_path.read_text(encoding="utf-8"))
-
     if js_path.exists():
-        raw_text = js_path.read_text(encoding="utf-8").strip()
+        raw_text = js_path.read_text(encoding="utf-8-sig").strip()
         if raw_text.startswith(SNAPSHOT_PREFIX):
             raw_text = raw_text[len(SNAPSHOT_PREFIX) :]
         if raw_text.endswith(";"):
             raw_text = raw_text[:-1]
         return json.loads(raw_text)
+
+    if json_path.exists():
+        return json.loads(json_path.read_text(encoding="utf-8-sig"))
 
     raise FileNotFoundError(
         "No public-safe payload snapshot was found. Expected data/website/website_payload.json "
@@ -213,7 +213,15 @@ def build_review_checklist(row: pd.Series, archetype: dict[str, str]) -> list[st
 
 
 def build_risk_memo_kr(row: pd.Series, replacement_names: list[str], archetype: dict[str, str]) -> str:
-    replacements = ", ".join(replacement_names) if replacement_names else "대체 후보 없음"
+    objections = ", ".join(
+        translate_phrase(part) for part in split_phrases(row["primary_risk_objections"])[:3]
+    )
+    if replacement_names:
+        replacement_line = (
+            f"지금 바로 매입 결정을 내리기보다 {', '.join(replacement_names)} 등 대체 후보를 먼저 비교하는 것이 안전합니다."
+        )
+    else:
+        replacement_line = "지금 바로 매입 결정을 내리기보다 현재 조건에서는 별도 대체 후보가 없어 현장 확인을 우선하세요."
     sample_line = ""
     if bool(row.get("low_sample_flag", False)):
         sample_line = " 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다."
@@ -221,8 +229,8 @@ def build_risk_memo_kr(row: pd.Series, replacement_names: list[str], archetype: 
         f"{row['district_name']}는 {to_float(row['overall_acquisition_risk_score']):.1f}점,"
         f" '{risk_grade_kr(row['acquisition_risk_grade'])}' 구간입니다. "
         f"현재 이 구의 대표 유형은 '{archetype['label']}'이며, "
-        f"핵심 반대 근거는 {', '.join(translate_phrase(part) for part in split_phrases(row['primary_risk_objections'])[:3])}입니다. "
-        f"지금 바로 매입 결정을 내리기보다 {replacements}를 먼저 비교하는 것이 안전합니다.{sample_line}"
+        f"핵심 반대 근거는 {objections}. "
+        f"{replacement_line}{sample_line}"
     )
 
 

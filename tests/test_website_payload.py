@@ -36,6 +36,15 @@ class WebsitePayloadTests(unittest.TestCase):
         self.assertIn("reviewChecklist", district)
         self.assertGreater(len(district["reviewChecklist"]), 0)
 
+    def test_generated_memos_do_not_contain_broken_korean_fragments(self) -> None:
+        payload = build_payload(PROJECT_ROOT)
+        memos = [str(district["memo"]) for district in payload["districts"]]
+
+        for memo in memos:
+            self.assertNotIn("입니다입니다", memo)
+            self.assertNotIn("없음를", memo)
+            self.assertNotIn("대체 후보 없음", memo)
+
     def test_content_includes_modules_and_trust_signals(self) -> None:
         payload = build_payload(PROJECT_ROOT)
         content = payload["content"]

@@ -1,5 +1,9 @@
 # Redveil
 
+[![Deploy Pages](https://github.com/dffxonnb-cyber/Seoul-Storefront-Redveil/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/dffxonnb-cyber/Seoul-Storefront-Redveil/actions/workflows/deploy-pages.yml)
+[![Live](https://img.shields.io/badge/live-GitHub%20Pages-0f766e)](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/)
+[![Public Verification](https://img.shields.io/badge/tests-public--safe%20verified-2563eb)](./VERIFY.md)
+
 > Seoul storefront acquisition risk analysis service using public commercial district and transaction data.
 
 서울 소형 상가 매입 전, `추천`보다 `매입 보류 사유`를 먼저 제시하는 투자 리스크 진단 서비스입니다.  

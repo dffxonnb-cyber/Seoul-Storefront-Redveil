@@ -455,7 +455,119 @@ def build_archetype_payload(districts: list[dict[str, object]]) -> list[dict[str
     ]
 
 
-def build_content(summary: dict[str, object], latest_month: str) -> dict[str, object]:
+def strongest_risk_factors(district: dict[str, object], limit: int = 3) -> list[dict[str, object]]:
+    factors = [
+        ("가격 부담", district.get("priceBurdenRiskScore", 0)),
+        ("거래 둔화", district.get("transactionRiskScore", 0)),
+        ("거래 유동성", district.get("liquidityRiskScore", 0)),
+        ("가격 변동성", district.get("volatilityRiskScore", 0)),
+        ("상권 과밀", district.get("competitionRiskScore", 0)),
+    ]
+    return [
+        {"label": label, "score": round(to_float(score), 1)}
+        for label, score in sorted(factors, key=lambda item: to_float(item[1]), reverse=True)[:limit]
+    ]
+
+
+def district_by_name(districts: list[dict[str, object]], name: str) -> dict[str, object]:
+    for district in districts:
+        if district.get("name") == name:
+            return district
+    return districts[0]
+
+
+def build_review_example_payload(districts: list[dict[str, object]]) -> list[dict[str, object]]:
+    if not districts:
+        return []
+
+    examples = [
+        {
+            "id": "hold-seocho-corner",
+            "label": "위험 후보",
+            "assetName": "서초역 대로변 코너 상가",
+            "district": district_by_name(districts, "서초구"),
+            "adminDongName": "서초동",
+            "targetTenant": "카페",
+            "askingPriceTotal10k": 82000,
+            "exclusiveAreaSqm": 31.5,
+            "holdingMonths": 36,
+            "priority": "balanced",
+            "verdict": "매입 보류",
+            "summary": "가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다.",
+            "nextAction": "최근 체결가 3건을 재확인하고 금천구·관악구 등 대체 후보와 가격선을 비교합니다.",
+        },
+        {
+            "id": "compare-songpa-short-hold",
+            "label": "애매 후보",
+            "assetName": "송파 생활권 근린상가",
+            "district": district_by_name(districts, "송파구"),
+            "adminDongName": "문정동",
+            "targetTenant": "베이커리",
+            "askingPriceTotal10k": 62000,
+            "exclusiveAreaSqm": 34.0,
+            "holdingMonths": 24,
+            "priority": "cashflow",
+            "verdict": "강한 비교 필요",
+            "summary": "총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다.",
+            "nextAction": "양천구·강서구와 회전 속도를 비교하고 보유 기간을 늘릴 수 있는지 먼저 확인합니다.",
+        },
+        {
+            "id": "review-guro-baseline",
+            "label": "보수 검토 후보",
+            "assetName": "구로 업무지구 소형 상가",
+            "district": district_by_name(districts, "구로구"),
+            "adminDongName": "구로동",
+            "targetTenant": "서비스업",
+            "askingPriceTotal10k": 26000,
+            "exclusiveAreaSqm": 32.0,
+            "holdingMonths": 60,
+            "priority": "balanced",
+            "verdict": "추가 검토 가능",
+            "summary": "서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다.",
+            "nextAction": "가격선은 통과 후보로 두되 임차인 교체 속도와 관리비 조건을 현장에서 확인합니다.",
+        },
+    ]
+
+    payload: list[dict[str, object]] = []
+    for example in examples:
+        district = example["district"]
+        asking_price_per_sqm = round(
+            to_float(example["askingPriceTotal10k"]) / max(to_float(example["exclusiveAreaSqm"]), 1),
+            1,
+        )
+        candidates = district.get("replacementCandidates", [])
+        payload.append(
+            {
+                "id": example["id"],
+                "label": example["label"],
+                "assetName": example["assetName"],
+                "districtCode": district.get("code"),
+                "districtName": district.get("name"),
+                "adminDongName": example["adminDongName"],
+                "targetTenant": example["targetTenant"],
+                "askingPriceTotal10k": example["askingPriceTotal10k"],
+                "exclusiveAreaSqm": example["exclusiveAreaSqm"],
+                "askingPricePerSqm": asking_price_per_sqm,
+                "holdingMonths": example["holdingMonths"],
+                "priority": example["priority"],
+                "verdict": example["verdict"],
+                "expectedScore": district.get("riskScore"),
+                "riskArchetype": district.get("riskArchetype"),
+                "summary": example["summary"],
+                "evidence": [
+                    f"{factor['label']} {factor['score']:.1f}점"
+                    for factor in strongest_risk_factors(district)
+                ],
+                "nextAction": example["nextAction"],
+                "replacementCandidates": [candidate.get("name") for candidate in candidates[:2]],
+                "memo": f"{example['assetName']} 예시 케이스. {example['summary']}",
+            }
+        )
+
+    return payload
+
+
+def build_content(summary: dict[str, object], latest_month: str, review_examples: list[dict[str, object]]) -> dict[str, object]:
     return {
         "thesis": {
             "headline": "좋아 보이는 이유보다, 멈춰야 할 신호를 먼저 봅니다.",
@@ -528,6 +640,19 @@ def build_content(summary: dict[str, object], latest_month: str) -> dict[str, ob
                 "title": "저표본 경고 명시",
                 "body": f"표본이 얇은 {summary['lowSampleDistrictCount']}개 구는 별도 경고를 표시합니다.",
             },
+        ],
+        "validationCases": [
+            {
+                "title": item["assetName"],
+                "label": item["label"],
+                "districtName": item["districtName"],
+                "verdict": item["verdict"],
+                "score": item["expectedScore"],
+                "summary": item["summary"],
+                "evidence": item["evidence"],
+                "nextAction": item["nextAction"],
+            }
+            for item in review_examples
         ],
         "serviceBlueprint": [
             "유입: 구 검색이나 매물 등록에서 서비스 시작",
@@ -610,10 +735,38 @@ def build_methodology() -> dict[str, object]:
     }
 
 
+def attach_review_examples(payload: dict[str, object]) -> dict[str, object]:
+    districts = payload.get("districts")
+    if not isinstance(districts, list) or not districts:
+        return payload
+
+    review_examples = build_review_example_payload(districts)
+    payload["reviewExamples"] = review_examples
+    payload["validationCases"] = review_examples
+
+    content = payload.get("content")
+    if isinstance(content, dict):
+        content["validationCases"] = [
+            {
+                "title": item["assetName"],
+                "label": item["label"],
+                "districtName": item["districtName"],
+                "verdict": item["verdict"],
+                "score": item["expectedScore"],
+                "summary": item["summary"],
+                "evidence": item["evidence"],
+                "nextAction": item["nextAction"],
+            }
+            for item in review_examples
+        ]
+
+    return payload
+
+
 def build_payload(root: Path) -> dict[str, object]:
     required_paths = required_payload_inputs(root)
     if not all(path.exists() for path in required_paths):
-        return load_snapshot_payload(root)
+        return attach_review_examples(load_snapshot_payload(root))
 
     acquisition_df = load_csv(root / "data" / "redveil" / "seoul_district_acquisition_risk.csv")
     memo_df = load_csv(root / "data" / "redveil" / "seoul_district_risk_memo.csv")
@@ -627,8 +780,9 @@ def build_payload(root: Path) -> dict[str, object]:
     latest_month = format_month(acquisition_df["deal_year_month"].max())
     districts = build_district_payload(acquisition_df, memo_df, candidates_df, history_df)
     summary = build_summary_metrics(acquisition_df, raw_sales_df, demand_df, admin_dong_df, case_df)
+    review_examples = build_review_example_payload(districts)
 
-    return {
+    payload = {
         "site": {
             "title": "Redveil",
             "subtitle": "서울 소형 상가 매입 리스크 판별 서비스",
@@ -645,9 +799,12 @@ def build_payload(root: Path) -> dict[str, object]:
         "demandFragility": build_demand_payload(demand_df),
         "adminDongSaturation": build_admin_dong_payload(admin_dong_df),
         "archetypes": build_archetype_payload(districts),
-        "content": build_content(summary, latest_month),
+        "reviewExamples": review_examples,
+        "validationCases": review_examples,
+        "content": build_content(summary, latest_month, review_examples),
         "methodology": build_methodology(),
     }
+    return attach_review_examples(payload)
 
 
 def main() -> None:

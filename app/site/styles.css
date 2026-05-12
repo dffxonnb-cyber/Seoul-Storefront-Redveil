@@ -1032,6 +1032,109 @@ body[data-page="home"] .homepage-screen::before {
   gap: 16px;
 }
 
+.scenario-case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.scenario-case-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 16px;
+  min-height: 100%;
+  padding: 24px;
+  border: 1px solid rgba(73, 37, 26, 0.17);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.98), rgba(252, 244, 237, 0.93)),
+    var(--card-bg);
+  box-shadow: 0 16px 32px rgba(73, 37, 26, 0.07);
+}
+
+.scenario-case-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(155, 51, 46, 0.72), rgba(201, 161, 90, 0.18));
+}
+
+.scenario-case-head {
+  display: grid;
+  gap: 8px;
+}
+
+.scenario-case-label {
+  width: fit-content;
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 11px;
+  border: 1px solid rgba(155, 51, 46, 0.2);
+  border-radius: 999px;
+  background: rgba(196, 63, 39, 0.08);
+  color: var(--accent-deep);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.scenario-case-card strong {
+  color: var(--ink);
+  font-size: 19px;
+  font-weight: 850;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.scenario-case-meta,
+.scenario-evidence-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scenario-case-meta span,
+.scenario-evidence-list li {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  border: 1px solid rgba(73, 37, 26, 0.13);
+  border-radius: 999px;
+  background: rgba(255, 250, 246, 0.92);
+  color: rgba(54, 38, 32, 0.78);
+  font-size: 12.5px;
+  font-weight: 750;
+}
+
+.scenario-case-card p,
+.scenario-action-line p {
+  margin: 0;
+  color: rgba(54, 38, 32, 0.76);
+  font-size: 14.5px;
+  font-weight: 450;
+  line-height: 1.72;
+}
+
+.scenario-action-line {
+  display: grid;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(73, 37, 26, 0.12);
+}
+
+.scenario-action-line span {
+  color: var(--accent-deep);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+}
+
 .validation-card {
   position: relative;
   overflow: hidden;
@@ -4474,6 +4577,100 @@ body[data-page="review"] .field {
   gap: 9px;
 }
 
+.review-example-panel {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(155, 51, 46, 0.16);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.96), rgba(252, 244, 237, 0.86)),
+    var(--card-bg);
+}
+
+.review-example-head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: end;
+}
+
+.review-example-head strong {
+  display: block;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.review-example-head p {
+  margin: 0;
+  color: rgba(54, 38, 32, 0.72);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.review-example-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.review-example-button {
+  appearance: none;
+  display: grid;
+  gap: 6px;
+  min-height: 116px;
+  padding: 15px;
+  border: 1px solid rgba(73, 37, 26, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 250, 246, 0.94);
+  color: inherit;
+  font-family: var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(73, 37, 26, 0.04);
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.review-example-button:hover,
+.review-example-button:focus-visible {
+  border-color: rgba(155, 51, 46, 0.38);
+  transform: translateY(-1px);
+  box-shadow: 0 15px 28px rgba(73, 37, 26, 0.08);
+}
+
+.review-example-button span {
+  width: fit-content;
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: rgba(196, 63, 39, 0.08);
+  color: var(--accent-deep);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.review-example-button strong {
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 800;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.review-example-button small {
+  color: rgba(54, 38, 32, 0.72);
+  font-size: 12.5px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
 body[data-page="review"] .field span {
   color: rgba(54, 38, 32, 0.86);
   font-size: 13px;
@@ -5123,6 +5320,11 @@ body[data-page="home"] .hero-actions .homepage-action-button {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .scenario-case-grid,
+  .review-example-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .hero-impact-strip {
     grid-template-columns: 1fr;
   }
@@ -5310,6 +5512,7 @@ body[data-page="home"] .hero-actions .homepage-action-button {
 
   .homepage-hero,
   .homepage-entry-list,
+  .scenario-case-grid,
   .homepage-evidence-layout,
   .home-stat-strip,
   .entry-grid,
@@ -5445,6 +5648,7 @@ body[data-page="home"] .hero-actions .homepage-action-button {
 
   body[data-page="home"] .project-identity-panel,
   body[data-page="home"] .homepage-entry-list,
+  body[data-page="home"] .scenario-case-grid,
   body[data-page="home"] .evidence-axis-grid,
   body[data-page="home"] .validation-grid,
   body[data-page="home"] .report-lines,
@@ -5454,6 +5658,7 @@ body[data-page="home"] .hero-actions .homepage-action-button {
 
   body[data-page="home"] .project-summary-card,
   body[data-page="home"] .homepage-entry-card,
+  body[data-page="home"] .scenario-case-card,
   body[data-page="home"] .homepage-support-links,
   body[data-page="home"] .evidence-axis-card,
   body[data-page="home"] .homepage-info-card,
@@ -5630,6 +5835,11 @@ body[data-page="home"] .hero-actions .homepage-action-button {
   body[data-page="review"] .review-status-card,
   .service-status-card {
     width: 100%;
+  }
+
+  body[data-page="review"] .review-example-head,
+  body[data-page="review"] .review-example-list {
+    grid-template-columns: 1fr;
   }
 
   body[data-page="review"] .review-history-panel .history-grid,

@@ -4086,6 +4086,50 @@ window.__REDVEIL_PAYLOAD__ = {
       "가공 결과를 웹사이트 payload로 변환합니다.",
       "정적 페이지와 로컬 API를 함께 지원합니다.",
       "프론트엔드는 검토·비교·리포트를 분리해 제공합니다."
+    ],
+    "validationCases": [
+      {
+        "title": "서초역 대로변 코너 상가",
+        "label": "위험 후보",
+        "districtName": "서초구",
+        "verdict": "매입 보류",
+        "score": 78.9,
+        "summary": "가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다.",
+        "evidence": [
+          "가격 변동성 100.0점",
+          "가격 부담 98.6점",
+          "거래 둔화 85.2점"
+        ],
+        "nextAction": "최근 체결가 3건을 재확인하고 금천구·관악구 등 대체 후보와 가격선을 비교합니다."
+      },
+      {
+        "title": "송파 생활권 근린상가",
+        "label": "애매 후보",
+        "districtName": "송파구",
+        "verdict": "강한 비교 필요",
+        "score": 62.4,
+        "summary": "총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다.",
+        "evidence": [
+          "가격 변동성 96.0점",
+          "거래 둔화 72.0점",
+          "가격 부담 68.8점"
+        ],
+        "nextAction": "양천구·강서구와 회전 속도를 비교하고 보유 기간을 늘릴 수 있는지 먼저 확인합니다."
+      },
+      {
+        "title": "구로 업무지구 소형 상가",
+        "label": "보수 검토 후보",
+        "districtName": "구로구",
+        "verdict": "추가 검토 가능",
+        "score": 27.6,
+        "summary": "서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다.",
+        "evidence": [
+          "상권 과밀 33.4점",
+          "가격 부담 28.0점",
+          "거래 둔화 22.9점"
+        ],
+        "nextAction": "가격선은 통과 후보로 두되 임차인 교체 속도와 관리비 조건을 현장에서 확인합니다."
+      }
     ]
   },
   "methodology": {
@@ -4103,5 +4147,177 @@ window.__REDVEIL_PAYLOAD__ = {
       "대체 구 추천",
       "현장 검증 체크리스트"
     ]
-  }
+  },
+  "reviewExamples": [
+    {
+      "id": "hold-seocho-corner",
+      "label": "위험 후보",
+      "assetName": "서초역 대로변 코너 상가",
+      "districtCode": "11650",
+      "districtName": "서초구",
+      "adminDongName": "서초동",
+      "targetTenant": "카페",
+      "askingPriceTotal10k": 82000,
+      "exclusiveAreaSqm": 31.5,
+      "askingPricePerSqm": 2603.2,
+      "holdingMonths": 36,
+      "priority": "balanced",
+      "verdict": "매입 보류",
+      "expectedScore": 78.9,
+      "riskArchetype": "고가 선행형",
+      "summary": "가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다.",
+      "evidence": [
+        "가격 변동성 100.0점",
+        "가격 부담 98.6점",
+        "거래 둔화 85.2점"
+      ],
+      "nextAction": "최근 체결가 3건을 재확인하고 금천구·관악구 등 대체 후보와 가격선을 비교합니다.",
+      "replacementCandidates": [
+        "금천구",
+        "관악구"
+      ],
+      "memo": "서초역 대로변 코너 상가 예시 케이스. 가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다."
+    },
+    {
+      "id": "compare-songpa-short-hold",
+      "label": "애매 후보",
+      "assetName": "송파 생활권 근린상가",
+      "districtCode": "11710",
+      "districtName": "송파구",
+      "adminDongName": "문정동",
+      "targetTenant": "베이커리",
+      "askingPriceTotal10k": 62000,
+      "exclusiveAreaSqm": 34.0,
+      "askingPricePerSqm": 1823.5,
+      "holdingMonths": 24,
+      "priority": "cashflow",
+      "verdict": "강한 비교 필요",
+      "expectedScore": 62.4,
+      "riskArchetype": "가격 변동형",
+      "summary": "총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다.",
+      "evidence": [
+        "가격 변동성 96.0점",
+        "거래 둔화 72.0점",
+        "가격 부담 68.8점"
+      ],
+      "nextAction": "양천구·강서구와 회전 속도를 비교하고 보유 기간을 늘릴 수 있는지 먼저 확인합니다.",
+      "replacementCandidates": [
+        "양천구",
+        "강서구"
+      ],
+      "memo": "송파 생활권 근린상가 예시 케이스. 총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다."
+    },
+    {
+      "id": "review-guro-baseline",
+      "label": "보수 검토 후보",
+      "assetName": "구로 업무지구 소형 상가",
+      "districtCode": "11530",
+      "districtName": "구로구",
+      "adminDongName": "구로동",
+      "targetTenant": "서비스업",
+      "askingPriceTotal10k": 26000,
+      "exclusiveAreaSqm": 32.0,
+      "askingPricePerSqm": 812.5,
+      "holdingMonths": 60,
+      "priority": "balanced",
+      "verdict": "추가 검토 가능",
+      "expectedScore": 27.6,
+      "riskArchetype": "복합 점검형",
+      "summary": "서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다.",
+      "evidence": [
+        "상권 과밀 33.4점",
+        "가격 부담 28.0점",
+        "거래 둔화 22.9점"
+      ],
+      "nextAction": "가격선은 통과 후보로 두되 임차인 교체 속도와 관리비 조건을 현장에서 확인합니다.",
+      "replacementCandidates": [],
+      "memo": "구로 업무지구 소형 상가 예시 케이스. 서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다."
+    }
+  ],
+  "validationCases": [
+    {
+      "id": "hold-seocho-corner",
+      "label": "위험 후보",
+      "assetName": "서초역 대로변 코너 상가",
+      "districtCode": "11650",
+      "districtName": "서초구",
+      "adminDongName": "서초동",
+      "targetTenant": "카페",
+      "askingPriceTotal10k": 82000,
+      "exclusiveAreaSqm": 31.5,
+      "askingPricePerSqm": 2603.2,
+      "holdingMonths": 36,
+      "priority": "balanced",
+      "verdict": "매입 보류",
+      "expectedScore": 78.9,
+      "riskArchetype": "고가 선행형",
+      "summary": "가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다.",
+      "evidence": [
+        "가격 변동성 100.0점",
+        "가격 부담 98.6점",
+        "거래 둔화 85.2점"
+      ],
+      "nextAction": "최근 체결가 3건을 재확인하고 금천구·관악구 등 대체 후보와 가격선을 비교합니다.",
+      "replacementCandidates": [
+        "금천구",
+        "관악구"
+      ],
+      "memo": "서초역 대로변 코너 상가 예시 케이스. 가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다."
+    },
+    {
+      "id": "compare-songpa-short-hold",
+      "label": "애매 후보",
+      "assetName": "송파 생활권 근린상가",
+      "districtCode": "11710",
+      "districtName": "송파구",
+      "adminDongName": "문정동",
+      "targetTenant": "베이커리",
+      "askingPriceTotal10k": 62000,
+      "exclusiveAreaSqm": 34.0,
+      "askingPricePerSqm": 1823.5,
+      "holdingMonths": 24,
+      "priority": "cashflow",
+      "verdict": "강한 비교 필요",
+      "expectedScore": 62.4,
+      "riskArchetype": "가격 변동형",
+      "summary": "총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다.",
+      "evidence": [
+        "가격 변동성 96.0점",
+        "거래 둔화 72.0점",
+        "가격 부담 68.8점"
+      ],
+      "nextAction": "양천구·강서구와 회전 속도를 비교하고 보유 기간을 늘릴 수 있는지 먼저 확인합니다.",
+      "replacementCandidates": [
+        "양천구",
+        "강서구"
+      ],
+      "memo": "송파 생활권 근린상가 예시 케이스. 총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다."
+    },
+    {
+      "id": "review-guro-baseline",
+      "label": "보수 검토 후보",
+      "assetName": "구로 업무지구 소형 상가",
+      "districtCode": "11530",
+      "districtName": "구로구",
+      "adminDongName": "구로동",
+      "targetTenant": "서비스업",
+      "askingPriceTotal10k": 26000,
+      "exclusiveAreaSqm": 32.0,
+      "askingPricePerSqm": 812.5,
+      "holdingMonths": 60,
+      "priority": "balanced",
+      "verdict": "추가 검토 가능",
+      "expectedScore": 27.6,
+      "riskArchetype": "복합 점검형",
+      "summary": "서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다.",
+      "evidence": [
+        "상권 과밀 33.4점",
+        "가격 부담 28.0점",
+        "거래 둔화 22.9점"
+      ],
+      "nextAction": "가격선은 통과 후보로 두되 임차인 교체 속도와 관리비 조건을 현장에서 확인합니다.",
+      "replacementCandidates": [],
+      "memo": "구로 업무지구 소형 상가 예시 케이스. 서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다."
+    }
+  ]
 };

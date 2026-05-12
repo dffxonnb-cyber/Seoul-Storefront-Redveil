@@ -24,6 +24,7 @@
   const summary = payload.summary || {};
   const content = payload.content || {};
   const caseStudies = payload.caseStudies || [];
+  const validationCases = payload.validationCases || payload.reviewExamples || content.validationCases || [];
   const highestRiskDistrict =
     districts.find((item) => item.name === summary?.highestRiskDistrict?.name) || districts[0] || null;
   const featuredCaseStudy =
@@ -200,6 +201,38 @@
       .join("");
   }
 
+  function renderValidationCases() {
+    const target = document.getElementById("scenario-case-grid");
+    if (!target) return;
+
+    target.innerHTML = validationCases
+      .slice(0, 3)
+      .map(
+        (item) => `
+          <article class="scenario-case-card">
+            <div class="scenario-case-head">
+              <span class="scenario-case-label">${item.label}</span>
+              <strong>${item.assetName || item.title}</strong>
+            </div>
+            <div class="scenario-case-meta">
+              <span>${item.districtName}</span>
+              <span>${item.riskArchetype || item.verdict}</span>
+              <span>${formatNumber(item.expectedScore || item.score, "점")}</span>
+            </div>
+            <p>${item.summary}</p>
+            <ul class="scenario-evidence-list">
+              ${(item.evidence || []).map((line) => `<li>${line}</li>`).join("")}
+            </ul>
+            <div class="scenario-action-line">
+              <span>다음 액션</span>
+              <p>${item.nextAction}</p>
+            </div>
+          </article>
+        `
+      )
+      .join("");
+  }
+
   function renderReport() {
     const topFactors = [
       ["가격 부담", Number(highestRiskDistrict?.priceBurdenRiskScore || 0)],
@@ -344,6 +377,7 @@
 
   renderHero();
   renderEntries();
+  renderValidationCases();
   renderReport();
   renderFeature();
 })();

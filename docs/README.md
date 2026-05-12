@@ -9,3 +9,5 @@
 - `SERVICE_STRATEGY.md`: 서비스 전략과 핵심 가치
 - `USER_JOURNEY.md`: 주요 사용자와 행동 흐름
 - `VALIDATION_STRATEGY.md`: 검증 방식과 한계
+- `RISK_VALIDATION.md`: 점수 해석 기준과 고정 예시 3건 검증
+- `../VERIFY.md`: 로컬/CI/브라우저/공개 배포 검증 명령

@@ -18,6 +18,7 @@
   if (!payload) return;
 
   const districts = payload.districts || [];
+  const reviewExamples = payload.reviewExamples || payload.validationCases || [];
 
   function districtForRecord(record) {
     return districts.find((item) => item.code === record.districtCode) || null;
@@ -193,6 +194,39 @@
     `;
   }
 
+  function renderExamples() {
+    const target = document.getElementById("review-example-list");
+    if (!target) return;
+
+    target.innerHTML = reviewExamples
+      .slice(0, 3)
+      .map(
+        (item) => `
+          <button class="review-example-button" type="button" data-example-id="${item.id}">
+            <span>${item.label}</span>
+            <strong>${item.assetName}</strong>
+            <small>${item.districtName} · ${formatNumber(item.expectedScore, "점")} · ${item.verdict}</small>
+          </button>
+        `
+      )
+      .join("");
+  }
+
+  function applyExample(example) {
+    if (!example) return;
+
+    document.getElementById("review-district-code").value = example.districtCode || "";
+    document.getElementById("admin-dong-name").value = example.adminDongName || "";
+    document.getElementById("asking-price-total").value = example.askingPriceTotal10k || "";
+    document.getElementById("target-tenant").value = example.targetTenant || "";
+    document.getElementById("asset-name").value = example.assetName || "";
+    document.getElementById("exclusive-area").value = example.exclusiveAreaSqm || "";
+    document.getElementById("review-holding-months").value = example.holdingMonths || 36;
+    document.getElementById("review-priority").value = example.priority || "balanced";
+    document.getElementById("review-memo").value = example.memo || "";
+    renderSpotlight(example.districtCode);
+  }
+
   function renderReviewDetail(result) {
     const district = districtForRecord(result);
     const marketPrice = latestHistoryValue(district, "medianPricePerSqm");
@@ -289,6 +323,7 @@
   `;
 
   renderHistory();
+  renderExamples();
   renderSpotlight(document.getElementById("review-district-code").value);
 
   document.getElementById("review-district-code").addEventListener("change", (event) => {
@@ -323,6 +358,12 @@
     renderResult(record);
     renderReviewDetail(record);
     renderHistory();
+  });
+
+  document.getElementById("review-example-list")?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-example-id]");
+    if (!button) return;
+    applyExample(reviewExamples.find((item) => item.id === button.dataset.exampleId));
   });
 
   document.getElementById("review-history").addEventListener("click", (event) => {

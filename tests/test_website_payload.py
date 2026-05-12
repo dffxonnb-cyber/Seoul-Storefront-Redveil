@@ -54,6 +54,24 @@ class WebsitePayloadTests(unittest.TestCase):
         self.assertIn("trustSignals", content)
         self.assertGreaterEqual(len(content["modules"]), 4)
 
+    def test_payload_includes_fixed_review_examples(self) -> None:
+        payload = build_payload(PROJECT_ROOT)
+        examples = payload["reviewExamples"]
+
+        self.assertEqual(len(examples), 3)
+        self.assertEqual(
+            [example["label"] for example in examples],
+            ["위험 후보", "애매 후보", "보수 검토 후보"],
+        )
+
+        for example in examples:
+            self.assertIn("districtCode", example)
+            self.assertIn("askingPriceTotal10k", example)
+            self.assertIn("exclusiveAreaSqm", example)
+            self.assertIn("evidence", example)
+            self.assertGreater(len(example["evidence"]), 0)
+            self.assertIn("nextAction", example)
+
 
 if __name__ == "__main__":
     unittest.main()

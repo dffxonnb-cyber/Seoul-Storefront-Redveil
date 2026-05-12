@@ -9,6 +9,26 @@
 서울 소형 상가 매입 전, `추천`보다 `매입 보류 사유`를 먼저 제시하는 투자 리스크 진단 서비스입니다.  
 공공데이터를 기반으로 가격 부담, 거래 유동성, 상권 과밀, 수요 취약도를 함께 분석하고, 대체 후보 지역까지 확인할 수 있도록 웹 화면으로 구현했습니다.
 
+## 30-Second Reviewer Brief
+
+Redveil is a public, portfolio-ready web service for screening Seoul storefront acquisitions before a buyer over-commits to a deal. It turns raw transaction and commercial-district data into a decision memo: risk score, hold reason, evidence, next checks, and safer comparison candidates.
+
+| Reviewer Question | Redveil Answer |
+| --- | --- |
+| What problem does it solve? | It helps reject or pause risky-looking storefront deals before detailed underwriting. |
+| What makes it different? | It is hold-first, not recommendation-first: the first output is why to stop, compare, or verify. |
+| What data does it use? | 12,074 commercial transaction records, 25 Seoul districts, 428 admin-dongs, and 1,570 trade-area demand records. |
+| What is the user flow? | Review one property, run a 3-minute diagnosis, compare candidate districts, and inspect district reports. |
+| How is it verified? | Unit tests, static-page checks, server/API smoke tests, browser E2E checks, responsive QA, and public URL checks. |
+
+## Proof Points
+
+- Fixed validation cases cover three interpretation bands: high-risk hold, ambiguous compare-first, and conservative-review.
+- The property-review flow is browser-tested from example click to saved memo persistence.
+- The public payload can rebuild from local raw data or fall back to a tracked public-safe snapshot.
+- Absolute local paths were removed from runnable scripts and generated dashboard links.
+- Risk-model limits are documented explicitly so the score is treated as a screening signal, not investment advice.
+
 ## Portfolio Summary
 
 | Item | Description |
@@ -32,6 +52,22 @@
 - Local Run: `pip install -r requirements.txt` → `python src/redveil/pipelines/export_website_payload.py` → `python app/server.py --host 127.0.0.1 --port 8030`
 - Windows Scripts: `run_site.ps1`, `run_site.bat`, `run_streamlit.ps1`, `run_streamlit.bat`
 - Verification Scope: [VERIFY.md](./VERIFY.md)
+
+## Verification Snapshot
+
+The project is designed to be reviewable without private local data. The current verification ladder is:
+
+```bash
+python -m unittest discover -s tests -p "test_*.py"
+python src/redveil/pipelines/export_website_payload.py
+python scripts/check_site_smoke.py
+python scripts/check_review_e2e.py
+python scripts/check_service_flows_e2e.py
+python scripts/check_responsive_pages.py
+python scripts/check_public_site.py
+```
+
+`check_site_smoke.py` is CI-friendly and validates the local server, static pages, public payload, and core APIs. Browser checks are kept optional because they require Node.js, Playwright, and a local Chrome or Edge runtime.
 
 ## Preview
 
@@ -168,6 +204,7 @@ http://127.0.0.1:8030/districts.html
 - [서비스 전략](./docs/SERVICE_STRATEGY.md)
 - [사용자 여정](./docs/USER_JOURNEY.md)
 - [검증 전략](./docs/VALIDATION_STRATEGY.md)
+- [리스크 검증 노트](./docs/RISK_VALIDATION.md)
 - [PRD](./docs/PRD_REDVEIL.md)
 - [리스크 모델 정의](./docs/RISK_MODEL_SPEC.md)
 - [라이선스](./LICENSE)

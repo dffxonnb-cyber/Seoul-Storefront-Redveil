@@ -176,7 +176,7 @@ def make_overview_png(data: dict[str, pd.DataFrame]) -> None:
     metrics = [
         ("Transactions", "12,074", "Storefront-oriented raw transactions collected from 2025-04 to 2026-03.", ACCENT),
         ("District Risk", "25", "District-level acquisition memos available in the latest snapshot.", ACCENT_2),
-        ("Admin-Dongs", "428", "Admin-dong saturation coverage from the processed store information file.", ACCENT_3),
+        ("Admin-Dongs", "427", "Admin-dong saturation coverage from the processed store information file.", ACCENT_3),
         ("Low Sample", f"{int(risk['low_sample_flag'].sum())}", "Districts with thin latest-month storefront trade samples.", "#8C4B7D"),
     ]
     x = 60
@@ -201,7 +201,7 @@ def make_overview_png(data: dict[str, pd.DataFrame]) -> None:
     draw.rounded_rectangle((828, 404, 1510, 484), radius=18, fill=WARN)
     draw_text_block(
         draw,
-        "Transaction risk uses 2025-04 to 2026-03 storefront trades. Demand fragility still uses 2024 Seoul trade-area files, so the product should be read as a risk-review screen rather than a same-period causal model.",
+        "Transaction risk uses 2025-04 to 2026-03 storefront trades. Demand fragility uses 2025 Q4 Seoul trade-area files, so the product should be read as a risk-review screen rather than a same-period causal model.",
         850,
         424,
         630,
@@ -316,11 +316,11 @@ def make_demand_fragility_png(data: dict[str, pd.DataFrame]) -> None:
     demand = data["demand"].sort_values("demand_fragility_risk_score", ascending=False).head(8)
     image, draw = create_canvas()
     draw.text((60, 44), "Demand Fragility", font=FONT_H1, fill=INK)
-    draw.text((60, 100), "Latest available Seoul trade-area signal: 2024 Q4", font=FONT_BODY, fill=MUTED)
+    draw.text((60, 100), "Latest available Seoul trade-area signal: 2025 Q4", font=FONT_BODY, fill=MUTED)
     draw.rounded_rectangle((60, 140, 1540, 220), radius=20, fill=WARN)
     draw_text_block(
         draw,
-        "This view comes from 2024 trade-area demand files. Use it to understand structural weakness in sales efficiency, ticket size, and service breadth, not to claim same-month alignment with 2026 transaction risk.",
+        "This view comes from 2025 Q4 trade-area demand files. Use it to understand structural weakness in sales efficiency, ticket size, and service breadth, not to claim same-month alignment with 2026 transaction risk.",
         84,
         164,
         1410,

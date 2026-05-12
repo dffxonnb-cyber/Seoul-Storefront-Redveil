@@ -83,7 +83,7 @@ def show_overview(
     )
     st.warning(
         "Transaction risk is based on storefront-oriented transactions from `2025-04` to `2026-03`, while the "
-        "current trade-area demand data comes from `2024` Seoul files. Treat the combined screen as a risk-review "
+        "current trade-area demand data comes from `2025 Q4` Seoul files. Treat the combined screen as a risk-review "
         "checklist, not as a same-period causal comparison."
     )
 
@@ -309,7 +309,7 @@ def show_trade_area_demand() -> None:
 
     st.info(
         "Demand fragility is based on the latest quarter available in the current Seoul trade-area files "
-        "(`2024 Q4` in this workspace). Compare it with transaction risk as a structural signal, not a same-month read."
+        "(`2025 Q4` in this workspace). Compare it with transaction risk as a structural signal, not a same-month read."
     )
 
     col1, col2 = st.columns([0.7, 0.3])

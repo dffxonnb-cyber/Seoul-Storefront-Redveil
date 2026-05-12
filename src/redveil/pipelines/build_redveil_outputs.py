@@ -23,7 +23,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--trade-area-activity-input",
-        default=str(root / "data" / "external" / "processed" / "seoul_trade_area_activity_2024.csv"),
+        default=str(root / "data" / "external" / "processed" / "seoul_trade_area_activity.csv"),
         help="Path to processed trade-area activity data.",
     )
     parser.add_argument(

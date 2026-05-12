@@ -23,6 +23,10 @@
   const districts = [...(payload.districts || [])].sort((left, right) => Number(right.riskScore || 0) - Number(left.riskScore || 0));
   const summary = payload.summary || {};
   const content = payload.content || {};
+  const dataSources = content.dataSources || [];
+  const transactionSource = dataSources.find((item) => String(item.name || "").includes("실거래가")) || {};
+  const demandSource = dataSources.find((item) => String(item.name || "").includes("상권분석서비스")) || {};
+  const storeSource = dataSources.find((item) => String(item.name || "").includes("상가")) || {};
   const caseStudies = payload.caseStudies || [];
   const validationCases = payload.validationCases || payload.reviewExamples || content.validationCases || [];
   const highestRiskDistrict =
@@ -44,7 +48,7 @@
 
   function emphasizeEvidenceNumbers(text) {
     return String(text || "").replace(
-      /(2026\.03|2025\.04~2026\.03|2024|(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?(?:개월|건|개|점|%)?)/g,
+      /(20\d{2}\.\d{2}(?:\.\d{2})?|20\d{2}\.\d{2}~20\d{2}\.\d{2}|20\d{2}년 \d분기|(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?(?:개월|건|개|점|%)?)/g,
       '<span class="evidence-number">$1</span>'
     );
   }
@@ -113,7 +117,7 @@
       '서울 소형 상가 매입 전, 가격 부담·거래 둔화·상권 과밀 신호를 먼저 확인해 <br class="hero-description-break" />보류 여부와 추가 검토 지점을 정리합니다.';
     document.getElementById("hero-caveat").innerHTML = `
       <span class="homepage-footnote-label">데이터 기준</span>
-      <p>거래 데이터는 2025.04~2026.03, 상권 수요 데이터는 2024 스냅샷입니다. 최근 거래 표본이 적은 구는 신뢰도 경고를 함께 표시합니다.</p>
+      <p>${payload.site.timeCaveat || "거래 데이터와 상권 수요 데이터 기준을 payload에서 확인합니다."} 최근 거래 표본이 적은 구는 신뢰도 경고를 함께 표시합니다.</p>
     `;
 
     document.getElementById("hero-facts").innerHTML = [
@@ -333,11 +337,15 @@
     document.getElementById("source-note").innerHTML = `
       <div class="source-note-row">
         <span>거래 데이터</span>
-        <strong>2025.04~2026.03</strong>
+        <strong>${transactionSource.window || payload.site.latestMonth || "최근 12개월"}</strong>
       </div>
       <div class="source-note-row">
         <span>상권 수요 데이터</span>
-        <strong>2024 스냅샷</strong>
+        <strong>${demandSource.window || "최신 공개 분기"}</strong>
+      </div>
+      <div class="source-note-row">
+        <span>상가정보</span>
+        <strong>${storeSource.window || "최신 공개 파일"}</strong>
       </div>
       <div class="source-note-row">
         <span>신뢰도 안내</span>

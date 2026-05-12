@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import json
+import re
 import struct
 import sys
 from collections import Counter, defaultdict
@@ -28,22 +30,22 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--sales-input",
-        default=str(raw_root / "seoul_sales_2024.csv"),
+        default=str(raw_root / "seoul_sales_latest.csv"),
         help="Path to the Seoul estimated sales CSV.",
     )
     parser.add_argument(
         "--population-input",
-        default=str(raw_root / "seoul_floating_population.csv"),
+        default=str(raw_root / "seoul_floating_population_latest.csv"),
         help="Path to the Seoul floating population CSV.",
     )
     parser.add_argument(
         "--attractors-input",
-        default=str(raw_root / "seoul_attractors_hinterland.csv"),
+        default=str(raw_root / "seoul_attractors_hinterland_latest.csv"),
         help="Path to the Seoul attractor facilities CSV.",
     )
     parser.add_argument(
         "--store-input",
-        default=str(raw_root / "seoul_store_info" / "seoul_store_info_202512.csv"),
+        default=str(raw_root / "seoul_store_info" / "seoul_store_info_20260331.csv"),
         help="Path to the Seoul store information CSV.",
     )
     parser.add_argument(
@@ -66,6 +68,11 @@ def ensure_dir(path_str: str) -> Path:
 
 
 def build_admin_dong_reference(dbf_path: Path) -> pd.DataFrame:
+    if not dbf_path.exists():
+        return pd.DataFrame(
+            columns=["admin_dong_code", "admin_dong_name", "x_coord", "y_coord", "area_sqm"]
+        )
+
     fields: list[tuple[str, str, int]] = []
     rows: list[dict[str, str]] = []
 
@@ -116,6 +123,29 @@ def build_admin_dong_reference(dbf_path: Path) -> pd.DataFrame:
         df[col] = pd.to_numeric(df[col], errors="coerce")
     df["admin_dong_code"] = df["admin_dong_code"].astype(str).str.zfill(8)
     return df
+
+
+def format_store_period(path: Path) -> str:
+    match = re.search(r"(20\d{2})(\d{2})(\d{2})?", path.name)
+    if not match:
+        return "latest public file"
+    year, month, day = match.groups()
+    if day:
+        return f"{year}.{month}.{day} 기준 파일"
+    return f"{year}.{month} 기준 파일"
+
+
+def write_source_metadata(output_dir: Path, trade_area_activity_df: pd.DataFrame, store_path: Path) -> None:
+    latest_quarter = str(int(trade_area_activity_df["quarter_code"].max()))
+    metadata = {
+        "seoul_market_quarter": latest_quarter,
+        "store_file_period": format_store_period(store_path),
+        "store_source_file": store_path.name,
+    }
+    (output_dir / "redveil_source_metadata.json").write_text(
+        json.dumps(metadata, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
 
 
 def build_trade_area_activity(sales_path: Path, population_path: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -191,27 +221,32 @@ def build_trade_area_activity(sales_path: Path, population_path: Path) -> tuple[
 
 
 def build_attractors(attractors_path: Path) -> pd.DataFrame:
+    attractors_df = pd.read_csv(attractors_path, encoding="cp949")
+    api_columns = {
+        "STDR_YYQU_CD": "quarter_code",
+        "TRDAR_SE_CD": "trade_area_type_code",
+        "TRDAR_SE_CD_NM": "trade_area_type_name",
+        "TRDAR_CD": "hinterland_code",
+        "TRDAR_CD_NM": "hinterland_name",
+        "VIATR_FCLTY_CO": "facility_count",
+        "PBLOFC_CO": "government_office_count",
+        "BANK_CO": "bank_count",
+        "GEHSPT_CO": "general_hospital_count",
+        "GNRL_HSPTL_CO": "hospital_count",
+        "PARMACY_CO": "pharmacy_count",
+        "BUS_TRMINL_CO": "bus_terminal_count",
+        "SUBWAY_STATN_CO": "subway_station_count",
+        "BUS_STTN_CO": "bus_stop_count",
+    }
+    if set(api_columns).issubset(attractors_df.columns):
+        return attractors_df.loc[:, list(api_columns)].rename(columns=api_columns)
+
     attractors_df = pd.read_csv(
         attractors_path,
         encoding="cp949",
         usecols=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 22, 23, 24],
     )
-    attractors_df.columns = [
-        "quarter_code",
-        "trade_area_type_code",
-        "trade_area_type_name",
-        "hinterland_code",
-        "hinterland_name",
-        "facility_count",
-        "government_office_count",
-        "bank_count",
-        "general_hospital_count",
-        "hospital_count",
-        "pharmacy_count",
-        "bus_terminal_count",
-        "subway_station_count",
-        "bus_stop_count",
-    ]
+    attractors_df.columns = list(api_columns.values())
     return attractors_df
 
 
@@ -409,13 +444,15 @@ def main() -> int:
     output_dir = ensure_dir(args.output_dir)
 
     dong_reference_df = build_admin_dong_reference(Path(args.dong_dbf_input).resolve())
+    store_path = Path(args.store_input).resolve()
     trade_area_activity_df, latest_top_service_df = build_trade_area_activity(
         Path(args.sales_input).resolve(),
         Path(args.population_input).resolve(),
     )
     attractors_df = build_attractors(Path(args.attractors_input).resolve())
-    district_competition_df, dong_competition_df = build_store_competition(Path(args.store_input).resolve())
-    dong_competition_df = dong_competition_df.merge(dong_reference_df, how="left", on="admin_dong_code")
+    district_competition_df, dong_competition_df = build_store_competition(store_path)
+    if not dong_reference_df.empty:
+        dong_competition_df = dong_competition_df.merge(dong_reference_df, how="left", on="admin_dong_code")
     if "admin_dong_name_x" in dong_competition_df.columns:
         dong_competition_df = dong_competition_df.rename(columns={"admin_dong_name_x": "admin_dong_name"})
     if "admin_dong_name_y" in dong_competition_df.columns:
@@ -424,11 +461,12 @@ def main() -> int:
     investment_risk_df = maybe_merge_transaction_risk(root, district_competition_df)
 
     dong_reference_df.to_csv(output_dir / "seoul_admin_dong_reference.csv", index=False, encoding="utf-8-sig")
-    trade_area_activity_df.to_csv(output_dir / "seoul_trade_area_activity_2024.csv", index=False, encoding="utf-8-sig")
+    trade_area_activity_df.to_csv(output_dir / "seoul_trade_area_activity.csv", index=False, encoding="utf-8-sig")
     latest_top_service_df.to_csv(output_dir / "seoul_trade_area_top_service_latest.csv", index=False, encoding="utf-8-sig")
     attractors_df.to_csv(output_dir / "seoul_hinterland_attractors.csv", index=False, encoding="utf-8-sig")
     district_competition_df.to_csv(output_dir / "seoul_store_competition_by_district.csv", index=False, encoding="utf-8-sig")
     dong_competition_df.to_csv(output_dir / "seoul_store_competition_by_admin_dong.csv", index=False, encoding="utf-8-sig")
+    write_source_metadata(output_dir, trade_area_activity_df, store_path)
 
     if investment_risk_df is not None:
         investment_risk_df.to_csv(output_dir / "seoul_district_investment_risk_v1.csv", index=False, encoding="utf-8-sig")
@@ -437,7 +475,7 @@ def main() -> int:
         print("Skipped integrated investment risk merge because seoul_transaction_risk_scores.csv was not found.")
 
     print("Saved seoul_admin_dong_reference.csv")
-    print("Saved seoul_trade_area_activity_2024.csv")
+    print("Saved seoul_trade_area_activity.csv")
     print("Saved seoul_trade_area_top_service_latest.csv")
     print("Saved seoul_hinterland_attractors.csv")
     print("Saved seoul_store_competition_by_district.csv")

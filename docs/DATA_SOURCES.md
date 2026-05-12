@@ -7,8 +7,9 @@ Redveil combines three public-data families. The raw files under `data/` are int
 | Use in Redveil | Official Dataset | Provider | Current Access Notes |
 | --- | --- | --- | --- |
 | Commercial real-estate transaction prices | [국토교통부_상업업무용 부동산 매매 실거래가 자료](https://www.data.go.kr/data/15126463/openapi.do) | 국토교통부 / 공공데이터포털 | REST XML OpenAPI. Query by legal-dong code first 5 digits and contract year-month. Requires data.go.kr service key. |
-| Estimated sales and trade-area demand | [서울시 상권분석서비스(추정매출-서울시)](https://data.seoul.go.kr/dataList/OA-22177/A/1/datasetView.do) and related Seoul commercial-district datasets | 서울특별시, 서울신용보증재단 / 서울 열린데이터광장 | Quarterly data. Related datasets include 추정매출, 길단위인구, 집객시설, 점포, and 영역 tables. |
-| Floating population by district/trade area | [서울시 상권분석서비스(길단위인구-자치구)](https://data.seoul.go.kr/dataList/OA-22179/S/1/datasetView.do?tab=A) and related 길단위인구 datasets | 서울특별시, 서울신용보증재단 / 서울 열린데이터광장 | Quarterly data. Use the matching 행정동/상권/자치구 scope for the processing target. |
+| Estimated sales and trade-area demand | [서울시 상권분석서비스(추정매출-상권)](https://data.seoul.go.kr/dataList/OA-15572/S/1/datasetView.do) and related Seoul commercial-district datasets | 서울특별시, 서울신용보증재단 / 서울 열린데이터광장 | Quarterly data. Related datasets include 추정매출, 길단위인구, 집객시설, 점포, and 영역 tables. |
+| Floating population by trade area | [서울시 상권분석서비스(길단위인구-상권)](https://data.seoul.go.kr/dataList/OA-15568/S/1/datasetView.do) and related 길단위인구 datasets | 서울특별시, 서울신용보증재단 / 서울 열린데이터광장 | Quarterly data. Use the matching 행정동/상권/자치구 scope for the processing target. |
+| Attractor/facility counts by trade-area hinterland | [서울시 상권분석서비스(집객시설-상권배후지)](https://data.seoul.go.kr/dataList/OA-15581/S/1/datasetView.do) | 서울특별시, 서울신용보증재단 / 서울 열린데이터광장 | Quarterly data. Used as supporting structural context for trade-area demand signals. |
 | Commercial district data catalog and download guide | [서울시 상권분석서비스 제공정보 PDF](https://golmok.seoul.go.kr/images/seoul_info.pdf) | 서울시 상권분석서비스 | Confirms quarterly cadence, update timing, downloadable formats, and dataset families. |
 | Store competition and merchant density | [소상공인시장진흥공단_상가(상권)정보](https://www.data.go.kr/data/15083033/fileData.do) | 소상공인시장진흥공단 / 공공데이터포털 | CSV file dataset. Quarterly update. Current page exposes nationwide active-store records including store name, category, address, longitude, and latitude. |
 
@@ -18,10 +19,10 @@ Redveil combines three public-data families. The raw files under `data/` are int
 | --- | --- | --- |
 | `data/raw/molit_commercial_sales/seoul_commercial_sales.csv` | MOLIT commercial real-estate transaction OpenAPI | `build_transaction_risk_scores.py` |
 | `data/processed/seoul_commercial_sales_monthly_summary.csv` | MOLIT collector summary output | `build_transaction_risk_scores.py` |
-| `data/external/raw/seoul_sales_2024.csv` | Seoul commercial-district estimated sales | `prepare_external_market_data.py` |
-| `data/external/raw/seoul_floating_population.csv` | Seoul commercial-district floating population | `prepare_external_market_data.py` |
-| `data/external/raw/seoul_attractors_hinterland.csv` | Seoul commercial-district attractor/facility data | `prepare_external_market_data.py` |
-| `data/external/raw/seoul_store_info/seoul_store_info_YYYYMM.csv` | 소상공인시장진흥공단 store information CSV | `prepare_external_market_data.py` |
+| `data/external/raw/seoul_sales_latest.csv` | Seoul commercial-district estimated sales | `prepare_external_market_data.py` |
+| `data/external/raw/seoul_floating_population_latest.csv` | Seoul commercial-district floating population | `prepare_external_market_data.py` |
+| `data/external/raw/seoul_attractors_hinterland_latest.csv` | Seoul commercial-district attractor/facility data | `prepare_external_market_data.py` |
+| `data/external/raw/seoul_store_info/seoul_store_info_YYYYMMDD.csv` | 소상공인시장진흥공단 store information CSV | `prepare_external_market_data.py` |
 | `data/external/raw/seoul_trade_area_dong/seoul_trade_area_dong.dbf` | Seoul commercial-district area/admin-dong shape bundle | `prepare_external_market_data.py` |
 
 ## Update Checklist
@@ -57,6 +58,7 @@ python scripts/check_responsive_pages.py
 
 ## Notes
 
-- The current public payload uses transaction data from `2025.04~2026.03` and Seoul commercial-district demand data from a `2024` snapshot.
+- `scripts/update_latest_public_data.py` can rebuild the public-safe local inputs when the MOLIT transaction snapshot is already present in `app/site/website_payload.js`.
+- The current public payload uses transaction data from `2025.04~2026.03`, Seoul commercial-district demand data from `2025년 4분기`, and store competition data from the `2026.03.31` file.
 - The MOLIT collector currently calls `https://apis.data.go.kr/1613000/RTMSDataSvcNrgTrade/getRTMSDataSvcNrgTrade`. The official listing is now easiest to find through the public-data page linked above, so verify the endpoint in the OpenAPI spec before a fresh rebuild.
 - Seoul commercial-district pages are split by metric and spatial scope. Match the pipeline input names rather than downloading every related dataset.

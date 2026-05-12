@@ -4,7 +4,7 @@ window.__REDVEIL_PAYLOAD__ = {
     "subtitle": "서울 소형 상가 매입 리스크 판별 서비스",
     "tagline": "Uncover hidden risks before acquisition.",
     "latestMonth": "2026.03",
-    "timeCaveat": "거래 데이터는 2025.04~2026.03, 상권 수요 데이터는 2024 스냅샷입니다.",
+    "timeCaveat": "거래 데이터는 2025.04~2026.03, 상권 수요 데이터는 2025년 4분기입니다.",
     "sampleCaveat": "최근 거래 표본이 얇은 구는 신뢰도 경고를 함께 표시합니다.",
     "primaryCta": {
       "label": "내 매물 검토 시작",
@@ -19,13 +19,13 @@ window.__REDVEIL_PAYLOAD__ = {
     "latestMonth": "2026.03",
     "transactionCount": 12074,
     "districtCount": 25,
-    "tradeAreaCount": 1570,
-    "adminDongCount": 428,
+    "tradeAreaCount": 1520,
+    "adminDongCount": 427,
     "lowSampleDistrictCount": 8,
     "caseStudyCount": 3,
     "highestRiskDistrict": {
       "name": "서초구",
-      "score": 78.9,
+      "score": 78.1,
       "grade": "매우 높음"
     }
   },
@@ -33,26 +33,25 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11650",
       "name": "서초구",
-      "riskScore": 78.9,
+      "riskScore": 78.1,
       "riskGrade": "매우 높음",
       "transactionRiskScore": 85.2,
       "priceBurdenRiskScore": 98.6,
       "liquidityRiskScore": 52.9,
       "volatilityRiskScore": 100.0,
-      "competitionRiskScore": 71.2,
+      "competitionRiskScore": 69.4,
       "competitionRiskGrade": "높음",
       "sampleReliability": "높음",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 17.1,
-      "storesPerAdminDong": 2160.7,
-      "topCategories": "경영 컨설팅업:2710 | 변호사:2678 | 부동산 중개/대리업:2094",
+      "foodStoreSharePct": 17.4,
+      "storesPerAdminDong": 2163.7,
+      "topCategories": "변호사:2673 | 경영 컨설팅업:2650 | 부동산 중개/대리업:2052",
       "objections": [
         "같은 권역 대비 매입 가격 부담이 큽니다",
-        "상권 내 점포 과밀도가 높습니다",
         "최근 실거래 가격 변동성이 큽니다"
       ],
-      "riskSummary": "가격 부담 점수 98.6점으로 상위권입니다 / 상권 과밀 점수 71.2점으로 경쟁 압박이 큽니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
-      "memo": "서초구는 78.9점, '매우 높음' 구간입니다. 현재 이 구의 대표 유형은 '고가 선행형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 상권 내 점포 과밀도가 높습니다, 최근 실거래 가격 변동성이 큽니다입니다. 지금 바로 매입 결정을 내리기보다 금천구, 관악구, 양천구를 먼저 비교하는 것이 안전합니다.",
+      "riskSummary": "가격 부담 점수 98.6점으로 상위권입니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
+      "memo": "서초구는 78.1점, '매우 높음' 구간입니다. 현재 이 구의 대표 유형은 '고가 선행형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 최근 실거래 가격 변동성이 큽니다. 지금 바로 매입 결정을 내리기보다 금천구, 관악구, 동대문구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "고가 선행형",
       "archetypeSummary": "가격이 먼저 뛰고 변동성도 큰 유형입니다. 중개사 설명보다 최근 체결 레벨 확인이 우선입니다.",
       "decisionQuestion": "호가가 최근 거래선보다 앞서 있는지 먼저 확인해야 합니다.",
@@ -66,25 +65,25 @@ window.__REDVEIL_PAYLOAD__ = {
         {
           "rank": 1,
           "name": "금천구",
-          "score": 50.2,
+          "score": 49.4,
           "liquidityScore": 64.2,
-          "competitionScore": 53.4,
+          "competitionScore": 51.6,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
         },
         {
           "rank": 2,
           "name": "관악구",
-          "score": 50.3,
+          "score": 51.1,
           "liquidityScore": 39.7,
-          "competitionScore": 55.0,
+          "competitionScore": 56.8,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         },
         {
           "rank": 3,
-          "name": "양천구",
-          "score": 54.5,
-          "liquidityScore": 64.8,
-          "competitionScore": 47.2,
+          "name": "동대문구",
+          "score": 47.8,
+          "liquidityScore": 75.1,
+          "competitionScore": 57.6,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
         }
       ],
@@ -188,16 +187,16 @@ window.__REDVEIL_PAYLOAD__ = {
       "competitionRiskGrade": "매우 높음",
       "sampleReliability": "높음",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 19.3,
-      "storesPerAdminDong": 2914.7,
-      "topCategories": "경영 컨설팅업:5736 | 부동산 중개/대리업:3665 | 광고 대행업:3322",
+      "foodStoreSharePct": 19.6,
+      "storesPerAdminDong": 2920.0,
+      "topCategories": "경영 컨설팅업:5621 | 부동산 중개/대리업:3568 | 광고 대행업:3282",
       "objections": [
         "같은 권역 대비 매입 가격 부담이 큽니다",
         "상권 내 점포 과밀도가 높습니다",
         "최근 실거래 가격 변동성이 큽니다"
       ],
       "riskSummary": "가격 부담 점수 93.2점으로 상위권입니다 / 상권 과밀 점수 76.4점으로 경쟁 압박이 큽니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
-      "memo": "강남구는 71.8점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '고가 선행형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 상권 내 점포 과밀도가 높습니다, 최근 실거래 가격 변동성이 큽니다입니다. 지금 바로 매입 결정을 내리기보다 구로구를 먼저 비교하는 것이 안전합니다.",
+      "memo": "강남구는 71.8점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '고가 선행형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 상권 내 점포 과밀도가 높습니다, 최근 실거래 가격 변동성이 큽니다. 지금 바로 매입 결정을 내리기보다 구로구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "고가 선행형",
       "archetypeSummary": "가격이 먼저 뛰고 변동성도 큰 유형입니다. 중개사 설명보다 최근 체결 레벨 확인이 우선입니다.",
       "decisionQuestion": "호가가 최근 거래선보다 앞서 있는지 먼저 확인해야 합니다.",
@@ -317,15 +316,15 @@ window.__REDVEIL_PAYLOAD__ = {
       "competitionRiskGrade": "높음",
       "sampleReliability": "높음",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 25.1,
-      "storesPerAdminDong": 1607.8,
-      "topCategories": "백반/한정식:1428 | 기타 의류 소매업:1366 | 카페:1075",
+      "foodStoreSharePct": 25.4,
+      "storesPerAdminDong": 1617.5,
+      "topCategories": "백반/한정식:1530 | 기타 의류 소매업:1390 | 카페:1080",
       "objections": [
         "같은 권역 대비 매입 가격 부담이 큽니다",
         "최근 실거래 가격 변동성이 큽니다"
       ],
       "riskSummary": "가격 부담 점수 94.8점으로 상위권입니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
-      "memo": "중구는 70.2점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '고가 선행형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 최근 실거래 가격 변동성이 큽니다입니다. 지금 바로 매입 결정을 내리기보다 관악구, 강서구, 은평구를 먼저 비교하는 것이 안전합니다.",
+      "memo": "중구는 70.2점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '고가 선행형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 최근 실거래 가격 변동성이 큽니다. 지금 바로 매입 결정을 내리기보다 관악구, 강서구, 노원구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "고가 선행형",
       "archetypeSummary": "가격이 먼저 뛰고 변동성도 큰 유형입니다. 중개사 설명보다 최근 체결 레벨 확인이 우선입니다.",
       "decisionQuestion": "호가가 최근 거래선보다 앞서 있는지 먼저 확인해야 합니다.",
@@ -339,9 +338,9 @@ window.__REDVEIL_PAYLOAD__ = {
         {
           "rank": 1,
           "name": "관악구",
-          "score": 50.3,
+          "score": 51.1,
           "liquidityScore": 39.7,
-          "competitionScore": 55.0,
+          "competitionScore": 56.8,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         },
         {
@@ -354,10 +353,10 @@ window.__REDVEIL_PAYLOAD__ = {
         },
         {
           "rank": 3,
-          "name": "은평구",
-          "score": 34.3,
-          "liquidityScore": 15.0,
-          "competitionScore": 55.0,
+          "name": "노원구",
+          "score": 35.1,
+          "liquidityScore": 35.5,
+          "competitionScore": 49.0,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         }
       ],
@@ -451,26 +450,26 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11110",
       "name": "종로구",
-      "riskScore": 67.6,
+      "riskScore": 68.4,
       "riskGrade": "높음",
       "transactionRiskScore": 60.6,
       "priceBurdenRiskScore": 70.4,
       "liquidityRiskScore": 31.3,
       "volatilityRiskScore": 80.0,
-      "competitionRiskScore": 76.2,
+      "competitionRiskScore": 78.0,
       "competitionRiskGrade": "매우 높음",
       "sampleReliability": "높음",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 31.2,
-      "storesPerAdminDong": 1223.8,
-      "topCategories": "백반/한정식:1438 | 카페:1224 | 시계/귀금속 소매업:675",
+      "foodStoreSharePct": 31.7,
+      "storesPerAdminDong": 1231.3,
+      "topCategories": "백반/한정식:1569 | 카페:1218 | 시계/귀금속 소매업:670",
       "objections": [
         "같은 권역 대비 매입 가격 부담이 큽니다",
         "상권 내 점포 과밀도가 높습니다",
         "최근 실거래 가격 변동성이 큽니다"
       ],
-      "riskSummary": "상권 과밀 점수 76.2점으로 경쟁 압박이 큽니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
-      "memo": "종로구는 67.6점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '과밀 경쟁형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 상권 내 점포 과밀도가 높습니다, 최근 실거래 가격 변동성이 큽니다입니다. 지금 바로 매입 결정을 내리기보다 관악구, 은평구, 강서구를 먼저 비교하는 것이 안전합니다.",
+      "riskSummary": "상권 과밀 점수 78.0점으로 경쟁 압박이 큽니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
+      "memo": "종로구는 68.4점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '과밀 경쟁형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 상권 내 점포 과밀도가 높습니다, 최근 실거래 가격 변동성이 큽니다. 지금 바로 매입 결정을 내리기보다 관악구, 강서구, 노원구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "과밀 경쟁형",
       "archetypeSummary": "입지는 익숙하지만 이미 상권 과밀이 높은 유형입니다. 임차인 교체 속도가 수익을 좌우합니다.",
       "decisionQuestion": "같은 형식의 점포가 얼마나 중복되어 있는지 확인해야 합니다.",
@@ -484,26 +483,26 @@ window.__REDVEIL_PAYLOAD__ = {
         {
           "rank": 1,
           "name": "관악구",
-          "score": 50.3,
+          "score": 51.1,
           "liquidityScore": 39.7,
-          "competitionScore": 55.0,
+          "competitionScore": 56.8,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
         },
         {
           "rank": 2,
-          "name": "은평구",
-          "score": 34.3,
-          "liquidityScore": 15.0,
-          "competitionScore": 55.0,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
-        },
-        {
-          "rank": 3,
           "name": "강서구",
           "score": 44.2,
           "liquidityScore": 31.0,
           "competitionScore": 50.8,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+        },
+        {
+          "rank": 3,
+          "name": "노원구",
+          "score": 35.1,
+          "liquidityScore": 35.5,
+          "competitionScore": 49.0,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
         }
       ],
       "history": [
@@ -596,25 +595,25 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11170",
       "name": "용산구",
-      "riskScore": 64.9,
+      "riskScore": 65.2,
       "riskGrade": "높음",
       "transactionRiskScore": 66.2,
       "priceBurdenRiskScore": 71.2,
       "liquidityRiskScore": 46.0,
       "volatilityRiskScore": 84.0,
-      "competitionRiskScore": 63.4,
+      "competitionRiskScore": 64.0,
       "competitionRiskGrade": "높음",
       "sampleReliability": "높음",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 32.2,
-      "storesPerAdminDong": 981.3,
-      "topCategories": "백반/한정식:939 | 카페:835 | 부동산 중개/대리업:804",
+      "foodStoreSharePct": 32.7,
+      "storesPerAdminDong": 982.9,
+      "topCategories": "백반/한정식:1033 | 카페:825 | 부동산 중개/대리업:795",
       "objections": [
         "같은 권역 대비 매입 가격 부담이 큽니다",
         "최근 실거래 가격 변동성이 큽니다"
       ],
       "riskSummary": "최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
-      "memo": "용산구는 64.9점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '가격 변동형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 최근 실거래 가격 변동성이 큽니다입니다. 지금 바로 매입 결정을 내리기보다 관악구, 은평구, 강서구를 먼저 비교하는 것이 안전합니다.",
+      "memo": "용산구는 65.2점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '가격 변동형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 최근 실거래 가격 변동성이 큽니다. 지금 바로 매입 결정을 내리기보다 관악구, 강서구, 노원구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "가격 변동형",
       "archetypeSummary": "가격 레벨은 버틸 수 있어도 최근 체결선이 불안정한 유형입니다.",
       "decisionQuestion": "최근 몇 건이 전체 시장을 왜곡한 이상 거래인지 살펴봐야 합니다.",
@@ -628,25 +627,25 @@ window.__REDVEIL_PAYLOAD__ = {
         {
           "rank": 1,
           "name": "관악구",
-          "score": 50.3,
+          "score": 51.1,
           "liquidityScore": 39.7,
-          "competitionScore": 55.0,
+          "competitionScore": 56.8,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         },
         {
           "rank": 2,
-          "name": "은평구",
-          "score": 34.3,
-          "liquidityScore": 15.0,
-          "competitionScore": 55.0,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
-        },
-        {
-          "rank": 3,
           "name": "강서구",
           "score": 44.2,
           "liquidityScore": 31.0,
           "competitionScore": 50.8,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+        },
+        {
+          "rank": 3,
+          "name": "노원구",
+          "score": 35.1,
+          "liquidityScore": 35.5,
+          "competitionScore": 49.0,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         }
       ],
@@ -740,25 +739,25 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11560",
       "name": "영등포구",
-      "riskScore": 63.4,
+      "riskScore": 63.1,
       "riskGrade": "높음",
       "transactionRiskScore": 57.2,
       "priceBurdenRiskScore": 65.4,
       "liquidityRiskScore": 33.6,
       "volatilityRiskScore": 72.0,
-      "competitionRiskScore": 71.0,
+      "competitionRiskScore": 70.4,
       "competitionRiskGrade": "높음",
       "sampleReliability": "높음",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 26.7,
-      "storesPerAdminDong": 1579.9,
-      "topCategories": "경영 컨설팅업:2102 | 백반/한정식:1590 | 부동산 중개/대리업:1151",
+      "foodStoreSharePct": 27.0,
+      "storesPerAdminDong": 1575.9,
+      "topCategories": "경영 컨설팅업:2073 | 백반/한정식:1688 | 카페:1143",
       "objections": [
         "상권 내 점포 과밀도가 높습니다",
         "최근 실거래 가격 변동성이 큽니다"
       ],
-      "riskSummary": "상권 과밀 점수 71.0점으로 경쟁 압박이 큽니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
-      "memo": "영등포구는 63.4점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '과밀 경쟁형'이며, 핵심 반대 근거는 상권 내 점포 과밀도가 높습니다, 최근 실거래 가격 변동성이 큽니다입니다. 지금 바로 매입 결정을 내리기보다 관악구, 강서구, 은평구를 먼저 비교하는 것이 안전합니다.",
+      "riskSummary": "상권 과밀 점수 70.4점으로 경쟁 압박이 큽니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
+      "memo": "영등포구는 63.1점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '과밀 경쟁형'이며, 핵심 반대 근거는 상권 내 점포 과밀도가 높습니다, 최근 실거래 가격 변동성이 큽니다. 지금 바로 매입 결정을 내리기보다 관악구, 강서구, 노원구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "과밀 경쟁형",
       "archetypeSummary": "입지는 익숙하지만 이미 상권 과밀이 높은 유형입니다. 임차인 교체 속도가 수익을 좌우합니다.",
       "decisionQuestion": "같은 형식의 점포가 얼마나 중복되어 있는지 확인해야 합니다.",
@@ -772,9 +771,9 @@ window.__REDVEIL_PAYLOAD__ = {
         {
           "rank": 1,
           "name": "관악구",
-          "score": 50.3,
+          "score": 51.1,
           "liquidityScore": 39.7,
-          "competitionScore": 55.0,
+          "competitionScore": 56.8,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
         },
         {
@@ -787,11 +786,11 @@ window.__REDVEIL_PAYLOAD__ = {
         },
         {
           "rank": 3,
-          "name": "은평구",
-          "score": 34.3,
-          "liquidityScore": 15.0,
-          "competitionScore": 55.0,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+          "name": "노원구",
+          "score": 35.1,
+          "liquidityScore": 35.5,
+          "competitionScore": 49.0,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
         }
       ],
       "history": [
@@ -882,169 +881,26 @@ window.__REDVEIL_PAYLOAD__ = {
       ]
     },
     {
-      "code": "11710",
-      "name": "송파구",
-      "riskScore": 62.4,
-      "riskGrade": "높음",
-      "transactionRiskScore": 72.0,
-      "priceBurdenRiskScore": 68.8,
-      "liquidityRiskScore": 61.3,
-      "volatilityRiskScore": 96.0,
-      "competitionRiskScore": 50.6,
-      "competitionRiskGrade": "보통",
-      "sampleReliability": "보통",
-      "lowSampleFlag": false,
-      "foodStoreSharePct": 23.9,
-      "storesPerAdminDong": 1242.9,
-      "topCategories": "부동산 중개/대리업:1695 | 백반/한정식:1473 | 카페:1301",
-      "objections": [
-        "최근 실거래 가격 변동성이 큽니다"
-      ],
-      "riskSummary": "최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
-      "memo": "송파구는 62.4점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '가격 변동형'이며, 핵심 반대 근거는 최근 실거래 가격 변동성이 큽니다입니다. 지금 바로 매입 결정을 내리기보다 양천구, 강서구, 금천구를 먼저 비교하는 것이 안전합니다.",
-      "riskArchetype": "가격 변동형",
-      "archetypeSummary": "가격 레벨은 버틸 수 있어도 최근 체결선이 불안정한 유형입니다.",
-      "decisionQuestion": "최근 몇 건이 전체 시장을 왜곡한 이상 거래인지 살펴봐야 합니다.",
-      "recommendedAction": "대형 거래와 집합상가 거래를 분리해 재해석하세요.",
-      "reviewChecklist": [
-        "대형 거래와 집합상가 거래를 분리해 재해석하세요.",
-        "최근 3개월 호가와 실거래 차이를 현장 중개사 두 곳 이상에서 교차 확인하세요.",
-        "핵심 업종이 실제로 버티는지 임차인 교체 속도와 공실 재고를 점검하세요."
-      ],
-      "replacementCandidates": [
-        {
-          "rank": 1,
-          "name": "양천구",
-          "score": 54.5,
-          "liquidityScore": 64.8,
-          "competitionScore": 47.2,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
-        },
-        {
-          "rank": 2,
-          "name": "강서구",
-          "score": 44.2,
-          "liquidityScore": 31.0,
-          "competitionScore": 50.8,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
-        },
-        {
-          "rank": 3,
-          "name": "금천구",
-          "score": 50.2,
-          "liquidityScore": 64.2,
-          "competitionScore": 53.4,
-          "whyBetter": "총 매입 리스크가 더 낮습니다"
-        }
-      ],
-      "history": [
-        {
-          "month": "2025.04",
-          "transactionCount": 46,
-          "medianPricePerSqm": 786.7,
-          "priceGrowth6mPct": 0.0,
-          "transactionDropVs6mPct": 0.0
-        },
-        {
-          "month": "2025.05",
-          "transactionCount": 52,
-          "medianPricePerSqm": 648.5,
-          "priceGrowth6mPct": -9.6,
-          "transactionDropVs6mPct": 6.1
-        },
-        {
-          "month": "2025.06",
-          "transactionCount": 57,
-          "medianPricePerSqm": 528.6,
-          "priceGrowth6mPct": -19.2,
-          "transactionDropVs6mPct": 10.3
-        },
-        {
-          "month": "2025.07",
-          "transactionCount": 47,
-          "medianPricePerSqm": 1112.8,
-          "priceGrowth6mPct": 44.7,
-          "transactionDropVs6mPct": -6.9
-        },
-        {
-          "month": "2025.08",
-          "transactionCount": 43,
-          "medianPricePerSqm": 1065.9,
-          "priceGrowth6mPct": 28.7,
-          "transactionDropVs6mPct": -12.2
-        },
-        {
-          "month": "2025.09",
-          "transactionCount": 48,
-          "medianPricePerSqm": 964.9,
-          "priceGrowth6mPct": 13.3,
-          "transactionDropVs6mPct": -1.7
-        },
-        {
-          "month": "2025.10",
-          "transactionCount": 41,
-          "medianPricePerSqm": 2293.4,
-          "priceGrowth6mPct": 108.0,
-          "transactionDropVs6mPct": -14.6
-        },
-        {
-          "month": "2025.11",
-          "transactionCount": 62,
-          "medianPricePerSqm": 2182.6,
-          "priceGrowth6mPct": 60.7,
-          "transactionDropVs6mPct": 24.8
-        },
-        {
-          "month": "2025.12",
-          "transactionCount": 62,
-          "medianPricePerSqm": 922.5,
-          "priceGrowth6mPct": -35.2,
-          "transactionDropVs6mPct": 22.8
-        },
-        {
-          "month": "2026.01",
-          "transactionCount": 58,
-          "medianPricePerSqm": 878.3,
-          "priceGrowth6mPct": -36.6,
-          "transactionDropVs6mPct": 10.8
-        },
-        {
-          "month": "2026.02",
-          "transactionCount": 34,
-          "medianPricePerSqm": 1754.8,
-          "priceGrowth6mPct": 17.0,
-          "transactionDropVs6mPct": -33.1
-        },
-        {
-          "month": "2026.03",
-          "transactionCount": 17,
-          "medianPricePerSqm": 1452.0,
-          "priceGrowth6mPct": -8.1,
-          "transactionDropVs6mPct": -62.8
-        }
-      ]
-    },
-    {
       "code": "11440",
       "name": "마포구",
-      "riskScore": 62.3,
+      "riskScore": 62.6,
       "riskGrade": "높음",
       "transactionRiskScore": 50.4,
       "priceBurdenRiskScore": 51.6,
       "liquidityRiskScore": 68.7,
       "volatilityRiskScore": 20.0,
-      "competitionRiskScore": 76.8,
+      "competitionRiskScore": 77.4,
       "competitionRiskGrade": "매우 높음",
       "sampleReliability": "보통",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 29.5,
-      "storesPerAdminDong": 1905.5,
-      "topCategories": "카페:1773 | 백반/한정식:1587 | 부동산 중개/대리업:1161",
+      "foodStoreSharePct": 29.8,
+      "storesPerAdminDong": 1915.2,
+      "topCategories": "백반/한정식:1780 | 카페:1734 | 미용실:1215",
       "objections": [
         "상권 내 점포 과밀도가 높습니다"
       ],
-      "riskSummary": "상권 과밀 점수 76.8점으로 경쟁 압박이 큽니다",
-      "memo": "마포구는 62.3점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '과밀 경쟁형'이며, 핵심 반대 근거는 상권 내 점포 과밀도가 높습니다입니다. 지금 바로 매입 결정을 내리기보다 관악구, 은평구, 강서구를 먼저 비교하는 것이 안전합니다.",
+      "riskSummary": "상권 과밀 점수 77.4점으로 경쟁 압박이 큽니다",
+      "memo": "마포구는 62.6점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '과밀 경쟁형'이며, 핵심 반대 근거는 상권 내 점포 과밀도가 높습니다. 지금 바로 매입 결정을 내리기보다 관악구, 동대문구, 강서구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "과밀 경쟁형",
       "archetypeSummary": "입지는 익숙하지만 이미 상권 과밀이 높은 유형입니다. 임차인 교체 속도가 수익을 좌우합니다.",
       "decisionQuestion": "같은 형식의 점포가 얼마나 중복되어 있는지 확인해야 합니다.",
@@ -1058,18 +914,18 @@ window.__REDVEIL_PAYLOAD__ = {
         {
           "rank": 1,
           "name": "관악구",
-          "score": 50.3,
+          "score": 51.1,
           "liquidityScore": 39.7,
-          "competitionScore": 55.0,
+          "competitionScore": 56.8,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         },
         {
           "rank": 2,
-          "name": "은평구",
-          "score": 34.3,
-          "liquidityScore": 15.0,
-          "competitionScore": 55.0,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+          "name": "동대문구",
+          "score": 47.8,
+          "liquidityScore": 75.1,
+          "competitionScore": 57.6,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
         },
         {
           "rank": 3,
@@ -1168,27 +1024,170 @@ window.__REDVEIL_PAYLOAD__ = {
       ]
     },
     {
+      "code": "11710",
+      "name": "송파구",
+      "riskScore": 61.6,
+      "riskGrade": "높음",
+      "transactionRiskScore": 72.0,
+      "priceBurdenRiskScore": 68.8,
+      "liquidityRiskScore": 61.3,
+      "volatilityRiskScore": 96.0,
+      "competitionRiskScore": 48.8,
+      "competitionRiskGrade": "보통",
+      "sampleReliability": "보통",
+      "lowSampleFlag": false,
+      "foodStoreSharePct": 24.2,
+      "storesPerAdminDong": 1244.4,
+      "topCategories": "부동산 중개/대리업:1657 | 백반/한정식:1594 | 미용실:1295",
+      "objections": [
+        "최근 실거래 가격 변동성이 큽니다"
+      ],
+      "riskSummary": "최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
+      "memo": "송파구는 61.6점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '가격 변동형'이며, 핵심 반대 근거는 최근 실거래 가격 변동성이 큽니다. 지금 바로 매입 결정을 내리기보다 양천구, 금천구, 강서구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
+      "riskArchetype": "가격 변동형",
+      "archetypeSummary": "가격 레벨은 버틸 수 있어도 최근 체결선이 불안정한 유형입니다.",
+      "decisionQuestion": "최근 몇 건이 전체 시장을 왜곡한 이상 거래인지 살펴봐야 합니다.",
+      "recommendedAction": "대형 거래와 집합상가 거래를 분리해 재해석하세요.",
+      "reviewChecklist": [
+        "대형 거래와 집합상가 거래를 분리해 재해석하세요.",
+        "최근 3개월 호가와 실거래 차이를 현장 중개사 두 곳 이상에서 교차 확인하세요.",
+        "핵심 업종이 실제로 버티는지 임차인 교체 속도와 공실 재고를 점검하세요."
+      ],
+      "replacementCandidates": [
+        {
+          "rank": 1,
+          "name": "양천구",
+          "score": 54.7,
+          "liquidityScore": 64.8,
+          "competitionScore": 47.8,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
+        },
+        {
+          "rank": 2,
+          "name": "금천구",
+          "score": 49.4,
+          "liquidityScore": 64.2,
+          "competitionScore": 51.6,
+          "whyBetter": "총 매입 리스크가 더 낮습니다"
+        },
+        {
+          "rank": 3,
+          "name": "강서구",
+          "score": 44.2,
+          "liquidityScore": 31.0,
+          "competitionScore": 50.8,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
+        }
+      ],
+      "history": [
+        {
+          "month": "2025.04",
+          "transactionCount": 46,
+          "medianPricePerSqm": 786.7,
+          "priceGrowth6mPct": 0.0,
+          "transactionDropVs6mPct": 0.0
+        },
+        {
+          "month": "2025.05",
+          "transactionCount": 52,
+          "medianPricePerSqm": 648.5,
+          "priceGrowth6mPct": -9.6,
+          "transactionDropVs6mPct": 6.1
+        },
+        {
+          "month": "2025.06",
+          "transactionCount": 57,
+          "medianPricePerSqm": 528.6,
+          "priceGrowth6mPct": -19.2,
+          "transactionDropVs6mPct": 10.3
+        },
+        {
+          "month": "2025.07",
+          "transactionCount": 47,
+          "medianPricePerSqm": 1112.8,
+          "priceGrowth6mPct": 44.7,
+          "transactionDropVs6mPct": -6.9
+        },
+        {
+          "month": "2025.08",
+          "transactionCount": 43,
+          "medianPricePerSqm": 1065.9,
+          "priceGrowth6mPct": 28.7,
+          "transactionDropVs6mPct": -12.2
+        },
+        {
+          "month": "2025.09",
+          "transactionCount": 48,
+          "medianPricePerSqm": 964.9,
+          "priceGrowth6mPct": 13.3,
+          "transactionDropVs6mPct": -1.7
+        },
+        {
+          "month": "2025.10",
+          "transactionCount": 41,
+          "medianPricePerSqm": 2293.4,
+          "priceGrowth6mPct": 108.0,
+          "transactionDropVs6mPct": -14.6
+        },
+        {
+          "month": "2025.11",
+          "transactionCount": 62,
+          "medianPricePerSqm": 2182.6,
+          "priceGrowth6mPct": 60.7,
+          "transactionDropVs6mPct": 24.8
+        },
+        {
+          "month": "2025.12",
+          "transactionCount": 62,
+          "medianPricePerSqm": 922.5,
+          "priceGrowth6mPct": -35.2,
+          "transactionDropVs6mPct": 22.8
+        },
+        {
+          "month": "2026.01",
+          "transactionCount": 58,
+          "medianPricePerSqm": 878.3,
+          "priceGrowth6mPct": -36.6,
+          "transactionDropVs6mPct": 10.8
+        },
+        {
+          "month": "2026.02",
+          "transactionCount": 34,
+          "medianPricePerSqm": 1754.8,
+          "priceGrowth6mPct": 17.0,
+          "transactionDropVs6mPct": -33.1
+        },
+        {
+          "month": "2026.03",
+          "transactionCount": 17,
+          "medianPricePerSqm": 1452.0,
+          "priceGrowth6mPct": -8.1,
+          "transactionDropVs6mPct": -62.8
+        }
+      ]
+    },
+    {
       "code": "11740",
       "name": "강동구",
-      "riskScore": 59.0,
+      "riskScore": 58.4,
       "riskGrade": "높음",
       "transactionRiskScore": 65.5,
       "priceBurdenRiskScore": 66.6,
       "liquidityRiskScore": 80.7,
       "volatilityRiskScore": 40.0,
-      "competitionRiskScore": 51.0,
+      "competitionRiskScore": 49.8,
       "competitionRiskGrade": "보통",
       "sampleReliability": "낮음",
       "lowSampleFlag": true,
-      "foodStoreSharePct": 25.9,
-      "storesPerAdminDong": 1002.4,
-      "topCategories": "부동산 중개/대리업:1121 | 미용실:985 | 입시·교과학원:912",
+      "foodStoreSharePct": 26.3,
+      "storesPerAdminDong": 1009.2,
+      "topCategories": "부동산 중개/대리업:1082 | 미용실:1010 | 입시·교과학원:961",
       "objections": [
         "거래 유동성이 약해지고 있습니다",
         "최근 상가 거래 표본이 적어 해석에 주의가 필요합니다"
       ],
       "riskSummary": "거래 유동성 점수 80.7점으로 단기 회전이 불리합니다 / 최근 표본이 적어 현장 검증 비중을 높여야 합니다",
-      "memo": "강동구는 59.0점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다, 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다입니다. 지금 바로 매입 결정을 내리기보다 강서구, 관악구, 동대문구를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
+      "memo": "강동구는 58.4점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다, 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다. 지금 바로 매입 결정을 내리기보다 강서구, 금천구, 관악구 등 대체 후보를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
       "riskArchetype": "거래 둔화형",
       "archetypeSummary": "매물은 보이지만 거래가 얇아지는 유형입니다. 단기 회전과 매도 유동성이 약할 수 있습니다.",
       "decisionQuestion": "팔고 싶을 때 바로 빠져나올 수 있는 시장인지 점검해야 합니다.",
@@ -1206,23 +1205,23 @@ window.__REDVEIL_PAYLOAD__ = {
           "score": 44.2,
           "liquidityScore": 31.0,
           "competitionScore": 50.8,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         },
         {
           "rank": 2,
-          "name": "관악구",
-          "score": 50.3,
-          "liquidityScore": 39.7,
-          "competitionScore": 55.0,
+          "name": "금천구",
+          "score": 49.4,
+          "liquidityScore": 64.2,
+          "competitionScore": 51.6,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         },
         {
           "rank": 3,
-          "name": "동대문구",
-          "score": 44.0,
-          "liquidityScore": 75.1,
-          "competitionScore": 49.2,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+          "name": "관악구",
+          "score": 51.1,
+          "liquidityScore": 39.7,
+          "competitionScore": 56.8,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         }
       ],
       "history": [
@@ -1315,25 +1314,25 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11200",
       "name": "성동구",
-      "riskScore": 58.5,
+      "riskScore": 57.7,
       "riskGrade": "높음",
       "transactionRiskScore": 75.3,
       "priceBurdenRiskScore": 82.6,
       "liquidityRiskScore": 52.0,
       "volatilityRiskScore": 92.0,
-      "competitionRiskScore": 38.0,
+      "competitionRiskScore": 36.2,
       "competitionRiskGrade": "보통",
       "sampleReliability": "보통",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 25.9,
-      "storesPerAdminDong": 1013.0,
-      "topCategories": "백반/한정식:912 | 부동산 중개/대리업:782 | 경영 컨설팅업:733",
+      "foodStoreSharePct": 26.1,
+      "storesPerAdminDong": 1020.8,
+      "topCategories": "백반/한정식:979 | 부동산 중개/대리업:764 | 카페:729",
       "objections": [
         "같은 권역 대비 매입 가격 부담이 큽니다",
         "최근 실거래 가격 변동성이 큽니다"
       ],
       "riskSummary": "가격 부담 점수 82.6점으로 상위권입니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
-      "memo": "성동구는 58.5점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '가격 변동형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 최근 실거래 가격 변동성이 큽니다입니다. 지금 바로 매입 결정을 내리기보다 강서구, 구로구, 광진구를 먼저 비교하는 것이 안전합니다.",
+      "memo": "성동구는 57.7점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '가격 변동형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다, 최근 실거래 가격 변동성이 큽니다. 지금 바로 매입 결정을 내리기보다 구로구, 강서구, 광진구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "가격 변동형",
       "archetypeSummary": "가격 레벨은 버틸 수 있어도 최근 체결선이 불안정한 유형입니다.",
       "decisionQuestion": "최근 몇 건이 전체 시장을 왜곡한 이상 거래인지 살펴봐야 합니다.",
@@ -1346,14 +1345,6 @@ window.__REDVEIL_PAYLOAD__ = {
       "replacementCandidates": [
         {
           "rank": 1,
-          "name": "강서구",
-          "score": 44.2,
-          "liquidityScore": 31.0,
-          "competitionScore": 50.8,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
-        },
-        {
-          "rank": 2,
           "name": "구로구",
           "score": 27.6,
           "liquidityScore": 21.8,
@@ -1361,11 +1352,19 @@ window.__REDVEIL_PAYLOAD__ = {
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         },
         {
+          "rank": 2,
+          "name": "강서구",
+          "score": 44.2,
+          "liquidityScore": 31.0,
+          "competitionScore": 50.8,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
+        },
+        {
           "rank": 3,
           "name": "광진구",
-          "score": 31.0,
+          "score": 31.5,
           "liquidityScore": 14.2,
-          "competitionScore": 43.4,
+          "competitionScore": 44.6,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         }
       ],
@@ -1459,24 +1458,24 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11290",
       "name": "성북구",
-      "riskScore": 57.0,
+      "riskScore": 57.3,
       "riskGrade": "높음",
       "transactionRiskScore": 66.2,
       "priceBurdenRiskScore": 79.0,
       "liquidityRiskScore": 43.5,
       "volatilityRiskScore": 68.0,
-      "competitionRiskScore": 45.8,
+      "competitionRiskScore": 46.4,
       "competitionRiskGrade": "보통",
       "sampleReliability": "보통",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 29.0,
-      "storesPerAdminDong": 776.8,
-      "topCategories": "미용실:813 | 백반/한정식:797 | 카페:778",
+      "foodStoreSharePct": 29.2,
+      "storesPerAdminDong": 778.2,
+      "topCategories": "백반/한정식:843 | 미용실:830 | 카페:784",
       "objections": [
         "같은 권역 대비 매입 가격 부담이 큽니다"
       ],
       "riskSummary": "즉시 배제할 수준은 아니지만 매물 단위 검토가 필요한 구입니다",
-      "memo": "성북구는 57.0점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다입니다. 지금 바로 매입 결정을 내리기보다 관악구, 강서구, 노원구를 먼저 비교하는 것이 안전합니다.",
+      "memo": "성북구는 57.3점, '높음' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 같은 권역 대비 매입 가격 부담이 큽니다. 지금 바로 매입 결정을 내리기보다 강서구, 관악구, 노원구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "복합 점검형",
       "archetypeSummary": "한 축만 위험하지는 않지만 여러 신호가 중간 수준으로 겹쳐 있는 유형입니다.",
       "decisionQuestion": "매입 결정을 서두르기보다 케이스별 검증 항목을 쌓아야 합니다.",
@@ -1489,14 +1488,6 @@ window.__REDVEIL_PAYLOAD__ = {
       "replacementCandidates": [
         {
           "rank": 1,
-          "name": "관악구",
-          "score": 50.3,
-          "liquidityScore": 39.7,
-          "competitionScore": 55.0,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
-        },
-        {
-          "rank": 2,
           "name": "강서구",
           "score": 44.2,
           "liquidityScore": 31.0,
@@ -1504,11 +1495,19 @@ window.__REDVEIL_PAYLOAD__ = {
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         },
         {
+          "rank": 2,
+          "name": "관악구",
+          "score": 51.1,
+          "liquidityScore": 39.7,
+          "competitionScore": 56.8,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
+        },
+        {
           "rank": 3,
           "name": "노원구",
-          "score": 35.9,
+          "score": 35.1,
           "liquidityScore": 35.5,
-          "competitionScore": 50.6,
+          "competitionScore": 49.0,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         }
       ],
@@ -1602,24 +1601,24 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11470",
       "name": "양천구",
-      "riskScore": 54.5,
+      "riskScore": 54.7,
       "riskGrade": "보통",
       "transactionRiskScore": 60.4,
       "priceBurdenRiskScore": 56.4,
       "liquidityRiskScore": 64.8,
       "volatilityRiskScore": 64.0,
-      "competitionRiskScore": 47.2,
+      "competitionRiskScore": 47.8,
       "competitionRiskGrade": "보통",
       "sampleReliability": "낮음",
       "lowSampleFlag": true,
-      "foodStoreSharePct": 23.6,
-      "storesPerAdminDong": 868.1,
-      "topCategories": "입시·교과학원:1442 | 미용실:820 | 부동산 중개/대리업:747",
+      "foodStoreSharePct": 23.8,
+      "storesPerAdminDong": 869.2,
+      "topCategories": "입시·교과학원:1443 | 미용실:824 | 부동산 중개/대리업:729",
       "objections": [
         "최근 상가 거래 표본이 적어 해석에 주의가 필요합니다"
       ],
       "riskSummary": "최근 표본이 적어 현장 검증 비중을 높여야 합니다",
-      "memo": "양천구는 54.5점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다입니다. 지금 바로 매입 결정을 내리기보다 강서구, 노원구, 광진구를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
+      "memo": "양천구는 54.7점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다. 지금 바로 매입 결정을 내리기보다 강서구, 노원구, 은평구 등 대체 후보를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
       "riskArchetype": "복합 점검형",
       "archetypeSummary": "한 축만 위험하지는 않지만 여러 신호가 중간 수준으로 겹쳐 있는 유형입니다.",
       "decisionQuestion": "매입 결정을 서두르기보다 케이스별 검증 항목을 쌓아야 합니다.",
@@ -1642,18 +1641,18 @@ window.__REDVEIL_PAYLOAD__ = {
         {
           "rank": 2,
           "name": "노원구",
-          "score": 35.9,
+          "score": 35.1,
           "liquidityScore": 35.5,
-          "competitionScore": 50.6,
+          "competitionScore": 49.0,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         },
         {
           "rank": 3,
-          "name": "광진구",
-          "score": 31.0,
-          "liquidityScore": 14.2,
-          "competitionScore": 43.4,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+          "name": "은평구",
+          "score": 31.7,
+          "liquidityScore": 15.0,
+          "competitionScore": 49.2,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         }
       ],
       "history": [
@@ -1746,24 +1745,24 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11620",
       "name": "관악구",
-      "riskScore": 50.3,
+      "riskScore": 51.1,
       "riskGrade": "보통",
       "transactionRiskScore": 46.5,
       "priceBurdenRiskScore": 58.0,
       "liquidityRiskScore": 39.7,
       "volatilityRiskScore": 28.0,
-      "competitionRiskScore": 55.0,
-      "competitionRiskGrade": "보통",
+      "competitionRiskScore": 56.8,
+      "competitionRiskGrade": "높음",
       "sampleReliability": "보통",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 28.4,
-      "storesPerAdminDong": 918.2,
-      "topCategories": "백반/한정식:975 | 미용실:971 | 부동산 중개/대리업:908",
+      "foodStoreSharePct": 28.9,
+      "storesPerAdminDong": 920.4,
+      "topCategories": "백반/한정식:1090 | 미용실:993 | 부동산 중개/대리업:882",
       "objections": [
         "한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다"
       ],
       "riskSummary": "즉시 배제할 수준은 아니지만 매물 단위 검토가 필요한 구입니다",
-      "memo": "관악구는 50.3점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다. 지금 바로 매입 결정을 내리기보다 은평구, 강서구, 노원구를 먼저 비교하는 것이 안전합니다.",
+      "memo": "관악구는 51.1점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다. 지금 바로 매입 결정을 내리기보다 강서구, 노원구, 은평구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "복합 점검형",
       "archetypeSummary": "한 축만 위험하지는 않지만 여러 신호가 중간 수준으로 겹쳐 있는 유형입니다.",
       "decisionQuestion": "매입 결정을 서두르기보다 케이스별 검증 항목을 쌓아야 합니다.",
@@ -1776,14 +1775,6 @@ window.__REDVEIL_PAYLOAD__ = {
       "replacementCandidates": [
         {
           "rank": 1,
-          "name": "은평구",
-          "score": 34.3,
-          "liquidityScore": 15.0,
-          "competitionScore": 55.0,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
-        },
-        {
-          "rank": 2,
           "name": "강서구",
           "score": 44.2,
           "liquidityScore": 31.0,
@@ -1791,11 +1782,19 @@ window.__REDVEIL_PAYLOAD__ = {
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         },
         {
-          "rank": 3,
+          "rank": 2,
           "name": "노원구",
-          "score": 35.9,
+          "score": 35.1,
           "liquidityScore": 35.5,
-          "competitionScore": 50.6,
+          "competitionScore": 49.0,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+        },
+        {
+          "rank": 3,
+          "name": "은평구",
+          "score": 31.7,
+          "liquidityScore": 15.0,
+          "competitionScore": 49.2,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         }
       ],
@@ -1889,24 +1888,24 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11545",
       "name": "금천구",
-      "riskScore": 50.2,
+      "riskScore": 49.4,
       "riskGrade": "보통",
       "transactionRiskScore": 47.6,
       "priceBurdenRiskScore": 53.4,
       "liquidityRiskScore": 64.2,
       "volatilityRiskScore": 8.0,
-      "competitionRiskScore": 53.4,
+      "competitionRiskScore": 51.6,
       "competitionRiskGrade": "보통",
       "sampleReliability": "낮음",
       "lowSampleFlag": true,
-      "foodStoreSharePct": 20.3,
-      "storesPerAdminDong": 1773.4,
-      "topCategories": "경영 컨설팅업:1579 | 광고 대행업:1018 | 부동산 중개/대리업:737",
+      "foodStoreSharePct": 20.6,
+      "storesPerAdminDong": 1769.1,
+      "topCategories": "경영 컨설팅업:1543 | 광고 대행업:1003 | 백반/한정식:770",
       "objections": [
         "최근 상가 거래 표본이 적어 해석에 주의가 필요합니다"
       ],
       "riskSummary": "최근 표본이 적어 현장 검증 비중을 높여야 합니다",
-      "memo": "금천구는 50.2점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다입니다. 지금 바로 매입 결정을 내리기보다 강서구, 은평구, 노원구를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
+      "memo": "금천구는 49.4점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다. 지금 바로 매입 결정을 내리기보다 강서구, 노원구, 은평구 등 대체 후보를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
       "riskArchetype": "복합 점검형",
       "archetypeSummary": "한 축만 위험하지는 않지만 여러 신호가 중간 수준으로 겹쳐 있는 유형입니다.",
       "decisionQuestion": "매입 결정을 서두르기보다 케이스별 검증 항목을 쌓아야 합니다.",
@@ -1928,18 +1927,18 @@ window.__REDVEIL_PAYLOAD__ = {
         },
         {
           "rank": 2,
-          "name": "은평구",
-          "score": 34.3,
-          "liquidityScore": 15.0,
-          "competitionScore": 55.0,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
+          "name": "노원구",
+          "score": 35.1,
+          "liquidityScore": 35.5,
+          "competitionScore": 49.0,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         },
         {
           "rank": 3,
-          "name": "노원구",
-          "score": 35.9,
-          "liquidityScore": 35.5,
-          "competitionScore": 50.6,
+          "name": "은평구",
+          "score": 31.7,
+          "liquidityScore": 15.0,
+          "competitionScore": 49.2,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         }
       ],
@@ -2031,27 +2030,315 @@ window.__REDVEIL_PAYLOAD__ = {
       ]
     },
     {
+      "code": "11230",
+      "name": "동대문구",
+      "riskScore": 47.8,
+      "riskGrade": "보통",
+      "transactionRiskScore": 39.8,
+      "priceBurdenRiskScore": 10.6,
+      "liquidityRiskScore": 75.1,
+      "volatilityRiskScore": 60.0,
+      "competitionRiskScore": 57.6,
+      "competitionRiskGrade": "높음",
+      "sampleReliability": "보통",
+      "lowSampleFlag": false,
+      "foodStoreSharePct": 28.6,
+      "storesPerAdminDong": 1190.1,
+      "topCategories": "백반/한정식:1278 | 부동산 중개/대리업:807 | 미용실:776",
+      "objections": [
+        "거래 유동성이 약해지고 있습니다"
+      ],
+      "riskSummary": "거래 유동성 점수 75.1점으로 단기 회전이 불리합니다",
+      "memo": "동대문구는 47.8점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다. 지금 바로 매입 결정을 내리기보다 노원구, 은평구, 중랑구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
+      "riskArchetype": "거래 둔화형",
+      "archetypeSummary": "매물은 보이지만 거래가 얇아지는 유형입니다. 단기 회전과 매도 유동성이 약할 수 있습니다.",
+      "decisionQuestion": "팔고 싶을 때 바로 빠져나올 수 있는 시장인지 점검해야 합니다.",
+      "recommendedAction": "최근 6개월 거래 수와 체결 속도를 중개 재고와 함께 확인하세요.",
+      "reviewChecklist": [
+        "최근 6개월 거래 수와 체결 속도를 중개 재고와 함께 확인하세요.",
+        "최근 3개월 호가와 실거래 차이를 현장 중개사 두 곳 이상에서 교차 확인하세요.",
+        "핵심 업종이 실제로 버티는지 임차인 교체 속도와 공실 재고를 점검하세요."
+      ],
+      "replacementCandidates": [
+        {
+          "rank": 1,
+          "name": "노원구",
+          "score": 35.1,
+          "liquidityScore": 35.5,
+          "competitionScore": 49.0,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+        },
+        {
+          "rank": 2,
+          "name": "은평구",
+          "score": 31.7,
+          "liquidityScore": 15.0,
+          "competitionScore": 49.2,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+        },
+        {
+          "rank": 3,
+          "name": "중랑구",
+          "score": 42.2,
+          "liquidityScore": 78.3,
+          "competitionScore": 38.6,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
+        }
+      ],
+      "history": [
+        {
+          "month": "2025.04",
+          "transactionCount": 24,
+          "medianPricePerSqm": 481.8,
+          "priceGrowth6mPct": 0.0,
+          "transactionDropVs6mPct": 0.0
+        },
+        {
+          "month": "2025.05",
+          "transactionCount": 28,
+          "medianPricePerSqm": 714.3,
+          "priceGrowth6mPct": 19.4,
+          "transactionDropVs6mPct": 7.7
+        },
+        {
+          "month": "2025.06",
+          "transactionCount": 25,
+          "medianPricePerSqm": 876.1,
+          "priceGrowth6mPct": 26.8,
+          "transactionDropVs6mPct": -2.6
+        },
+        {
+          "month": "2025.07",
+          "transactionCount": 44,
+          "medianPricePerSqm": 587.7,
+          "priceGrowth6mPct": -11.6,
+          "transactionDropVs6mPct": 45.5
+        },
+        {
+          "month": "2025.08",
+          "transactionCount": 20,
+          "medianPricePerSqm": 454.6,
+          "priceGrowth6mPct": -27.0,
+          "transactionDropVs6mPct": -29.1
+        },
+        {
+          "month": "2025.09",
+          "transactionCount": 28,
+          "medianPricePerSqm": 189.2,
+          "priceGrowth6mPct": -65.6,
+          "transactionDropVs6mPct": -0.6
+        },
+        {
+          "month": "2025.10",
+          "transactionCount": 17,
+          "medianPricePerSqm": 853.8,
+          "priceGrowth6mPct": 39.4,
+          "transactionDropVs6mPct": -37.0
+        },
+        {
+          "month": "2025.11",
+          "transactionCount": 376,
+          "medianPricePerSqm": 840.3,
+          "priceGrowth6mPct": 32.6,
+          "transactionDropVs6mPct": 342.4
+        },
+        {
+          "month": "2025.12",
+          "transactionCount": 89,
+          "medianPricePerSqm": 823.0,
+          "priceGrowth6mPct": 31.7,
+          "transactionDropVs6mPct": -7.0
+        },
+        {
+          "month": "2026.01",
+          "transactionCount": 37,
+          "medianPricePerSqm": 771.5,
+          "priceGrowth6mPct": 17.7,
+          "transactionDropVs6mPct": -60.8
+        },
+        {
+          "month": "2026.02",
+          "transactionCount": 17,
+          "medianPricePerSqm": 456.4,
+          "priceGrowth6mPct": -30.4,
+          "transactionDropVs6mPct": -81.9
+        },
+        {
+          "month": "2026.03",
+          "transactionCount": 15,
+          "medianPricePerSqm": 295.8,
+          "priceGrowth6mPct": -56.1,
+          "transactionDropVs6mPct": -83.7
+        }
+      ]
+    },
+    {
+      "code": "11410",
+      "name": "서대문구",
+      "riskScore": 47.2,
+      "riskGrade": "보통",
+      "transactionRiskScore": 51.7,
+      "priceBurdenRiskScore": 29.0,
+      "liquidityRiskScore": 100.0,
+      "volatilityRiskScore": 36.0,
+      "competitionRiskScore": 41.6,
+      "competitionRiskGrade": "보통",
+      "sampleReliability": "낮음",
+      "lowSampleFlag": true,
+      "foodStoreSharePct": 30.6,
+      "storesPerAdminDong": 973.6,
+      "topCategories": "백반/한정식:819 | 카페:656 | 부동산 중개/대리업:609",
+      "objections": [
+        "거래 유동성이 약해지고 있습니다",
+        "최근 상가 거래 표본이 적어 해석에 주의가 필요합니다"
+      ],
+      "riskSummary": "거래 유동성 점수 100.0점으로 단기 회전이 불리합니다 / 최근 표본이 적어 현장 검증 비중을 높여야 합니다",
+      "memo": "서대문구는 47.2점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다, 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다. 지금 바로 매입 결정을 내리기보다 강북구, 중랑구, 광진구 등 대체 후보를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
+      "riskArchetype": "거래 둔화형",
+      "archetypeSummary": "매물은 보이지만 거래가 얇아지는 유형입니다. 단기 회전과 매도 유동성이 약할 수 있습니다.",
+      "decisionQuestion": "팔고 싶을 때 바로 빠져나올 수 있는 시장인지 점검해야 합니다.",
+      "recommendedAction": "최근 6개월 거래 수와 체결 속도를 중개 재고와 함께 확인하세요.",
+      "reviewChecklist": [
+        "최근 거래 표본이 적어 인근 대체 구와 반드시 병행 비교하세요.",
+        "최근 6개월 거래 수와 체결 속도를 중개 재고와 함께 확인하세요.",
+        "최근 3개월 호가와 실거래 차이를 현장 중개사 두 곳 이상에서 교차 확인하세요.",
+        "핵심 업종이 실제로 버티는지 임차인 교체 속도와 공실 재고를 점검하세요."
+      ],
+      "replacementCandidates": [
+        {
+          "rank": 1,
+          "name": "강북구",
+          "score": 40.7,
+          "liquidityScore": 94.2,
+          "competitionScore": 43.0,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
+        },
+        {
+          "rank": 2,
+          "name": "중랑구",
+          "score": 42.2,
+          "liquidityScore": 78.3,
+          "competitionScore": 38.6,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+        },
+        {
+          "rank": 3,
+          "name": "광진구",
+          "score": 31.5,
+          "liquidityScore": 14.2,
+          "competitionScore": 44.6,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
+        }
+      ],
+      "history": [
+        {
+          "month": "2025.04",
+          "transactionCount": 12,
+          "medianPricePerSqm": 671.5,
+          "priceGrowth6mPct": 0.0,
+          "transactionDropVs6mPct": 0.0
+        },
+        {
+          "month": "2025.05",
+          "transactionCount": 6,
+          "medianPricePerSqm": 547.8,
+          "priceGrowth6mPct": -10.1,
+          "transactionDropVs6mPct": -33.3
+        },
+        {
+          "month": "2025.06",
+          "transactionCount": 13,
+          "medianPricePerSqm": 670.2,
+          "priceGrowth6mPct": 6.4,
+          "transactionDropVs6mPct": 25.8
+        },
+        {
+          "month": "2025.07",
+          "transactionCount": 15,
+          "medianPricePerSqm": 1666.7,
+          "priceGrowth6mPct": 87.5,
+          "transactionDropVs6mPct": 30.4
+        },
+        {
+          "month": "2025.08",
+          "transactionCount": 11,
+          "medianPricePerSqm": 459.7,
+          "priceGrowth6mPct": -42.8,
+          "transactionDropVs6mPct": -3.5
+        },
+        {
+          "month": "2025.09",
+          "transactionCount": 8,
+          "medianPricePerSqm": 690.1,
+          "priceGrowth6mPct": -12.0,
+          "transactionDropVs6mPct": -26.2
+        },
+        {
+          "month": "2025.10",
+          "transactionCount": 16,
+          "medianPricePerSqm": 680.3,
+          "priceGrowth6mPct": -13.4,
+          "transactionDropVs6mPct": 39.1
+        },
+        {
+          "month": "2025.11",
+          "transactionCount": 10,
+          "medianPricePerSqm": 911.6,
+          "priceGrowth6mPct": 7.7,
+          "transactionDropVs6mPct": -17.8
+        },
+        {
+          "month": "2025.12",
+          "transactionCount": 20,
+          "medianPricePerSqm": 665.5,
+          "priceGrowth6mPct": -21.3,
+          "transactionDropVs6mPct": 50.0
+        },
+        {
+          "month": "2026.01",
+          "transactionCount": 27,
+          "medianPricePerSqm": 619.2,
+          "priceGrowth6mPct": -7.7,
+          "transactionDropVs6mPct": 76.1
+        },
+        {
+          "month": "2026.02",
+          "transactionCount": 29,
+          "medianPricePerSqm": 808.4,
+          "priceGrowth6mPct": 10.9,
+          "transactionDropVs6mPct": 58.2
+        },
+        {
+          "month": "2026.03",
+          "transactionCount": 1,
+          "medianPricePerSqm": 477.4,
+          "priceGrowth6mPct": -31.2,
+          "transactionDropVs6mPct": -94.2
+        }
+      ]
+    },
+    {
       "code": "11590",
       "name": "동작구",
-      "riskScore": 47.0,
+      "riskScore": 45.4,
       "riskGrade": "보통",
       "transactionRiskScore": 57.6,
       "priceBurdenRiskScore": 63.0,
       "liquidityRiskScore": 71.1,
       "volatilityRiskScore": 24.0,
-      "competitionRiskScore": 34.0,
+      "competitionRiskScore": 30.4,
       "competitionRiskGrade": "낮음",
       "sampleReliability": "낮음",
       "lowSampleFlag": true,
-      "foodStoreSharePct": 27.3,
-      "storesPerAdminDong": 914.9,
-      "topCategories": "부동산 중개/대리업:758 | 미용실:653 | 백반/한정식:630",
+      "foodStoreSharePct": 27.7,
+      "storesPerAdminDong": 916.3,
+      "topCategories": "부동산 중개/대리업:741 | 백반/한정식:687 | 미용실:660",
       "objections": [
         "거래 유동성이 약해지고 있습니다",
         "최근 상가 거래 표본이 적어 해석에 주의가 필요합니다"
       ],
       "riskSummary": "거래 유동성 점수 71.1점으로 단기 회전이 불리합니다 / 최근 표본이 적어 현장 검증 비중을 높여야 합니다",
-      "memo": "동작구는 47.0점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다, 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다입니다. 지금 바로 매입 결정을 내리기보다 도봉구, 구로구, 광진구를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
+      "memo": "동작구는 45.4점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다, 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다. 지금 바로 매입 결정을 내리기보다 도봉구, 구로구, 광진구 등 대체 후보를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
       "riskArchetype": "거래 둔화형",
       "archetypeSummary": "매물은 보이지만 거래가 얇아지는 유형입니다. 단기 회전과 매도 유동성이 약할 수 있습니다.",
       "decisionQuestion": "팔고 싶을 때 바로 빠져나올 수 있는 시장인지 점검해야 합니다.",
@@ -2077,14 +2364,14 @@ window.__REDVEIL_PAYLOAD__ = {
           "score": 27.6,
           "liquidityScore": 21.8,
           "competitionScore": 33.4,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         },
         {
           "rank": 3,
           "name": "광진구",
-          "score": 31.0,
+          "score": 31.5,
           "liquidityScore": 14.2,
-          "competitionScore": 43.4,
+          "competitionScore": 44.6,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         }
       ],
@@ -2176,151 +2463,6 @@ window.__REDVEIL_PAYLOAD__ = {
       ]
     },
     {
-      "code": "11410",
-      "name": "서대문구",
-      "riskScore": 45.5,
-      "riskGrade": "보통",
-      "transactionRiskScore": 51.7,
-      "priceBurdenRiskScore": 29.0,
-      "liquidityRiskScore": 100.0,
-      "volatilityRiskScore": 36.0,
-      "competitionRiskScore": 38.0,
-      "competitionRiskGrade": "보통",
-      "sampleReliability": "낮음",
-      "lowSampleFlag": true,
-      "foodStoreSharePct": 30.0,
-      "storesPerAdminDong": 973.9,
-      "topCategories": "백반/한정식:751 | 카페:661 | 부동산 중개/대리업:624",
-      "objections": [
-        "거래 유동성이 약해지고 있습니다",
-        "최근 상가 거래 표본이 적어 해석에 주의가 필요합니다"
-      ],
-      "riskSummary": "거래 유동성 점수 100.0점으로 단기 회전이 불리합니다 / 최근 표본이 적어 현장 검증 비중을 높여야 합니다",
-      "memo": "서대문구는 45.5점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다, 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다입니다. 지금 바로 매입 결정을 내리기보다 강북구, 광진구, 도봉구를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
-      "riskArchetype": "거래 둔화형",
-      "archetypeSummary": "매물은 보이지만 거래가 얇아지는 유형입니다. 단기 회전과 매도 유동성이 약할 수 있습니다.",
-      "decisionQuestion": "팔고 싶을 때 바로 빠져나올 수 있는 시장인지 점검해야 합니다.",
-      "recommendedAction": "최근 6개월 거래 수와 체결 속도를 중개 재고와 함께 확인하세요.",
-      "reviewChecklist": [
-        "최근 거래 표본이 적어 인근 대체 구와 반드시 병행 비교하세요.",
-        "최근 6개월 거래 수와 체결 속도를 중개 재고와 함께 확인하세요.",
-        "최근 3개월 호가와 실거래 차이를 현장 중개사 두 곳 이상에서 교차 확인하세요.",
-        "핵심 업종이 실제로 버티는지 임차인 교체 속도와 공실 재고를 점검하세요."
-      ],
-      "replacementCandidates": [
-        {
-          "rank": 1,
-          "name": "강북구",
-          "score": 39.9,
-          "liquidityScore": 94.2,
-          "competitionScore": 41.2,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
-        },
-        {
-          "rank": 2,
-          "name": "광진구",
-          "score": 31.0,
-          "liquidityScore": 14.2,
-          "competitionScore": 43.4,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
-        },
-        {
-          "rank": 3,
-          "name": "도봉구",
-          "score": 37.0,
-          "liquidityScore": 62.7,
-          "competitionScore": 27.6,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
-        }
-      ],
-      "history": [
-        {
-          "month": "2025.04",
-          "transactionCount": 12,
-          "medianPricePerSqm": 671.5,
-          "priceGrowth6mPct": 0.0,
-          "transactionDropVs6mPct": 0.0
-        },
-        {
-          "month": "2025.05",
-          "transactionCount": 6,
-          "medianPricePerSqm": 547.8,
-          "priceGrowth6mPct": -10.1,
-          "transactionDropVs6mPct": -33.3
-        },
-        {
-          "month": "2025.06",
-          "transactionCount": 13,
-          "medianPricePerSqm": 670.2,
-          "priceGrowth6mPct": 6.4,
-          "transactionDropVs6mPct": 25.8
-        },
-        {
-          "month": "2025.07",
-          "transactionCount": 15,
-          "medianPricePerSqm": 1666.7,
-          "priceGrowth6mPct": 87.5,
-          "transactionDropVs6mPct": 30.4
-        },
-        {
-          "month": "2025.08",
-          "transactionCount": 11,
-          "medianPricePerSqm": 459.7,
-          "priceGrowth6mPct": -42.8,
-          "transactionDropVs6mPct": -3.5
-        },
-        {
-          "month": "2025.09",
-          "transactionCount": 8,
-          "medianPricePerSqm": 690.1,
-          "priceGrowth6mPct": -12.0,
-          "transactionDropVs6mPct": -26.2
-        },
-        {
-          "month": "2025.10",
-          "transactionCount": 16,
-          "medianPricePerSqm": 680.3,
-          "priceGrowth6mPct": -13.4,
-          "transactionDropVs6mPct": 39.1
-        },
-        {
-          "month": "2025.11",
-          "transactionCount": 10,
-          "medianPricePerSqm": 911.6,
-          "priceGrowth6mPct": 7.7,
-          "transactionDropVs6mPct": -17.8
-        },
-        {
-          "month": "2025.12",
-          "transactionCount": 20,
-          "medianPricePerSqm": 665.5,
-          "priceGrowth6mPct": -21.3,
-          "transactionDropVs6mPct": 50.0
-        },
-        {
-          "month": "2026.01",
-          "transactionCount": 27,
-          "medianPricePerSqm": 619.2,
-          "priceGrowth6mPct": -7.7,
-          "transactionDropVs6mPct": 76.1
-        },
-        {
-          "month": "2026.02",
-          "transactionCount": 29,
-          "medianPricePerSqm": 808.4,
-          "priceGrowth6mPct": 10.9,
-          "transactionDropVs6mPct": 58.2
-        },
-        {
-          "month": "2026.03",
-          "transactionCount": 1,
-          "medianPricePerSqm": 477.4,
-          "priceGrowth6mPct": -31.2,
-          "transactionDropVs6mPct": -94.2
-        }
-      ]
-    },
-    {
       "code": "11500",
       "name": "강서구",
       "riskScore": 44.2,
@@ -2333,14 +2475,14 @@ window.__REDVEIL_PAYLOAD__ = {
       "competitionRiskGrade": "보통",
       "sampleReliability": "보통",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 26.2,
-      "storesPerAdminDong": 1301.4,
-      "topCategories": "부동산 중개/대리업:1280 | 백반/한정식:1258 | 미용실:1136",
+      "foodStoreSharePct": 26.7,
+      "storesPerAdminDong": 1310.7,
+      "topCategories": "백반/한정식:1378 | 부동산 중개/대리업:1237 | 미용실:1174",
       "objections": [
         "한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다"
       ],
       "riskSummary": "즉시 배제할 수준은 아니지만 매물 단위 검토가 필요한 구입니다",
-      "memo": "강서구는 44.2점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다. 지금 바로 매입 결정을 내리기보다 노원구, 은평구, 광진구를 먼저 비교하는 것이 안전합니다.",
+      "memo": "강서구는 44.2점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다. 지금 바로 매입 결정을 내리기보다 노원구, 은평구, 광진구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "복합 점검형",
       "archetypeSummary": "한 축만 위험하지는 않지만 여러 신호가 중간 수준으로 겹쳐 있는 유형입니다.",
       "decisionQuestion": "매입 결정을 서두르기보다 케이스별 검증 항목을 쌓아야 합니다.",
@@ -2354,25 +2496,25 @@ window.__REDVEIL_PAYLOAD__ = {
         {
           "rank": 1,
           "name": "노원구",
-          "score": 35.9,
+          "score": 35.1,
           "liquidityScore": 35.5,
-          "competitionScore": 50.6,
+          "competitionScore": 49.0,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
         },
         {
           "rank": 2,
           "name": "은평구",
-          "score": 34.3,
+          "score": 31.7,
           "liquidityScore": 15.0,
-          "competitionScore": 55.0,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
+          "competitionScore": 49.2,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         },
         {
           "rank": 3,
           "name": "광진구",
-          "score": 31.0,
+          "score": 31.5,
           "liquidityScore": 14.2,
-          "competitionScore": 43.4,
+          "competitionScore": 44.6,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
         }
       ],
@@ -2464,170 +2606,27 @@ window.__REDVEIL_PAYLOAD__ = {
       ]
     },
     {
-      "code": "11230",
-      "name": "동대문구",
-      "riskScore": 44.0,
-      "riskGrade": "보통",
-      "transactionRiskScore": 39.8,
-      "priceBurdenRiskScore": 10.6,
-      "liquidityRiskScore": 75.1,
-      "volatilityRiskScore": 60.0,
-      "competitionRiskScore": 49.2,
-      "competitionRiskGrade": "보통",
-      "sampleReliability": "보통",
-      "lowSampleFlag": false,
-      "foodStoreSharePct": 27.6,
-      "storesPerAdminDong": 1042.1,
-      "topCategories": "백반/한정식:1015 | 부동산 중개/대리업:820 | 미용실:699",
-      "objections": [
-        "거래 유동성이 약해지고 있습니다"
-      ],
-      "riskSummary": "거래 유동성 점수 75.1점으로 단기 회전이 불리합니다",
-      "memo": "동대문구는 44.0점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다입니다. 지금 바로 매입 결정을 내리기보다 노원구, 은평구, 광진구를 먼저 비교하는 것이 안전합니다.",
-      "riskArchetype": "거래 둔화형",
-      "archetypeSummary": "매물은 보이지만 거래가 얇아지는 유형입니다. 단기 회전과 매도 유동성이 약할 수 있습니다.",
-      "decisionQuestion": "팔고 싶을 때 바로 빠져나올 수 있는 시장인지 점검해야 합니다.",
-      "recommendedAction": "최근 6개월 거래 수와 체결 속도를 중개 재고와 함께 확인하세요.",
-      "reviewChecklist": [
-        "최근 6개월 거래 수와 체결 속도를 중개 재고와 함께 확인하세요.",
-        "최근 3개월 호가와 실거래 차이를 현장 중개사 두 곳 이상에서 교차 확인하세요.",
-        "핵심 업종이 실제로 버티는지 임차인 교체 속도와 공실 재고를 점검하세요."
-      ],
-      "replacementCandidates": [
-        {
-          "rank": 1,
-          "name": "노원구",
-          "score": 35.9,
-          "liquidityScore": 35.5,
-          "competitionScore": 50.6,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
-        },
-        {
-          "rank": 2,
-          "name": "은평구",
-          "score": 34.3,
-          "liquidityScore": 15.0,
-          "competitionScore": 55.0,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
-        },
-        {
-          "rank": 3,
-          "name": "광진구",
-          "score": 31.0,
-          "liquidityScore": 14.2,
-          "competitionScore": 43.4,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
-        }
-      ],
-      "history": [
-        {
-          "month": "2025.04",
-          "transactionCount": 24,
-          "medianPricePerSqm": 481.8,
-          "priceGrowth6mPct": 0.0,
-          "transactionDropVs6mPct": 0.0
-        },
-        {
-          "month": "2025.05",
-          "transactionCount": 28,
-          "medianPricePerSqm": 714.3,
-          "priceGrowth6mPct": 19.4,
-          "transactionDropVs6mPct": 7.7
-        },
-        {
-          "month": "2025.06",
-          "transactionCount": 25,
-          "medianPricePerSqm": 876.1,
-          "priceGrowth6mPct": 26.8,
-          "transactionDropVs6mPct": -2.6
-        },
-        {
-          "month": "2025.07",
-          "transactionCount": 44,
-          "medianPricePerSqm": 587.7,
-          "priceGrowth6mPct": -11.6,
-          "transactionDropVs6mPct": 45.5
-        },
-        {
-          "month": "2025.08",
-          "transactionCount": 20,
-          "medianPricePerSqm": 454.6,
-          "priceGrowth6mPct": -27.0,
-          "transactionDropVs6mPct": -29.1
-        },
-        {
-          "month": "2025.09",
-          "transactionCount": 28,
-          "medianPricePerSqm": 189.2,
-          "priceGrowth6mPct": -65.6,
-          "transactionDropVs6mPct": -0.6
-        },
-        {
-          "month": "2025.10",
-          "transactionCount": 17,
-          "medianPricePerSqm": 853.8,
-          "priceGrowth6mPct": 39.4,
-          "transactionDropVs6mPct": -37.0
-        },
-        {
-          "month": "2025.11",
-          "transactionCount": 376,
-          "medianPricePerSqm": 840.3,
-          "priceGrowth6mPct": 32.6,
-          "transactionDropVs6mPct": 342.4
-        },
-        {
-          "month": "2025.12",
-          "transactionCount": 89,
-          "medianPricePerSqm": 823.0,
-          "priceGrowth6mPct": 31.7,
-          "transactionDropVs6mPct": -7.0
-        },
-        {
-          "month": "2026.01",
-          "transactionCount": 37,
-          "medianPricePerSqm": 771.5,
-          "priceGrowth6mPct": 17.7,
-          "transactionDropVs6mPct": -60.8
-        },
-        {
-          "month": "2026.02",
-          "transactionCount": 17,
-          "medianPricePerSqm": 456.4,
-          "priceGrowth6mPct": -30.4,
-          "transactionDropVs6mPct": -81.9
-        },
-        {
-          "month": "2026.03",
-          "transactionCount": 15,
-          "medianPricePerSqm": 295.8,
-          "priceGrowth6mPct": -56.1,
-          "transactionDropVs6mPct": -83.7
-        }
-      ]
-    },
-    {
       "code": "11260",
       "name": "중랑구",
-      "riskScore": 42.6,
+      "riskScore": 42.2,
       "riskGrade": "보통",
       "transactionRiskScore": 45.1,
       "priceBurdenRiskScore": 24.0,
       "liquidityRiskScore": 78.3,
       "volatilityRiskScore": 48.0,
-      "competitionRiskScore": 39.6,
+      "competitionRiskScore": 38.6,
       "competitionRiskGrade": "보통",
       "sampleReliability": "낮음",
       "lowSampleFlag": true,
-      "foodStoreSharePct": 28.2,
-      "storesPerAdminDong": 910.7,
-      "topCategories": "미용실:858 | 백반/한정식:775 | 부동산 중개/대리업:675",
+      "foodStoreSharePct": 28.6,
+      "storesPerAdminDong": 912.4,
+      "topCategories": "미용실:868 | 백반/한정식:850 | 부동산 중개/대리업:656",
       "objections": [
         "거래 유동성이 약해지고 있습니다",
         "최근 상가 거래 표본이 적어 해석에 주의가 필요합니다"
       ],
       "riskSummary": "거래 유동성 점수 78.3점으로 단기 회전이 불리합니다 / 최근 표본이 적어 현장 검증 비중을 높여야 합니다",
-      "memo": "중랑구는 42.6점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다, 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다입니다. 지금 바로 매입 결정을 내리기보다 광진구, 노원구, 도봉구를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
+      "memo": "중랑구는 42.2점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다, 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다. 지금 바로 매입 결정을 내리기보다 광진구, 노원구, 도봉구 등 대체 후보를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
       "riskArchetype": "거래 둔화형",
       "archetypeSummary": "매물은 보이지만 거래가 얇아지는 유형입니다. 단기 회전과 매도 유동성이 약할 수 있습니다.",
       "decisionQuestion": "팔고 싶을 때 바로 빠져나올 수 있는 시장인지 점검해야 합니다.",
@@ -2642,17 +2641,17 @@ window.__REDVEIL_PAYLOAD__ = {
         {
           "rank": 1,
           "name": "광진구",
-          "score": 31.0,
+          "score": 31.5,
           "liquidityScore": 14.2,
-          "competitionScore": 43.4,
+          "competitionScore": 44.6,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         },
         {
           "rank": 2,
           "name": "노원구",
-          "score": 35.9,
+          "score": 35.1,
           "liquidityScore": 35.5,
-          "competitionScore": 50.6,
+          "competitionScore": 49.0,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         },
         {
@@ -2754,25 +2753,25 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11305",
       "name": "강북구",
-      "riskScore": 39.9,
+      "riskScore": 40.7,
       "riskGrade": "보통",
       "transactionRiskScore": 38.8,
       "priceBurdenRiskScore": 14.6,
       "liquidityRiskScore": 94.2,
       "volatilityRiskScore": 16.0,
-      "competitionRiskScore": 41.2,
+      "competitionRiskScore": 43.0,
       "competitionRiskGrade": "보통",
       "sampleReliability": "낮음",
       "lowSampleFlag": true,
-      "foodStoreSharePct": 29.7,
-      "storesPerAdminDong": 936.5,
-      "topCategories": "백반/한정식:720 | 미용실:715 | 부동산 중개/대리업:532",
+      "foodStoreSharePct": 30.1,
+      "storesPerAdminDong": 942.0,
+      "topCategories": "백반/한정식:776 | 미용실:735 | 부동산 중개/대리업:520",
       "objections": [
         "거래 유동성이 약해지고 있습니다",
         "최근 상가 거래 표본이 적어 해석에 주의가 필요합니다"
       ],
       "riskSummary": "거래 유동성 점수 94.2점으로 단기 회전이 불리합니다 / 최근 표본이 적어 현장 검증 비중을 높여야 합니다",
-      "memo": "강북구는 39.9점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다, 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다입니다. 지금 바로 매입 결정을 내리기보다 광진구, 구로구, 은평구를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
+      "memo": "강북구는 40.7점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '거래 둔화형'이며, 핵심 반대 근거는 거래 유동성이 약해지고 있습니다, 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다. 지금 바로 매입 결정을 내리기보다 광진구, 노원구, 은평구 등 대체 후보를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
       "riskArchetype": "거래 둔화형",
       "archetypeSummary": "매물은 보이지만 거래가 얇아지는 유형입니다. 단기 회전과 매도 유동성이 약할 수 있습니다.",
       "decisionQuestion": "팔고 싶을 때 바로 빠져나올 수 있는 시장인지 점검해야 합니다.",
@@ -2787,25 +2786,25 @@ window.__REDVEIL_PAYLOAD__ = {
         {
           "rank": 1,
           "name": "광진구",
-          "score": 31.0,
+          "score": 31.5,
           "liquidityScore": 14.2,
-          "competitionScore": 43.4,
+          "competitionScore": 44.6,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         },
         {
           "rank": 2,
-          "name": "구로구",
-          "score": 27.6,
-          "liquidityScore": 21.8,
-          "competitionScore": 33.4,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다, 상권 과밀도가 더 낮습니다"
+          "name": "노원구",
+          "score": 35.1,
+          "liquidityScore": 35.5,
+          "competitionScore": 49.0,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         },
         {
           "rank": 3,
           "name": "은평구",
-          "score": 34.3,
+          "score": 31.7,
           "liquidityScore": 15.0,
-          "competitionScore": 55.0,
+          "competitionScore": 49.2,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         }
       ],
@@ -2909,14 +2908,14 @@ window.__REDVEIL_PAYLOAD__ = {
       "competitionRiskGrade": "낮음",
       "sampleReliability": "낮음",
       "lowSampleFlag": true,
-      "foodStoreSharePct": 26.8,
-      "storesPerAdminDong": 738.5,
-      "topCategories": "미용실:609 | 백반/한정식:507 | 부동산 중개/대리업:450",
+      "foodStoreSharePct": 27.1,
+      "storesPerAdminDong": 741.2,
+      "topCategories": "미용실:619 | 백반/한정식:531 | 부동산 중개/대리업:435",
       "objections": [
         "최근 상가 거래 표본이 적어 해석에 주의가 필요합니다"
       ],
       "riskSummary": "최근 표본이 적어 현장 검증 비중을 높여야 합니다",
-      "memo": "도봉구는 37.0점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다입니다. 지금 바로 매입 결정을 내리기보다 구로구, 광진구를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
+      "memo": "도봉구는 37.0점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 최근 상가 거래 표본이 적어 해석에 주의가 필요합니다. 지금 바로 매입 결정을 내리기보다 구로구, 광진구, 은평구 등 대체 후보를 먼저 비교하는 것이 안전합니다. 최근 거래 표본이 적어 현장 검증 비중을 높여야 합니다.",
       "riskArchetype": "복합 점검형",
       "archetypeSummary": "한 축만 위험하지는 않지만 여러 신호가 중간 수준으로 겹쳐 있는 유형입니다.",
       "decisionQuestion": "매입 결정을 서두르기보다 케이스별 검증 항목을 쌓아야 합니다.",
@@ -2939,9 +2938,17 @@ window.__REDVEIL_PAYLOAD__ = {
         {
           "rank": 2,
           "name": "광진구",
-          "score": 31.0,
+          "score": 31.5,
           "liquidityScore": 14.2,
-          "competitionScore": 43.4,
+          "competitionScore": 44.6,
+          "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
+        },
+        {
+          "rank": 3,
+          "name": "은평구",
+          "score": 31.7,
+          "liquidityScore": 15.0,
+          "competitionScore": 49.2,
           "whyBetter": "총 매입 리스크가 더 낮습니다, 거래 유동성이 더 안정적입니다"
         }
       ],
@@ -3035,24 +3042,24 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11350",
       "name": "노원구",
-      "riskScore": 35.9,
+      "riskScore": 35.1,
       "riskGrade": "보통",
       "transactionRiskScore": 23.8,
       "priceBurdenRiskScore": 4.0,
       "liquidityRiskScore": 35.5,
       "volatilityRiskScore": 56.0,
-      "competitionRiskScore": 50.6,
+      "competitionRiskScore": 49.0,
       "competitionRiskGrade": "보통",
       "sampleReliability": "보통",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 28.1,
-      "storesPerAdminDong": 811.4,
-      "topCategories": "입시·교과학원:1043 | 미용실:785 | 백반/한정식:721",
+      "foodStoreSharePct": 28.4,
+      "storesPerAdminDong": 813.5,
+      "topCategories": "입시·교과학원:1057 | 미용실:797 | 백반/한정식:767",
       "objections": [
         "한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다"
       ],
       "riskSummary": "즉시 배제할 수준은 아니지만 매물 단위 검토가 필요한 구입니다",
-      "memo": "노원구는 35.9점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다. 지금 바로 매입 결정을 내리기보다 구로구를 먼저 비교하는 것이 안전합니다.",
+      "memo": "노원구는 35.1점, '보통' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다. 지금 바로 매입 결정을 내리기보다 구로구 등 대체 후보를 먼저 비교하는 것이 안전합니다.",
       "riskArchetype": "복합 점검형",
       "archetypeSummary": "한 축만 위험하지는 않지만 여러 신호가 중간 수준으로 겹쳐 있는 유형입니다.",
       "decisionQuestion": "매입 결정을 서두르기보다 케이스별 검증 항목을 쌓아야 합니다.",
@@ -3162,24 +3169,24 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11380",
       "name": "은평구",
-      "riskScore": 34.3,
+      "riskScore": 31.7,
       "riskGrade": "낮음",
       "transactionRiskScore": 17.4,
       "priceBurdenRiskScore": 24.2,
       "liquidityRiskScore": 15.0,
       "volatilityRiskScore": 4.0,
-      "competitionRiskScore": 55.0,
+      "competitionRiskScore": 49.2,
       "competitionRiskGrade": "보통",
       "sampleReliability": "높음",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 27.7,
-      "storesPerAdminDong": 994.6,
-      "topCategories": "부동산 중개/대리업:954 | 미용실:929 | 백반/한정식:803",
+      "foodStoreSharePct": 27.9,
+      "storesPerAdminDong": 991.2,
+      "topCategories": "부동산 중개/대리업:936 | 미용실:928 | 백반/한정식:832",
       "objections": [
         "한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다"
       ],
       "riskSummary": "즉시 배제할 수준은 아니지만 매물 단위 검토가 필요한 구입니다",
-      "memo": "은평구는 34.3점, '낮음' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다. 지금 바로 매입 결정을 내리기보다 구로구를 먼저 비교하는 것이 안전합니다.",
+      "memo": "은평구는 31.7점, '낮음' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다. 지금 바로 매입 결정을 내리기보다 현재 조건에서는 별도 대체 후보가 없어 현장 확인을 우선하세요.",
       "riskArchetype": "복합 점검형",
       "archetypeSummary": "한 축만 위험하지는 않지만 여러 신호가 중간 수준으로 겹쳐 있는 유형입니다.",
       "decisionQuestion": "매입 결정을 서두르기보다 케이스별 검증 항목을 쌓아야 합니다.",
@@ -3189,16 +3196,7 @@ window.__REDVEIL_PAYLOAD__ = {
         "최근 3개월 호가와 실거래 차이를 현장 중개사 두 곳 이상에서 교차 확인하세요.",
         "핵심 업종이 실제로 버티는지 임차인 교체 속도와 공실 재고를 점검하세요."
       ],
-      "replacementCandidates": [
-        {
-          "rank": 1,
-          "name": "구로구",
-          "score": 27.6,
-          "liquidityScore": 21.8,
-          "competitionScore": 33.4,
-          "whyBetter": "총 매입 리스크가 더 낮습니다, 상권 과밀도가 더 낮습니다"
-        }
-      ],
+      "replacementCandidates": [],
       "history": [
         {
           "month": "2025.04",
@@ -3289,24 +3287,24 @@ window.__REDVEIL_PAYLOAD__ = {
     {
       "code": "11215",
       "name": "광진구",
-      "riskScore": 31.0,
+      "riskScore": 31.5,
       "riskGrade": "낮음",
       "transactionRiskScore": 20.8,
       "priceBurdenRiskScore": 12.2,
       "liquidityRiskScore": 14.2,
       "volatilityRiskScore": 52.0,
-      "competitionRiskScore": 43.4,
+      "competitionRiskScore": 44.6,
       "competitionRiskGrade": "보통",
       "sampleReliability": "높음",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 27.3,
-      "storesPerAdminDong": 1201.1,
-      "topCategories": "백반/한정식:870 | 부동산 중개/대리업:868 | 미용실:829",
+      "foodStoreSharePct": 27.8,
+      "storesPerAdminDong": 1204.9,
+      "topCategories": "백반/한정식:948 | 미용실:853 | 부동산 중개/대리업:851",
       "objections": [
         "한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다"
       ],
       "riskSummary": "즉시 배제할 수준은 아니지만 매물 단위 검토가 필요한 구입니다",
-      "memo": "광진구는 31.0점, '낮음' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다. 지금 바로 매입 결정을 내리기보다 현재 조건에서는 별도 대체 후보가 없어 현장 확인을 우선하세요.",
+      "memo": "광진구는 31.5점, '낮음' 구간입니다. 현재 이 구의 대표 유형은 '복합 점검형'이며, 핵심 반대 근거는 한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다. 지금 바로 매입 결정을 내리기보다 현재 조건에서는 별도 대체 후보가 없어 현장 확인을 우선하세요.",
       "riskArchetype": "복합 점검형",
       "archetypeSummary": "한 축만 위험하지는 않지만 여러 신호가 중간 수준으로 겹쳐 있는 유형입니다.",
       "decisionQuestion": "매입 결정을 서두르기보다 케이스별 검증 항목을 쌓아야 합니다.",
@@ -3417,9 +3415,9 @@ window.__REDVEIL_PAYLOAD__ = {
       "competitionRiskGrade": "낮음",
       "sampleReliability": "높음",
       "lowSampleFlag": false,
-      "foodStoreSharePct": 25.5,
-      "storesPerAdminDong": 1120.1,
-      "topCategories": "백반/한정식:816 | 미용실:737 | 경영 컨설팅업:721",
+      "foodStoreSharePct": 25.9,
+      "storesPerAdminDong": 1122.6,
+      "topCategories": "백반/한정식:874 | 미용실:755 | 경영 컨설팅업:712",
       "objections": [
         "한 가지 축만 위험한 것은 아니지만 복합 검토가 필요한 구입니다"
       ],
@@ -3526,10 +3524,10 @@ window.__REDVEIL_PAYLOAD__ = {
   "caseStudies": [
     {
       "name": "서초구",
-      "riskScore": 78.9,
+      "riskScore": 78.1,
       "riskGrade": "매우 높음",
       "transactionRiskScore": 85.2,
-      "competitionRiskScore": 71.2,
+      "competitionRiskScore": 69.4,
       "priceBurdenRiskScore": 98.6,
       "liquidityRiskScore": 52.9,
       "volatilityRiskScore": 100.0,
@@ -3542,19 +3540,17 @@ window.__REDVEIL_PAYLOAD__ = {
       "sixMonthTransactionChangePct": -53.3,
       "objections": [
         "같은 권역 대비 매입 가격 부담이 큽니다",
-        "상권 내 점포 과밀도가 높습니다",
         "최근 실거래 가격 변동성이 큽니다"
       ],
-      "riskSummary": "price burden is elevated, with 6m price growth at 104.2%; price volatility has been high in recent months",
-      "topCategories": "경영 컨설팅업:2710 | 변호사:2678 | 부동산 중개/대리업:2094",
+      "riskSummary": "가격 부담 점수 98.6점으로 상위권입니다 / 상권 과밀 점수 71.2점으로 경쟁 압박이 큽니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
+      "topCategories": "변호사:2673 | 경영 컨설팅업:2650 | 부동산 중개/대리업:2052",
       "replacementCandidates": [
         "금천구",
         "관악구",
-        "양천구"
+        "동대문구"
       ],
       "fieldChecks": [
         "현재 호가가 최근 실거래 레벨에서 실제로 체결되는지 확인하세요",
-        "핵심 행정동 골목을 돌며 중복 업종 밀도를 직접 확인하세요",
         "대형 이상 거래와 집합상가 거래를 구분해서 다시 보세요"
       ],
       "riskArchetype": "고가 선행형"
@@ -3580,8 +3576,8 @@ window.__REDVEIL_PAYLOAD__ = {
         "상권 내 점포 과밀도가 높습니다",
         "최근 실거래 가격 변동성이 큽니다"
       ],
-      "riskSummary": "price burden is elevated, with 6m price growth at 40.7%; price volatility has been high in recent months",
-      "topCategories": "경영 컨설팅업:5736 | 부동산 중개/대리업:3665 | 광고 대행업:3322",
+      "riskSummary": "가격 부담 점수 93.2점으로 상위권입니다 / 상권 과밀 점수 76.4점으로 경쟁 압박이 큽니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
+      "topCategories": "경영 컨설팅업:5621 | 부동산 중개/대리업:3568 | 광고 대행업:3282",
       "replacementCandidates": [
         "구로구"
       ],
@@ -3612,12 +3608,12 @@ window.__REDVEIL_PAYLOAD__ = {
         "같은 권역 대비 매입 가격 부담이 큽니다",
         "최근 실거래 가격 변동성이 큽니다"
       ],
-      "riskSummary": "price burden is elevated, with 6m price growth at 123.9%; price volatility has been high in recent months",
-      "topCategories": "백반/한정식:1428 | 기타 의류 소매업:1366 | 카페:1075",
+      "riskSummary": "가격 부담 점수 94.8점으로 상위권입니다 / 최근 가격 변동성이 커서 체결 레벨 재확인이 필요합니다",
+      "topCategories": "백반/한정식:1530 | 기타 의류 소매업:1390 | 카페:1080",
       "replacementCandidates": [
         "관악구",
         "강서구",
-        "은평구"
+        "노원구"
       ],
       "fieldChecks": [
         "현재 호가가 최근 실거래 레벨에서 실제로 체결되는지 확인하세요",
@@ -3628,234 +3624,234 @@ window.__REDVEIL_PAYLOAD__ = {
   ],
   "demandFragility": [
     {
-      "name": "대원종합시장",
-      "type": "전통시장",
-      "quarter": "20244",
-      "riskScore": 81.2,
+      "name": "은광여고",
+      "type": "골목상권",
+      "quarter": "20254",
+      "riskScore": 85.5,
       "riskGrade": "매우 높음",
-      "floatingPopulation": 49335.0,
-      "salesAmount": 27477540,
-      "serviceCount": 2,
+      "floatingPopulation": 12976.0,
+      "salesAmount": 48,
+      "serviceCount": 1,
       "objection": "유동인구 대비 매출 효율이 낮습니다; 업종 수에 비해 유효 수요가 얇습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
     },
     {
-      "name": "남부종합시장",
+      "name": "영진시장A동",
       "type": "전통시장",
-      "quarter": "20244",
-      "riskScore": 80.8,
+      "quarter": "20254",
+      "riskScore": 83.9,
       "riskGrade": "매우 높음",
-      "floatingPopulation": 33286.0,
-      "salesAmount": 15253062,
-      "serviceCount": 1,
-      "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
+      "floatingPopulation": 36227.0,
+      "salesAmount": 3304174,
+      "serviceCount": 3,
+      "objection": "유동인구 대비 매출 효율이 낮습니다; 업종 수에 비해 유효 수요가 얇습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
     },
     {
-      "name": "동진시장",
+      "name": "신림종합시장",
       "type": "전통시장",
-      "quarter": "20244",
-      "riskScore": 78.6,
+      "quarter": "20254",
+      "riskScore": 80.3,
       "riskGrade": "매우 높음",
-      "floatingPopulation": 45960.0,
-      "salesAmount": 5282514,
-      "serviceCount": 1,
-      "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
-    },
-    {
-      "name": "백운시장",
-      "type": "전통시장",
-      "quarter": "20244",
-      "riskScore": 76.1,
-      "riskGrade": "매우 높음",
-      "floatingPopulation": 71699.0,
-      "salesAmount": 16773257,
-      "serviceCount": 2,
-      "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
-    },
-    {
-      "name": "청담역 12번",
-      "type": "골목상권",
-      "quarter": "20244",
-      "riskScore": 74.3,
-      "riskGrade": "높음",
-      "floatingPopulation": 56967.0,
-      "salesAmount": 39104148,
+      "floatingPopulation": 35161.0,
+      "salesAmount": 1,
       "serviceCount": 1,
       "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
     },
     {
       "name": "남태령역(서울전자고등학교)",
       "type": "골목상권",
-      "quarter": "20244",
-      "riskScore": 73.6,
-      "riskGrade": "높음",
-      "floatingPopulation": 43338.0,
-      "salesAmount": 30000000,
+      "quarter": "20254",
+      "riskScore": 79.3,
+      "riskGrade": "매우 높음",
+      "floatingPopulation": 40174.0,
+      "salesAmount": 3,
       "serviceCount": 1,
       "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
     },
     {
-      "name": "논현종합시장",
+      "name": "남부종합시장",
       "type": "전통시장",
-      "quarter": "20244",
-      "riskScore": 72.1,
-      "riskGrade": "높음",
-      "floatingPopulation": 31538.0,
-      "salesAmount": 18149279,
+      "quarter": "20254",
+      "riskScore": 78.7,
+      "riskGrade": "매우 높음",
+      "floatingPopulation": 35521.0,
+      "salesAmount": 4662925,
       "serviceCount": 1,
-      "objection": "유동인구 대비 매출 효율이 낮습니다; 업종 구성이 좁아 회복 탄력이 약합니다"
-    },
-    {
-      "name": "중암중학교",
-      "type": "골목상권",
-      "quarter": "20244",
-      "riskScore": 71.3,
-      "riskGrade": "높음",
-      "floatingPopulation": 143655.0,
-      "salesAmount": 35280583,
-      "serviceCount": 2,
       "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
     },
     {
-      "name": "홍제역 3번",
+      "name": "회기역 2번",
       "type": "골목상권",
-      "quarter": "20244",
-      "riskScore": 70.8,
-      "riskGrade": "높음",
-      "floatingPopulation": 327076.0,
-      "salesAmount": 195068524,
-      "serviceCount": 5,
-      "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다"
+      "quarter": "20254",
+      "riskScore": 77.3,
+      "riskGrade": "매우 높음",
+      "floatingPopulation": 49578.0,
+      "salesAmount": 33,
+      "serviceCount": 1,
+      "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
     },
     {
-      "name": "송파나루역 3번",
+      "name": "성수역 골목형상점가",
+      "type": "전통시장",
+      "quarter": "20254",
+      "riskScore": 77.0,
+      "riskGrade": "매우 높음",
+      "floatingPopulation": 50809.0,
+      "salesAmount": 93,
+      "serviceCount": 1,
+      "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
+    },
+    {
+      "name": "영등포본동주민센터",
       "type": "골목상권",
-      "quarter": "20244",
-      "riskScore": 70.8,
+      "quarter": "20254",
+      "riskScore": 76.4,
+      "riskGrade": "매우 높음",
+      "floatingPopulation": 1496.0,
+      "salesAmount": 4912506,
+      "serviceCount": 1,
+      "objection": "업종 수에 비해 유효 수요가 얇습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
+    },
+    {
+      "name": "동진시장",
+      "type": "전통시장",
+      "quarter": "20254",
+      "riskScore": 75.8,
+      "riskGrade": "매우 높음",
+      "floatingPopulation": 43843.0,
+      "salesAmount": 4336971,
+      "serviceCount": 1,
+      "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
+    },
+    {
+      "name": "청담역 12번",
+      "type": "골목상권",
+      "quarter": "20254",
+      "riskScore": 74.1,
       "riskGrade": "높음",
-      "floatingPopulation": 175324.0,
-      "salesAmount": 156663980,
+      "floatingPopulation": 37695.0,
+      "salesAmount": 38474933,
+      "serviceCount": 1,
+      "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
+    },
+    {
+      "name": "봉일시장",
+      "type": "전통시장",
+      "quarter": "20254",
+      "riskScore": 73.2,
+      "riskGrade": "높음",
+      "floatingPopulation": 59093.0,
+      "salesAmount": 137666148,
       "serviceCount": 3,
+      "objection": "업종 수에 비해 유효 수요가 얇습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
+    },
+    {
+      "name": "한남힐사이드아파트",
+      "type": "골목상권",
+      "quarter": "20254",
+      "riskScore": 73.1,
+      "riskGrade": "높음",
+      "floatingPopulation": 111178.0,
+      "salesAmount": 153172576,
+      "serviceCount": 4,
       "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다; 업종 구성이 좁아 회복 탄력이 약합니다"
-    },
-    {
-      "name": "화랑대철도공원",
-      "type": "골목상권",
-      "quarter": "20244",
-      "riskScore": 70.6,
-      "riskGrade": "높음",
-      "floatingPopulation": 125445.0,
-      "salesAmount": 377393535,
-      "serviceCount": 6,
-      "objection": "업종 수에 비해 유효 수요가 얇습니다; 건당 매출 규모가 약합니다"
-    },
-    {
-      "name": "강남세브란스병원미래의학연구센터",
-      "type": "골목상권",
-      "quarter": "20244",
-      "riskScore": 69.2,
-      "riskGrade": "높음",
-      "floatingPopulation": 329285.0,
-      "salesAmount": 302691227,
-      "serviceCount": 5,
-      "objection": "유동인구 대비 매출 효율이 낮습니다; 건당 매출 규모가 약합니다"
     }
   ],
   "adminDongSaturation": [
     {
       "districtName": "강남구",
       "name": "역삼1동",
-      "totalStoreCount": 13380,
-      "foodStoreSharePct": 19.8,
+      "totalStoreCount": 13420,
+      "foodStoreSharePct": 20.2,
       "categoryCount": 233,
-      "topCategories": "경영 컨설팅업:1521 | 부동산 중개/대리업:855 | 광고 대행업:737"
+      "topCategories": "경영 컨설팅업:1496 | 부동산 중개/대리업:825 | 광고 대행업:729"
     },
     {
       "districtName": "금천구",
       "name": "가산동",
-      "totalStoreCount": 10017,
-      "foodStoreSharePct": 13.8,
-      "categoryCount": 222,
-      "topCategories": "경영 컨설팅업:1476 | 광고 대행업:960 | 부동산 중개/대리업:429"
+      "totalStoreCount": 9970,
+      "foodStoreSharePct": 14.4,
+      "categoryCount": 220,
+      "topCategories": "경영 컨설팅업:1442 | 광고 대행업:946 | 부동산 중개/대리업:422"
     },
     {
       "districtName": "마포구",
       "name": "서교동",
-      "totalStoreCount": 8829,
-      "foodStoreSharePct": 29.4,
+      "totalStoreCount": 8872,
+      "foodStoreSharePct": 29.7,
       "categoryCount": 222,
-      "topCategories": "카페:513 | 백반/한정식:438 | 광고 대행업:371"
+      "topCategories": "카페:508 | 백반/한정식:496 | 미용실:373"
     },
     {
       "districtName": "종로구",
       "name": "종로1.2.3.4가동",
-      "totalStoreCount": 7912,
-      "foodStoreSharePct": 29.4,
-      "categoryCount": 220,
-      "topCategories": "시계/귀금속 소매업:619 | 백반/한정식:575 | 여행사:441"
+      "totalStoreCount": 7970,
+      "foodStoreSharePct": 30.1,
+      "categoryCount": 222,
+      "topCategories": "백반/한정식:626 | 시계/귀금속 소매업:614 | 여행사:441"
     },
     {
       "districtName": "서초구",
       "name": "서초3동",
-      "totalStoreCount": 6845,
-      "foodStoreSharePct": 15.1,
-      "categoryCount": 216,
-      "topCategories": "변호사:1608 | 경영 컨설팅업:494 | 법무사:393"
+      "totalStoreCount": 6846,
+      "foodStoreSharePct": 15.4,
+      "categoryCount": 217,
+      "topCategories": "변호사:1605 | 경영 컨설팅업:487 | 법무사:391"
     },
     {
       "districtName": "영등포구",
       "name": "여의동",
-      "totalStoreCount": 6422,
-      "foodStoreSharePct": 31.7,
+      "totalStoreCount": 6440,
+      "foodStoreSharePct": 32.1,
       "categoryCount": 223,
-      "topCategories": "경영 컨설팅업:1170 | 백반/한정식:507 | 카페:321"
+      "topCategories": "경영 컨설팅업:1159 | 백반/한정식:536 | 카페:328"
     },
     {
       "districtName": "송파구",
       "name": "문정2동",
-      "totalStoreCount": 5908,
-      "foodStoreSharePct": 16.1,
-      "categoryCount": 216,
-      "topCategories": "경영 컨설팅업:492 | 건축 설계 및 관련 서비스업:385 | 부동산 중개/대리업:302"
+      "totalStoreCount": 5850,
+      "foodStoreSharePct": 16.4,
+      "categoryCount": 215,
+      "topCategories": "경영 컨설팅업:478 | 건축 설계 및 관련 서비스업:380 | 부동산 중개/대리업:294"
     },
     {
       "districtName": "강남구",
       "name": "논현2동",
-      "totalStoreCount": 5267,
-      "foodStoreSharePct": 20.6,
-      "categoryCount": 214,
-      "topCategories": "경영 컨설팅업:517 | 광고 대행업:427 | 사진촬영업:286"
+      "totalStoreCount": 5294,
+      "foodStoreSharePct": 20.9,
+      "categoryCount": 215,
+      "topCategories": "경영 컨설팅업:504 | 광고 대행업:425 | 사진촬영업:282"
     },
     {
       "districtName": "강남구",
       "name": "논현1동",
-      "totalStoreCount": 5175,
-      "foodStoreSharePct": 17.9,
-      "categoryCount": 210,
-      "topCategories": "광고 대행업:483 | 경영 컨설팅업:422 | 부동산 중개/대리업:255"
+      "totalStoreCount": 5187,
+      "foodStoreSharePct": 18.2,
+      "categoryCount": 213,
+      "topCategories": "광고 대행업:477 | 경영 컨설팅업:413 | 부동산 중개/대리업:248"
     },
     {
       "districtName": "강서구",
       "name": "가양1동",
-      "totalStoreCount": 4821,
-      "foodStoreSharePct": 30.4,
-      "categoryCount": 219,
-      "topCategories": "백반/한정식:292 | 광고 대행업:269 | 부동산 중개/대리업:259"
+      "totalStoreCount": 4879,
+      "foodStoreSharePct": 31.1,
+      "categoryCount": 221,
+      "topCategories": "백반/한정식:322 | 광고 대행업:263 | 카페:249"
     },
     {
       "districtName": "강남구",
       "name": "청담동",
-      "totalStoreCount": 4716,
-      "foodStoreSharePct": 17.5,
+      "totalStoreCount": 4760,
+      "foodStoreSharePct": 17.6,
       "categoryCount": 201,
-      "topCategories": "경영 컨설팅업:346 | 미용실:236 | 부동산 중개/대리업:236"
+      "topCategories": "경영 컨설팅업:342 | 미용실:245 | 부동산 중개/대리업:230"
     },
     {
       "districtName": "서초구",
       "name": "서초2동",
-      "totalStoreCount": 4581,
-      "foodStoreSharePct": 13.9,
+      "totalStoreCount": 4564,
+      "foodStoreSharePct": 14.2,
       "categoryCount": 207,
-      "topCategories": "경영 컨설팅업:636 | 광고 대행업:328 | 부동산 중개/대리업:301"
+      "topCategories": "경영 컨설팅업:615 | 광고 대행업:323 | 부동산 중개/대리업:296"
     }
   ],
   "archetypes": [
@@ -3875,7 +3871,7 @@ window.__REDVEIL_PAYLOAD__ = {
       "description": "매도·매수 회전이 느려져 단기 보유 전략에 불리한 구간입니다.",
       "examples": [
         "강동구",
-        "동작구",
+        "동대문구",
         "서대문구"
       ]
     },
@@ -3908,6 +3904,178 @@ window.__REDVEIL_PAYLOAD__ = {
         "송파구",
         "성동구"
       ]
+    }
+  ],
+  "reviewExamples": [
+    {
+      "id": "hold-seocho-corner",
+      "label": "위험 후보",
+      "assetName": "서초역 대로변 코너 상가",
+      "districtCode": "11650",
+      "districtName": "서초구",
+      "adminDongName": "서초동",
+      "targetTenant": "카페",
+      "askingPriceTotal10k": 82000,
+      "exclusiveAreaSqm": 31.5,
+      "askingPricePerSqm": 2603.2,
+      "holdingMonths": 36,
+      "priority": "balanced",
+      "verdict": "매입 보류",
+      "expectedScore": 78.1,
+      "riskArchetype": "고가 선행형",
+      "summary": "가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다.",
+      "evidence": [
+        "가격 변동성 100.0점",
+        "가격 부담 98.6점",
+        "거래 둔화 85.2점"
+      ],
+      "nextAction": "최근 체결가 3건을 재확인하고 금천구·관악구 등 대체 후보와 가격선을 비교합니다.",
+      "replacementCandidates": [
+        "금천구",
+        "관악구"
+      ],
+      "memo": "서초역 대로변 코너 상가 예시 케이스. 가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다."
+    },
+    {
+      "id": "compare-songpa-short-hold",
+      "label": "애매 후보",
+      "assetName": "송파 생활권 근린상가",
+      "districtCode": "11710",
+      "districtName": "송파구",
+      "adminDongName": "문정동",
+      "targetTenant": "베이커리",
+      "askingPriceTotal10k": 62000,
+      "exclusiveAreaSqm": 34.0,
+      "askingPricePerSqm": 1823.5,
+      "holdingMonths": 24,
+      "priority": "cashflow",
+      "verdict": "강한 비교 필요",
+      "expectedScore": 61.6,
+      "riskArchetype": "가격 변동형",
+      "summary": "총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다.",
+      "evidence": [
+        "가격 변동성 96.0점",
+        "거래 둔화 72.0점",
+        "가격 부담 68.8점"
+      ],
+      "nextAction": "양천구·강서구와 회전 속도를 비교하고 보유 기간을 늘릴 수 있는지 먼저 확인합니다.",
+      "replacementCandidates": [
+        "양천구",
+        "금천구"
+      ],
+      "memo": "송파 생활권 근린상가 예시 케이스. 총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다."
+    },
+    {
+      "id": "review-guro-baseline",
+      "label": "보수 검토 후보",
+      "assetName": "구로 업무지구 소형 상가",
+      "districtCode": "11530",
+      "districtName": "구로구",
+      "adminDongName": "구로동",
+      "targetTenant": "서비스업",
+      "askingPriceTotal10k": 26000,
+      "exclusiveAreaSqm": 32.0,
+      "askingPricePerSqm": 812.5,
+      "holdingMonths": 60,
+      "priority": "balanced",
+      "verdict": "추가 검토 가능",
+      "expectedScore": 27.6,
+      "riskArchetype": "복합 점검형",
+      "summary": "서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다.",
+      "evidence": [
+        "상권 과밀 33.4점",
+        "가격 부담 28.0점",
+        "거래 둔화 22.9점"
+      ],
+      "nextAction": "가격선은 통과 후보로 두되 임차인 교체 속도와 관리비 조건을 현장에서 확인합니다.",
+      "replacementCandidates": [],
+      "memo": "구로 업무지구 소형 상가 예시 케이스. 서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다."
+    }
+  ],
+  "validationCases": [
+    {
+      "id": "hold-seocho-corner",
+      "label": "위험 후보",
+      "assetName": "서초역 대로변 코너 상가",
+      "districtCode": "11650",
+      "districtName": "서초구",
+      "adminDongName": "서초동",
+      "targetTenant": "카페",
+      "askingPriceTotal10k": 82000,
+      "exclusiveAreaSqm": 31.5,
+      "askingPricePerSqm": 2603.2,
+      "holdingMonths": 36,
+      "priority": "balanced",
+      "verdict": "매입 보류",
+      "expectedScore": 78.1,
+      "riskArchetype": "고가 선행형",
+      "summary": "가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다.",
+      "evidence": [
+        "가격 변동성 100.0점",
+        "가격 부담 98.6점",
+        "거래 둔화 85.2점"
+      ],
+      "nextAction": "최근 체결가 3건을 재확인하고 금천구·관악구 등 대체 후보와 가격선을 비교합니다.",
+      "replacementCandidates": [
+        "금천구",
+        "관악구"
+      ],
+      "memo": "서초역 대로변 코너 상가 예시 케이스. 가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다."
+    },
+    {
+      "id": "compare-songpa-short-hold",
+      "label": "애매 후보",
+      "assetName": "송파 생활권 근린상가",
+      "districtCode": "11710",
+      "districtName": "송파구",
+      "adminDongName": "문정동",
+      "targetTenant": "베이커리",
+      "askingPriceTotal10k": 62000,
+      "exclusiveAreaSqm": 34.0,
+      "askingPricePerSqm": 1823.5,
+      "holdingMonths": 24,
+      "priority": "cashflow",
+      "verdict": "강한 비교 필요",
+      "expectedScore": 61.6,
+      "riskArchetype": "가격 변동형",
+      "summary": "총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다.",
+      "evidence": [
+        "가격 변동성 96.0점",
+        "거래 둔화 72.0점",
+        "가격 부담 68.8점"
+      ],
+      "nextAction": "양천구·강서구와 회전 속도를 비교하고 보유 기간을 늘릴 수 있는지 먼저 확인합니다.",
+      "replacementCandidates": [
+        "양천구",
+        "금천구"
+      ],
+      "memo": "송파 생활권 근린상가 예시 케이스. 총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다."
+    },
+    {
+      "id": "review-guro-baseline",
+      "label": "보수 검토 후보",
+      "assetName": "구로 업무지구 소형 상가",
+      "districtCode": "11530",
+      "districtName": "구로구",
+      "adminDongName": "구로동",
+      "targetTenant": "서비스업",
+      "askingPriceTotal10k": 26000,
+      "exclusiveAreaSqm": 32.0,
+      "askingPricePerSqm": 812.5,
+      "holdingMonths": 60,
+      "priority": "balanced",
+      "verdict": "추가 검토 가능",
+      "expectedScore": 27.6,
+      "riskArchetype": "복합 점검형",
+      "summary": "서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다.",
+      "evidence": [
+        "상권 과밀 33.4점",
+        "가격 부담 28.0점",
+        "거래 둔화 22.9점"
+      ],
+      "nextAction": "가격선은 통과 후보로 두되 임차인 교체 속도와 관리비 조건을 현장에서 확인합니다.",
+      "replacementCandidates": [],
+      "memo": "구로 업무지구 소형 상가 예시 케이스. 서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다."
     }
   ],
   "content": {
@@ -4011,12 +4179,56 @@ window.__REDVEIL_PAYLOAD__ = {
         "body": "모든 구를 같은 규칙으로 비교합니다."
       },
       {
-        "title": "행정동 428개·상권 1,570개",
+        "title": "행정동 427개·상권 1,520개",
         "body": "과밀도와 수요 신호를 함께 봅니다."
       },
       {
         "title": "저표본 경고 명시",
         "body": "표본이 얇은 8개 구는 별도 경고를 표시합니다."
+      }
+    ],
+    "validationCases": [
+      {
+        "title": "서초역 대로변 코너 상가",
+        "label": "위험 후보",
+        "districtName": "서초구",
+        "verdict": "매입 보류",
+        "score": 78.1,
+        "summary": "가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다.",
+        "evidence": [
+          "가격 변동성 100.0점",
+          "가격 부담 98.6점",
+          "거래 둔화 85.2점"
+        ],
+        "nextAction": "최근 체결가 3건을 재확인하고 금천구·관악구 등 대체 후보와 가격선을 비교합니다."
+      },
+      {
+        "title": "송파 생활권 근린상가",
+        "label": "애매 후보",
+        "districtName": "송파구",
+        "verdict": "강한 비교 필요",
+        "score": 61.6,
+        "summary": "총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다.",
+        "evidence": [
+          "가격 변동성 96.0점",
+          "거래 둔화 72.0점",
+          "가격 부담 68.8점"
+        ],
+        "nextAction": "양천구·강서구와 회전 속도를 비교하고 보유 기간을 늘릴 수 있는지 먼저 확인합니다."
+      },
+      {
+        "title": "구로 업무지구 소형 상가",
+        "label": "보수 검토 후보",
+        "districtName": "구로구",
+        "verdict": "추가 검토 가능",
+        "score": 27.6,
+        "summary": "서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다.",
+        "evidence": [
+          "상권 과밀 33.4점",
+          "가격 부담 28.0점",
+          "거래 둔화 22.9점"
+        ],
+        "nextAction": "가격선은 통과 후보로 두되 임차인 교체 속도와 관리비 조건을 현장에서 확인합니다."
       }
     ],
     "serviceBlueprint": [
@@ -4054,12 +4266,12 @@ window.__REDVEIL_PAYLOAD__ = {
       {
         "name": "서울시 상권분석서비스(추정매출·길단위인구)",
         "role": "상권 수요 취약성 신호와 매출 효율 분석",
-        "window": "2024"
+        "window": "2025년 4분기"
       },
       {
         "name": "소상공인시장진흥공단 상가(상권)정보",
         "role": "행정동 점포 밀도와 과밀 경쟁도 계산",
-        "window": "2025.12 기준 파일"
+        "window": "2026.03.31 기준 파일"
       }
     ],
     "limitations": [
@@ -4086,50 +4298,6 @@ window.__REDVEIL_PAYLOAD__ = {
       "가공 결과를 웹사이트 payload로 변환합니다.",
       "정적 페이지와 로컬 API를 함께 지원합니다.",
       "프론트엔드는 검토·비교·리포트를 분리해 제공합니다."
-    ],
-    "validationCases": [
-      {
-        "title": "서초역 대로변 코너 상가",
-        "label": "위험 후보",
-        "districtName": "서초구",
-        "verdict": "매입 보류",
-        "score": 78.9,
-        "summary": "가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다.",
-        "evidence": [
-          "가격 변동성 100.0점",
-          "가격 부담 98.6점",
-          "거래 둔화 85.2점"
-        ],
-        "nextAction": "최근 체결가 3건을 재확인하고 금천구·관악구 등 대체 후보와 가격선을 비교합니다."
-      },
-      {
-        "title": "송파 생활권 근린상가",
-        "label": "애매 후보",
-        "districtName": "송파구",
-        "verdict": "강한 비교 필요",
-        "score": 62.4,
-        "summary": "총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다.",
-        "evidence": [
-          "가격 변동성 96.0점",
-          "거래 둔화 72.0점",
-          "가격 부담 68.8점"
-        ],
-        "nextAction": "양천구·강서구와 회전 속도를 비교하고 보유 기간을 늘릴 수 있는지 먼저 확인합니다."
-      },
-      {
-        "title": "구로 업무지구 소형 상가",
-        "label": "보수 검토 후보",
-        "districtName": "구로구",
-        "verdict": "추가 검토 가능",
-        "score": 27.6,
-        "summary": "서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다.",
-        "evidence": [
-          "상권 과밀 33.4점",
-          "가격 부담 28.0점",
-          "거래 둔화 22.9점"
-        ],
-        "nextAction": "가격선은 통과 후보로 두되 임차인 교체 속도와 관리비 조건을 현장에서 확인합니다."
-      }
     ]
   },
   "methodology": {
@@ -4147,177 +4315,5 @@ window.__REDVEIL_PAYLOAD__ = {
       "대체 구 추천",
       "현장 검증 체크리스트"
     ]
-  },
-  "reviewExamples": [
-    {
-      "id": "hold-seocho-corner",
-      "label": "위험 후보",
-      "assetName": "서초역 대로변 코너 상가",
-      "districtCode": "11650",
-      "districtName": "서초구",
-      "adminDongName": "서초동",
-      "targetTenant": "카페",
-      "askingPriceTotal10k": 82000,
-      "exclusiveAreaSqm": 31.5,
-      "askingPricePerSqm": 2603.2,
-      "holdingMonths": 36,
-      "priority": "balanced",
-      "verdict": "매입 보류",
-      "expectedScore": 78.9,
-      "riskArchetype": "고가 선행형",
-      "summary": "가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다.",
-      "evidence": [
-        "가격 변동성 100.0점",
-        "가격 부담 98.6점",
-        "거래 둔화 85.2점"
-      ],
-      "nextAction": "최근 체결가 3건을 재확인하고 금천구·관악구 등 대체 후보와 가격선을 비교합니다.",
-      "replacementCandidates": [
-        "금천구",
-        "관악구"
-      ],
-      "memo": "서초역 대로변 코너 상가 예시 케이스. 가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다."
-    },
-    {
-      "id": "compare-songpa-short-hold",
-      "label": "애매 후보",
-      "assetName": "송파 생활권 근린상가",
-      "districtCode": "11710",
-      "districtName": "송파구",
-      "adminDongName": "문정동",
-      "targetTenant": "베이커리",
-      "askingPriceTotal10k": 62000,
-      "exclusiveAreaSqm": 34.0,
-      "askingPricePerSqm": 1823.5,
-      "holdingMonths": 24,
-      "priority": "cashflow",
-      "verdict": "강한 비교 필요",
-      "expectedScore": 62.4,
-      "riskArchetype": "가격 변동형",
-      "summary": "총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다.",
-      "evidence": [
-        "가격 변동성 96.0점",
-        "거래 둔화 72.0점",
-        "가격 부담 68.8점"
-      ],
-      "nextAction": "양천구·강서구와 회전 속도를 비교하고 보유 기간을 늘릴 수 있는지 먼저 확인합니다.",
-      "replacementCandidates": [
-        "양천구",
-        "강서구"
-      ],
-      "memo": "송파 생활권 근린상가 예시 케이스. 총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다."
-    },
-    {
-      "id": "review-guro-baseline",
-      "label": "보수 검토 후보",
-      "assetName": "구로 업무지구 소형 상가",
-      "districtCode": "11530",
-      "districtName": "구로구",
-      "adminDongName": "구로동",
-      "targetTenant": "서비스업",
-      "askingPriceTotal10k": 26000,
-      "exclusiveAreaSqm": 32.0,
-      "askingPricePerSqm": 812.5,
-      "holdingMonths": 60,
-      "priority": "balanced",
-      "verdict": "추가 검토 가능",
-      "expectedScore": 27.6,
-      "riskArchetype": "복합 점검형",
-      "summary": "서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다.",
-      "evidence": [
-        "상권 과밀 33.4점",
-        "가격 부담 28.0점",
-        "거래 둔화 22.9점"
-      ],
-      "nextAction": "가격선은 통과 후보로 두되 임차인 교체 속도와 관리비 조건을 현장에서 확인합니다.",
-      "replacementCandidates": [],
-      "memo": "구로 업무지구 소형 상가 예시 케이스. 서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다."
-    }
-  ],
-  "validationCases": [
-    {
-      "id": "hold-seocho-corner",
-      "label": "위험 후보",
-      "assetName": "서초역 대로변 코너 상가",
-      "districtCode": "11650",
-      "districtName": "서초구",
-      "adminDongName": "서초동",
-      "targetTenant": "카페",
-      "askingPriceTotal10k": 82000,
-      "exclusiveAreaSqm": 31.5,
-      "askingPricePerSqm": 2603.2,
-      "holdingMonths": 36,
-      "priority": "balanced",
-      "verdict": "매입 보류",
-      "expectedScore": 78.9,
-      "riskArchetype": "고가 선행형",
-      "summary": "가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다.",
-      "evidence": [
-        "가격 변동성 100.0점",
-        "가격 부담 98.6점",
-        "거래 둔화 85.2점"
-      ],
-      "nextAction": "최근 체결가 3건을 재확인하고 금천구·관악구 등 대체 후보와 가격선을 비교합니다.",
-      "replacementCandidates": [
-        "금천구",
-        "관악구"
-      ],
-      "memo": "서초역 대로변 코너 상가 예시 케이스. 가격 부담과 거래 둔화가 동시에 높아 바로 매입하기보다 대체 후보 비교가 우선인 사례입니다."
-    },
-    {
-      "id": "compare-songpa-short-hold",
-      "label": "애매 후보",
-      "assetName": "송파 생활권 근린상가",
-      "districtCode": "11710",
-      "districtName": "송파구",
-      "adminDongName": "문정동",
-      "targetTenant": "베이커리",
-      "askingPriceTotal10k": 62000,
-      "exclusiveAreaSqm": 34.0,
-      "askingPricePerSqm": 1823.5,
-      "holdingMonths": 24,
-      "priority": "cashflow",
-      "verdict": "강한 비교 필요",
-      "expectedScore": 62.4,
-      "riskArchetype": "가격 변동형",
-      "summary": "총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다.",
-      "evidence": [
-        "가격 변동성 96.0점",
-        "거래 둔화 72.0점",
-        "가격 부담 68.8점"
-      ],
-      "nextAction": "양천구·강서구와 회전 속도를 비교하고 보유 기간을 늘릴 수 있는지 먼저 확인합니다.",
-      "replacementCandidates": [
-        "양천구",
-        "강서구"
-      ],
-      "memo": "송파 생활권 근린상가 예시 케이스. 총점은 보류선보다 낮지만 변동성과 거래 둔화가 겹쳐 단기 보유 전략에는 조심스러운 사례입니다."
-    },
-    {
-      "id": "review-guro-baseline",
-      "label": "보수 검토 후보",
-      "assetName": "구로 업무지구 소형 상가",
-      "districtCode": "11530",
-      "districtName": "구로구",
-      "adminDongName": "구로동",
-      "targetTenant": "서비스업",
-      "askingPriceTotal10k": 26000,
-      "exclusiveAreaSqm": 32.0,
-      "askingPricePerSqm": 812.5,
-      "holdingMonths": 60,
-      "priority": "balanced",
-      "verdict": "추가 검토 가능",
-      "expectedScore": 27.6,
-      "riskArchetype": "복합 점검형",
-      "summary": "서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다.",
-      "evidence": [
-        "상권 과밀 33.4점",
-        "가격 부담 28.0점",
-        "거래 둔화 22.9점"
-      ],
-      "nextAction": "가격선은 통과 후보로 두되 임차인 교체 속도와 관리비 조건을 현장에서 확인합니다.",
-      "replacementCandidates": [],
-      "memo": "구로 업무지구 소형 상가 예시 케이스. 서울 25개 구 기준 총 리스크는 낮지만 개별 임대차 조건과 현장 공실은 별도 확인해야 하는 사례입니다."
-    }
-  ]
+  }
 };

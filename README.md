@@ -17,7 +17,7 @@ Redveil is a public, portfolio-ready web service for screening Seoul storefront 
 | --- | --- |
 | What problem does it solve? | It helps reject or pause risky-looking storefront deals before detailed underwriting. |
 | What makes it different? | It is hold-first, not recommendation-first: the first output is why to stop, compare, or verify. |
-| What data does it use? | 12,074 commercial transaction records, 25 Seoul districts, 428 admin-dongs, and 1,570 trade-area demand records. |
+| What data does it use? | 12,074 commercial transaction records, 25 Seoul districts, 427 admin-dongs, and 1,520 trade-area demand records. |
 | What is the user flow? | Review one property, run a 3-minute diagnosis, compare candidate districts, and inspect district reports. |
 | How is it verified? | Unit tests, static-page checks, server/API smoke tests, browser E2E checks, responsive QA, and public URL checks. |
 
@@ -34,7 +34,7 @@ Redveil is a public, portfolio-ready web service for screening Seoul storefront 
 | Item | Description |
 |------|-------------|
 | Problem | 소형 상가 매입 전, 좋아 보이는 매물의 위험 신호를 빠르게 걸러내기 어렵다 |
-| Coverage | 서울 25개 구, 행정동 428개, 수요 취약 상권 1,570개 |
+| Coverage | 서울 25개 구, 행정동 427개, 수요 취약 상권 1,520개 |
 | Transaction Data | 상업업무용 부동산 거래 원천 데이터 12,074건 |
 | Output | 리스크 점수, 매입 보류 사유, 대체 후보, 구별 리포트 |
 | Product | GitHub Pages 기반 공개 웹서비스 |
@@ -117,7 +117,7 @@ Redveil은 이 과정을 사용자가 바로 써볼 수 있는 공개 웹사이�
 | Item | Description |
 |------|-------------|
 | Service Type | GitHub Pages로 공개 배포된 웹사이트 |
-| Coverage | 서울 25개 구, 행정동 428개, 수요 취약 상권 1,570개 |
+| Coverage | 서울 25개 구, 행정동 427개, 수요 취약 상권 1,520개 |
 | Transaction Data | 상업업무용 부동산 거래 원천 데이터 12,074건 |
 | Main Output | 리스크 점수, 보류 사유, 대체 후보, 구별 리포트 |
 | Differentiation | 추천 중심이 아니라 `보류 사유 중심` 판단 흐름 설계 |

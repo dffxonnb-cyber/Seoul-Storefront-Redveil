@@ -115,6 +115,42 @@ def format_month(value: object) -> str:
     return raw
 
 
+def format_quarter(value: object) -> str:
+    raw = str(value)
+    if len(raw) == 5 and raw.isdigit():
+        return f"{raw[:4]}년 {raw[4]}분기"
+    return raw
+
+
+def load_source_metadata(root: Path) -> dict[str, object]:
+    metadata_path = root / "data" / "external" / "processed" / "redveil_source_metadata.json"
+    if not metadata_path.exists():
+        return {}
+    return json.loads(metadata_path.read_text(encoding="utf-8-sig"))
+
+
+def build_data_windows(
+    history_df: pd.DataFrame,
+    demand_df: pd.DataFrame,
+    metadata: dict[str, object],
+) -> dict[str, str]:
+    history_months = sorted(str(item) for item in history_df["deal_year_month"].dropna().unique())
+    if history_months:
+        transaction_window = f"{format_month(history_months[0])}~{format_month(history_months[-1])}"
+    else:
+        transaction_window = "최근 12개월"
+
+    demand_quarter = metadata.get("seoul_market_quarter")
+    if not demand_quarter and "quarter_code" in demand_df:
+        demand_quarter = str(int(demand_df["quarter_code"].max()))
+
+    return {
+        "transaction": transaction_window,
+        "demand": format_quarter(demand_quarter or "latest public quarter"),
+        "store": str(metadata.get("store_file_period") or "최신 공개 파일"),
+    }
+
+
 def split_phrases(text: object) -> list[str]:
     if pd.isna(text):
         return []
@@ -567,7 +603,13 @@ def build_review_example_payload(districts: list[dict[str, object]]) -> list[dic
     return payload
 
 
-def build_content(summary: dict[str, object], latest_month: str, review_examples: list[dict[str, object]]) -> dict[str, object]:
+def build_content(
+    summary: dict[str, object],
+    latest_month: str,
+    review_examples: list[dict[str, object]],
+    data_windows: dict[str, str],
+) -> dict[str, object]:
+    transaction_count = int(summary.get("transactionCount", 0))
     return {
         "thesis": {
             "headline": "좋아 보이는 이유보다, 멈춰야 할 신호를 먼저 봅니다.",
@@ -625,7 +667,7 @@ def build_content(summary: dict[str, object], latest_month: str, review_examples
         ],
         "trustSignals": [
             {
-                "title": "실거래 12,074건 기반",
+                "title": f"실거래 {transaction_count:,}건 기반",
                 "body": f"{latest_month} 기준 최근 12개월 실거래를 반영했습니다.",
             },
             {
@@ -633,7 +675,7 @@ def build_content(summary: dict[str, object], latest_month: str, review_examples
                 "body": "모든 구를 같은 규칙으로 비교합니다.",
             },
             {
-                "title": "행정동 428개·상권 1,570개",
+                "title": f"행정동 {int(summary.get('adminDongCount', 0)):,}개·상권 {int(summary.get('tradeAreaCount', 0)):,}개",
                 "body": "과밀도와 수요 신호를 함께 봅니다.",
             },
             {
@@ -684,17 +726,17 @@ def build_content(summary: dict[str, object], latest_month: str, review_examples
             {
                 "name": "국토교통부 상업업무용 실거래가",
                 "role": "최근 12개월 가격 부담, 유동성, 변동성 산출",
-                "window": "2025.04~2026.03",
+                "window": data_windows["transaction"],
             },
             {
                 "name": "서울시 상권분석서비스(추정매출·길단위인구)",
                 "role": "상권 수요 취약성 신호와 매출 효율 분석",
-                "window": "2024",
+                "window": data_windows["demand"],
             },
             {
                 "name": "소상공인시장진흥공단 상가(상권)정보",
                 "role": "행정동 점포 밀도와 과밀 경쟁도 계산",
-                "window": "2025.12 기준 파일",
+                "window": data_windows["store"],
             },
         ],
         "limitations": [
@@ -781,6 +823,7 @@ def build_payload(root: Path) -> dict[str, object]:
     districts = build_district_payload(acquisition_df, memo_df, candidates_df, history_df)
     summary = build_summary_metrics(acquisition_df, raw_sales_df, demand_df, admin_dong_df, case_df)
     review_examples = build_review_example_payload(districts)
+    data_windows = build_data_windows(history_df, demand_df, load_source_metadata(root))
 
     payload = {
         "site": {
@@ -788,7 +831,7 @@ def build_payload(root: Path) -> dict[str, object]:
             "subtitle": "서울 소형 상가 매입 리스크 판별 서비스",
             "tagline": "Uncover hidden risks before acquisition.",
             "latestMonth": latest_month,
-            "timeCaveat": "거래 데이터는 2025.04~2026.03, 상권 수요 데이터는 2024 스냅샷입니다.",
+            "timeCaveat": f"거래 데이터는 {data_windows['transaction']}, 상권 수요 데이터는 {data_windows['demand']}입니다.",
             "sampleCaveat": "최근 거래 표본이 얇은 구는 신뢰도 경고를 함께 표시합니다.",
             "primaryCta": {"label": "내 매물 검토 시작", "href": "./review.html"},
             "secondaryCta": {"label": "3분 진단 체험", "href": "./assessment.html"},
@@ -801,7 +844,7 @@ def build_payload(root: Path) -> dict[str, object]:
         "archetypes": build_archetype_payload(districts),
         "reviewExamples": review_examples,
         "validationCases": review_examples,
-        "content": build_content(summary, latest_month, review_examples),
+        "content": build_content(summary, latest_month, review_examples, data_windows),
         "methodology": build_methodology(),
     }
     return attach_review_examples(payload)

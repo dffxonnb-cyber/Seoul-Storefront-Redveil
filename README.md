@@ -44,6 +44,8 @@ Redveil is a public, portfolio-ready web service for screening Seoul storefront 
 
 - Live Site: [GitHub Pages](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/)
 - Repository: [Seoul-Storefront-Redveil](https://github.com/dffxonnb-cyber/Seoul-Storefront-Redveil)
+- Portfolio Case Study: [docs/PORTFOLIO_CASE_STUDY.md](./docs/PORTFOLIO_CASE_STUDY.md)
+- Data Sources & Update Guide: [docs/DATA_SOURCES.md](./docs/DATA_SOURCES.md)
 - Key Flow: 매물 검토 → 3분 진단 → 후보 비교 → 구별 리포트
 
 ## Quick Start
@@ -201,6 +203,8 @@ http://127.0.0.1:8030/districts.html
 
 ## References
 - [프로젝트 개요](./docs/PROJECT_BRIEF.md)
+- [포트폴리오 케이스 스터디](./docs/PORTFOLIO_CASE_STUDY.md)
+- [데이터 출처와 업데이트 가이드](./docs/DATA_SOURCES.md)
 - [서비스 전략](./docs/SERVICE_STRATEGY.md)
 - [사용자 여정](./docs/USER_JOURNEY.md)
 - [검증 전략](./docs/VALIDATION_STRATEGY.md)

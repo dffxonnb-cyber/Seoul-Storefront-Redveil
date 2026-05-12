@@ -1,6 +1,8 @@
 # 문서 안내
 
 - `PROJECT_BRIEF.md`: 프로젝트를 한 장으로 요약한 개요 문서
+- `PORTFOLIO_CASE_STUDY.md`: 제출·공유용 포트폴리오 케이스 스터디
+- `DATA_SOURCES.md`: 원천 데이터 공식 링크와 로컬 업데이트 절차
 - `PRD_REDVEIL.md`: 제품 요구사항과 핵심 화면 정의
 - `RISK_MODEL_SPEC.md`: 점수 구조와 보류 사유 생성 방식
 - `SCREEN_DESIGN.md`: 화면 목표와 레이아웃 방향

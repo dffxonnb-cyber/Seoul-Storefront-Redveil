@@ -32,6 +32,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Refresh latest public datasets
+        env:
+          PUBLIC_DATA_API_KEY: ${{ secrets.PUBLIC_DATA_API_KEY }}
         run: python scripts/update_latest_public_data.py
 
       - name: Run unit tests
@@ -54,6 +56,7 @@ jobs:
 
           print("## Redveil Public Data Refresh")
           print()
+          print("- Transaction source: MOLIT API when `PUBLIC_DATA_API_KEY` is configured; otherwise tracked public-safe snapshot")
           print(f"- Latest month: `{summary['latestMonth']}`")
           print(f"- Transactions: `{summary['transactionCount']:,}`")
           print(f"- Districts: `{summary['districtCount']:,}`")
@@ -79,7 +82,8 @@ jobs:
             This workflow downloads the latest public Seoul commercial-district datasets, rebuilds the public-safe Redveil payload, syncs coverage/date documentation, and runs the CI-safe verification suite.
 
             Notes:
-            - MOLIT transaction rows still use the tracked public-safe 12-month snapshot unless a fresh service-key rebuild is run separately.
+            - MOLIT transaction rows are refreshed automatically when the repository secret `PUBLIC_DATA_API_KEY` is configured.
+            - Without `PUBLIC_DATA_API_KEY`, the workflow keeps using the tracked public-safe 12-month transaction snapshot.
             - Raw files under `data/` remain ignored by Git; the PR only carries reviewable public artifacts and docs.
           labels: |
             data-refresh

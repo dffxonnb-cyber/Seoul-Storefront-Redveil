@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import calendar
 import csv
 import json
@@ -27,6 +28,39 @@ MIN_SALES_ROWS = 10_000
 MIN_POPULATION_ROWS = 1_000
 MIN_ATTRACTOR_ROWS = 500
 MIN_STORE_BYTES = 50_000_000
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Refresh Redveil public datasets and rebuild the reviewable site payload."
+    )
+    parser.add_argument(
+        "--molit-service-key",
+        default=os.environ.get("PUBLIC_DATA_API_KEY"),
+        help="Optional data.go.kr encoding service key. When present, the MOLIT transaction window is refreshed.",
+    )
+    parser.add_argument(
+        "--molit-months-back",
+        type=int,
+        default=int(os.environ.get("REDVEIL_MOLIT_MONTHS_BACK", "12")),
+        help="Number of MOLIT transaction months to collect when a service key is available.",
+    )
+    parser.add_argument(
+        "--molit-end-month",
+        default=os.environ.get("REDVEIL_MOLIT_END_MONTH"),
+        help="Optional final MOLIT transaction month in YYYYMM. Defaults to the previous calendar month.",
+    )
+    parser.add_argument(
+        "--skip-molit",
+        action="store_true",
+        help="Always use the tracked public-safe transaction snapshot, even when a service key is present.",
+    )
+    parser.add_argument(
+        "--require-molit",
+        action="store_true",
+        help="Fail if a MOLIT service key is not available.",
+    )
+    return parser.parse_args()
 
 
 def read_snapshot_payload() -> dict[str, object]:
@@ -309,14 +343,44 @@ def run_pipeline(script_name: str, *args: str) -> None:
     subprocess.run(command, cwd=str(PROJECT_ROOT), check=True)
 
 
+def run_pipeline_with_env(script_name: str, env: dict[str, str], *args: str) -> None:
+    command = [PYTHON, str(PROJECT_ROOT / "src" / "redveil" / "pipelines" / script_name), *args]
+    subprocess.run(command, cwd=str(PROJECT_ROOT), env={**os.environ, **env}, check=True)
+
+
 def run_repo_script(script_name: str, *args: str) -> None:
     command = [PYTHON, str(PROJECT_ROOT / "scripts" / script_name), *args]
     subprocess.run(command, cwd=str(PROJECT_ROOT), check=True)
 
 
+def refresh_transaction_inputs(payload: dict[str, object], args: argparse.Namespace) -> str:
+    service_key = str(args.molit_service_key or "").strip()
+    if args.skip_molit:
+        service_key = ""
+    if args.require_molit and not service_key:
+        raise ValueError("PUBLIC_DATA_API_KEY is required for this run but was not provided.")
+
+    if not service_key:
+        reconstruct_transaction_snapshot(payload)
+        return "public-safe snapshot"
+
+    collect_args = ["--months-back", str(args.molit_months_back)]
+    if args.molit_end_month:
+        collect_args.extend(["--end-month", str(args.molit_end_month)])
+
+    run_pipeline_with_env(
+        "collect_molit_commercial_sales.py",
+        {"PUBLIC_DATA_API_KEY": service_key},
+        *collect_args,
+    )
+    run_pipeline("build_transaction_risk_scores.py")
+    return "MOLIT API"
+
+
 def main() -> int:
+    args = parse_args()
     payload = read_snapshot_payload()
-    reconstruct_transaction_snapshot(payload)
+    transaction_source = refresh_transaction_inputs(payload, args)
 
     raw_root = PROJECT_ROOT / "data" / "external" / "raw"
     store_dir = raw_root / "seoul_store_info"
@@ -394,6 +458,7 @@ def main() -> int:
     print(
         json.dumps(
             {
+                "transactionSource": transaction_source,
                 "seoulMarketQuarter": latest_quarter,
                 "salesRows": len(sales_records),
                 "populationRows": len(population_records),

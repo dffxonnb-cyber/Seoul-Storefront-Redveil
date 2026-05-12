@@ -64,7 +64,7 @@ The smoke check starts the local app server, verifies core HTML pages, validates
 
 The `Refresh Public Data` workflow runs quarterly and can be triggered manually. It downloads the latest public Seoul commercial-district/store datasets, rebuilds the public payload, syncs coverage/date documentation, runs unit tests plus the CI-safe smoke check, and opens a pull request only when tracked public artifacts change.
 
-MOLIT transaction data is still bounded by the tracked public-safe snapshot unless a fresh data.go.kr service-key rebuild is run separately.
+MOLIT transaction data is refreshed in that workflow when the repository secret `PUBLIC_DATA_API_KEY` is configured. Without that secret, the workflow falls back to the tracked public-safe transaction snapshot.
 
 ## Data Boundary
 

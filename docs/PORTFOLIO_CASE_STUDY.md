@@ -103,4 +103,4 @@ Redveil is verified in layers so the project can be reviewed without private loc
 
 ## Next Data Update
 
-The scheduled `Refresh Public Data` workflow checks the latest Seoul commercial-district and store-information files quarterly and opens a PR when tracked artifacts change. A full MOLIT transaction-window refresh still requires a data.go.kr service key and the verification ladder in [VERIFY.md](../VERIFY.md).
+The scheduled `Refresh Public Data` workflow checks the latest Seoul commercial-district and store-information files quarterly and opens a PR when tracked artifacts change. It also refreshes the MOLIT transaction window when the repository secret `PUBLIC_DATA_API_KEY` is configured; otherwise it keeps using the tracked public-safe transaction snapshot.

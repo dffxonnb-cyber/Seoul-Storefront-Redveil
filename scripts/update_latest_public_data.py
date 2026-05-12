@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import calendar
 import csv
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -21,6 +23,10 @@ STORE_ZIP_URL = (
     "https://www.data.go.kr/cmm/cmm/fileDownload.do?"
     "atchFileId=FILE_000000003632420&fileDetailSn=1&insertDataPrcus=N"
 )
+MIN_SALES_ROWS = 10_000
+MIN_POPULATION_ROWS = 1_000
+MIN_ATTRACTOR_ROWS = 500
+MIN_STORE_BYTES = 50_000_000
 
 
 def read_snapshot_payload() -> dict[str, object]:
@@ -231,6 +237,7 @@ def download_store_zip(zip_path: Path) -> None:
         return
 
     zip_path.parent.mkdir(parents=True, exist_ok=True)
+    store_zip_url = os.environ.get("REDVEIL_STORE_ZIP_URL", STORE_ZIP_URL)
     curl_path = shutil.which("curl.exe") or shutil.which("curl")
     if curl_path:
         subprocess.run(
@@ -243,13 +250,13 @@ def download_store_zip(zip_path: Path) -> None:
                 "5",
                 "--output",
                 str(zip_path),
-                STORE_ZIP_URL,
+                store_zip_url,
             ],
             check=True,
         )
         return
 
-    request = urllib.request.Request(STORE_ZIP_URL, headers={"User-Agent": "Mozilla/5.0"})
+    request = urllib.request.Request(store_zip_url, headers={"User-Agent": "Mozilla/5.0"})
     last_error: Exception | None = None
     for attempt in range(1, 4):
         try:
@@ -262,8 +269,18 @@ def download_store_zip(zip_path: Path) -> None:
     raise RuntimeError("Failed to download store-info ZIP") from last_error
 
 
-def extract_seoul_store_csv(zip_path: Path, output_path: Path) -> None:
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+def store_snapshot_date_from_name(name: str) -> str:
+    match = re.search(r"(20\d{2})(\d{2})(\d{2})?", name)
+    if not match:
+        raise ValueError(f"Could not detect store-info snapshot date from {name}")
+    year, month, day = match.groups()
+    if not day:
+        day = f"{calendar.monthrange(int(year), int(month))[1]:02d}"
+    return f"{year}{month}{day}"
+
+
+def extract_seoul_store_csv(zip_path: Path, output_dir: Path) -> Path:
+    output_dir.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(zip_path) as archive:
         seoul_names = [
             name
@@ -272,12 +289,28 @@ def extract_seoul_store_csv(zip_path: Path, output_path: Path) -> None:
         ]
         if not seoul_names:
             raise FileNotFoundError("Seoul CSV was not found in the store-info ZIP.")
+        seoul_names.sort(key=store_snapshot_date_from_name, reverse=True)
+        snapshot_date = store_snapshot_date_from_name(seoul_names[0])
+        output_path = output_dir / f"seoul_store_info_{snapshot_date}.csv"
         with archive.open(seoul_names[0]) as source, output_path.open("wb") as target:
             shutil.copyfileobj(source, target)
+    if output_path.stat().st_size < MIN_STORE_BYTES:
+        raise ValueError(f"Store-info CSV looks too small: {output_path} ({output_path.stat().st_size} bytes)")
+    return output_path
+
+
+def assert_minimum_rows(name: str, rows: list[dict[str, str]], minimum: int) -> None:
+    if len(rows) < minimum:
+        raise ValueError(f"{name} returned {len(rows):,} rows, below safety floor {minimum:,}.")
 
 
 def run_pipeline(script_name: str, *args: str) -> None:
     command = [PYTHON, str(PROJECT_ROOT / "src" / "redveil" / "pipelines" / script_name), *args]
+    subprocess.run(command, cwd=str(PROJECT_ROOT), check=True)
+
+
+def run_repo_script(script_name: str, *args: str) -> None:
+    command = [PYTHON, str(PROJECT_ROOT / "scripts" / script_name), *args]
     subprocess.run(command, cwd=str(PROJECT_ROOT), check=True)
 
 
@@ -292,6 +325,9 @@ def main() -> int:
     sales_records = fetch_seoul_records("OA-15572", latest_quarter)
     population_records = fetch_seoul_records("OA-15568", latest_quarter)
     attractor_records = fetch_seoul_records("OA-15581", latest_quarter)
+    assert_minimum_rows("sales", sales_records, MIN_SALES_ROWS)
+    assert_minimum_rows("population", population_records, MIN_POPULATION_ROWS)
+    assert_minimum_rows("attractors", attractor_records, MIN_ATTRACTOR_ROWS)
 
     write_projected_csv(
         raw_root / "seoul_sales_latest.csv",
@@ -341,10 +377,9 @@ def main() -> int:
         ],
     )
 
-    store_zip = store_dir / "store_info_20260331.zip"
-    store_csv = store_dir / "seoul_store_info_20260331.csv"
+    store_zip = store_dir / "store_info_latest.zip"
     download_store_zip(store_zip)
-    extract_seoul_store_csv(store_zip, store_csv)
+    store_csv = extract_seoul_store_csv(store_zip, store_dir)
 
     run_pipeline(
         "prepare_external_market_data.py",
@@ -354,6 +389,7 @@ def main() -> int:
     run_pipeline("build_redveil_outputs.py")
     run_pipeline("build_case_study_materials.py")
     run_pipeline("export_website_payload.py")
+    run_repo_script("sync_public_data_docs.py")
 
     print(
         json.dumps(

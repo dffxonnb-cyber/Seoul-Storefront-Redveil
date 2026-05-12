@@ -60,6 +60,12 @@ test -f app/site/website_payload.js
 
 The smoke check starts the local app server, verifies core HTML pages, validates the public payload examples, and exercises the bootstrap/content/assessment API path. The deploy job repeats the payload build and publishes `app/site` to GitHub Pages.
 
+## Scheduled Data Refresh
+
+The `Refresh Public Data` workflow runs quarterly and can be triggered manually. It downloads the latest public Seoul commercial-district/store datasets, rebuilds the public payload, syncs coverage/date documentation, runs unit tests plus the CI-safe smoke check, and opens a pull request only when tracked public artifacts change.
+
+MOLIT transaction data is still bounded by the tracked public-safe snapshot unless a fresh data.go.kr service-key rebuild is run separately.
+
 ## Data Boundary
 
 - Tracked public files are enough to review the service UI, API shape, public payload, tests, and deployment path.

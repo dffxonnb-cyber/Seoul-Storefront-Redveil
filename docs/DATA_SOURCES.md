@@ -27,6 +27,21 @@ Redveil combines three public-data families. The raw files under `data/` are int
 
 ## Update Checklist
 
+### Automated public refresh
+
+The scheduled workflow [Refresh Public Data](../.github/workflows/refresh-public-data.yml) runs quarterly and can also be started manually from GitHub Actions. It:
+
+1. Reconstructs the public-safe MOLIT transaction snapshot from `app/site/website_payload.js`.
+2. Downloads the latest Seoul Open Data commercial-district tables for 추정매출, 길단위인구, and 집객시설.
+3. Downloads the current 소상공인 상가정보 ZIP, extracts the Seoul CSV, and detects the file month from the archive name.
+4. Rebuilds Redveil outputs, `app/site/website_payload.js`, `docs/CASE_STUDIES.md`, and the coverage/date notes in this documentation set.
+5. Runs unit tests and the CI-safe site smoke check.
+6. Opens a pull request only when tracked public artifacts changed.
+
+The workflow intentionally opens a PR instead of pushing directly to `main`, because a data refresh can change ranking, case-study examples, and visible risk scores.
+
+### Full local rebuild
+
 1. Issue or refresh a data.go.kr service key for the MOLIT OpenAPI.
 2. Collect the latest commercial transaction window:
 
@@ -59,6 +74,6 @@ python scripts/check_responsive_pages.py
 ## Notes
 
 - `scripts/update_latest_public_data.py` can rebuild the public-safe local inputs when the MOLIT transaction snapshot is already present in `app/site/website_payload.js`.
-- The current public payload uses transaction data from `2025.04~2026.03`, Seoul commercial-district demand data from `2025년 4분기`, and store competition data from the `2026.03.31` file.
+- The current public payload uses transaction data from `2025.04~2026.03`, Seoul commercial-district demand data from `2025년 4분기`, and store competition data from the `2026.03.31 기준 파일`.
 - The MOLIT collector currently calls `https://apis.data.go.kr/1613000/RTMSDataSvcNrgTrade/getRTMSDataSvcNrgTrade`. The official listing is now easiest to find through the public-data page linked above, so verify the endpoint in the OpenAPI spec before a fresh rebuild.
 - Seoul commercial-district pages are split by metric and spatial scope. Match the pipeline input names rather than downloading every related dataset.

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import math
 import textwrap
 from pathlib import Path
@@ -13,6 +14,7 @@ DASHBOARD_DIR = PROJECT_ROOT / "dashboard"
 DATA_REDVEIL = PROJECT_ROOT / "data" / "redveil"
 DATA_EXTERNAL = PROJECT_ROOT / "data" / "external" / "processed"
 DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
+DATA_RAW_MOLIT = PROJECT_ROOT / "data" / "raw" / "molit_commercial_sales"
 
 WIDTH = 1600
 HEIGHT = 900
@@ -55,6 +57,46 @@ FONT_H3 = get_font(22, bold=True)
 FONT_BODY = get_font(18)
 FONT_SMALL = get_font(15)
 FONT_METRIC = get_font(34, bold=True)
+
+
+def load_source_metadata() -> dict[str, object]:
+    path = DATA_EXTERNAL / "redveil_source_metadata.json"
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8-sig"))
+
+
+def format_month_code(value: object) -> str:
+    raw = str(value)
+    if len(raw) == 6 and raw.isdigit():
+        return f"{raw[:4]}-{raw[4:]}"
+    return raw.replace(".", "-")
+
+
+def format_quarter_label(value: object) -> str:
+    raw = str(value)
+    if len(raw) == 5 and raw.isdigit():
+        return f"{raw[:4]} Q{raw[4]}"
+    return raw
+
+
+def transaction_window_label(data: dict[str, pd.DataFrame]) -> str:
+    trans = data.get("trans")
+    if trans is None or "deal_year_month" not in trans:
+        return "the latest 12 months"
+    months = sorted(str(item) for item in trans["deal_year_month"].dropna().unique())
+    if not months:
+        return "the latest 12 months"
+    return f"{format_month_code(months[0])} to {format_month_code(months[-1])}"
+
+
+def demand_quarter_label(data: dict[str, pd.DataFrame]) -> str:
+    metadata = load_source_metadata()
+    quarter = metadata.get("seoul_market_quarter")
+    demand = data.get("demand")
+    if not quarter and demand is not None and "quarter_code" in demand:
+        quarter = str(int(demand["quarter_code"].max()))
+    return format_quarter_label(quarter) if quarter else "the latest available quarter"
 
 
 def create_canvas() -> tuple[Image.Image, ImageDraw.ImageDraw]:
@@ -163,20 +205,23 @@ def load_data() -> dict[str, pd.DataFrame]:
         "dong": pd.read_csv(DATA_EXTERNAL / "seoul_store_competition_by_admin_dong.csv"),
         "kpi": pd.read_csv(DATA_PROCESSED / "case_study_snapshots.csv"),
         "trans": pd.read_csv(DATA_PROCESSED / "seoul_transaction_risk_scores.csv"),
+        "raw_sales": pd.read_csv(DATA_RAW_MOLIT / "seoul_commercial_sales.csv"),
     }
 
 
 def make_overview_png(data: dict[str, pd.DataFrame]) -> None:
     risk = data["risk"]
     case_df = data["case"]
+    transaction_window = transaction_window_label(data)
+    demand_quarter = demand_quarter_label(data)
     image, draw = create_canvas()
     draw.text((60, 44), "Redveil", font=FONT_H1, fill=INK)
     draw.text((60, 100), "Acquisition objections before commitment", font=FONT_BODY, fill=MUTED)
 
     metrics = [
-        ("Transactions", "12,074", "Storefront-oriented raw transactions collected from 2025-04 to 2026-03.", ACCENT),
+        ("Transactions", f"{len(data['raw_sales']):,}", f"Storefront-oriented raw transactions collected from {transaction_window}.", ACCENT),
         ("District Risk", "25", "District-level acquisition memos available in the latest snapshot.", ACCENT_2),
-        ("Admin-Dongs", "427", "Admin-dong saturation coverage from the processed store information file.", ACCENT_3),
+        ("Admin-Dongs", f"{len(data['dong']):,}", "Admin-dong saturation coverage from the processed store information file.", ACCENT_3),
         ("Low Sample", f"{int(risk['low_sample_flag'].sum())}", "Districts with thin latest-month storefront trade samples.", "#8C4B7D"),
     ]
     x = 60
@@ -201,7 +246,7 @@ def make_overview_png(data: dict[str, pd.DataFrame]) -> None:
     draw.rounded_rectangle((828, 404, 1510, 484), radius=18, fill=WARN)
     draw_text_block(
         draw,
-        "Transaction risk uses 2025-04 to 2026-03 storefront trades. Demand fragility uses 2025 Q4 Seoul trade-area files, so the product should be read as a risk-review screen rather than a same-period causal model.",
+        f"Transaction risk uses {transaction_window} storefront trades. Demand fragility uses {demand_quarter} Seoul trade-area files, so the product should be read as a risk-review screen rather than a same-period causal model.",
         850,
         424,
         630,
@@ -314,13 +359,14 @@ def make_case_study_png(data: dict[str, pd.DataFrame]) -> None:
 
 def make_demand_fragility_png(data: dict[str, pd.DataFrame]) -> None:
     demand = data["demand"].sort_values("demand_fragility_risk_score", ascending=False).head(8)
+    demand_quarter = demand_quarter_label(data)
     image, draw = create_canvas()
     draw.text((60, 44), "Demand Fragility", font=FONT_H1, fill=INK)
-    draw.text((60, 100), "Latest available Seoul trade-area signal: 2025 Q4", font=FONT_BODY, fill=MUTED)
+    draw.text((60, 100), f"Latest available Seoul trade-area signal: {demand_quarter}", font=FONT_BODY, fill=MUTED)
     draw.rounded_rectangle((60, 140, 1540, 220), radius=20, fill=WARN)
     draw_text_block(
         draw,
-        "This view comes from 2025 Q4 trade-area demand files. Use it to understand structural weakness in sales efficiency, ticket size, and service breadth, not to claim same-month alignment with 2026 transaction risk.",
+        f"This view comes from {demand_quarter} trade-area demand files. Use it to understand structural weakness in sales efficiency, ticket size, and service breadth, not to claim same-month alignment with 2026 transaction risk.",
         84,
         164,
         1410,

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -30,6 +31,46 @@ def load_csv(path: Path) -> pd.DataFrame | None:
     if not path.exists():
         return None
     return pd.read_csv(path)
+
+
+@st.cache_data
+def load_source_metadata() -> dict[str, object]:
+    path = DATA_EXTERNAL / "redveil_source_metadata.json"
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8-sig"))
+
+
+def format_month_code(value: object) -> str:
+    raw = str(value)
+    if len(raw) == 6 and raw.isdigit():
+        return f"{raw[:4]}-{raw[4:]}"
+    return raw.replace(".", "-")
+
+
+def format_quarter_label(value: object) -> str:
+    raw = str(value)
+    if len(raw) == 5 and raw.isdigit():
+        return f"{raw[:4]} Q{raw[4]}"
+    return raw
+
+
+def transaction_window_label() -> str:
+    history_df = load_csv(DATA_PROCESSED / "seoul_transaction_risk_history.csv")
+    if history_df is None or "deal_year_month" not in history_df:
+        return "the latest 12 months"
+    months = sorted(str(item) for item in history_df["deal_year_month"].dropna().unique())
+    if not months:
+        return "the latest 12 months"
+    return f"{format_month_code(months[0])} to {format_month_code(months[-1])}"
+
+
+def demand_quarter_label(demand_df: pd.DataFrame | None = None) -> str:
+    metadata = load_source_metadata()
+    quarter = metadata.get("seoul_market_quarter")
+    if not quarter and demand_df is not None and "quarter_code" in demand_df:
+        quarter = str(int(demand_df["quarter_code"].max()))
+    return format_quarter_label(quarter) if quarter else "the latest available quarter"
 
 
 def format_score(value: float | int | None) -> str:
@@ -82,8 +123,8 @@ def show_overview(
         """
     )
     st.warning(
-        "Transaction risk is based on storefront-oriented transactions from `2025-04` to `2026-03`, while the "
-        "current trade-area demand data comes from `2025 Q4` Seoul files. Treat the combined screen as a risk-review "
+        f"Transaction risk is based on storefront-oriented transactions from `{transaction_window_label()}`, while the "
+        f"current trade-area demand data comes from `{demand_quarter_label(demand_df)}` Seoul files. Treat the combined screen as a risk-review "
         "checklist, not as a same-period causal comparison."
     )
 
@@ -309,7 +350,7 @@ def show_trade_area_demand() -> None:
 
     st.info(
         "Demand fragility is based on the latest quarter available in the current Seoul trade-area files "
-        "(`2025 Q4` in this workspace). Compare it with transaction risk as a structural signal, not a same-month read."
+        f"(`{demand_quarter_label(demand_df)}` in this workspace). Compare it with transaction risk as a structural signal, not a same-month read."
     )
 
     col1, col2 = st.columns([0.7, 0.3])

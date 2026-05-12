@@ -1,0 +1,86 @@
+name: Refresh Public Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 04:20 KST on the 16th of each quarterly release month.
+    - cron: "20 19 15 1,4,7,10 *"
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: "refresh-public-data"
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Refresh latest public datasets
+        run: python scripts/update_latest_public_data.py
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Run site smoke check
+        run: python scripts/check_site_smoke.py
+
+      - name: Summarize refreshed payload
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          import re
+          from pathlib import Path
+
+          text = Path("app/site/website_payload.js").read_text(encoding="utf-8-sig")
+          payload = json.loads(re.search(r"window\.__REDVEIL_PAYLOAD__ = (.*);\s*$", text, re.S).group(1))
+          summary = payload["summary"]
+          sources = payload["content"]["dataSources"]
+
+          print("## Redveil Public Data Refresh")
+          print()
+          print(f"- Latest month: `{summary['latestMonth']}`")
+          print(f"- Transactions: `{summary['transactionCount']:,}`")
+          print(f"- Districts: `{summary['districtCount']:,}`")
+          print(f"- Admin-dongs: `{summary['adminDongCount']:,}`")
+          print(f"- Trade-area rows: `{summary['tradeAreaCount']:,}`")
+          print(f"- Highest risk: `{summary['highestRiskDistrict']['name']} {summary['highestRiskDistrict']['score']}`")
+          print()
+          for source in sources:
+              print(f"- {source['name']}: `{source['window']}`")
+          PY
+
+      - name: Create refresh pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: automation/refresh-public-data
+          delete-branch: true
+          commit-message: Refresh Redveil public data snapshot
+          title: Refresh Redveil public data snapshot
+          body: |
+            Automated Redveil public-data refresh.
+
+            This workflow downloads the latest public Seoul commercial-district datasets, rebuilds the public-safe Redveil payload, syncs coverage/date documentation, and runs the CI-safe verification suite.
+
+            Notes:
+            - MOLIT transaction rows still use the tracked public-safe 12-month snapshot unless a fresh service-key rebuild is run separately.
+            - Raw files under `data/` remain ignored by Git; the PR only carries reviewable public artifacts and docs.
+          labels: |
+            data-refresh
+            automated

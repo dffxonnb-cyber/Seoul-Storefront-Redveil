@@ -8983,3 +8983,109 @@ body[data-page="review"] .history-item p,
 body[data-page="review"] .review-history-panel p {
   color: rgba(190, 196, 210, 0.66) !important;
 }
+
+/* ================================
+   Redveil Review Page Final Polish
+   ================================ */
+
+body[data-page="review"] .review-subhero {
+  padding: clamp(26px, 3.2vw, 38px) !important;
+}
+
+body[data-page="review"] .subhero-copy {
+  align-items: center !important;
+}
+
+body[data-page="review"] .subhero-copy h2 {
+  max-width: 760px !important;
+  font-size: clamp(26px, 2.7vw, 38px) !important;
+  line-height: 1.16 !important;
+  letter-spacing: -0.055em !important;
+}
+
+body[data-page="review"] .subhero-copy > div:first-child {
+  display: grid;
+  gap: 8px;
+}
+
+body[data-page="review"] .review-workspace {
+  grid-template-columns: minmax(420px, 1fr) minmax(340px, 0.76fr) !important;
+  gap: 18px !important;
+}
+
+body[data-page="review"] .review-context-card {
+  display: grid !important;
+  align-content: start !important;
+  gap: 16px !important;
+}
+
+body[data-page="review"] .review-chart-card {
+  min-height: 250px !important;
+}
+
+body[data-page="review"] .review-spotlight-stats {
+  gap: 10px !important;
+}
+
+body[data-page="review"] .review-output-card {
+  margin-top: 4px !important;
+}
+
+body[data-page="review"] .review-output-preview {
+  padding: 18px !important;
+  border-radius: 20px !important;
+}
+
+body[data-page="review"] .review-memo-outline {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+
+body[data-page="review"] .review-memo-outline article {
+  min-height: 104px !important;
+  padding: 15px !important;
+}
+
+body[data-page="review"] .review-memo-outline article span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px !important;
+}
+
+body[data-page="review"] .review-memo-outline article p {
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+}
+
+body[data-page="review"] .review-history-panel {
+  min-height: 260px;
+}
+
+body[data-page="review"] .history-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)) !important;
+  gap: 12px !important;
+}
+
+body[data-page="review"] .history-card,
+body[data-page="review"] .history-item,
+body[data-page="review"] .review-history-panel article {
+  max-width: 280px;
+  border-radius: 18px !important;
+}
+
+@media (max-width: 900px) {
+  body[data-page="review"] .review-workspace {
+    grid-template-columns: 1fr !important;
+  }
+
+  body[data-page="review"] .review-memo-outline {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  body[data-page="review"] .review-memo-outline {
+    grid-template-columns: 1fr !important;
+  }
+}

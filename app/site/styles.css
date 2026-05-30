@@ -6811,3 +6811,215 @@ body[data-page="home"] .hero-actions .homepage-action-button {
 .metric-row.muted em {
   color: rgba(245, 247, 252, 0.58);
 }
+
+.recommend-head {
+  display: grid;
+  gap: 8px;
+  margin-top: 26px;
+}
+
+.recommend-head h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 850;
+  letter-spacing: -0.035em;
+  line-height: 1.25;
+}
+
+.recommend-head p {
+  margin: 0;
+  color: rgba(190, 196, 210, 0.72);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.recommend-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.recommend-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 112px;
+  gap: 14px;
+  min-height: 142px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 82% 42%, rgba(255, 30, 53, 0.12), transparent 32%),
+    linear-gradient(180deg, rgba(18, 21, 30, 0.92), rgba(9, 11, 17, 0.88)),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+}
+
+.recommend-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: rgba(255, 30, 53, 0.62);
+  box-shadow: 0 0 20px rgba(255, 30, 53, 0.22);
+}
+
+.recommend-card.is-watch::before {
+  background: rgba(255, 159, 26, 0.72);
+  box-shadow: 0 0 20px rgba(255, 159, 26, 0.18);
+}
+
+.recommend-card.is-low::before {
+  background: rgba(190, 196, 210, 0.54);
+  box-shadow: none;
+}
+
+.recommend-rank {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  color: #ff3347;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.recommend-card.is-watch .recommend-rank {
+  color: #ff9f1a;
+}
+
+.recommend-card.is-low .recommend-rank {
+  color: rgba(245, 247, 252, 0.72);
+}
+
+.recommend-card strong {
+  display: block;
+  margin-top: 2px;
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+}
+
+.recommend-card p {
+  margin: 18px 0 0;
+  color: rgba(190, 196, 210, 0.68);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.recommend-card b {
+  display: block;
+  margin-top: 5px;
+  color: #ff3347;
+  font-size: 28px;
+  font-weight: 880;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.recommend-card.is-watch b {
+  color: #ff9f1a;
+}
+
+.recommend-card.is-low b {
+  color: rgba(245, 247, 252, 0.68);
+}
+
+.recommend-card b small {
+  color: rgba(245, 247, 252, 0.62);
+  font-size: 11px;
+  letter-spacing: -0.02em;
+}
+
+.recommend-card b em {
+  margin-left: 6px;
+  color: currentColor;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.recommend-map {
+  position: relative;
+  align-self: stretch;
+  min-height: 92px;
+  border-radius: 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 30, 53, 0.5), transparent 10%),
+    radial-gradient(circle at 50% 50%, rgba(255, 30, 53, 0.18), transparent 36%),
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    #07090d;
+  background-size: auto, auto, 20px 20px, 20px 20px, auto;
+}
+
+.recommend-map::before {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 30, 53, 0.28);
+  box-shadow:
+    0 0 0 18px rgba(255, 30, 53, 0.035),
+    0 0 32px rgba(255, 30, 53, 0.18);
+}
+
+.recommend-map.orange {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 159, 26, 0.65), transparent 10%),
+    radial-gradient(circle at 50% 50%, rgba(255, 159, 26, 0.2), transparent 36%),
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    #07090d;
+  background-size: auto, auto, 20px 20px, 20px 20px, auto;
+}
+
+.recommend-map.orange::before {
+  border-color: rgba(255, 159, 26, 0.28);
+  box-shadow:
+    0 0 0 18px rgba(255, 159, 26, 0.035),
+    0 0 32px rgba(255, 159, 26, 0.16);
+}
+
+.recommend-map.gray {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(245, 247, 252, 0.5), transparent 10%),
+    radial-gradient(circle at 50% 50%, rgba(245, 247, 252, 0.12), transparent 36%),
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    #07090d;
+  background-size: auto, auto, 20px 20px, 20px 20px, auto;
+}
+
+.recommend-map.gray::before {
+  border-color: rgba(245, 247, 252, 0.18);
+  box-shadow:
+    0 0 0 18px rgba(245, 247, 252, 0.025),
+    0 0 28px rgba(245, 247, 252, 0.08);
+}
+
+.recommend-card footer {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.recommend-card footer span {
+  color: rgba(190, 196, 210, 0.66);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.phone-recommend .app-primary-button {
+  margin-top: 18px;
+}

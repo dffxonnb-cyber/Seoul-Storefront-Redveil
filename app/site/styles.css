@@ -7886,3 +7886,421 @@ body[data-page="home"] .hero-actions .homepage-action-button {
   font-size: 12.5px;
   line-height: 1.45;
 }
+
+/* ================================
+   Redveil Web Dashboard Mockup Force
+   ================================ */
+
+.web-dashboard-mockup {
+  display: block !important;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 620px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 70% 18%, rgba(255, 30, 53, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(16, 19, 27, 0.98), rgba(5, 6, 8, 0.98));
+  box-shadow:
+    0 44px 110px rgba(0, 0, 0, 0.58),
+    0 0 80px rgba(255, 30, 53, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.dashboard-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.dashboard-browser-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.dashboard-browser-bar span:first-child {
+  background: rgba(255, 30, 53, 0.8);
+  box-shadow: 0 0 18px rgba(255, 30, 53, 0.36);
+}
+
+.dashboard-browser-bar p {
+  margin: 0 0 0 10px;
+  color: rgba(190, 196, 210, 0.56);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dashboard-shell {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  min-height: 576px;
+}
+
+.dashboard-sidebar {
+  padding: 24px 18px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.dashboard-sidebar strong {
+  display: block;
+  color: #ff3347;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+}
+
+.dashboard-sidebar nav {
+  display: grid;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.dashboard-sidebar nav span {
+  padding: 11px 12px;
+  border-radius: 14px;
+  color: rgba(190, 196, 210, 0.62);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.dashboard-sidebar nav span.is-active {
+  color: #fff;
+  background: rgba(255, 30, 53, 0.13);
+  border: 1px solid rgba(255, 30, 53, 0.24);
+}
+
+.dashboard-main-panel {
+  padding: 26px;
+}
+
+.dashboard-main-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.dashboard-main-head p {
+  margin: 0;
+  color: #ff6675;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dashboard-main-head h2 {
+  margin: 8px 0 0;
+  color: #fff;
+  font-size: clamp(25px, 2.2vw, 34px);
+  font-weight: 850;
+  letter-spacing: -0.045em;
+}
+
+.dashboard-main-head > span {
+  color: rgba(190, 196, 210, 0.62);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dashboard-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.web-risk-map-panel,
+.web-score-card,
+.web-alert-card,
+.web-table-panel {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(18, 21, 30, 0.9), rgba(10, 12, 18, 0.86)),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+}
+
+.web-risk-map-panel {
+  padding: 20px;
+}
+
+.panel-label-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+}
+
+.panel-label-row span {
+  color: #ff6675;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.panel-label-row strong {
+  color: rgba(245, 247, 252, 0.88);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.web-seoul-map {
+  position: relative;
+  height: 330px;
+  margin-top: 18px;
+  overflow: hidden;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 48% 50%, rgba(255, 30, 53, 0.22), transparent 28%),
+    linear-gradient(rgba(255, 30, 53, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 30, 53, 0.09) 1px, transparent 1px),
+    #07090d;
+  background-size: auto, 30px 30px, 30px 30px, auto;
+  box-shadow: inset 0 0 70px rgba(0, 0, 0, 0.56);
+}
+
+.web-map-shape {
+  position: absolute;
+  border: 1px solid rgba(255, 30, 53, 0.44);
+  background: rgba(255, 30, 53, 0.12);
+  filter: drop-shadow(0 0 22px rgba(255, 30, 53, 0.24));
+}
+
+.shape-one {
+  left: 15%;
+  top: 28%;
+  width: 34%;
+  height: 26%;
+  clip-path: polygon(0 18%, 40% 0, 100% 22%, 78% 100%, 16% 82%);
+}
+
+.shape-two {
+  left: 40%;
+  top: 36%;
+  width: 30%;
+  height: 28%;
+  clip-path: polygon(16% 0, 94% 14%, 100% 78%, 28% 100%, 0 42%);
+}
+
+.shape-three {
+  left: 26%;
+  top: 53%;
+  width: 42%;
+  height: 22%;
+  clip-path: polygon(0 26%, 42% 0, 100% 28%, 78% 100%, 10% 80%);
+}
+
+.shape-four {
+  left: 54%;
+  top: 24%;
+  width: 24%;
+  height: 22%;
+  clip-path: polygon(0 32%, 56% 0, 100% 34%, 74% 100%, 18% 76%);
+}
+
+.web-map-pulse {
+  position: absolute;
+  left: 48%;
+  top: 48%;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  background: #ff3347;
+  box-shadow:
+    0 0 0 18px rgba(255, 30, 53, 0.08),
+    0 0 48px rgba(255, 30, 53, 0.6);
+}
+
+.web-map-legend {
+  display: flex;
+  gap: 18px;
+  margin-top: 16px;
+  color: rgba(190, 196, 210, 0.68);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.web-map-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.web-map-legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.web-map-legend .high {
+  background: #ff3347;
+}
+
+.web-map-legend .watch {
+  background: #ff9f1a;
+}
+
+.web-map-legend .low {
+  background: rgba(255, 255, 255, 0.36);
+}
+
+.web-risk-side {
+  display: grid;
+  gap: 16px;
+}
+
+.web-score-card,
+.web-alert-card {
+  padding: 20px;
+}
+
+.web-score-card span,
+.web-alert-card span {
+  display: block;
+  color: rgba(190, 196, 210, 0.68);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.web-score-card strong {
+  display: block;
+  margin-top: 14px;
+  color: #ff3347;
+  font-size: 58px;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.08em;
+}
+
+.web-score-card small {
+  color: rgba(245, 247, 252, 0.66);
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.web-score-card p,
+.web-alert-card p {
+  margin: 12px 0 0;
+  color: rgba(190, 196, 210, 0.72);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.web-alert-card strong {
+  display: block;
+  margin-top: 10px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+}
+
+.web-table-panel {
+  grid-column: 1 / -1;
+  padding: 18px;
+}
+
+.web-table-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 120px 110px;
+  gap: 12px;
+  align-items: center;
+  min-height: 48px;
+  margin-top: 10px;
+  padding: 0 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(225, 229, 238, 0.78);
+}
+
+.web-table-row span {
+  color: rgba(190, 196, 210, 0.62);
+  font-weight: 900;
+}
+
+.web-table-row strong {
+  color: #fff;
+  font-weight: 800;
+}
+
+.web-table-row em {
+  color: #ff6675;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.web-table-row p {
+  margin: 0;
+  color: rgba(190, 196, 210, 0.62);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.web-table-row.is-watch em {
+  color: #ff9f1a;
+}
+
+@media (max-width: 1180px) {
+  .product-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .web-dashboard-mockup {
+    width: min(100%, 980px);
+    justify-self: center;
+  }
+}
+
+@media (max-width: 760px) {
+  .web-dashboard-mockup {
+    min-height: auto;
+    border-radius: 26px;
+  }
+
+  .dashboard-shell {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .dashboard-sidebar {
+    display: none;
+  }
+
+  .dashboard-main-panel {
+    padding: 18px;
+  }
+
+  .dashboard-main-head {
+    display: grid;
+  }
+
+  .dashboard-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .web-seoul-map {
+    height: 250px;
+  }
+
+  .web-table-row {
+    grid-template-columns: 32px minmax(0, 1fr);
+    padding: 12px;
+  }
+
+  .web-table-row em,
+  .web-table-row p {
+    grid-column: 2;
+  }
+}

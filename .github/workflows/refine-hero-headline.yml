@@ -63,3 +63,5 @@ jobs:
           git add app/site/index.html app/site/styles.css .github/workflows/refine-hero-headline.yml
           git commit -m "Refine Redveil hero headline flow"
           git push
+
+# trigger: 2026-05-31-hero-headline

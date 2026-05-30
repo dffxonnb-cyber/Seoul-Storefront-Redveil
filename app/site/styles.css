@@ -7023,3 +7023,155 @@ body[data-page="home"] .hero-actions .homepage-action-button {
 .phone-recommend .app-primary-button {
   margin-top: 18px;
 }
+
+/* ================================
+   App Showcase Responsive Polish
+   ================================ */
+
+.app-showcase-page {
+  min-height: calc(100vh - 120px);
+}
+
+.app-showcase-hero {
+  max-width: 1720px;
+  margin: 0 auto;
+}
+
+.phone-frame {
+  transform-origin: top center;
+}
+
+.phone-frame:nth-child(1) {
+  margin-top: 0;
+}
+
+.phone-frame:nth-child(2) {
+  margin-top: 10px;
+}
+
+.phone-frame:nth-child(3) {
+  margin-top: 0;
+}
+
+.phone-frame:nth-child(4) {
+  margin-top: 10px;
+}
+
+.phone-screen {
+  isolation: isolate;
+}
+
+.phone-dashboard .phone-screen,
+.phone-analysis .phone-screen,
+.phone-recommend .phone-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.legacy-homepage {
+  display: none;
+}
+
+@media (max-width: 1380px) {
+  .app-showcase-hero {
+    grid-template-columns: repeat(2, minmax(280px, 430px));
+    justify-content: center;
+  }
+
+  .phone-frame:nth-child(n) {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .page-shell {
+    padding-inline: 14px;
+  }
+
+  .topbar {
+    display: none;
+  }
+
+  .app-showcase-page {
+    padding-top: 10px;
+  }
+
+  .app-showcase-hero {
+    grid-template-columns: minmax(0, 430px);
+    gap: 22px;
+  }
+
+  .phone-frame {
+    width: min(100%, 430px);
+    justify-self: center;
+    border-radius: 34px;
+    padding: 8px;
+  }
+
+  .phone-screen {
+    border-radius: 27px;
+    padding: 20px 18px;
+  }
+
+  .welcome-visual {
+    min-height: 190px;
+  }
+
+  .dashboard-risk-body {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-sparkline {
+    height: 44px;
+  }
+
+  .analysis-score-card {
+    grid-template-columns: 1fr;
+  }
+
+  .risk-ring {
+    margin-inline: auto;
+  }
+
+  .recommend-card {
+    grid-template-columns: 1fr;
+  }
+
+  .recommend-map {
+    min-height: 110px;
+  }
+}
+
+@media (max-width: 430px) {
+  .phone-frame {
+    aspect-ratio: auto;
+    min-height: 820px;
+  }
+
+  .phone-screen {
+    min-height: 800px;
+  }
+
+  .dashboard-stat-grid {
+    gap: 8px;
+  }
+
+  .dashboard-stat-grid article {
+    padding: 12px 10px;
+  }
+
+  .dashboard-stat-grid strong {
+    font-size: 21px;
+  }
+
+  .seoul-risk-map {
+    height: 190px;
+  }
+
+  .app-tabbar {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+}
+

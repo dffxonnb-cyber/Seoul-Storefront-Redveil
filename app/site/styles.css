@@ -9568,3 +9568,71 @@ body[data-page="districts"] input:-webkit-autofill:focus {
     max-height: 340px;
   }
 }
+
+/* Disable sticky behavior for district selector */
+body[data-page="districts"] .district-selector-card {
+  position: relative !important;
+  top: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+body[data-page="districts"] .district-list-panel {
+  max-height: 420px !important;
+  overflow-y: auto !important;
+}
+
+/* ================================
+   Fix District Selector Sticky Sidebar
+   ================================ */
+
+body[data-page="districts"] .page-shell,
+body[data-page="districts"] .page-stack,
+body[data-page="districts"] .district-layout {
+  overflow: visible !important;
+}
+
+body[data-page="districts"] .district-layout {
+  align-items: start !important;
+}
+
+body[data-page="districts"] .district-selector-card {
+  position: sticky !important;
+  top: 96px !important;
+  align-self: start !important;
+  max-height: calc(100vh - 118px) !important;
+  overflow: hidden !important;
+}
+
+body[data-page="districts"] .district-list-panel {
+  max-height: calc(100vh - 280px) !important;
+  overflow-y: auto !important;
+  padding-right: 5px !important;
+}
+
+body[data-page="districts"] .district-list-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+body[data-page="districts"] .district-list-panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 999px;
+}
+
+body[data-page="districts"] .district-list-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 30, 53, 0.45);
+  border-radius: 999px;
+}
+
+@media (max-width: 980px) {
+  body[data-page="districts"] .district-selector-card {
+    position: relative !important;
+    top: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  body[data-page="districts"] .district-list-panel {
+    max-height: 340px !important;
+  }
+}

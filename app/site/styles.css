@@ -5977,3 +5977,281 @@ body[data-page="home"] .hero-actions .homepage-action-button {
     letter-spacing: 0.04em;
   }
 }
+
+/* ================================
+   Redveil App Showcase Mockup
+   ================================ */
+
+.app-showcase-page {
+  position: relative;
+  z-index: 1;
+  padding: clamp(18px, 2.4vw, 32px) 0 clamp(36px, 5vw, 72px);
+}
+
+.app-showcase-hero {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(250px, 1fr));
+  gap: clamp(18px, 2vw, 28px);
+  align-items: start;
+}
+
+.legacy-homepage {
+  margin-top: clamp(56px, 7vw, 96px);
+  opacity: 0.22;
+}
+
+.phone-frame {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 430 / 880;
+  border-radius: 38px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    #050608;
+  box-shadow:
+    0 38px 90px rgba(0, 0, 0, 0.56),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.phone-frame::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  width: 30%;
+  height: 26px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #010204;
+  z-index: 3;
+}
+
+.phone-screen {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  border-radius: 30px;
+  padding: 22px 20px;
+  color: #f6f7fb;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(255, 30, 53, 0.12), transparent 32%),
+    radial-gradient(circle at 100% 42%, rgba(255, 30, 53, 0.08), transparent 30%),
+    linear-gradient(180deg, #050608 0%, #080a0f 48%, #030406 100%);
+}
+
+.phone-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at 50% 42%, rgba(0, 0, 0, 0.72), transparent 78%);
+  pointer-events: none;
+}
+
+.phone-screen > * {
+  position: relative;
+  z-index: 1;
+}
+
+.phone-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 22px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.phone-status-icons {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+}
+
+.welcome-visual {
+  display: grid;
+  place-items: center;
+  min-height: 210px;
+  margin-top: 26px;
+}
+
+.city-grid-scene {
+  position: relative;
+  width: min(82%, 250px);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 30, 53, 0.2), transparent 34%),
+    radial-gradient(circle at 50% 68%, rgba(255, 30, 53, 0.16), transparent 42%),
+    linear-gradient(rgba(255, 30, 53, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 30, 53, 0.1) 1px, transparent 1px);
+  background-size: auto, auto, 22px 22px, 22px 22px;
+  box-shadow:
+    0 0 60px rgba(255, 30, 53, 0.22),
+    inset 0 0 40px rgba(255, 30, 53, 0.08);
+}
+
+.city-beam {
+  position: absolute;
+  left: 50%;
+  top: 18%;
+  width: 2px;
+  height: 62%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, transparent, rgba(255, 30, 53, 0.95), transparent);
+  box-shadow: 0 0 24px rgba(255, 30, 53, 0.8);
+}
+
+.city-block {
+  position: absolute;
+  bottom: 28%;
+  width: 18px;
+  border-radius: 4px 4px 1px 1px;
+  background: linear-gradient(180deg, rgba(255, 30, 53, 0.88), rgba(90, 8, 18, 0.9));
+  box-shadow: 0 0 20px rgba(255, 30, 53, 0.36);
+}
+
+.city-block-one {
+  left: 38%;
+  height: 54px;
+}
+
+.city-block-two {
+  left: 50%;
+  height: 78px;
+  transform: translateX(-50%);
+}
+
+.city-block-three {
+  right: 36%;
+  height: 44px;
+}
+
+.welcome-copy {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.app-logo-word,
+.app-logo-mini {
+  margin: 0;
+  color: #ff3347;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 18px rgba(255, 30, 53, 0.34);
+}
+
+.welcome-copy h1 {
+  margin: 0 auto;
+  max-width: 9.2em;
+  color: #fff;
+  font-size: clamp(28px, 3vw, 34px);
+  font-weight: 850;
+  line-height: 1.14;
+  letter-spacing: -0.055em;
+}
+
+.welcome-copy h1 span {
+  color: #ff3347;
+}
+
+.welcome-feature-list {
+  display: grid;
+  gap: 12px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.welcome-feature-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(18, 21, 30, 0.88), rgba(10, 12, 18, 0.82)),
+    rgba(255, 255, 255, 0.035);
+}
+
+.feature-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 12px;
+  color: #ff6675;
+  background: rgba(255, 30, 53, 0.12);
+  border: 1px solid rgba(255, 30, 53, 0.22);
+}
+
+.welcome-feature-list strong {
+  display: block;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 780;
+}
+
+.welcome-feature-list p {
+  margin: 4px 0 0;
+  color: rgba(190, 196, 210, 0.72);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.app-primary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  margin-top: 24px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 30, 53, 0.44);
+  background: linear-gradient(135deg, #ff1e35, #c41226);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow:
+    0 16px 34px rgba(255, 30, 53, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.app-primary-button.compact {
+  min-height: 44px;
+  margin-top: auto;
+  font-size: 13px;
+}
+
+.phone-pager {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+.phone-pager span {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.phone-pager span.is-active {
+  width: 18px;
+  background: #ff3347;
+}

@@ -8583,3 +8583,270 @@ body[data-page="home"] .hero-actions .homepage-action-button {
     height: 220px !important;
   }
 }
+
+/* ================================
+   Redveil Review Page Dark Intelligence Pass
+   ================================ */
+
+body[data-page="review"] {
+  background:
+    radial-gradient(circle at 72% 8%, rgba(255, 30, 53, 0.13), transparent 34%),
+    radial-gradient(circle at 12% 28%, rgba(255, 30, 53, 0.08), transparent 26%),
+    linear-gradient(180deg, #050608 0%, #07080d 48%, #030405 100%) !important;
+  color: #f4f5f7 !important;
+}
+
+body[data-page="review"] .page-stack {
+  gap: 18px !important;
+  padding-top: clamp(22px, 3.4vw, 42px) !important;
+}
+
+body[data-page="review"] .panel,
+body[data-page="review"] .section-block,
+body[data-page="review"] .review-subhero,
+body[data-page="review"] .review-input-panel,
+body[data-page="review"] .review-context-card,
+body[data-page="review"] .review-output-card,
+body[data-page="review"] .review-history-panel {
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  background:
+    radial-gradient(circle at 96% 0%, rgba(255, 30, 53, 0.1), transparent 30%),
+    linear-gradient(180deg, rgba(18, 21, 30, 0.94), rgba(8, 10, 15, 0.92)) !important;
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+body[data-page="review"] .review-subhero {
+  overflow: hidden;
+  position: relative;
+  padding: clamp(22px, 3vw, 30px) !important;
+}
+
+body[data-page="review"] .review-subhero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 30, 53, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 30, 53, 0.04) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(90deg, #000, transparent 72%);
+}
+
+body[data-page="review"] .subhero-copy {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-page="review"] .section-label,
+body[data-page="review"] .card-label {
+  color: #ff6675 !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+body[data-page="review"] .section-head h2,
+body[data-page="review"] .subhero-copy h2 {
+  color: #fff !important;
+  font-family: var(--font-display);
+  font-weight: 850 !important;
+  letter-spacing: -0.045em !important;
+}
+
+body[data-page="review"] .subhero-copy h2 {
+  max-width: 780px;
+  font-size: clamp(28px, 3.2vw, 46px) !important;
+  line-height: 1.08 !important;
+}
+
+body[data-page="review"] .section-copy,
+body[data-page="review"] .subhero-copy p,
+body[data-page="review"] .compact-note {
+  color: rgba(210, 216, 230, 0.68) !important;
+}
+
+body[data-page="review"] .review-status-card {
+  border: 1px solid rgba(255, 30, 53, 0.24) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 30, 53, 0.12), rgba(255, 255, 255, 0.035)) !important;
+}
+
+body[data-page="review"] .review-status-card strong {
+  color: #ff3347 !important;
+}
+
+body[data-page="review"] .review-workspace {
+  align-items: stretch !important;
+}
+
+body[data-page="review"] .review-input-panel,
+body[data-page="review"] .review-context-card {
+  min-height: auto !important;
+  padding: clamp(20px, 2.2vw, 26px) !important;
+}
+
+body[data-page="review"] .form-stack {
+  gap: 14px !important;
+}
+
+body[data-page="review"] .review-example-panel,
+body[data-page="review"] .review-form-group,
+body[data-page="review"] .review-output-preview,
+body[data-page="review"] .review-context-empty,
+body[data-page="review"] .review-chart-card {
+  border: 1px solid rgba(255, 255, 255, 0.085) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.025)) !important;
+  box-shadow: none !important;
+}
+
+body[data-page="review"] .review-example-panel,
+body[data-page="review"] .review-form-group {
+  border-radius: 18px !important;
+  padding: 16px !important;
+}
+
+body[data-page="review"] .review-example-head strong,
+body[data-page="review"] .review-form-group legend {
+  color: #fff !important;
+  font-weight: 820 !important;
+}
+
+body[data-page="review"] .review-example-head p {
+  color: rgba(190, 196, 210, 0.62) !important;
+}
+
+body[data-page="review"] .review-example-button {
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  background:
+    linear-gradient(180deg, rgba(18, 21, 30, 0.88), rgba(10, 12, 18, 0.78)) !important;
+  color: rgba(245, 247, 252, 0.9) !important;
+  box-shadow: none !important;
+}
+
+body[data-page="review"] .review-example-button:hover,
+body[data-page="review"] .review-example-button:focus-visible {
+  border-color: rgba(255, 30, 53, 0.38) !important;
+  box-shadow: 0 16px 32px rgba(255, 30, 53, 0.1) !important;
+}
+
+body[data-page="review"] .review-example-button span {
+  background: rgba(255, 30, 53, 0.12) !important;
+  color: #ff6675 !important;
+}
+
+body[data-page="review"] .review-example-button strong {
+  color: #fff !important;
+}
+
+body[data-page="review"] .review-example-button small {
+  color: rgba(190, 196, 210, 0.62) !important;
+}
+
+body[data-page="review"] .field span {
+  color: rgba(210, 216, 230, 0.78) !important;
+}
+
+body[data-page="review"] .field input,
+body[data-page="review"] .field select,
+body[data-page="review"] .field textarea {
+  border-color: rgba(255, 255, 255, 0.11) !important;
+  background: rgba(3, 5, 9, 0.66) !important;
+  color: #fff !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.18) !important;
+}
+
+body[data-page="review"] .field input::placeholder,
+body[data-page="review"] .field textarea::placeholder {
+  color: rgba(190, 196, 210, 0.38) !important;
+}
+
+body[data-page="review"] .field input:focus,
+body[data-page="review"] .field select:focus,
+body[data-page="review"] .field textarea:focus {
+  border-color: rgba(255, 30, 53, 0.58) !important;
+  background: rgba(8, 10, 15, 0.92) !important;
+  box-shadow:
+    0 0 0 3px rgba(255, 30, 53, 0.13),
+    0 18px 34px rgba(0, 0, 0, 0.18) !important;
+}
+
+body[data-page="review"] .button-wide {
+  border-color: rgba(255, 30, 53, 0.52) !important;
+  background: linear-gradient(135deg, #ff1e35, #b90f22) !important;
+  color: #fff !important;
+  box-shadow:
+    0 18px 34px rgba(255, 30, 53, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+body[data-page="review"] .review-chart-card {
+  overflow: hidden;
+  border-radius: 20px !important;
+  background:
+    radial-gradient(circle at 60% 45%, rgba(255, 30, 53, 0.13), transparent 28%),
+    linear-gradient(rgba(255, 30, 53, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 30, 53, 0.06) 1px, transparent 1px),
+    #07090d !important;
+  background-size: auto, 34px 34px, 34px 34px, auto !important;
+}
+
+body[data-page="review"] .chart-head strong {
+  color: #fff !important;
+}
+
+body[data-page="review"] .chart-head span {
+  color: rgba(190, 196, 210, 0.56) !important;
+}
+
+body[data-page="review"] .review-spotlight-stats .stat-card,
+body[data-page="review"] .stat-card {
+  border-color: rgba(255, 255, 255, 0.085) !important;
+  background: rgba(255, 255, 255, 0.045) !important;
+}
+
+body[data-page="review"] .stat-card strong,
+body[data-page="review"] .review-output-preview p,
+body[data-page="review"] .review-memo-outline p {
+  color: rgba(235, 239, 248, 0.86) !important;
+}
+
+body[data-page="review"] .review-output-card,
+body[data-page="review"] .review-history-panel {
+  padding: clamp(20px, 2.2vw, 26px) !important;
+}
+
+body[data-page="review"] .review-memo-outline article,
+body[data-page="review"] .history-grid article,
+body[data-page="review"] .history-card {
+  border: 1px solid rgba(255, 255, 255, 0.085) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.025)) !important;
+  box-shadow: none !important;
+}
+
+body[data-page="review"] .review-memo-outline article span {
+  color: #ff6675 !important;
+}
+
+body[data-page="review"] .interpretation-note {
+  border-color: rgba(255, 30, 53, 0.2) !important;
+  background: rgba(255, 30, 53, 0.08) !important;
+  color: rgba(245, 247, 252, 0.76) !important;
+}
+
+body[data-page="review"] .history-grid {
+  min-height: 86px;
+}
+
+body[data-page="review"] .history-grid:empty {
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+}

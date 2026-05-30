@@ -8850,3 +8850,136 @@ body[data-page="review"] .history-grid:empty {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.03);
 }
+
+/* ================================
+   Redveil Review Result Dark Report Pass
+   ================================ */
+
+body[data-page="review"] .review-result-memo,
+body[data-page="review"] .review-result-sections,
+body[data-page="review"] .review-result-scoreline,
+body[data-page="review"] .decision-cue,
+body[data-page="review"] .risk-signal-board,
+body[data-page="review"] .risk-signal-grid,
+body[data-page="review"] .risk-signal-card,
+body[data-page="review"] .compare-memo-card,
+body[data-page="review"] .alternative-board,
+body[data-page="review"] .risk-delta-card,
+body[data-page="review"] .alternative-support-grid section {
+  border-color: rgba(255, 255, 255, 0.085) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.024)) !important;
+  box-shadow: none !important;
+}
+
+body[data-page="review"] .review-result-memo {
+  padding: clamp(18px, 2vw, 24px) !important;
+  border-radius: 22px !important;
+}
+
+body[data-page="review"] .review-result-scoreline {
+  align-items: flex-start !important;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body[data-page="review"] .review-result-scoreline strong,
+body[data-page="review"] .decision-cue p,
+body[data-page="review"] .risk-signal-card strong,
+body[data-page="review"] .alternative-hero strong,
+body[data-page="review"] .metric-compare-card strong {
+  color: #fff !important;
+}
+
+body[data-page="review"] .review-result-scoreline p,
+body[data-page="review"] .risk-signal-card p,
+body[data-page="review"] .risk-delta-card p,
+body[data-page="review"] .alternative-hero p,
+body[data-page="review"] .compact-checklist li,
+body[data-page="review"] .metric-compare-card p {
+  color: rgba(190, 196, 210, 0.68) !important;
+}
+
+body[data-page="review"] .decision-cue {
+  padding: 14px 15px !important;
+  border-radius: 17px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 30, 53, 0.09), rgba(255, 255, 255, 0.026)) !important;
+}
+
+body[data-page="review"] .decision-cue span,
+body[data-page="review"] .risk-signal-card span,
+body[data-page="review"] .risk-delta-card span,
+body[data-page="review"] .decision-memo-row span {
+  color: #ff6675 !important;
+}
+
+body[data-page="review"] .risk-signal-card {
+  min-height: 48px !important;
+  border-radius: 15px !important;
+}
+
+body[data-page="review"] .risk-signal-card.tone-high {
+  border-color: rgba(255, 30, 53, 0.25) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 30, 53, 0.11), rgba(255, 255, 255, 0.025)) !important;
+}
+
+body[data-page="review"] .risk-signal-card strong,
+body[data-page="review"] .metric-scoreline span,
+body[data-page="review"] .risk-delta-card strong {
+  color: #ff3347 !important;
+}
+
+body[data-page="review"] .alternative-board {
+  padding: 17px !important;
+  border-radius: 20px !important;
+}
+
+body[data-page="review"] .review-output-preview {
+  background:
+    radial-gradient(circle at 96% 0%, rgba(255, 30, 53, 0.09), transparent 34%),
+    linear-gradient(180deg, rgba(12, 15, 22, 0.95), rgba(5, 7, 11, 0.92)) !important;
+}
+
+body[data-page="review"] .review-memo-outline article {
+  border-radius: 16px !important;
+}
+
+/* force autofill / browser-white fields to stay dark */
+body[data-page="review"] input:-webkit-autofill,
+body[data-page="review"] input:-webkit-autofill:hover,
+body[data-page="review"] input:-webkit-autofill:focus,
+body[data-page="review"] textarea:-webkit-autofill,
+body[data-page="review"] select:-webkit-autofill {
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff !important;
+  box-shadow: 0 0 0 1000px rgba(3, 5, 9, 0.96) inset !important;
+  transition: background-color 9999s ease-in-out 0s !important;
+}
+
+body[data-page="review"] select,
+body[data-page="review"] option {
+  background: #080a0f !important;
+  color: #fff !important;
+}
+
+body[data-page="review"] .history-card,
+body[data-page="review"] .history-item,
+body[data-page="review"] .review-history-panel article {
+  border-color: rgba(255, 255, 255, 0.085) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.024)) !important;
+}
+
+body[data-page="review"] .history-card strong,
+body[data-page="review"] .history-item strong,
+body[data-page="review"] .review-history-panel strong {
+  color: #fff !important;
+}
+
+body[data-page="review"] .history-card p,
+body[data-page="review"] .history-item p,
+body[data-page="review"] .review-history-panel p {
+  color: rgba(190, 196, 210, 0.66) !important;
+}

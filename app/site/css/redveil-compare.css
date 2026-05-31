@@ -1,0 +1,202 @@
+/* Redveil compare page overrides
+   Loaded after app/site/styles.css. No sticky or fixed layout overrides here. */
+
+body[data-page="compare"] {
+  background:
+    radial-gradient(circle at 72% 8%, rgba(255, 30, 53, 0.13), transparent 34%),
+    radial-gradient(circle at 12% 28%, rgba(255, 30, 53, 0.08), transparent 26%),
+    linear-gradient(180deg, #050608 0%, #07080d 48%, #030405 100%) !important;
+  color: #f4f5f7 !important;
+}
+
+body[data-page="compare"] .page-stack {
+  gap: 18px !important;
+  padding-top: clamp(22px, 3.4vw, 42px) !important;
+}
+
+body[data-page="compare"] .panel,
+body[data-page="compare"] .section-block,
+body[data-page="compare"] .service-subhero,
+body[data-page="compare"] .compare-card,
+body[data-page="compare"] .compare-memo-card,
+body[data-page="compare"] .metric-compare-card,
+body[data-page="compare"] .alternative-board,
+body[data-page="compare"] .risk-delta-card,
+body[data-page="compare"] .alternative-support-grid section {
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  background:
+    radial-gradient(circle at 96% 0%, rgba(255, 30, 53, 0.1), transparent 30%),
+    linear-gradient(180deg, rgba(18, 21, 30, 0.94), rgba(8, 10, 15, 0.92)) !important;
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+body[data-page="compare"] .service-subhero {
+  overflow: hidden;
+  position: relative;
+  padding: clamp(26px, 3.2vw, 38px) !important;
+}
+
+body[data-page="compare"] .service-subhero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 30, 53, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 30, 53, 0.04) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(90deg, #000, transparent 72%);
+}
+
+body[data-page="compare"] .subhero-copy {
+  position: relative;
+  z-index: 1;
+  align-items: center !important;
+}
+
+body[data-page="compare"] .section-label,
+body[data-page="compare"] .card-label,
+body[data-page="compare"] .result-label {
+  color: #ff6675 !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+body[data-page="compare"] .section-head h2,
+body[data-page="compare"] .subhero-copy h2,
+body[data-page="compare"] .compare-section-title,
+body[data-page="compare"] .candidate-title strong,
+body[data-page="compare"] .alternative-hero strong,
+body[data-page="compare"] .metric-compare-card strong {
+  color: #fff !important;
+}
+
+body[data-page="compare"] .subhero-copy h2 {
+  max-width: 820px;
+  font-size: clamp(28px, 3vw, 42px) !important;
+  line-height: 1.14 !important;
+  letter-spacing: -0.045em !important;
+}
+
+body[data-page="compare"] .subhero-copy p,
+body[data-page="compare"] .compact-note,
+body[data-page="compare"] .section-copy,
+body[data-page="compare"] .candidate-title p,
+body[data-page="compare"] .alternative-hero p,
+body[data-page="compare"] .metric-compare-card p,
+body[data-page="compare"] .compact-checklist li,
+body[data-page="compare"] .risk-delta-card p {
+  color: rgba(190, 196, 210, 0.68) !important;
+}
+
+body[data-page="compare"] .service-status-card {
+  border: 1px solid rgba(255, 30, 53, 0.24) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 30, 53, 0.12), rgba(255, 255, 255, 0.035)) !important;
+}
+
+body[data-page="compare"] .service-status-card strong {
+  color: #ff3347 !important;
+}
+
+body[data-page="compare"] .field span {
+  color: rgba(210, 216, 230, 0.78) !important;
+}
+
+body[data-page="compare"] .field select,
+body[data-page="compare"] .field input {
+  height: 48px !important;
+  border-color: rgba(255, 255, 255, 0.11) !important;
+  background: rgba(3, 5, 9, 0.66) !important;
+  color: #fff !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.18) !important;
+}
+
+body[data-page="compare"] select,
+body[data-page="compare"] option {
+  background: #080a0f !important;
+  color: #fff !important;
+}
+
+body[data-page="compare"] .button-primary,
+body[data-page="compare"] #compare-run {
+  border-color: rgba(255, 30, 53, 0.52) !important;
+  background: linear-gradient(135deg, #ff1e35, #b90f22) !important;
+  color: #fff !important;
+  box-shadow:
+    0 18px 34px rgba(255, 30, 53, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+body[data-page="compare"] .compare-card-grid {
+  gap: 16px !important;
+}
+
+body[data-page="compare"] .compare-card {
+  padding: 20px !important;
+  border-radius: 24px !important;
+}
+
+body[data-page="compare"] .compare-card::before {
+  background: linear-gradient(180deg, #ff3347, #ff9f1a) !important;
+}
+
+body[data-page="compare"] .risk-signal-card,
+body[data-page="compare"] .decision-cue,
+body[data-page="compare"] .metric-compare-card,
+body[data-page="compare"] .compare-memo-card #compare-memo > *,
+body[data-page="compare"] .benchmark-line,
+body[data-page="compare"] .chip-row span,
+body[data-page="compare"] .alternative-support-grid section {
+  border-color: rgba(255, 255, 255, 0.085) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.024)) !important;
+  box-shadow: none !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-high,
+body[data-page="compare"] .decision-cue {
+  border-color: rgba(255, 30, 53, 0.22) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 30, 53, 0.1), rgba(255, 255, 255, 0.026)) !important;
+}
+
+body[data-page="compare"] .risk-signal-card span,
+body[data-page="compare"] .risk-delta-card span,
+body[data-page="compare"] .decision-cue span,
+body[data-page="compare"] .decision-memo-row span {
+  color: #ff6675 !important;
+}
+
+body[data-page="compare"] .risk-signal-card strong,
+body[data-page="compare"] .metric-scoreline span,
+body[data-page="compare"] .risk-delta-card strong {
+  color: #ff3347 !important;
+}
+
+body[data-page="compare"] .risk-signal-card p,
+body[data-page="compare"] .decision-cue p,
+body[data-page="compare"] .decision-memo-row p {
+  color: rgba(225, 229, 238, 0.78) !important;
+}
+
+body[data-page="compare"] .progress-track,
+body[data-page="compare"] .metric-mini-row .progress-track {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+body[data-page="compare"] .progress-fill,
+body[data-page="compare"] .metric-mini-row .progress-fill {
+  background: linear-gradient(90deg, #ff3347, #ff9f1a) !important;
+}
+
+body[data-page="compare"] #compare-memo {
+  display: grid;
+  gap: 10px;
+}

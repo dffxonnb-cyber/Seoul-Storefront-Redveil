@@ -1,0 +1,47 @@
+/* Redveil districts page overrides
+   Loaded after app/site/styles.css. Keep this page-specific and compact. */
+
+body[data-page="districts"] .district-layout {
+  display: grid !important;
+  grid-template-columns: minmax(250px, 0.34fr) minmax(0, 1fr) !important;
+  gap: 18px !important;
+  align-items: start !important;
+  overflow: visible !important;
+}
+
+body[data-page="districts"] .district-selector-card {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  overflow: visible !important;
+  transform: none !important;
+  z-index: 1 !important;
+  grid-column: auto !important;
+}
+
+body[data-page="districts"] .district-list-panel {
+  max-height: 420px !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  padding-right: 6px !important;
+}
+
+body[data-page="districts"] .panel-stack {
+  grid-column: auto !important;
+  min-width: 0 !important;
+}
+
+@media (max-width: 980px) {
+  body[data-page="districts"] .district-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  body[data-page="districts"] .district-list-panel {
+    max-height: 340px !important;
+  }
+}

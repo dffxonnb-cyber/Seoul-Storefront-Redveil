@@ -313,10 +313,11 @@
             const score = Number(item.score || matched?.riskScore || 0);
             const gap = Number(detail.riskScore || 0) - score;
             return `
-              <article class="replacement-candidate-card" data-tier="${riskTier(score)}">
+              <article class="replacement-candidate-card" data-tier="${riskTier(score)}" style="--candidate-score:${Math.max(8, Math.min(92, score))}%">
                 <div class="candidate-map-spark" aria-hidden="true">
                   <span></span>
                   <i></i>
+                  <small>${formatNumber(score, "점")}</small>
                 </div>
                 <div>
                   <header>
@@ -336,7 +337,7 @@
             <p>같은 예산대에서 가격 부담, 거래 유동성, 상권 과밀 신호를 함께 낮춰 볼 수 있는 구를 우선 비교합니다.</p>
           </section>
         `
-      : `<article class="replacement-candidate-card"><div class="candidate-map-spark" aria-hidden="true"><span></span><i></i></div><div><header><strong>대체 후보 없음</strong></header><p>현재 조건에서는 바로 제시할 대체 구가 없습니다.</p></div></article>`;
+      : `<article class="replacement-candidate-card" style="--candidate-score:36%"><div class="candidate-map-spark" aria-hidden="true"><span></span><i></i><small>대기</small></div><div><header><strong>대체 후보 없음</strong></header><p>현재 조건에서는 바로 제시할 대체 구가 없습니다.</p></div></article>`;
   }
 
   function renderDetail() {

@@ -7,7 +7,7 @@
     <meta name="description" content="서울 25개 구의 리스크, 추세, 대체 후보를 한 화면에서 보는 Redveil 구별 리포트입니다." />
     <link rel="icon" type="image/png" href="./assets/redveil-logo.png" />
     <link rel="stylesheet" href="./styles.css?v=20260501-district-summary-chips" />
-    <link rel="stylesheet" href="./css/redveil-districts.css?v=20260531-dashboard" />
+    <link rel="stylesheet" href="./css/redveil-districts.css?v=20260531-risk-map" />
   </head>
   <body data-page="districts">
     <div class="page-shell">
@@ -64,6 +64,34 @@
           </aside>
 
           <section class="panel-stack">
+            <article class="panel section-block seoul-risk-map-card" aria-labelledby="seoul-risk-map-title">
+              <div class="map-panel-head">
+                <div>
+                  <p class="section-label">Seoul Risk Map</p>
+                  <h2 id="seoul-risk-map-title">서울 리스크 지형</h2>
+                </div>
+                <div class="map-legend" aria-label="리스크 범례">
+                  <span><i class="legend-dot high"></i>High</span>
+                  <span><i class="legend-dot watch"></i>Watch</span>
+                  <span><i class="legend-dot low"></i>Low</span>
+                </div>
+              </div>
+              <div class="seoul-risk-map-shell">
+                <svg id="seoul-risk-map" viewBox="0 0 760 520" role="img" aria-label="서울 구별 리스크 추상 지도"></svg>
+                <div class="map-scan-overlay" aria-hidden="true"></div>
+                <div class="map-target-readout" aria-label="선택 구 지도 요약">
+                  <span class="card-label">Target District</span>
+                  <strong id="seoul-map-district"></strong>
+                  <p><span id="seoul-map-zone"></span> · <span id="seoul-map-score"></span></p>
+                </div>
+              </div>
+              <div class="map-intel-strip">
+                <span>Territory risk scan</span>
+                <span>District comparison mode</span>
+                <span>Acquisition pause signal</span>
+              </div>
+            </article>
+
             <article class="panel section-block selected-district-card">
               <div class="selected-district-hero">
                 <div>
@@ -99,8 +127,8 @@
             <article class="panel section-block district-drilldown-card">
               <div class="section-head">
                 <div>
-                  <p class="section-label">Decision Drill-down</p>
-                  <h2>왜 지금 멈춰 봐야 하는지 분해합니다.</h2>
+                  <p class="section-label">Risk Signal Console</p>
+                  <h2>리스크 신호 콘솔</h2>
                 </div>
               </div>
               <div class="district-drilldown-grid" id="district-drilldown"></div>
@@ -182,6 +210,6 @@
 
     <script src="./website_payload.js"></script>
     <script src="./common.js"></script>
-    <script src="./districts.js"></script>
+    <script src="./districts.js?v=20260531-risk-map"></script>
   </body>
 </html>

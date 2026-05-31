@@ -8,8 +8,6 @@
     reliabilityInfo,
     benchmarkInfo,
     renderReliabilityBadges,
-    renderBenchmarkLine,
-    renderRiskOverlap,
   } = window.RedveilV2 || {};
   if (!payload) return;
 
@@ -17,6 +15,36 @@
     districts: payload.districts || [],
     selectedCode: payload.districts?.[0]?.code || null,
   };
+
+  const mapCells = [
+    ["11320", "도봉구", 394, 74, 50, 42],
+    ["11350", "노원구", 486, 102, 57, 48],
+    ["11305", "강북구", 320, 128, 58, 47],
+    ["11380", "은평구", 212, 164, 68, 55],
+    ["11290", "성북구", 386, 174, 62, 52],
+    ["11260", "중랑구", 516, 190, 58, 48],
+    ["11110", "종로구", 296, 230, 64, 50],
+    ["11410", "서대문구", 196, 258, 60, 48],
+    ["11230", "동대문구", 424, 250, 58, 48],
+    ["11140", "중구", 314, 300, 52, 43],
+    ["11200", "성동구", 424, 318, 58, 47],
+    ["11215", "광진구", 532, 310, 58, 48],
+    ["11440", "마포구", 172, 334, 70, 50],
+    ["11170", "용산구", 302, 378, 65, 50],
+    ["11560", "영등포구", 162, 414, 66, 49],
+    ["11500", "강서구", 58, 382, 74, 54],
+    ["11470", "양천구", 82, 462, 58, 45],
+    ["11530", "구로구", 182, 492, 60, 46],
+    ["11545", "금천구", 258, 498, 54, 42],
+    ["11590", "동작구", 294, 444, 58, 45],
+    ["11620", "관악구", 370, 492, 68, 47],
+    ["11650", "서초구", 444, 430, 78, 58],
+    ["11680", "강남구", 540, 408, 70, 53],
+    ["11710", "송파구", 632, 380, 66, 50],
+    ["11740", "강동구", 686, 300, 60, 48],
+  ].map(([code, name, x, y, rx, ry]) => ({ code, name, x, y, rx, ry }));
+
+  const byCode = () => new Map(state.districts.map((district) => [district.code, district]));
 
   document.getElementById("district-coverage").textContent = `${state.districts.length}개 구`;
 
@@ -26,31 +54,71 @@
     return state.districts.filter((item) => item.name.includes(trimmed));
   }
 
+  function riskTier(score) {
+    const value = Number(score || 0);
+    if (value >= 60) return "high";
+    if (value >= 45) return "watch";
+    return "low";
+  }
+
+  function riskTierLabel(score) {
+    const tier = riskTier(score);
+    if (tier === "high") return "High risk zone";
+    if (tier === "watch") return "Watch zone";
+    return "Low risk zone";
+  }
+
+  function shortDistrictName(name) {
+    return String(name || "").replace(/구$/, "");
+  }
+
+  function hexPoints({ x, y, rx, ry }) {
+    return [
+      [x - rx * 0.6, y - ry],
+      [x + rx * 0.55, y - ry * 0.86],
+      [x + rx, y],
+      [x + rx * 0.42, y + ry],
+      [x - rx * 0.58, y + ry * 0.82],
+      [x - rx, y - ry * 0.12],
+    ]
+      .map((point) => point.map((value) => value.toFixed(1)).join(","))
+      .join(" ");
+  }
+
+  function selectDistrict(code) {
+    if (!code || !state.districts.some((item) => item.code === code)) return;
+    state.selectedCode = code;
+    renderList(document.getElementById("district-search").value);
+    renderDetail();
+  }
+
   function renderList(query = "") {
     const items = visibleDistricts(query);
     document.getElementById("district-list").innerHTML = items
-      .map(
-        (item) => `
-          <button class="district-select-button ${item.code === state.selectedCode ? "is-active" : ""}" data-code="${item.code}">
+      .map((item) => {
+        const score = Number(item.riskScore || 0);
+        return `
+          <button class="district-select-button ${item.code === state.selectedCode ? "is-active" : ""}" data-code="${item.code}" data-tier="${riskTier(score)}">
             <strong>${item.name}</strong>
-            <span>${formatNumber(item.riskScore, "점")} · ${item.riskGrade}</span>
+            <span>${formatNumber(score, "점")} · ${item.riskGrade}</span>
             <span>${item.riskArchetype}</span>
+            <span class="selector-score-line" aria-hidden="true"><i style="width:${Math.max(6, score)}%"></i></span>
           </button>
-        `
-      )
+        `;
+      })
       .join("");
 
     document.querySelectorAll(".district-select-button").forEach((button) => {
-      button.addEventListener("click", () => {
-        state.selectedCode = button.dataset.code;
-        renderList(document.getElementById("district-search").value);
-        renderDetail();
-      });
+      button.addEventListener("click", () => selectDistrict(button.dataset.code));
     });
   }
 
   function currentDistrict() {
     return state.districts.find((item) => item.code === state.selectedCode) || state.districts[0];
+  }
+
+  function districtByName(name) {
+    return state.districts.find((item) => item.name === name);
   }
 
   function riskFactors(detail) {
@@ -109,6 +177,168 @@
       .filter(Boolean);
   }
 
+  function renderRiskMap(detail) {
+    const svg = document.getElementById("seoul-risk-map");
+    if (!svg || !detail) return;
+
+    const districts = byCode();
+    const selectedCell = mapCells.find((cell) => cell.code === detail.code) || mapCells[0];
+    const nodes = mapCells
+      .map((cell) => {
+        const item = districts.get(cell.code);
+        const score = Number(item?.riskScore || 0);
+        const tier = riskTier(score);
+        const selectedClass = cell.code === detail.code ? " is-selected" : "";
+        const opacity = Math.min(0.82, 0.24 + score / 120).toFixed(2);
+        return `
+          <g class="seoul-map-node tier-${tier}${selectedClass}" data-code="${cell.code}" tabindex="0" role="button" aria-label="${item?.name || cell.name} ${formatNumber(score, "점")}">
+            <polygon points="${hexPoints(cell)}" style="--node-opacity:${opacity}"></polygon>
+            <text x="${cell.x}" y="${cell.y + 4}" text-anchor="middle">${shortDistrictName(item?.name || cell.name)}</text>
+          </g>
+        `;
+      })
+      .join("");
+
+    svg.innerHTML = `
+      <defs>
+        <filter id="selected-risk-glow" x="-70%" y="-70%" width="240%" height="240%">
+          <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
+          <feColorMatrix in="blur" type="matrix" values="1 0 0 0 1  0 0 0 0 0.08  0 0 0 0 0.16  0 0 0 0.75 0"></feColorMatrix>
+          <feMerge>
+            <feMergeNode></feMergeNode>
+            <feMergeNode in="SourceGraphic"></feMergeNode>
+          </feMerge>
+        </filter>
+        <radialGradient id="map-core-glow" cx="50%" cy="48%" r="58%">
+          <stop offset="0%" stop-color="#ff3347" stop-opacity="0.18"></stop>
+          <stop offset="55%" stop-color="#ff3347" stop-opacity="0.045"></stop>
+          <stop offset="100%" stop-color="#ff3347" stop-opacity="0"></stop>
+        </radialGradient>
+      </defs>
+      <rect class="map-core-glow" x="0" y="0" width="760" height="520" fill="url(#map-core-glow)"></rect>
+      <path class="map-river" d="M48 334 C142 296 218 328 302 306 C390 282 456 328 540 292 C615 260 678 260 724 232"></path>
+      <g class="map-axis-lines" aria-hidden="true">
+        <path d="M104 120 L668 430"></path>
+        <path d="M156 478 L626 84"></path>
+        <path d="M54 404 L708 116"></path>
+      </g>
+      <g class="seoul-map-nodes">${nodes}</g>
+      <g class="map-target" aria-hidden="true">
+        <circle cx="${selectedCell.x}" cy="${selectedCell.y}" r="${Math.max(selectedCell.rx, selectedCell.ry) + 18}"></circle>
+        <line x1="${selectedCell.x - 34}" y1="${selectedCell.y}" x2="${selectedCell.x - 10}" y2="${selectedCell.y}"></line>
+        <line x1="${selectedCell.x + 10}" y1="${selectedCell.y}" x2="${selectedCell.x + 34}" y2="${selectedCell.y}"></line>
+        <line x1="${selectedCell.x}" y1="${selectedCell.y - 34}" x2="${selectedCell.x}" y2="${selectedCell.y - 10}"></line>
+        <line x1="${selectedCell.x}" y1="${selectedCell.y + 10}" x2="${selectedCell.x}" y2="${selectedCell.y + 34}"></line>
+      </g>
+    `;
+
+    svg.querySelectorAll(".seoul-map-node").forEach((node) => {
+      node.addEventListener("click", () => selectDistrict(node.dataset.code));
+      node.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          selectDistrict(node.dataset.code);
+        }
+      });
+    });
+
+    document.getElementById("seoul-map-district").textContent = detail.name;
+    document.getElementById("seoul-map-zone").textContent = riskTierLabel(detail.riskScore);
+    document.getElementById("seoul-map-score").textContent = formatNumber(detail.riskScore, "점");
+  }
+
+  function renderSignalConsole(detail, reliability, benchmark) {
+    const factors = riskFactors(detail);
+    const primary = factors[0];
+    const secondary = factors[1] || factors[0];
+    const pauseReasons = (detail.objections && detail.objections.length ? detail.objections : factors.map((item) => item.label)).slice(0, 2);
+
+    document.getElementById("district-drilldown").innerHTML = `
+      <div class="signal-console-stack">
+        <article class="signal-primary-card">
+          <span class="result-label">Primary Signal</span>
+          <div>
+            <strong>${primary.label}</strong>
+            <em>${formatNumber(primary.value, "점")}</em>
+          </div>
+          <p>${polishCopy(primary.question)}</p>
+          <div class="signal-strength-line"><span style="width:${Math.max(8, primary.value)}%"></span></div>
+        </article>
+        <div class="signal-console-grid">
+          <article class="signal-row">
+            <span>Secondary Signal</span>
+            <strong>${secondary.label}</strong>
+            <p>${secondary.helper}</p>
+          </article>
+          <article class="signal-row">
+            <span>Risk Trigger</span>
+            <strong>${compactReasonLabel(polishCopy(pauseReasons[0] || primary.label))}</strong>
+            <p>${benchmark?.label || riskTierLabel(detail.riskScore)}</p>
+          </article>
+          <article class="signal-row signal-row-wide">
+            <span>Recommended Action</span>
+            <strong>${detail.recommendedAction || detail.decisionQuestion}</strong>
+            <p>${polishCopy(detail.archetypeSummary || detail.memo)}</p>
+          </article>
+        </div>
+        <div class="signal-factor-bars">
+          ${factors
+            .map(
+              (factor) => `
+                <div class="signal-mini-bar">
+                  <span>${factor.label}</span>
+                  <i><b style="width:${Math.max(8, factor.value)}%"></b></i>
+                  <em>${formatNumber(factor.value, "점")}</em>
+                </div>
+              `
+            )
+            .join("")}
+        </div>
+        <div class="console-chip-row">
+          <span>${reliability.level}</span>
+          <span>${reliability.sampleCount ? `표본 ${formatNumber(reliability.sampleCount, "건", 0)}` : "표본 확인 필요"}</span>
+          <span>${benchmark?.detail || "서울 기준 비교"}</span>
+        </div>
+        ${typeof renderReliabilityBadges === "function" ? renderReliabilityBadges(detail, { includeNote: false }) : ""}
+      </div>
+    `;
+  }
+
+  function renderReplacementCandidates(detail) {
+    const candidates = detail.replacementCandidates || [];
+    document.getElementById("replacement-candidates").innerHTML = candidates.length
+      ? candidates
+          .map((item) => {
+            const matched = districtByName(item.name);
+            const score = Number(item.score || matched?.riskScore || 0);
+            const gap = Number(detail.riskScore || 0) - score;
+            return `
+              <article class="replacement-candidate-card" data-tier="${riskTier(score)}">
+                <div class="candidate-map-spark" aria-hidden="true">
+                  <span></span>
+                  <i></i>
+                </div>
+                <div>
+                  <header>
+                    <strong>${item.name}</strong>
+                    <em>${formatNumber(score, "점")}</em>
+                  </header>
+                  <p>${polishCopy(item.whyBetter || "현재 선택 구보다 낮은 리스크 축을 비교할 후보입니다.")}</p>
+                  <span class="candidate-compare">${gap > 0 ? `선택 구보다 ${formatNumber(gap, "점")} 낮음` : "별도 조건 비교"}</span>
+                </div>
+              </article>
+            `;
+          })
+          .join("") +
+        `
+          <section class="replacement-summary-strip">
+            <span class="result-label">Compare Next</span>
+            <p>같은 예산대에서 가격 부담, 거래 유동성, 상권 과밀 신호를 함께 낮춰 볼 수 있는 구를 우선 비교합니다.</p>
+          </section>
+        `
+      : `<article class="replacement-candidate-card"><div class="candidate-map-spark" aria-hidden="true"><span></span><i></i></div><div><header><strong>대체 후보 없음</strong></header><p>현재 조건에서는 바로 제시할 대체 구가 없습니다.</p></div></article>`;
+  }
+
   function renderDetail() {
     const detail = currentDistrict();
     if (!detail) return;
@@ -129,6 +359,8 @@
           };
     const pauseReasons = (detail.objections && detail.objections.length ? detail.objections : riskFactors(detail).map((item) => item.label)).slice(0, 3);
     const alternatives = replacementNames(detail);
+
+    renderRiskMap(detail);
 
     document.getElementById("district-context-chips").innerHTML = [benchmark.label, benchmark.detail]
       .filter(Boolean)
@@ -159,33 +391,7 @@
       )
       .join("");
 
-    document.getElementById("district-drilldown").innerHTML = `
-      <article class="district-drilldown-lead">
-        <span class="result-label">Pause Trigger</span>
-        <strong>${detail.decisionQuestion || detail.recommendedAction}</strong>
-        <p>${polishCopy(detail.archetypeSummary || detail.memo)}</p>
-        ${renderBenchmarkLine(detail.riskScore, detail)}
-        ${renderReliabilityBadges(detail, { includeNote: true })}
-      </article>
-      ${renderRiskOverlap(detail)}
-      <div class="district-factor-list">
-        ${riskFactors(detail)
-          .slice(0, 4)
-          .map(
-            (factor, index) => `
-              <article class="${index === 0 ? "is-primary" : ""}">
-                <div>
-                  <span class="district-factor-axis">${factor.label}</span>
-                  <strong>${polishCopy(factor.question)}</strong>
-                  <span class="district-factor-meta">${factor.helper}</span>
-                </div>
-                <em>${formatNumber(factor.value, "점")}</em>
-              </article>
-            `
-          )
-          .join("")}
-      </div>
-    `;
+    renderSignalConsole(detail, reliability, benchmark);
 
     document.getElementById("detail-metrics").innerHTML = [
       ["총 리스크", detail.riskScore],
@@ -208,7 +414,7 @@
       .join("");
 
     document.getElementById("detail-checks").innerHTML = (detail.reviewChecklist || [])
-      .map((item) => `<article><strong>확인</strong><p>${polishCopy(item)}</p></article>`)
+      .map((item) => `<article><strong>Field Check</strong><p>${polishCopy(item)}</p></article>`)
       .join("");
 
     document.getElementById("detail-objections").innerHTML = (detail.objections || [])
@@ -223,25 +429,7 @@
       )
       .join("");
 
-    document.getElementById("replacement-candidates").innerHTML =
-      detail.replacementCandidates && detail.replacementCandidates.length
-        ? detail.replacementCandidates
-            .map(
-              (item) => `
-                <article>
-                  <strong>${item.name}</strong>
-                  <p>${formatNumber(item.score, "점")} · 추가 검토 후보입니다. ${polishCopy(item.whyBetter)}</p>
-                </article>
-              `
-            )
-            .join("") +
-          `
-            <section class="replacement-summary-strip">
-              <span class="result-label">비교 기준</span>
-              <p>같은 예산대에서 가격 부담, 거래 유동성, 상권 과밀 신호를 함께 낮춰 볼 수 있는 구를 우선 비교합니다.</p>
-            </section>
-          `
-        : `<article><strong>대체 후보 없음</strong><p>현재 조건에서는 바로 제시할 대체 구가 없습니다.</p></article>`;
+    renderReplacementCandidates(detail);
 
     drawLineChart("price-chart", detail.history || [], "medianPricePerSqm", "#df5a3a");
     drawLineChart("volume-chart", detail.history || [], "transactionCount", "#79c1bc");

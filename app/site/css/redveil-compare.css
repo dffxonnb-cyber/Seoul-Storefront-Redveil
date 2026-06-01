@@ -523,3 +523,109 @@ body[data-page="compare"] .decision-memo-row p {
   }
 }
 
+/* Compare candidate card abstract map detail */
+body[data-page="compare"] .compare-card {
+  overflow: hidden;
+  min-height: 520px;
+}
+
+body[data-page="compare"] .compare-card::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 92px;
+  width: 148px;
+  height: 148px;
+  transform: translateX(-50%) rotate(12deg);
+  opacity: 0.34;
+  pointer-events: none;
+  clip-path: polygon(
+    50% 0%,
+    84% 18%,
+    100% 52%,
+    76% 88%,
+    36% 100%,
+    0% 68%,
+    12% 24%
+  );
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 38%),
+    rgba(255, 54, 80, 0.28);
+  box-shadow:
+    0 0 34px rgba(255, 54, 80, 0.16),
+    inset 0 0 24px rgba(255, 255, 255, 0.04);
+}
+
+body[data-page="compare"] .compare-card:nth-child(2)::after {
+  transform: translateX(-50%) rotate(-10deg);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 38%),
+    rgba(255, 191, 105, 0.25);
+  box-shadow:
+    0 0 34px rgba(255, 191, 105, 0.13),
+    inset 0 0 24px rgba(255, 255, 255, 0.04);
+}
+
+body[data-page="compare"] .compare-card:nth-child(3)::after {
+  transform: translateX(-50%) rotate(18deg);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 38%),
+    rgba(142, 224, 210, 0.2);
+  box-shadow:
+    0 0 34px rgba(142, 224, 210, 0.12),
+    inset 0 0 24px rgba(255, 255, 255, 0.04);
+}
+
+body[data-page="compare"] .compare-card .candidate-title {
+  position: relative;
+  z-index: 2;
+  min-height: 142px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+body[data-page="compare"] .compare-card .candidate-title::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  width: 190px;
+  height: 120px;
+  transform: translateX(-50%);
+  opacity: 0.52;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 54, 80, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 54, 80, 0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+  mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
+}
+
+body[data-page="compare"] .compare-card:nth-child(2) .candidate-title::before {
+  background:
+    linear-gradient(rgba(255, 191, 105, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 191, 105, 0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+body[data-page="compare"] .compare-card:nth-child(3) .candidate-title::before {
+  background:
+    linear-gradient(rgba(142, 224, 210, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(142, 224, 210, 0.075) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+body[data-page="compare"] .compare-card .candidate-title strong,
+body[data-page="compare"] .compare-card .candidate-title p {
+  position: relative;
+  z-index: 3;
+}
+
+body[data-page="compare"] .compare-card .benchmark-line,
+body[data-page="compare"] .compare-card .interpretation-strip,
+body[data-page="compare"] .compare-card .risk-signal-board,
+body[data-page="compare"] .compare-card .decision-cue {
+  position: relative;
+  z-index: 4;
+}

@@ -59,11 +59,17 @@ body[data-page="compare"] .subhero-copy {
 body[data-page="compare"] .section-label,
 body[data-page="compare"] .card-label,
 body[data-page="compare"] .result-label {
-  color: #ff6675 !important;
+  color: rgba(190, 196, 210, 0.66) !important;
   font-size: 11px !important;
   font-weight: 850 !important;
   letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
+}
+
+body[data-page="compare"] .compare-card .rank-pill,
+body[data-page="compare"] .decision-memo-row.is-primary span,
+body[data-page="compare"] .risk-signal-card.tone-high span {
+  color: #ff6675 !important;
 }
 
 body[data-page="compare"] .section-head h2,
@@ -100,7 +106,7 @@ body[data-page="compare"] .service-status-card {
 }
 
 body[data-page="compare"] .service-status-card strong {
-  color: #ff3347 !important;
+  color: #fff !important;
 }
 
 body[data-page="compare"] .field span {
@@ -178,13 +184,30 @@ body[data-page="compare"] .risk-signal-card span,
 body[data-page="compare"] .risk-delta-card span,
 body[data-page="compare"] .decision-cue span,
 body[data-page="compare"] .decision-memo-row span {
+  color: rgba(190, 196, 210, 0.68) !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-high span,
+body[data-page="compare"] .decision-memo-row.is-primary span {
   color: #ff6675 !important;
 }
 
 body[data-page="compare"] .risk-signal-card strong,
-body[data-page="compare"] .metric-scoreline span,
 body[data-page="compare"] .risk-delta-card strong {
-  color: #ff3347 !important;
+  color: #fff !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-high strong,
+body[data-page="compare"] .metric-scoreline span {
+  color: #ff6675 !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-mid strong {
+  color: #ffbf69 !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-low strong {
+  color: #8ee0d2 !important;
 }
 
 body[data-page="compare"] .risk-signal-card p,
@@ -199,11 +222,304 @@ body[data-page="compare"] .metric-mini-row .progress-track {
 }
 
 body[data-page="compare"] .progress-fill,
-body[data-page="compare"] .metric-mini-row .progress-fill {
-  background: linear-gradient(90deg, #ff3347, #ff9f1a) !important;
+body[data-page="compare"] .metric-mini-row .progress-fill,
+body[data-page="compare"] .progress-track span,
+body[data-page="compare"] .metric-mini-row .progress-track span {
+  background: #ff3650 !important;
+  box-shadow: none !important;
 }
 
 body[data-page="compare"] #compare-memo {
   display: grid;
   gap: 10px;
 }
+
+/* Compare detail pass: hierarchy, memo, hero alignment */
+
+/* 1) Hero alignment with diagnosis-style calm console card */
+body[data-page="compare"] .service-subhero {
+  min-height: 210px;
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(255, 30, 53, 0.075)transparent 32%),
+    linear-gradient(180deg, rgba(16, 19, 27, 0.94), rgba(8, 10, 15, 0.92)) !important;
+}
+
+body[data-page="compare"] .service-subhero::before {
+  opacity: 0.58;
+  background:
+    linear-gradient(rgba(255, 30, 53, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 30, 53, 0.028) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+body[data-page="compare"] .subhero-copy {
+  gap: clamp(22px, 4vw, 56px) !important;
+}
+
+body[data-page="compare"] .subhero-copy > div:first-child
+{
+  max-width: 760px;
+}
+
+body[data-page="compare"] .subhero-copy h2 {
+  max-width: 760px;
+  font-size: clamp(30px, 3.2vw 44px) !important;
+  line-height: 1.08 !important;
+}
+
+body[data-page="compare"] .subhero-copy > div:first-child > p:not(.section-label) {
+  max-width: 620px;
+  color: rgba (210, 216, 230, 0.72) !important;
+}
+
+/* r) Candidate cards: cleaner inner hierarchy */
+body[data-page="compare"] .compare-card {
+  position: relative;
+  display: grid;
+  gap: 156px;
+}
+
+body[data-page="compare"] .compare-card-head {
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+body[data-page="compare"] .rank-pill {
+  border-color: rgba(255, 54, 80, 0.28) !important;
+  background: rgba(255, 54, 80, 0.09) !important;
+  color: #ff6675 !important;
+  font-size: 10px !important;
+  letter-spacing: 0.08em !important;
+}
+
+body[data-page="compare"] .tone-pill {
+  font-size: 10px !important;
+  letter-spacing: 0.06em !important;
+}
+
+body[data-page="compare"] .candidate-title {
+  padding-bottom: 2px;
+}
+
+body[data-page="compare"] .candidate-title strong {
+  margin-top: 5px !important;
+  font-size: 13px !important;
+  color: rgba(190, 196, 210, 0.62) !important;
+}
+
+body[data-page="compare"] .candidate-title p {
+  margin-top: 5px !important;
+  font-size: 13px !important;
+  color: rgba(190, 196, 210, 0.62) !important;
+}
+
+/* benchmark and badges should read as metadata, not another red alert */
+body[data-page="compare"] .benchmark-line {
+  padding: 12px, 13px !important;
+  border-color: rgba(255, 255, 255, 0.075) !important;
+  background: rgba(255, 255, 255, 0.032 ) !important;
+}
+
+body[data-page="compare"] .benchmark-line strong {
+  color: rgba(245, 257, 252, 0.92) !important;
+  font-size: 12px !important;
+}
+
+body[data-page="compare"] .benchmark-line span {
+  color: rgba(190, 196, 210, 0.58) !important;
+  font-size: 12px !important;
+}
+
+body[data-page="compare"] .interpretation-strip {
+  gap: 6px !important;
+}
+
+body[data-page="compare"] .interpretation-badge {
+  border-color: rgba(255, 255, 255, 0.085) !important;
+  background: rgba(255, 255, 255, 0.045) !important;
+  color: rgba(205, 211, 225, 0.7) !important;
+  font-size: 10px !important;
+  font-weight: 750 !important;
+}
+
+/* Risk Signals: reduce noise, make high/mid/low hierarchy obvious */
+body[data-page="compare"] .risk-signal-border {
+  display: grid;
+  gap: 9px;
+}
+
+body[data-page="compare"] .risk-signal-grid {
+  gap: 8px !important;
+}
+
+body[data-page="compare"] .risk-signal-card {
+  min-height: 112px;
+  padding: 13px !important;
+  border-color: rgba(255, 255, 255, 0.075) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.038), rgba(255, 255, 255, 0.022)) !important;
+}
+
+body[data-page="compare"] .risk-signal-card span {
+  color: rgba(190, 196, 210, 0.6) !important;
+  font-size: 10px !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+}
+
+body[data-page="compare"] .risk-signal-card strong {
+  margin-top: 7px;
+  font-size: 20px !important;
+  line-height: 1 !important;
+}
+
+body[data-page="compare"] .risk-sinal-card p {
+  margin-top: 8px !important;
+  color: rgba(190, 196, 210, 0.66) !important;
+  font-size: 12px !important;
+  line-height: 1.48 !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-high {
+  border-color: rgba(255, 54, 80, 0.28) !important;
+  background:
+    radial-gradient(circle at 92% 10%, rgba(255, 54, 80, 0.12), transparent 36%),
+    linear-gradient(180deg, rgba(255, 54, 80, 0.075), rgba(255, 255, 255, 0.02)) !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-mid {
+  border-color: rgba(255, 191, 105, 0.2) !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-low {
+  border-color: rgba(142, 224, 210, 0.16) !important;
+}
+
+/* Decision cue: make it a quiet fianl note, not a second waring card */
+body[data-page="compare"] .decision-cue {
+  position: relative;
+  padding: 13px 14px 13px 16px !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.022)) !important;
+}
+
+body[data-page="compare"] .decision-cue::before {
+  content: "";
+  position:absolute;
+  left: 0;
+  top: 13px;
+  bottom: 13px;
+  width: 2px;
+  border-radius: 999px;
+  background: #ff3650;
+  box-shadow: 0 0 12px rgba(255, 54, 80, 0.34);
+}
+
+body[data-page="compare"] .decision-cue span {
+  color: rgba(190, 196, 210, 0.62) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.1em !important;
+}
+
+body[data-page="compare"] .decision-cue p {
+  color: rgba(245, 247, 252, 0.88) !important;
+  font-weight: 720 !important;
+}
+
+/* 3) Comparsion memo: stronger editorial/detial system */
+body[data-page="compare"] .compre-memo-card {
+  position: relative;
+  overflow: hidden;
+}
+
+body[data-page="compare"] .compre-memo-card::after {
+  content: "";
+  position: absolute;
+  right: 22px;
+  top: 26px;
+  width: 52px;
+  height: 52px;
+  border-top: 1px solid rgba(255, 54, 80, 0.42);
+  border-right: 1px solid rgba(255, 54, 80, 0.42);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+body[data-page="compare"] .decision-memo-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(92px, 0.22fr) minmax(180px, 0.34fr) 1fr;
+  align-items: center;
+  gap: 16px;
+  min-height: 74px;
+  padding: 15px 46px 15px 18px !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.042), rgba(255, 255, 255, 0.022)) !important;
+}
+
+body[data-page="compare"] .decision-memo-row::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  border-radius: 999px;
+  background: rgba(190, 196, 210, 0.18);
+}
+
+body[data-page="compare"] .decision-memo-row.is-primary {
+  border-color: rgva(255, 54, 80, 0.28) !important;
+  background:
+    radial-gradient(circle at 95% 18%, rgba(255, 54, 80, 0.12), transparent 32%),
+    linear-gradient(180deg, rgba(255, 54, 80, 0.08), rgba(255, 255, 255, 0.024)) !important;
+}
+
+body[data-page="compare"] .decision-memo-row.is-primary::after {
+  background: #ff3650;
+  box-shadow:
+    0 0 10px rgba(255, 54, 80, 0.42),
+    0 0 22px rgba(255, 54, 80, 0.18);
+}
+
+body[data-page="compare"] .decision-memo-row span {
+  color: rgba(190, 196 ,210, 0.62) !important;
+  font-size: 10px !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase;
+}
+
+body[data-page="compare"] .decision-memo-row.is-primary span {
+  color: #ff6675 !important;
+}
+
+body[data-page="compare"] .decsion-memo-roe strong {
+  color: #fff !important;
+  font-size: 14px !important;
+  letter-spacing: 0.02em !important;
+}
+
+body[data-page="compare"] .decision-memo-row p {
+  margin: 0 !important;
+  color: rgba(190, 196, 210, 0.68) !important;
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+}
+
+@media (max-width: 820px) {
+  body[data-page="compare"] .decision-memo-row {
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding-right: 42px !important;
+  }
+  
+  body[data-page="compare"] .sevice-status-card {
+    width: 100%;
+  }
+}
+

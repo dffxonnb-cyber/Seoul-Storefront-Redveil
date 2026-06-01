@@ -9688,3 +9688,143 @@ body[data-page="review"] .review-risk-tag-row span {
   font-weight: 760;
   letter-spacing: 0.08em;
 }
+
+/* Review console dark surface alignment */
+body[data-page="review"] .review-workspace {
+  align-items: start;
+}
+
+body[data-page="review"] .review-context-card {
+  align-self: start;
+}
+
+body[data-page="review"] .review-output-card,
+body[data-page="review"] .review-history-panel,
+body[data-page="review"] .review-input-panel,
+body[data-page="review"] .review-context-card {
+  border-color: rgba(255, 255, 255, 0.09);
+  background:
+    radial-gradient(circle at 92% 10%, rgba(255, 30, 53, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(16, 19, 27, 0.94), rgba(8, 10, 15, 0.9)),
+    var(--card-bg);
+}
+
+/* Initial output preview */
+body[data-page="review"] .review-output-preview,
+body[data-page="review"] .review-memo-outline article {
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  background:
+    linear-gradient(180deg, rgba(20, 24, 34, 0.88), rgba(10, 12, 18, 0.84)),
+    rgba(255, 255, 255, 0.035) !important;
+  color: var(--text-main);
+}
+
+body[data-page="review"] .review-memo-outline article span {
+  color: #ff6675;
+}
+
+/* Generated result memo: remove beige/white surfaces */
+body[data-page="review"] .result-card,
+body[data-page="review"] .review-result-memo,
+body[data-page="review"] .benchmark-line,
+body[data-page="review"] .risk-overlap-block,
+body[data-page="review"] .alternative-rationale,
+body[data-page="review"] .review-result-sections section,
+body[data-page="review"] .rationale-grid article {
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  background:
+    linear-gradient(180deg, rgba(20, 24, 34, 0.88), rgba(10, 12, 18, 0.84)),
+    rgba(255, 255, 255, 0.035) !important;
+  color: var(--text-main) !important;
+}
+
+body[data-page="review"] .benchmark-line strong,
+body[data-page="review"] .risk-overlap-block strong,
+body[data-page="review"] .alternative-rationale strong,
+body[data-page="review"] .rationale-grid article strong,
+body[data-page="review"] .review-result-sections section strong {
+  color: #fff !important;
+}
+
+body[data-page="review"] .benchmark-line span,
+body[data-page="review"] .result-copy,
+body[data-page="review"] .result-list,
+body[data-page="review"] .result-list li,
+body[data-page="review"] .review-result-sections p,
+body[data-page="review"] .risk-overlap-block p,
+body[data-page="review"] .alternative-rationale p {
+  color: rgba(190, 196, 210, 0.76) !important;
+}
+
+/* Pills and chips */
+body[data-page="review"] .interpretation-badge,
+body[data-page="review"] .risk-chip,
+body[data-page="review"] .chip {
+  border-color: rgba(255, 255, 255, 0.11) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(225, 229, 238, 0.82) !important;
+}
+
+body[data-page="review"] .interpretation-badge.is-caution,
+body[data-page="review"] .risk-chip.is-active {
+  border-color: rgba(255, 30, 53, 0.32) !important;
+  background: rgba(255, 30, 53, 0.12) !important;
+  color: #ff6675 !important;
+}
+
+/* Review history cards */
+body[data-page="review"] .review-entry {
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(255, 30, 53, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(16, 19, 27, 0.9), rgba(8, 10, 15, 0.88)),
+    var(--card-bg) !important;
+  color: var(--text-main) !important;
+}
+
+body[data-page="review"] .review-entry strong {
+  color: #fff !important;
+}
+
+body[data-page="review"] .review-entry p,
+body[data-page="review"] .review-entry-meta,
+body[data-page="review"] .review-entry-time {
+  color: rgba(190, 196, 210, 0.72) !important;
+}
+
+body[data-page="review"] .review-entry-risk {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+body[data-page="review"] .review-entry-risk span {
+  color: #ff6675 !important;
+}
+
+body[data-page="review"] .review-entry-risk p {
+  color: rgba(190, 196, 210, 0.58) !important;
+}
+
+/* Buttons */
+body[data-page="review"] .review-submit-button {
+  background: linear-gradient(135deg, #ff1e35, #c41226) !important;
+  border-color: rgba(255, 30, 53, 0.48) !important;
+  color: #fff !important;
+  box-shadow:
+    0 14px 28px rgba(255, 30, 53, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+body[data-page="review"] .review-replay-button,
+body[data-page="review"] .homepage-action-button-soft {
+  border-color: rgba(255, 30, 53, 0.28) !important;
+  background: rgba(255, 30, 53, 0.1) !important;
+  color: #ff9aaa !important;
+}
+
+body[data-page="review"] .review-replay-button:hover,
+body[data-page="review"] .homepage-action-button-soft:hover {
+  border-color: rgba(255, 30, 53, 0.48) !important;
+  background: rgba(255, 30, 53, 0.16) !important;
+  color: #fff !important;
+}

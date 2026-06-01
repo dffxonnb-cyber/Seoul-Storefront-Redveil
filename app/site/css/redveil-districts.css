@@ -1806,3 +1806,92 @@ body[data-page="districts"] .signal-strength-line {
 body[data-page="districts"] .signal-mini-bar i {
   height: 6px !important;
 }
+
+/* District replacement candidate mini map color distinction */
+body[data-page="districts"] .replacement-candidate-card:nth-child(1) .candidate-map-spark {
+  --candidate-map-accent: #ff6675;
+  --candidate-map-rgb: 255, 102, 117;
+  border-color: rgba(255, 102, 117, 0.16) !important;
+  background:
+    radial-gradient(circle at 52% 50%, rgba(255, 102, 117, 0.105), transparent 28%),
+    linear-gradient(rgba(255, 102, 117, 0.046) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 102, 117, 0.038) 1px, transparent 1px),
+    #05080c !important;
+  background-size: auto, 14px 14px, 14px 14px, auto !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card:nth-child(2) .candidate-map-spark {
+  --candidate-map-accent: #ffbf69;
+  --candidate-map-rgb: 255, 191, 105;
+  border-color: rgba(255, 191, 105, 0.16) !important;
+  background:
+    radial-gradient(circle at 52% 50%, rgba(255, 191, 105, 0.095), transparent 28%),
+    linear-gradient(rgba(255, 191, 105, 0.044) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 191, 105, 0.036) 1px, transparent 1px),
+    #05080c !important;
+  background-size: auto, 14px 14px, 14px 14px, auto !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card:nth-child(3) .candidate-map-spark {
+  --candidate-map-accent: #8ee0d2;
+  --candidate-map-rgb: 142, 224, 210;
+  border-color: rgba(142, 224, 210, 0.16) !important;
+  background:
+    radial-gradient(circle at 52% 50%, rgba(142, 224, 210, 0.095), transparent 28%),
+    linear-gradient(rgba(142, 224, 210, 0.044) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(142, 224, 210, 0.036) 1px, transparent 1px),
+    #05080c !important;
+  background-size: auto, 14px 14px, 14px 14px, auto !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card:nth-child(1) .candidate-map-spark span,
+body[data-page="districts"] .replacement-candidate-card:nth-child(2) .candidate-map-spark span,
+body[data-page="districts"] .replacement-candidate-card:nth-child(3) .candidate-map-spark span {
+  background: var(--candidate-map-accent) !important;
+  box-shadow:
+    0 0 10px rgba(var(--candidate-map-rgb), 0.42),
+    0 0 24px rgba(var(--candidate-map-rgb), 0.13) !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card:nth-child(1) .candidate-map-spark i,
+body[data-page="districts"] .replacement-candidate-card:nth-child(2) .candidate-map-spark i,
+body[data-page="districts"] .replacement-candidate-card:nth-child(3) .candidate-map-spark i {
+  border-color: rgba(var(--candidate-map-rgb), 0.15) !important;
+  box-shadow:
+    0 0 0 11px rgba(var(--candidate-map-rgb), 0.022),
+    0 0 0 22px rgba(var(--candidate-map-rgb), 0.01) !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card:nth-child(1) .candidate-map-spark small,
+body[data-page="districts"] .replacement-candidate-card:nth-child(2) .candidate-map-spark small,
+body[data-page="districts"] .replacement-candidate-card:nth-child(3) .candidate-map-spark small {
+  border-color: rgba(var(--candidate-map-rgb), 0.16) !important;
+  color: rgba(235, 241, 246, 0.82) !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card:nth-child(1) .candidate-map-spark span::before,
+body[data-page="districts"] .replacement-candidate-card:nth-child(1) .candidate-map-spark span::after {
+  --parcel-color: rgba(255, 102, 117, 0.15);
+}
+
+body[data-page="districts"] .replacement-candidate-card:nth-child(2) .candidate-map-spark span::before,
+body[data-page="districts"] .replacement-candidate-card:nth-child(2) .candidate-map-spark span::after {
+  --parcel-color: rgba(255, 191, 105, 0.15);
+}
+
+body[data-page="districts"] .replacement-candidate-card:nth-child(3) .candidate-map-spark span::before,
+body[data-page="districts"] .replacement-candidate-card:nth-child(3) .candidate-map-spark span::after {
+  --parcel-color: rgba(142, 224, 210, 0.15);
+}
+
+body[data-page="districts"] .replacement-candidate-card:nth-child(1) header em {
+  color: #ff6675 !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card:nth-child(2) header em {
+  color: #ffbf69 !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card:nth-child(3) header em {
+  color: #8ee0d2 !important;
+}

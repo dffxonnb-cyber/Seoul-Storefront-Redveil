@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="./assets/redveil-logo.png" />
-    <link rel="stylesheet" href="./styles.css?v=20260429-typography" />
+    <link rel="stylesheet" href="./styles.css?v=20260601-review-console" />
   </head>
   <body data-page="review">
     <div class="page-shell">
@@ -38,19 +38,37 @@
 
       <main class="page-stack review-page-stack">
         <section class="panel subhero review-subhero">
-          <div class="subhero-copy">
-            <div>
-              <p class="section-label">Property Review</p>
-              <h2>매물 하나를 입력하면 보류 사유를 메모로 남깁니다.</h2>
-              <p>구별 리스크 맥락과 매입 조건을 함께 보고, 다음 확인 항목까지 저장합니다.</p>
-            </div>
-            <div class="hero-status review-status-card">
-              <span class="card-label">Saved Reviews</span>
-              <strong id="review-count">0건</strong>
-              <p class="compact-note">브라우저 저장 기준</p>
-            </div>
-          </div>
-        </section>
+  <div class="subhero-copy review-hero-layout">
+    <div class="review-hero-main">
+      <p class="section-label">REVIEW DESK / LOCAL RISK MEMORY</p>
+      <h2>Risk Review Console</h2>
+      <p>
+        서울 소형 상가 매입 후보를 입력하면 가격 부담, 거래 유동성, 상권 과밀,
+        수요 취약도를 기준으로 보류 판단과 다음 확인 항목을 정리합니다.
+      </p>
+    </div>
+
+    <div class="review-status-grid">
+      <div class="hero-status review-status-card">
+        <span class="card-label">Saved Reviews</span>
+        <strong id="review-count">0건</strong>
+        <p class="compact-note">Browser local archive</p>
+      </div>
+
+      <div class="hero-status review-status-card">
+        <span class="card-label">Review Mode</span>
+        <strong>Hold-first</strong>
+        <p class="compact-note">추천보다 보류 사유 우선</p>
+      </div>
+
+      <div class="hero-status review-status-card">
+        <span class="card-label">Signal Scope</span>
+        <strong>District</strong>
+        <p class="compact-note">구별 리스크 맥락 기준</p>
+      </div>
+    </div>
+  </div>
+</section>
 
         <section class="app-grid-wide review-workspace">
           <article class="panel section-block review-input-panel">

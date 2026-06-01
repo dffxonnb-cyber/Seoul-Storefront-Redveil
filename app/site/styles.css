@@ -9568,3 +9568,101 @@ body[data-page="districts"] input:-webkit-autofill:focus {
     max-height: 340px;
   }
 }
+
+/* Review page hero refinement */
+body[data-page="review"] .review-subhero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(28px, 4vw, 42px);
+  border-color: rgba(255, 30, 53, 0.18);
+  background:
+    radial-gradient(circle at 82% 12%, rgba(255, 30, 53, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(16, 19, 27, 0.96), rgba(7, 8, 12, 0.94)),
+    var(--panel-strong);
+}
+
+body[data-page="review"] .review-subhero::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 30, 53, 0.58), rgba(255, 30, 53, 0.04) 72%);
+}
+
+body[data-page="review"] .review-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.82fr);
+  gap: clamp(22px, 4vw, 44px);
+  align-items: end;
+}
+
+body[data-page="review"] .review-hero-main {
+  display: grid;
+  gap: 14px;
+}
+
+body[data-page="review"] .review-hero-main h2 {
+  max-width: 12ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 6vw, 72px);
+  font-weight: 780;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  color: #fff;
+}
+
+body[data-page="review"] .review-hero-main p:not(.section-label) {
+  max-width: 760px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: clamp(15.5px, 1.2vw, 17px);
+  line-height: 1.78;
+}
+
+body[data-page="review"] .review-status-grid {
+  display: grid;
+  gap: 12px;
+}
+
+body[data-page="review"] .review-status-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 96px;
+  padding: 16px 17px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 90% 18%, rgba(255, 30, 53, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(18, 21, 30, 0.94), rgba(9, 11, 17, 0.92)),
+    var(--card-bg);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+}
+
+body[data-page="review"] .review-status-card strong {
+  display: block;
+  margin-top: 8px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 820;
+  letter-spacing: -0.025em;
+}
+
+body[data-page="review"] .review-status-card .compact-note {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 860px) {
+  body[data-page="review"] .review-hero-layout {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="review"] .review-hero-main h2 {
+    max-width: 100%;
+  }
+}

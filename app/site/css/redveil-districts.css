@@ -1780,3 +1780,29 @@ body[data-page="districts"] .candidate-compare {
   font-size: 10.5px !important;
   font-weight: 800 !important;
 }
+
+/* District risk signal console bar refinement */
+body[data-page="districts"] .signal-strength-line,
+body[data-page="districts"] .signal-mini-bar i {
+  overflow: hidden !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  background: rgba(255, 255, 255, 0.055) !important;
+}
+
+body[data-page="districts"] .signal-strength-line span,
+body[data-page="districts"] .signal-mini-bar i b {
+  display: block !important;
+  height: 100% !important;
+  border-radius: inherit !important;
+  background: #ff3650 !important;
+  box-shadow: none !important;
+}
+
+body[data-page="districts"] .signal-strength-line {
+  height: 7px !important;
+}
+
+body[data-page="districts"] .signal-mini-bar i {
+  height: 6px !important;
+}

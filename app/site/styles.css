@@ -9828,3 +9828,137 @@ body[data-page="review"] .homepage-action-button-soft:hover {
   background: rgba(255, 30, 53, 0.16) !important;
   color: #fff !important;
 }
+
+/* Assessment page dark surface alignment */
+body[data-page="assessment"] .service-subhero,
+body[data-page="assessment"] .section-block,
+body[data-page="assessment"] #assessment-result {
+  border-color: rgba(255, 255, 255, 0.09);
+  background:
+    radial-gradient(circle at 92% 10%, rgba(255, 30, 53, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(16, 19, 27, 0.94), rgba(8, 10, 15, 0.9)),
+    var(--card-bg);
+}
+
+body[data-page="assessment"] .service-status-card {
+  border-color: rgba(255, 30, 53, 0.28);
+  background:
+    radial-gradient(circle at 92% 14%, rgba(255, 30, 53, 0.14), transparent 32%),
+    linear-gradient(180deg, rgba(18, 21, 30, 0.94), rgba(9, 11, 17, 0.92)),
+    var(--card-bg);
+}
+
+body[data-page="assessment"] .service-status-card strong {
+  color: #fff;
+}
+
+/* Assessment form */
+body[data-page="assessment"] .field input,
+body[data-page="assessment"] .field select {
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.11);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+body[data-page="assessment"] .field input::placeholder {
+  color: rgba(190, 196, 210, 0.46);
+}
+
+body[data-page="assessment"] .field input:focus,
+body[data-page="assessment"] .field select:focus {
+  outline: none;
+  border-color: rgba(255, 30, 53, 0.42);
+  box-shadow: 0 0 0 3px rgba(255, 30, 53, 0.1);
+}
+
+/* Assessment chart and progress panels */
+body[data-page="assessment"] .inline-chart-card,
+body[data-page="assessment"] .progress-card {
+  border-color: rgba(255, 255, 255, 0.09);
+  background:
+    linear-gradient(180deg, rgba(20, 24, 34, 0.88), rgba(10, 12, 18, 0.84)),
+    rgba(255, 255, 255, 0.035);
+  color: var(--text-main);
+}
+
+body[data-page="assessment"] .chart-head strong,
+body[data-page="assessment"] .progress-row strong {
+  color: #fff;
+}
+
+body[data-page="assessment"] .chart-head span,
+body[data-page="assessment"] .progress-row span {
+  color: rgba(190, 196, 210, 0.72);
+}
+
+body[data-page="assessment"] .progress-track {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+body[data-page="assessment"] .progress-track span {
+  background: linear-gradient(90deg, #ff9f1a, #ff1e35);
+  box-shadow: 0 0 18px rgba(255, 30, 53, 0.22);
+}
+
+/* Assessment result card */
+body[data-page="assessment"] .result-card,
+body[data-page="assessment"] .diagnosis-result-card,
+body[data-page="assessment"] .diagnosis-result-section,
+body[data-page="assessment"] .benchmark-line,
+body[data-page="assessment"] .risk-overlap-block,
+body[data-page="assessment"] .alternative-rationale,
+body[data-page="assessment"] .rationale-grid article {
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  background:
+    linear-gradient(180deg, rgba(20, 24, 34, 0.88), rgba(10, 12, 18, 0.84)),
+    rgba(255, 255, 255, 0.035) !important;
+  color: var(--text-main) !important;
+}
+
+body[data-page="assessment"] .result-score {
+  color: #ff6675;
+  text-shadow: 0 0 22px rgba(255, 30, 53, 0.22);
+}
+
+body[data-page="assessment"] .result-copy,
+body[data-page="assessment"] .result-list,
+body[data-page="assessment"] .result-list li,
+body[data-page="assessment"] .diagnosis-result-section p,
+body[data-page="assessment"] .benchmark-line span,
+body[data-page="assessment"] .risk-overlap-block p,
+body[data-page="assessment"] .alternative-rationale p {
+  color: rgba(190, 196, 210, 0.76) !important;
+}
+
+body[data-page="assessment"] .benchmark-line strong,
+body[data-page="assessment"] .risk-overlap-block strong,
+body[data-page="assessment"] .alternative-rationale strong,
+body[data-page="assessment"] .rationale-grid article strong {
+  color: #fff !important;
+}
+
+/* Assessment chips */
+body[data-page="assessment"] .chip,
+body[data-page="assessment"] .risk-chip,
+body[data-page="assessment"] .interpretation-badge {
+  border-color: rgba(255, 255, 255, 0.11) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(225, 229, 238, 0.82) !important;
+}
+
+body[data-page="assessment"] .risk-chip.is-active,
+body[data-page="assessment"] .interpretation-badge.is-caution {
+  border-color: rgba(255, 30, 53, 0.32) !important;
+  background: rgba(255, 30, 53, 0.12) !important;
+  color: #ff6675 !important;
+}
+
+/* Assessment primary button */
+body[data-page="assessment"] .button-primary {
+  background: linear-gradient(135deg, #ff1e35, #c41226) !important;
+  border-color: rgba(255, 30, 53, 0.48) !important;
+  color: #fff !important;
+  box-shadow:
+    0 14px 28px rgba(255, 30, 53, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}

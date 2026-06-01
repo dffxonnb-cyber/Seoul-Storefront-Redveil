@@ -144,7 +144,14 @@ body[data-page="compare"] .compare-card {
 }
 
 body[data-page="compare"] .compare-card::before {
-  background: linear-gradient(180deg, #ff3347, #ff9f1a) !important;
+  top: 22px !important;
+  bottom: 22px !important;
+  width: 3px !important;
+  border-radius: 999px !important;
+  background: #ff3650 !important;
+  box-shadow:
+    0 0 10px rgba(255, 54, 80, 0.46),
+    0 0 22px rgba(255, 54, 80, 0.2) !important;
 }
 
 body[data-page="compare"] .risk-signal-card,

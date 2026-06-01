@@ -10142,3 +10142,37 @@ body[data-page="compare"] .button-primary {
     0 14px 28px rgba(255, 30, 53, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
+
+/* Global chart and metric bar refinement */
+body[data-page] .progress-track {
+  position: relative;
+  overflow: hidden;
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+body[data-page] .progress-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #ff3650 !important;
+  box-shadow: none !important;
+}
+
+body[data-page] .risk-bar {
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.055);
+  overflow: hidden;
+}
+
+body[data-page] .risk-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #ff3650 !important;
+  box-shadow: none !important;
+}

@@ -9962,3 +9962,183 @@ body[data-page="assessment"] .button-primary {
     0 14px 28px rgba(255, 30, 53, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
+
+/* Compare page dark surface alignment */
+body[data-page="compare"] .service-subhero,
+body[data-page="compare"] .section-block,
+body[data-page="compare"] .compare-memo-card {
+  border-color: rgba(255, 255, 255, 0.09);
+  background:
+    radial-gradient(circle at 92% 10%, rgba(255, 30, 53, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(16, 19, 27, 0.94), rgba(8, 10, 15, 0.9)),
+    var(--card-bg);
+}
+
+body[data-page="compare"] .service-status-card {
+  border-color: rgba(255, 30, 53, 0.28);
+  background:
+    radial-gradient(circle at 92% 14%, rgba(255, 30, 53, 0.14), transparent 32%),
+    linear-gradient(180deg, rgba(18, 21, 30, 0.94), rgba(9, 11, 17, 0.92)),
+    var(--card-bg);
+}
+
+body[data-page="compare"] .service-status-card strong {
+  color: #fff;
+}
+
+/* Compare form */
+body[data-page="compare"] .field select,
+body[data-page="compare"] .field input {
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.11);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+body[data-page="compare"] .field select:focus,
+body[data-page="compare"] .field input:focus {
+  outline: none;
+  border-color: rgba(255, 30, 53, 0.42);
+  box-shadow: 0 0 0 3px rgba(255, 30, 53, 0.1);
+}
+
+/* Candidate cards */
+body[data-page="compare"] .compare-card {
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(255, 30, 53, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(16, 19, 27, 0.92), rgba(8, 10, 15, 0.88)),
+    var(--card-bg) !important;
+  color: var(--text-main);
+}
+
+body[data-page="compare"] .compare-card.selected-card {
+  border-color: rgba(255, 30, 53, 0.34) !important;
+  box-shadow:
+    0 20px 44px rgba(0, 0, 0, 0.3),
+    0 0 42px rgba(255, 30, 53, 0.08);
+}
+
+body[data-page="compare"] .candidate-title strong,
+body[data-page="compare"] .compare-card strong {
+  color: #fff;
+}
+
+body[data-page="compare"] .candidate-title p,
+body[data-page="compare"] .compare-card p {
+  color: rgba(190, 196, 210, 0.72);
+}
+
+/* Pills, badges, and chips */
+body[data-page="compare"] .rank-pill,
+body[data-page="compare"] .tone-pill,
+body[data-page="compare"] .chip,
+body[data-page="compare"] .interpretation-badge {
+  border-color: rgba(255, 255, 255, 0.11) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(225, 229, 238, 0.82) !important;
+}
+
+body[data-page="compare"] .tone-pill.tone-high,
+body[data-page="compare"] .interpretation-badge.is-caution {
+  border-color: rgba(255, 30, 53, 0.32) !important;
+  background: rgba(255, 30, 53, 0.12) !important;
+  color: #ff6675 !important;
+}
+
+body[data-page="compare"] .tone-pill.tone-mid {
+  border-color: rgba(255, 159, 26, 0.32) !important;
+  background: rgba(255, 159, 26, 0.12) !important;
+  color: #ffbf69 !important;
+}
+
+body[data-page="compare"] .tone-pill.tone-low {
+  border-color: rgba(106, 167, 159, 0.28) !important;
+  background: rgba(106, 167, 159, 0.12) !important;
+  color: #8ee0d2 !important;
+}
+
+/* Inner compare result surfaces */
+body[data-page="compare"] .benchmark-line,
+body[data-page="compare"] .risk-signal-board,
+body[data-page="compare"] .risk-signal-card,
+body[data-page="compare"] .decision-cue,
+body[data-page="compare"] .metric-compare-card,
+body[data-page="compare"] .alternative-board,
+body[data-page="compare"] .risk-delta-card,
+body[data-page="compare"] .alternative-support-grid section,
+body[data-page="compare"] .decision-memo-board,
+body[data-page="compare"] .decision-memo-row {
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  background:
+    linear-gradient(180deg, rgba(20, 24, 34, 0.88), rgba(10, 12, 18, 0.84)),
+    rgba(255, 255, 255, 0.035) !important;
+  color: var(--text-main) !important;
+}
+
+body[data-page="compare"] .benchmark-line strong,
+body[data-page="compare"] .risk-signal-card strong,
+body[data-page="compare"] .decision-cue strong,
+body[data-page="compare"] .metric-compare-card strong,
+body[data-page="compare"] .alternative-board strong,
+body[data-page="compare"] .risk-delta-card strong,
+body[data-page="compare"] .decision-memo-row strong {
+  color: #fff !important;
+}
+
+body[data-page="compare"] .benchmark-line span,
+body[data-page="compare"] .risk-signal-card span,
+body[data-page="compare"] .risk-signal-card p,
+body[data-page="compare"] .decision-cue p,
+body[data-page="compare"] .metric-compare-card p,
+body[data-page="compare"] .alternative-board p,
+body[data-page="compare"] .risk-delta-card p,
+body[data-page="compare"] .decision-memo-row p,
+body[data-page="compare"] .compact-checklist {
+  color: rgba(190, 196, 210, 0.76) !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-high,
+body[data-page="compare"] .decision-memo-row.is-primary {
+  border-color: rgba(255, 30, 53, 0.28) !important;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(255, 30, 53, 0.13), transparent 32%),
+    linear-gradient(180deg, rgba(22, 25, 34, 0.94), rgba(10, 12, 18, 0.88)) !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-mid {
+  border-color: rgba(255, 159, 26, 0.22) !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-low {
+  border-color: rgba(106, 167, 159, 0.2) !important;
+}
+
+/* Compare metric bars */
+body[data-page="compare"] .progress-track {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+body[data-page="compare"] .progress-track span {
+  background: linear-gradient(90deg, #ff9f1a, #ff1e35);
+  box-shadow: 0 0 18px rgba(255, 30, 53, 0.22);
+}
+
+body[data-page="compare"] .metric-scoreline {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+body[data-page="compare"] .metric-scoreline span,
+body[data-page="compare"] .risk-delta-card strong {
+  color: #ff6675 !important;
+}
+
+/* Compare primary button */
+body[data-page="compare"] .button-primary {
+  background: linear-gradient(135deg, #ff1e35, #c41226) !important;
+  border-color: rgba(255, 30, 53, 0.48) !important;
+  color: #fff !important;
+  box-shadow:
+    0 14px 28px rgba(255, 30, 53, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}

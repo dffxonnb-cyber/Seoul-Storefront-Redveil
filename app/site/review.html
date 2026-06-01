@@ -37,56 +37,58 @@
       </header>
 
       <main class="page-stack review-page-stack">
-        <section class="panel subhero review-subhero">
-  <div class="subhero-copy review-hero-layout">
-    <div class="review-hero-main">
-      <p class="section-label">REVIEW DESK / LOCAL RISK MEMORY</p>
-      <h2>Risk Review Console</h2>
-      <p>
-        서울 소형 상가 매입 후보를 입력하면 가격 부담, 거래 유동성, 상권 과밀,
-        수요 취약도를 기준으로 보류 판단과 다음 확인 항목을 정리합니다.
-      </p>
-    </div>
+                <section class="panel subhero review-subhero">
+          <div class="subhero-copy review-hero-layout">
+            <div class="review-hero-main">
+              <p class="section-label">REVIEW DESK / LOCAL RISK MEMORY</p>
+              <h2>Risk Review Console</h2>
+              <p>
+                서울 소형 상가 매입 후보를 입력하면 가격 부담, 거래 유동성, 상권 과밀,
+                수요 취약도를 기준으로 보류 판단과 다음 확인 항목을 정리합니다.
+              </p>
+            </div>
 
-    <div class="review-status-grid">
-      <div class="hero-status review-status-card">
-        <span class="card-label">Saved Reviews</span>
-        <strong id="review-count">0건</strong>
-        <p class="compact-note">Browser local archive</p>
-      </div>
+            <div class="review-status-grid">
+              <div class="hero-status review-status-card">
+                <span class="card-label">Saved Reviews</span>
+                <strong id="review-count">0건</strong>
+                <p class="compact-note">Browser local archive</p>
+              </div>
 
-      <div class="hero-status review-status-card">
-        <span class="card-label">Review Mode</span>
-        <strong>Hold-first</strong>
-        <p class="compact-note">추천보다 보류 사유 우선</p>
-      </div>
+              <div class="hero-status review-status-card">
+                <span class="card-label">Review Mode</span>
+                <strong>Hold-first</strong>
+                <p class="compact-note">추천보다 보류 사유 우선</p>
+              </div>
 
-      <div class="hero-status review-status-card">
-        <span class="card-label">Signal Scope</span>
-        <strong>District</strong>
-        <p class="compact-note">구별 리스크 맥락 기준</p>
-      </div>
-    </div>
-  </div>
-</section>
+              <div class="hero-status review-status-card">
+                <span class="card-label">Signal Scope</span>
+                <strong>District</strong>
+                <p class="compact-note">구별 리스크 맥락 기준</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section class="app-grid-wide review-workspace">
           <article class="panel section-block review-input-panel">
             <div class="section-head">
               <div>
-                <p class="section-label">Input</p>
+                <p class="section-label">INPUT NODE / 01</p>
                 <h2>매물 정보 입력</h2>
-                <p class="section-copy">빠른 검토에 필요한 값만 먼저 입력하세요. 나머지는 선택 입력으로 남겨도 됩니다.</p>
+                <p class="section-copy">
+                  빠른 검토에 필요한 조건만 먼저 입력합니다. 선택값은 검토 메모의 판단 근거를 보강하는 데 사용됩니다.
+                </p>
               </div>
             </div>
             <form id="review-form" class="form-stack">
               <div class="review-example-panel full-span">
                 <div class="review-example-head">
                   <div>
-                    <span class="card-label">Example Cases</span>
+                    <span class="card-label">EXAMPLE CASES</span>
                     <strong>검증 예시 불러오기</strong>
                   </div>
-                  <p>위험 후보, 애매 후보, 보수 검토 후보를 입력값까지 바로 채워 봅니다.</p>
+                  <p>위험 후보, 애매 후보, 보수 검토 후보를 불러와 판단 흐름을 빠르게 확인합니다.</p>
                 </div>
                 <div class="review-example-list" id="review-example-list"></div>
               </div>
@@ -140,7 +142,9 @@
               </fieldset>
 
               <div class="full-span">
-                <button class="button button-primary button-wide" type="submit">검토 저장</button>
+                <button class="button button-primary button-wide review-submit-button" type="submit">
+                  Generate Review Memo
+                </button>
               </div>
             </form>
           </article>
@@ -148,11 +152,20 @@
           <article class="panel section-block review-context-card">
             <div class="section-head">
               <div>
-                <p class="section-label">Live District</p>
+                <p class="section-label">LIVE DISTRICT SIGNAL / 02</p>
                 <h2 id="review-spotlight-name"></h2>
+                <p class="section-copy">선택한 구의 가격선, 거래 유동성, 상권 과밀 신호를 함께 확인합니다.</p>
               </div>
               <span class="signal-pill" id="review-spotlight-grade"></span>
             </div>
+
+            <div class="review-risk-tag-row">
+              <span>PRICE PRESSURE</span>
+              <span>LOW LIQUIDITY</span>
+              <span>OVER-COMPETITION</span>
+              <span>DEMAND FRAGILITY</span>
+            </div>
+
             <div class="inline-chart-card review-chart-card">
               <div class="chart-head">
                 <strong>최근 가격선 흐름</strong>
@@ -167,27 +180,27 @@
         <article class="panel section-block review-output-card" id="review-result">
           <div class="section-head">
             <div>
-              <p class="section-label">Saved Output</p>
-              <h2>저장 후 결과가 여기서 바로 메모 형태로 정리됩니다.</h2>
+              <p class="section-label">GENERATED REVIEW MEMO / 03</p>
+              <h2>저장 후 결과가 검토 메모로 정리됩니다.</h2>
               <p class="section-copy">저장 전에는 생성될 메모 구조만 미리 보여줍니다.</p>
             </div>
           </div>
           <div class="review-output-preview">
             <div class="review-memo-outline">
               <article>
-                <span>보류 판단</span>
+                <span>01 / 보류 판단</span>
                 <p>조건을 저장하면 매입 보류 여부가 먼저 정리됩니다.</p>
               </article>
               <article>
-                <span>핵심 근거</span>
+                <span>02 / 핵심 근거</span>
                 <p>가격 부담, 유동성, 상권 과밀 같은 근거가 묶입니다.</p>
               </article>
               <article>
-                <span>다음 확인 항목</span>
+                <span>03 / 다음 확인 항목</span>
                 <p>현장에서 다시 볼 체크 포인트가 이어집니다.</p>
               </article>
               <article>
-                <span>대체 후보</span>
+                <span>04 / 대체 후보</span>
                 <p>조건이 더 나은 비교 후보가 함께 표시됩니다.</p>
               </article>
             </div>
@@ -198,9 +211,11 @@
         <section class="panel section-block review-history-panel">
           <div class="section-head">
             <div>
-              <p class="section-label">Review History</p>
+              <p class="section-label">SAVED REVIEW ARCHIVE</p>
               <h2>최근 저장한 검토</h2>
-              <p class="section-copy">브라우저에 저장된 매물 검토 이력을 다시 확인합니다.</p>
+              <p class="section-copy">
+                브라우저에 저장된 검토 이력을 다시 열어 보고, 보류 판단의 흐름을 비교합니다.
+              </p>
             </div>
           </div>
           <div class="history-grid" id="review-history"></div>

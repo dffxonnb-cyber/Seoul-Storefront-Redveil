@@ -1552,3 +1552,231 @@ body[data-page="districts"] .district-select-button.is-active {
     linear-gradient(180deg, rgba(255, 54, 80, 0.075), rgba(255, 255, 255, 0.025)) !important;
   box-shadow: inset 2px 0 0 rgba(255, 54, 80, 0.88) !important;
 }
+
+/* District replacement candidate mini map refinement */
+body[data-page="districts"] .replacement-candidate-card {
+  display: grid !important;
+  grid-template-columns: 72px minmax(0, 1fr) !important;
+  gap: 13px !important;
+  align-items: center !important;
+  padding: 13px !important;
+  border-color: rgba(255, 255, 255, 0.085) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.042), rgba(255, 255, 255, 0.022)) !important;
+}
+
+body[data-page="districts"] .candidate-map-spark {
+  position: relative !important;
+  width: 62px !important;
+  height: 62px !important;
+  overflow: hidden !important;
+  border-radius: 13px !important;
+  border: 1px solid rgba(142, 224, 210, 0.12) !important;
+  background:
+    radial-gradient(circle at 52% 50%, rgba(142, 224, 210, 0.12), transparent 28%),
+    linear-gradient(rgba(142, 224, 210, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(142, 224, 210, 0.045) 1px, transparent 1px),
+    #05080c !important;
+  background-size: auto, 14px 14px, 14px 14px, auto !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 18px rgba(142, 224, 210, 0.055) !important;
+}
+
+body[data-page="districts"] .candidate-map-spark::before,
+body[data-page="districts"] .candidate-map-spark::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+body[data-page="districts"] .candidate-map-spark::before {
+  left: 9px;
+  right: 8px;
+  top: 31px;
+  height: 1px;
+  opacity: 0.42;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(225, 229, 238, 0.22),
+    transparent
+  );
+  transform: rotate(-14deg);
+}
+
+body[data-page="districts"] .candidate-map-spark::after {
+  left: 13px;
+  right: 12px;
+  top: 36px;
+  height: 1px;
+  opacity: 0.28;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(225, 229, 238, 0.18),
+    transparent
+  );
+  transform: rotate(18deg);
+}
+
+/* existing child span becomes the target point */
+body[data-page="districts"] .candidate-map-spark span {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 8px !important;
+  height: 8px !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 999px !important;
+  background: #8ee0d2 !important;
+  box-shadow:
+    0 0 10px rgba(142, 224, 210, 0.44),
+    0 0 24px rgba(142, 224, 210, 0.14) !important;
+}
+
+/* existing i becomes a quiet scan ring */
+body[data-page="districts"] .candidate-map-spark i {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 34px !important;
+  height: 34px !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(142, 224, 210, 0.14) !important;
+  background: transparent !important;
+  box-shadow:
+    0 0 0 11px rgba(142, 224, 210, 0.022),
+    0 0 0 22px rgba(142, 224, 210, 0.01) !important;
+}
+
+/* add small parcel blocks through text shadow-free pseudo detail */
+body[data-page="districts"] .candidate-map-spark small {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 6px !important;
+  transform: translateX(-50%) !important;
+  z-index: 3 !important;
+  min-width: 34px !important;
+  padding: 2px 5px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(142, 224, 210, 0.16) !important;
+  background: rgba(5, 8, 12, 0.78) !important;
+  color: rgba(225, 244, 241, 0.78) !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  text-align: center !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* subtle parcel overlays */
+body[data-page="districts"] .replacement-candidate-card .candidate-map-spark {
+  --parcel-color: rgba(142, 224, 210, 0.16);
+}
+
+body[data-page="districts"] .replacement-candidate-card .candidate-map-spark span::before,
+body[data-page="districts"] .replacement-candidate-card .candidate-map-spark span::after {
+  content: "";
+  position: absolute;
+  border-radius: 2px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 42%),
+    var(--parcel-color);
+  opacity: 0.72;
+}
+
+body[data-page="districts"] .replacement-candidate-card .candidate-map-spark span::before {
+  width: 20px;
+  height: 10px;
+  left: -25px;
+  top: -15px;
+  transform: rotate(-12deg);
+}
+
+body[data-page="districts"] .replacement-candidate-card .candidate-map-spark span::after {
+  width: 24px;
+  height: 11px;
+  right: -28px;
+  top: 10px;
+  transform: rotate(14deg);
+}
+
+/* tier-based accents: keep low/cool calmer, high only mildly red */
+body[data-page="districts"] .replacement-candidate-card[data-tier="high"] .candidate-map-spark {
+  border-color: rgba(255, 54, 80, 0.13) !important;
+  background:
+    radial-gradient(circle at 52% 50%, rgba(255, 54, 80, 0.105), transparent 28%),
+    linear-gradient(rgba(255, 54, 80, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 54, 80, 0.038) 1px, transparent 1px),
+    #05080c !important;
+  background-size: auto, 14px 14px, 14px 14px, auto !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card[data-tier="high"] .candidate-map-spark {
+  --parcel-color: rgba(255, 54, 80, 0.14);
+}
+
+body[data-page="districts"] .replacement-candidate-card[data-tier="high"] .candidate-map-spark span {
+  background: #ff6675 !important;
+  box-shadow:
+    0 0 10px rgba(255, 54, 80, 0.36),
+    0 0 24px rgba(255, 54, 80, 0.12) !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card[data-tier="high"] .candidate-map-spark i,
+body[data-page="districts"] .replacement-candidate-card[data-tier="high"] .candidate-map-spark small {
+  border-color: rgba(255, 54, 80, 0.15) !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card[data-tier="high"] .candidate-map-spark small {
+  color: rgba(255, 210, 216, 0.78) !important;
+}
+
+/* text hierarchy inside replacement candidate */
+body[data-page="districts"] .replacement-candidate-card header {
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  margin-bottom: 4px !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card header strong {
+  color: #fff !important;
+  font-size: 15px !important;
+  font-weight: 850 !important;
+  letter-spacing: -0.02em !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card header em {
+  color: rgba(142, 224, 210, 0.78) !important;
+  font-size: 12px !important;
+  font-style: normal !important;
+  font-weight: 800 !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card[data-tier="high"] header em {
+  color: #ff6675 !important;
+}
+
+body[data-page="districts"] .replacement-candidate-card p {
+  margin: 0 !important;
+  color: rgba(190, 196, 210, 0.66) !important;
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+}
+
+body[data-page="districts"] .candidate-compare {
+  display: inline-flex !important;
+  width: fit-content !important;
+  margin-top: 7px !important;
+  padding: 4px 8px !important;
+  border: 1px solid rgba(142, 224, 210, 0.16) !important;
+  border-radius: 999px !important;
+  background: rgba(142, 224, 210, 0.055) !important;
+  color: rgba(160, 238, 226, 0.82) !important;
+  font-size: 10.5px !important;
+  font-weight: 800 !important;
+}

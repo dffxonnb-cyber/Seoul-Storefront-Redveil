@@ -629,3 +629,206 @@ body[data-page="compare"] .compare-card .decision-cue {
   position: relative;
   z-index: 4;
 }
+
+/* Replace abstract polygon with urban scan panel */
+body[data-page="compare"] .compare-card::after,
+body[data-page="compare"] .compare-card .candidate-title::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Compare candidate urban scan panel */
+body[data-page="compare"] .compare-card {
+  min-height: auto !important;
+  gap: 14px !important;
+}
+
+body[data-page="compare"] .compare-card .candidate-title {
+  min-height: auto !important;
+  display: block !important;
+  padding-bottom: 0 !important;
+}
+
+body[data-page="compare"] .candidate-scan-panel {
+  position: relative;
+  height: 132px;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255, 54, 80, 0.14), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.018));
+}
+
+body[data-page="compare"] .candidate-scan-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.72;
+  background:
+    linear-gradient(rgba(255, 54, 80, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 54, 80, 0.07) 1px, transparent 1px);
+  background-size: 18px 18px;
+  mask-image: radial-gradient(circle at center, #000 0%, transparent 78%);
+}
+
+body[data-page="compare"] .candidate-scan-panel::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 72px;
+  height: 72px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 54, 80, 0.18);
+  box-shadow:
+    0 0 0 22px rgba(255, 54, 80, 0.035),
+    0 0 0 44px rgba(255, 54, 80, 0.018);
+}
+
+body[data-page="compare"] .scan-road {
+  position: absolute;
+  height: 1px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  transform-origin: center;
+}
+
+body[data-page="compare"] .scan-road-a {
+  left: 18px;
+  right: 20px;
+  top: 64px;
+  transform: rotate(-12deg);
+}
+
+body[data-page="compare"] .scan-road-b {
+  left: 34px;
+  right: 28px;
+  top: 76px;
+  transform: rotate(19deg);
+  opacity: 0.7;
+}
+
+body[data-page="compare"] .scan-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #ff3650;
+  box-shadow:
+    0 0 14px rgba(255, 54, 80, 0.62),
+    0 0 34px rgba(255, 54, 80, 0.22);
+}
+
+body[data-page="compare"] .scan-building {
+  position: absolute;
+  width: 14px;
+  border-radius: 3px 3px 1px 1px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 34%),
+    rgba(255, 54, 80, 0.26);
+  box-shadow: 0 0 16px rgba(255, 54, 80, 0.1);
+}
+
+body[data-page="compare"] .scan-building.b1 {
+  left: 29%;
+  bottom: 35px;
+  height: 44px;
+}
+
+body[data-page="compare"] .scan-building.b2 {
+  left: 39%;
+  bottom: 31px;
+  height: 64px;
+}
+
+body[data-page="compare"] .scan-building.b3 {
+  left: 50%;
+  bottom: 34px;
+  height: 84px;
+  width: 17px;
+}
+
+body[data-page="compare"] .scan-building.b4 {
+  left: 62%;
+  bottom: 32px;
+  height: 54px;
+}
+
+body[data-page="compare"] .scan-building.b5 {
+  left: 70%;
+  bottom: 37px;
+  height: 34px;
+}
+
+/* Candidate B amber tone */
+body[data-page="compare"] .candidate-scan-panel.is-amber {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255, 191, 105, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.018));
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-amber::before {
+  background:
+    linear-gradient(rgba(255, 191, 105, 0.062) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 191, 105, 0.062) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-amber::after {
+  border-color: rgba(255, 191, 105, 0.16);
+  box-shadow:
+    0 0 0 22px rgba(255, 191, 105, 0.03),
+    0 0 0 44px rgba(255, 191, 105, 0.016);
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-amber .scan-core {
+  background: #ffbf69;
+  box-shadow:
+    0 0 14px rgba(255, 191, 105, 0.46),
+    0 0 34px rgba(255, 191, 105, 0.15);
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-amber .scan-building {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), transparent 34%),
+    rgba(255, 191, 105, 0.21);
+}
+
+/* Candidate C cool tone */
+body[data-page="compare"] .candidate-scan-panel.is-cool {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(142, 224, 210, 0.1), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.018));
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-cool::before {
+  background:
+    linear-gradient(rgba(142, 224, 210, 0.056) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(142, 224, 210, 0.056) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-cool::after {
+  border-color: rgba(142, 224, 210, 0.14);
+  box-shadow:
+    0 0 0 22px rgba(142, 224, 210, 0.026),
+    0 0 0 44px rgba(142, 224, 210, 0.014);
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-cool .scan-core {
+  background: #8ee0d2;
+  box-shadow:
+    0 0 14px rgba(142, 224, 210, 0.36),
+    0 0 34px rgba(142, 224, 210, 0.12);
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-cool .scan-building {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), transparent 34%),
+    rgba(142, 224, 210, 0.18);
+}

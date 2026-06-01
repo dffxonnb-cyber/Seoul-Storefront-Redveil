@@ -108,6 +108,24 @@
     `;
   }
 
+    function renderCandidateScan(index) {
+    const tone = index === 0 ? "is-red" : index === 1 ? "is-amber" : "is-cool";
+
+    return `
+      <div class="candidate-scan-panel ${tone}" aria-hidden="true">
+        <div class="scan-grid"></div>
+        <div class="scan-road scan-road-a"></div>
+        <div class="scan-road scan-road-b"></div>
+        <div class="scan-core"></div>
+        <span class="scan-building b1"></span>
+        <span class="scan-building b2"></span>
+        <span class="scan-building b3"></span>
+        <span class="scan-building b4"></span>
+        <span class="scan-building b5"></span>
+      </div>
+    `;
+  }
+
   function decisionCue(item) {
     const factors = topRiskFactors(item, 2).map((factor) => factor.label).join(" · ");
     if (Number(item.riskScore || 0) >= 70) return `${factors} 중첩으로 우선 보류 검토`;
@@ -128,6 +146,7 @@
               <strong>${item.name}</strong>
               <p>${item.riskArchetype}</p>
             </div>
+            ${renderCandidateScan(index)}
             ${renderBenchmarkLine(item.riskScore, item)}
             ${renderReliabilityBadges(item)}
             ${renderRiskSignals(item)}

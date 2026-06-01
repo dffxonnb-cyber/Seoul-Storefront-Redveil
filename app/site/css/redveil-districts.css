@@ -1409,3 +1409,146 @@ body[data-page="districts"] input:-webkit-autofill:focus {
     height: 196px !important;
   }
 }
+
+/* District report refinement pass: width, red density, score spacing, metric bars */
+
+/* 1) Bring district report back into the same site width rhythm */
+body[data-page="districts"] .page-shell {
+  width: min(1320px, calc(100% - 48px)) !important;
+}
+
+body[data-page="districts"] .district-layout {
+  grid-template-columns: 232px minmax(0, 1fr) !important;
+  gap: 13px !important;
+}
+
+body[data-page="districts"] .panel-stack {
+  gap: 13px !important;
+}
+
+body[data-page="districts"] .district-selector-card,
+body[data-page="districts"] .seoul-risk-map-card,
+body[data-page="districts"] .selected-district-card,
+body[data-page="districts"] .district-drilldown-card,
+body[data-page="districts"] .district-field-direction-card,
+body[data-page="districts"] .district-risk-breakdown-card,
+body[data-page="districts"] .district-objections-card,
+body[data-page="districts"] .district-replacement-card,
+body[data-page="districts"] .district-trend-card {
+  padding: 14px !important;
+}
+
+/* 2) Reduce red density: labels become quiet metadata */
+body[data-page="districts"] .section-label,
+body[data-page="districts"] .card-label,
+body[data-page="districts"] .result-label {
+  color: rgba(190, 196, 210, 0.66) !important;
+  letter-spacing: 0.08em !important;
+}
+
+body[data-page="districts"] .seoul-map-node.is-selected text,
+body[data-page="districts"] .risk-level-badge,
+body[data-page="districts"] .district-select-button.is-active strong,
+body[data-page="districts"] .service-status-card strong,
+body[data-page="districts"] .headline-score strong {
+  color: #ff6675 !important;
+}
+
+/* 3) Quiet general chips; keep alternatives teal */
+body[data-page="districts"] .district-context-chip-row span,
+body[data-page="districts"] .selected-badge-row span,
+body[data-page="districts"] .district-risk-chip-list span,
+body[data-page="districts"] .console-chip-row span,
+body[data-page="districts"] .risk-chip,
+body[data-page="districts"] .interpretation-badge {
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  background: rgba(255, 255, 255, 0.045) !important;
+  color: rgba(205, 211, 225, 0.72) !important;
+}
+
+body[data-page="districts"] .district-risk-chip-list span,
+body[data-page="districts"] .risk-chip.is-active,
+body[data-page="districts"] .interpretation-badge.is-caution {
+  border-color: rgba(255, 54, 80, 0.28) !important;
+  background: rgba(255, 54, 80, 0.09) !important;
+  color: #ff6675 !important;
+}
+
+body[data-page="districts"] .district-pill-list span {
+  border-color: rgba(108, 184, 184, 0.2) !important;
+  background: rgba(108, 184, 184, 0.06) !important;
+  color: #8ee0d2 !important;
+}
+
+/* 4) Selected District score card spacing */
+body[data-page="districts"] .selected-district-hero {
+  gap: 16px !important;
+}
+
+body[data-page="districts"] .headline-score {
+  min-width: 124px !important;
+  padding: 16px 18px !important;
+  border-color: rgba(255, 54, 80, 0.2) !important;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(255, 54, 80, 0.11), transparent 40%),
+    linear-gradient(180deg, rgba(20, 23, 32, 0.92), rgba(9, 11, 17, 0.88)) !important;
+}
+
+body[data-page="districts"] .headline-score .card-label,
+body[data-page="districts"] .headline-score span {
+  display: block !important;
+  margin-bottom: 8px !important;
+  color: rgba(190, 196, 210, 0.66) !important;
+}
+
+body[data-page="districts"] .headline-score strong {
+  display: block !important;
+  margin-left: 0 !important;
+  font-size: 30px !important;
+  line-height: 1 !important;
+  letter-spacing: -0.045em !important;
+}
+
+/* 5) Remove remaining gradient-like metric bars */
+body[data-page="districts"] .selector-score-line {
+  height: 4px !important;
+  background: rgba(255, 255, 255, 0.065) !important;
+}
+
+body[data-page="districts"] .selector-score-line i {
+  background: #ff3650 !important;
+  box-shadow: none !important;
+}
+
+body[data-page="districts"] .progress-track,
+body[data-page="districts"] .risk-bar,
+body[data-page="districts"] .metric-bar {
+  border-color: rgba(255, 255, 255, 0.07) !important;
+  background: rgba(255, 255, 255, 0.055) !important;
+}
+
+body[data-page="districts"] .progress-track span,
+body[data-page="districts"] .risk-bar > span,
+body[data-page="districts"] .metric-bar > span,
+body[data-page="districts"] .metric-bar i {
+  background: #ff3650 !important;
+  box-shadow: none !important;
+}
+
+/* 6) Slightly calmer global red glows */
+body[data-page="districts"] .service-status-card,
+body[data-page="districts"] .headline-score {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 14px 34px rgba(0, 0, 0, 0.26) !important;
+}
+
+body[data-page="districts"] .district-select-button:hover,
+body[data-page="districts"] .district-select-button:focus-visible,
+body[data-page="districts"] .district-select-button.is-active {
+  border-color: rgba(255, 54, 80, 0.32) !important;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 54, 80, 0.11), transparent 38%),
+    linear-gradient(180deg, rgba(255, 54, 80, 0.075), rgba(255, 255, 255, 0.025)) !important;
+  box-shadow: inset 2px 0 0 rgba(255, 54, 80, 0.88) !important;
+}

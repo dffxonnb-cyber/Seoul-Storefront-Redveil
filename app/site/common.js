@@ -337,7 +337,7 @@
     return record;
   }
 
-  function drawLineChart(targetId, points, key, color) {
+    function drawLineChart(targetId, points, key, color) {
     const svg = document.getElementById(targetId);
     if (!svg || !points?.length) return;
 
@@ -350,36 +350,41 @@
     const max = Math.max(...values);
     const range = max - min || 1;
     const stepX = points.length === 1 ? 0 : (width - paddingX * 2) / (points.length - 1);
+
     const coords = points.map((item, index) => ({
       x: paddingX + stepX * index,
       y: height - paddingY - ((Number(item[key] || 0) - min) / range) * (height - paddingY * 2),
       label: item.month,
     }));
+
     const path = coords
       .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`)
       .join(" ");
-    const area = `${path} L ${coords[coords.length - 1].x.toFixed(1)} ${height - paddingY} L ${coords[0].x.toFixed(1)} ${height - paddingY} Z`;
+
     const labels = coords
       .map((point, index) => {
         const visible = index === 0 || index === coords.length - 1 || index === Math.floor(coords.length / 2);
         return visible
-          ? `<text x="${point.x}" y="${height - 8}" text-anchor="middle" font-size="11" fill="#8ea0b2">${point.label}</text>`
+          ? `<text class="chart-axis-label" x="${point.x}" y="${height - 8}" text-anchor="middle">${point.label}</text>`
           : "";
       })
       .join("");
-    const dots = coords.map((point) => `<circle cx="${point.x}" cy="${point.y}" r="3.5" fill="${color}"></circle>`).join("");
+
+    const gridLines = [0.25, 0.5, 0.75]
+      .map((ratio) => {
+        const y = paddingY + (height - paddingY * 2) * ratio;
+        return `<line x1="${paddingX}" y1="${y.toFixed(1)}" x2="${width - paddingX}" y2="${y.toFixed(1)}" class="chart-grid-line"></line>`;
+      })
+      .join("");
+
+    const lastPoint = coords[coords.length - 1];
+    const lastDot = `<circle class="chart-last-dot" cx="${lastPoint.x}" cy="${lastPoint.y}" r="4.2" fill="${color}"></circle>`;
 
     svg.innerHTML = `
-      <defs>
-        <linearGradient id="${targetId}-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="${color}" stop-opacity="0.35"></stop>
-          <stop offset="100%" stop-color="${color}" stop-opacity="0.04"></stop>
-        </linearGradient>
-      </defs>
-      <line x1="${paddingX}" y1="${height - paddingY}" x2="${width - paddingX}" y2="${height - paddingY}" stroke="rgba(255,255,255,0.10)" />
-      <path d="${area}" fill="url(#${targetId}-fill)"></path>
-      <path d="${path}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-      ${dots}
+      ${gridLines}
+      <line class="chart-axis-line" x1="${paddingX}" y1="${height - paddingY}" x2="${width - paddingX}" y2="${height - paddingY}" />
+      <path class="chart-line-path" d="${path}" fill="none" stroke="${color}"></path>
+      ${lastDot}
       ${labels}
     `;
   }

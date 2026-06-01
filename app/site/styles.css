@@ -10176,3 +10176,79 @@ body[data-page] .risk-bar > span {
   background: #ff3650 !important;
   box-shadow: none !important;
 }
+
+/* Global metric bar refinement */
+body[data-page] .progress-track {
+  position: relative;
+  overflow: hidden;
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+body[data-page] .progress-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #ff3650 !important;
+  box-shadow: none !important;
+}
+
+body[data-page] .risk-bar {
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.055);
+  overflow: hidden;
+}
+
+body[data-page] .risk-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #ff3650 !important;
+  box-shadow: none !important;
+}
+
+/* Make small metric rows cleaner */
+body[data-page] .metric-mini-row .progress-track {
+  height: 7px;
+}
+
+body[data-page] .progress-row header,
+body[data-page] .metric-mini-row {
+  gap: 10px;
+}
+
+/* Global line chart refinement */
+body[data-page] .chart-grid-line {
+  stroke: rgba(255, 255, 255, 0.055);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+body[data-page] .chart-axis-line {
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+body[data-page] .chart-line-path {
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(255, 30, 53, 0.14));
+}
+
+body[data-page] .chart-last-dot {
+  stroke: rgba(255, 255, 255, 0.78);
+  stroke-width: 1.4;
+  filter: drop-shadow(0 0 8px rgba(255, 30, 53, 0.28));
+}
+
+body[data-page] .chart-axis-label {
+  fill: rgba(190, 196, 210, 0.58);
+  font-size: 11px;
+  font-weight: 600;
+}

@@ -10252,3 +10252,66 @@ body[data-page] .chart-axis-label {
   font-size: 11px;
   font-weight: 600;
 }
+
+/* Global chart card layout refinement */
+body[data-page] .inline-chart-card {
+  min-height: 248px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px;
+  border-color: rgba(255, 255, 255, 0.09);
+  background:
+    linear-gradient(180deg, rgba(20, 24, 34, 0.88), rgba(10, 12, 18, 0.84)),
+    rgba(255, 255, 255, 0.035);
+}
+
+body[data-page] .chart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 28px;
+}
+
+body[data-page] .chart-head strong {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+body[data-page] .chart-head span {
+  color: rgba(190, 196, 210, 0.62);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+body[data-page] .inline-chart-card svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 178px;
+  overflow: visible;
+}
+
+body[data-page] .review-chart-card,
+body[data-page] .district-trend-card .inline-chart-card {
+  min-height: 260px;
+}
+
+body[data-page="assessment"] .assessment-insight-grid .inline-chart-card {
+  min-height: 250px;
+}
+
+body[data-page="districts"] .district-trend-card .inline-chart-card {
+  padding: 20px;
+}
+
+body[data-page] .chart-axis-label {
+  fill: rgba(190, 196, 210, 0.58);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}

@@ -1895,3 +1895,116 @@ body[data-page="districts"] .replacement-candidate-card:nth-child(2) header em {
 body[data-page="districts"] .replacement-candidate-card:nth-child(3) header em {
   color: #8ee0d2 !important;
 }
+
+/* District main Seoul risk map refinement */
+body[data-page="districts"] .seoul-risk-map-card {
+  background:
+    radial-gradient(circle at 52% 45%, rgba(255, 54, 80, 0.038), transparent 43%),
+    linear-gradient(180deg, rgba(11, 15, 22, 0.98), rgba(5, 7, 11, 0.97)) !important;
+}
+
+body[data-page="districts"] .seoul-risk-map-shell {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px),
+    radial-gradient(circle at 47% 50%, rgba(255, 54, 80, 0.032), transparent 46%),
+    #05070b !important;
+  background-size: 34px 34px, 34px 34px, auto, auto !important;
+}
+
+body[data-page="districts"] .seoul-risk-map-shell::before {
+  opacity: 0.48 !important;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 1px), rgba(255, 54, 80, 0.055) 50%, transparent calc(50% + 1px)),
+    linear-gradient(180deg, transparent calc(50% - 1px), rgba(255, 54, 80, 0.046) 50%, transparent calc(50% + 1px)),
+    radial-gradient(circle at 50% 50%, transparent 0 27%, rgba(255, 54, 80, 0.026) 27.3%, transparent 27.8%),
+    radial-gradient(circle at 50% 50%, transparent 0 39%, rgba(255, 255, 255, 0.025) 39.2%, transparent 39.7%) !important;
+}
+
+body[data-page="districts"] .seoul-risk-map-shell::after {
+  opacity: 0.66 !important;
+  box-shadow: inset 0 0 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+body[data-page="districts"] .map-scan-overlay {
+  opacity: 0.31 !important;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(255, 54, 80, 0.036) 48%, transparent 52%),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 5px) !important;
+}
+
+body[data-page="districts"] .map-core-glow {
+  opacity: 0.42 !important;
+}
+
+body[data-page="districts"] #seoul-risk-map .map-river {
+  stroke: rgba(108, 184, 184, 0.12) !important;
+  stroke-width: 7 !important;
+  opacity: 0.28 !important;
+}
+
+body[data-page="districts"] #seoul-risk-map .map-axis-lines path {
+  stroke: rgba(255, 255, 255, 0.045) !important;
+  stroke-width: 0.9 !important;
+  stroke-dasharray: 4 12 !important;
+}
+
+/* District node tone refinement */
+body[data-page="districts"] .seoul-map-node polygon {
+  fill: rgba(76, 86, 102, 0.32) !important;
+  stroke: rgba(216, 224, 238, 0.095) !important;
+  stroke-width: 0.8 !important;
+}
+
+body[data-page="districts"] .seoul-map-node.tier-high polygon {
+  fill: rgba(142, 45, 55, 0.48) !important;
+}
+
+body[data-page="districts"] .seoul-map-node.tier-watch polygon {
+  fill: rgba(119, 88, 54, 0.36) !important;
+}
+
+body[data-page="districts"] .seoul-map-node.tier-low polygon {
+  fill: rgba(62, 75, 91, 0.32) !important;
+}
+
+body[data-page="districts"] .seoul-map-node:hover polygon,
+body[data-page="districts"] .seoul-map-node:focus-visible polygon {
+  stroke: rgba(245, 247, 252, 0.38) !important;
+  fill-opacity: 0.68 !important;
+}
+
+/* Selected district: precise, less blown-out */
+body[data-page="districts"] .seoul-map-node.is-selected polygon {
+  fill: rgba(255, 54, 80, 0.78) !important;
+  fill-opacity: 0.9 !important;
+  stroke: rgba(255, 229, 234, 0.84) !important;
+  stroke-width: 1.6 !important;
+  filter: drop-shadow(0 0 12px rgba(255, 54, 80, 0.32));
+}
+
+body[data-page="districts"] .seoul-map-node text {
+  fill: rgba(190, 199, 216, 0.44) !important;
+  font-size: 10.5px !important;
+  stroke: rgba(3, 4, 8, 0.78) !important;
+  stroke-width: 2.6px !important;
+}
+
+body[data-page="districts"] .seoul-map-node.is-selected text {
+  fill: rgba(255, 244, 246, 0.92) !important;
+}
+
+/* Target crosshair refinement */
+body[data-page="districts"] .map-target circle {
+  fill: none !important;
+  stroke: rgba(255, 54, 80, 0.38) !important;
+  stroke-width: 1.2 !important;
+  stroke-dasharray: 4 8 !important;
+  filter: drop-shadow(0 0 8px rgba(255, 54, 80, 0.18));
+}
+
+body[data-page="districts"] .map-target line {
+  stroke: rgba(255, 235, 238, 0.52) !important;
+  stroke-width: 1 !important;
+  stroke-linecap: round !important;
+}

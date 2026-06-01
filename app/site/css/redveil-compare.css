@@ -832,3 +832,182 @@ body[data-page="compare"] .candidate-scan-panel.is-cool .scan-building {
     linear-gradient(180deg, rgba(255, 255, 255, 0.13), transparent 34%),
     rgba(142, 224, 210, 0.18);
 }
+
+/* Compare candidate scan panel natural map refinement */
+body[data-page="compare"] .compare-card {
+  gap: 12px !important;
+}
+
+body[data-page="compare"] .candidate-scan-panel {
+  height: 118px !important;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  border-radius: 17px;
+  border-color: rgba(255, 255, 255, 0.07) !important;
+  background:
+    radial-gradient(circle at 50% 52%, rgba(255, 54, 80, 0.105), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.016)) !important;
+}
+
+body[data-page="compare"] .candidate-scan-panel::before {
+  opacity: 0.48 !important;
+  background:
+    linear-gradient(rgba(255, 54, 80, 0.052) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 54, 80, 0.052) 1px, transparent 1px) !important;
+  background-size: 16px 16px !important;
+  mask-image: radial-gradient(ellipse at center, #000 0%, transparent 76%) !important;
+}
+
+body[data-page="compare"] .candidate-scan-panel::after {
+  width: 46px !important;
+  height: 46px !important;
+  border-color: rgba(255, 54, 80, 0.14) !important;
+  box-shadow:
+    0 0 0 18px rgba(255, 54, 80, 0.026),
+    0 0 0 38px rgba(255, 54, 80, 0.012) !important;
+}
+
+/* make roads feel like faint map paths, not graphic X-lines */
+body[data-page="compare"] .scan-road {
+  height: 1px !important;
+  opacity: 0.42;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(225, 229, 238, 0.14),
+    transparent
+  ) !important;
+}
+
+body[data-page="compare"] .scan-road-a {
+  left: 26px !important;
+  right: 30px !important;
+  top: 53px !important;
+  transform: rotate(-9deg) !important;
+}
+
+body[data-page="compare"] .scan-road-b {
+  left: 42px !important;
+  right: 34px !important;
+  top: 68px !important;
+  transform: rotate(14deg) !important;
+  opacity: 0.34 !important;
+}
+
+/* reduce central target: quieter intelligence marker */
+body[data-page="compare"] .scan-core {
+  width: 8px !important;
+  height: 8px !important;
+  opacity: 0.88;
+  box-shadow:
+    0 0 10px rgba(255, 54, 80, 0.42),
+    0 0 24px rgba(255, 54, 80, 0.14) !important;
+}
+
+/* turn vertical buildings into top-down parcels / building footprints */
+body[data-page="compare"] .scan-building {
+  width: 28px !important;
+  height: 14px !important;
+  border-radius: 3px !important;
+  opacity: 0.42;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 42%),
+    rgba(255, 54, 80, 0.18) !important;
+  box-shadow: none !important;
+  transform-origin: center;
+}
+
+body[data-page="compare"] .scan-building.b1 {
+  left: 29% !important;
+  top: 44px !important;
+  bottom: auto !important;
+  transform: rotate(-15deg);
+}
+
+body[data-page="compare"] .scan-building.b2 {
+  left: 39% !important;
+  top: 34px !important;
+  bottom: auto !important;
+  width: 34px !important;
+  height: 16px !important;
+  transform: rotate(10deg);
+}
+
+body[data-page="compare"] .scan-building.b3 {
+  left: 49% !important;
+  top: 59px !important;
+  bottom: auto !important;
+  width: 38px !important;
+  height: 18px !important;
+  transform: rotate(-4deg);
+}
+
+body[data-page="compare"] .scan-building.b4 {
+  left: 61% !important;
+  top: 39px !important;
+  bottom: auto !important;
+  width: 30px !important;
+  height: 14px !important;
+  transform: rotate(16deg);
+}
+
+body[data-page="compare"] .scan-building.b5 {
+  left: 66% !important;
+  top: 70px !important;
+  bottom: auto !important;
+  width: 24px !important;
+  height: 12px !important;
+  transform: rotate(-12deg);
+}
+
+/* Candidate B amber tone refinement */
+body[data-page="compare"] .candidate-scan-panel.is-amber {
+  background:
+    radial-gradient(circle at 50% 52%, rgba(255, 191, 105, 0.085), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.016)) !important;
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-amber::before {
+  background:
+    linear-gradient(rgba(255, 191, 105, 0.046) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 191, 105, 0.046) 1px, transparent 1px) !important;
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-amber::after {
+  border-color: rgba(255, 191, 105, 0.13) !important;
+  box-shadow:
+    0 0 0 18px rgba(255, 191, 105, 0.022),
+    0 0 0 38px rgba(255, 191, 105, 0.01) !important;
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-amber .scan-building {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 42%),
+    rgba(255, 191, 105, 0.15) !important;
+}
+
+/* Candidate C cool tone refinement */
+body[data-page="compare"] .candidate-scan-panel.is-cool {
+  background:
+    radial-gradient(circle at 50% 52%, rgba(142, 224, 210, 0.072), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.016)) !important;
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-cool::before {
+  background:
+    linear-gradient(rgba(142, 224, 210, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(142, 224, 210, 0.04) 1px, transparent 1px) !important;
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-cool::after {
+  border-color: rgba(142, 224, 210, 0.12) !important;
+  box-shadow:
+    0 0 0 18px rgba(142, 224, 210, 0.018),
+    0 0 0 38px rgba(142, 224, 210, 0.008) !important;
+}
+
+body[data-page="compare"] .candidate-scan-panel.is-cool .scan-building {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 42%),
+    rgba(142, 224, 210, 0.13) !important;
+}

@@ -73,3 +73,5 @@ V2 map direction shifted from district-only cartogram to district plus urban gri
 The homepage layout should now prioritize a premium map-first command center: slimmer navigation, compact header copy, a dominant Seoul risk map, connected signal panels, and quieter workflow links.
 
 The visual system polish pass should improve scale, typography, panel depth, and candidate-table clarity without changing the v1 flow or adding external map dependencies.
+
+The command-center redesign pass should make the v2 homepage visibly different from the earlier admin-like dashboard by emphasizing a larger map screen, product rail, connected intelligence column, and ranking-style candidate module.

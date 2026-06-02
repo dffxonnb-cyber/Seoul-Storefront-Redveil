@@ -1385,3 +1385,557 @@ body[data-page="redveil-v2"] {
     opacity: 0.72;
   }
 }
+
+/* Bold command-center redesign */
+body[data-page="redveil-v2"] {
+  background:
+    radial-gradient(circle at 38% -12%, rgba(255, 51, 71, 0.16), transparent 26%),
+    radial-gradient(circle at 88% 18%, rgba(83, 129, 210, 0.075), transparent 24%),
+    linear-gradient(120deg, #010207 0%, #050915 48%, #020308 100%);
+}
+
+.v2-shell {
+  grid-template-columns: 148px minmax(0, 1fr);
+  gap: 18px;
+  width: min(1720px, 100%);
+  padding: 18px;
+}
+
+.v2-sidebar {
+  top: 18px;
+  height: calc(100vh - 36px);
+  padding: 18px 13px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.052), transparent 34%),
+    linear-gradient(90deg, rgba(255, 51, 71, 0.042), transparent 72%),
+    rgba(7, 10, 17, 0.92);
+}
+
+.v2-brand {
+  gap: 10px;
+}
+
+.v2-brand img {
+  width: 54px;
+  height: 54px;
+}
+
+.v2-brand strong {
+  font-size: 0.92rem;
+}
+
+.v2-side-nav {
+  gap: 10px;
+  margin-top: 34px;
+}
+
+.v2-side-nav a {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  justify-items: start;
+  min-height: 54px;
+  padding: 9px 10px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.026);
+}
+
+.v2-side-nav a span {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  color: rgba(193, 201, 217, 0.7);
+  font-size: 0.64rem;
+  font-weight: 900;
+}
+
+.v2-side-nav a strong {
+  color: rgba(230, 235, 245, 0.82);
+  font-size: 0.78rem;
+}
+
+.v2-side-nav a.is-active {
+  border-color: rgba(255, 51, 71, 0.46);
+  background:
+    linear-gradient(90deg, rgba(255, 51, 71, 0.18), rgba(255, 51, 71, 0.045)),
+    rgba(255, 255, 255, 0.03);
+  box-shadow:
+    inset 3px 0 0 var(--v2-red),
+    0 14px 28px rgba(255, 51, 71, 0.08);
+}
+
+.v2-side-nav a.is-active span {
+  border-color: rgba(255, 51, 71, 0.6);
+  color: #fff;
+  background: rgba(255, 51, 71, 0.22);
+}
+
+.v2-topbar {
+  min-height: 50px;
+  margin-bottom: 18px;
+  padding: 9px 12px;
+}
+
+.v2-dashboard {
+  grid-template-columns: minmax(0, 1fr) 390px;
+  grid-template-areas:
+    "hero side"
+    "map side"
+    "candidates workflow";
+  gap: 18px;
+}
+
+.v2-hero-panel {
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.5fr) auto;
+  align-items: stretch;
+  padding: 22px;
+  min-height: 178px;
+  background:
+    linear-gradient(90deg, rgba(255, 51, 71, 0.11), transparent 46%),
+    radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.07), transparent 28%),
+    rgba(8, 11, 18, 0.86);
+}
+
+.v2-hero-copy h1 {
+  max-width: 880px;
+  font-size: clamp(2.15rem, 3vw, 3.35rem);
+  line-height: 1.1;
+}
+
+.v2-hero-copy p:not(.v2-eyebrow) {
+  max-width: 760px;
+  margin-top: 12px;
+  font-size: 1.02rem;
+}
+
+.v2-mission-strip {
+  align-self: stretch;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.v2-mission-strip div {
+  display: grid;
+  align-content: center;
+  padding: 15px 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent),
+    rgba(255, 255, 255, 0.035);
+}
+
+.v2-mission-strip dd {
+  font-size: 1.2rem;
+}
+
+.v2-hero-actions {
+  display: grid;
+  align-content: center;
+  min-width: 160px;
+}
+
+.v2-button {
+  min-height: 42px;
+}
+
+.v2-map-panel {
+  min-height: 900px;
+  padding: 22px;
+}
+
+.v2-map-command-head {
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.v2-map-command-head h2 {
+  font-size: clamp(1.35rem, 1.8vw, 1.8rem);
+}
+
+.v2-map-command-head p {
+  margin: 7px 0 0;
+  color: rgba(193, 201, 217, 0.68);
+  font-size: 0.9rem;
+}
+
+.v2-map-command-status {
+  display: grid;
+  justify-items: end;
+  gap: 7px;
+}
+
+.v2-map-command-status span {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--v2-radius);
+  padding: 6px 8px;
+  color: rgba(193, 201, 217, 0.62);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.v2-map-screen {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--v2-radius);
+  overflow: hidden;
+  background: rgba(2, 4, 9, 0.66);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 24px 70px rgba(0, 0, 0, 0.34);
+}
+
+.v2-map-screenbar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0 13px;
+  background: rgba(255, 255, 255, 0.028);
+}
+
+.v2-map-screenbar span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.v2-map-screenbar span:first-child {
+  background: rgba(255, 51, 71, 0.72);
+}
+
+.v2-map-screenbar strong {
+  margin-left: 8px;
+  color: rgba(193, 201, 217, 0.55);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.v2-map-canvas {
+  min-height: 760px;
+  border: 0;
+  border-radius: 0;
+}
+
+.v2-risk-map-svg {
+  min-height: 760px;
+}
+
+.v2-side-stack {
+  gap: 16px;
+}
+
+.v2-risk-index,
+.v2-top-signal,
+.v2-decision-card {
+  padding: 22px;
+}
+
+.v2-risk-index {
+  min-height: 310px;
+  border-color: rgba(255, 51, 71, 0.18);
+}
+
+.v2-score-row strong {
+  font-size: clamp(5.8rem, 7.6vw, 7.1rem);
+}
+
+.v2-risk-index p,
+.v2-top-signal p,
+.v2-decision-card p {
+  font-size: 0.94rem;
+}
+
+.v2-top-signal {
+  min-height: 230px;
+}
+
+.v2-decision-card {
+  min-height: 190px;
+  border-color: rgba(255, 255, 255, 0.09);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    rgba(8, 11, 18, 0.72);
+}
+
+.v2-decision-card strong {
+  display: block;
+  margin-top: 10px;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.v2-decision-card p {
+  margin: 10px 0 0;
+  color: rgba(193, 201, 217, 0.7);
+  line-height: 1.62;
+}
+
+.v2-candidate-panel {
+  padding: 22px;
+}
+
+.v2-candidate-list {
+  display: grid;
+  gap: 10px;
+  border: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.v2-candidate-header {
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: var(--v2-radius);
+  background: rgba(255, 255, 255, 0.026);
+}
+
+.v2-candidate-row {
+  min-height: 78px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--v2-radius);
+  padding: 15px 16px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.038), transparent 34%),
+    rgba(255, 255, 255, 0.018);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.v2-candidate-row:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.v2-candidate-rank {
+  width: 38px;
+  height: 38px;
+  color: #fff;
+}
+
+.v2-candidate-name {
+  font-size: 1.02rem;
+}
+
+.v2-candidate-signal {
+  font-size: 0.88rem;
+}
+
+.v2-workflow-panel {
+  align-self: start;
+  padding: 18px;
+}
+
+.v2-workflow-grid {
+  gap: 9px;
+}
+
+.v2-workflow-card {
+  padding: 12px;
+}
+
+@media (max-width: 1180px) {
+  .v2-shell {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 12px;
+  }
+
+  .v2-sidebar {
+    position: static;
+    height: auto;
+  }
+
+  .v2-dashboard {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "hero"
+      "map"
+      "side"
+      "candidates"
+      "workflow";
+  }
+
+  .v2-hero-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .v2-side-stack {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .v2-shell {
+    padding: 10px;
+  }
+
+  .v2-side-nav a {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .v2-side-nav a span {
+    display: none;
+  }
+
+  .v2-hero-copy h1 {
+    font-size: 1.7rem;
+  }
+
+  .v2-mission-strip,
+  .v2-hero-actions {
+    display: none;
+  }
+
+  .v2-map-panel {
+    min-height: auto;
+    padding: 12px;
+  }
+
+  .v2-map-command-head,
+  .v2-panel-head {
+    display: grid;
+  }
+
+  .v2-map-command-status {
+    justify-items: start;
+  }
+
+  .v2-map-screenbar strong {
+    display: none;
+  }
+
+  .v2-map-canvas,
+  .v2-risk-map-svg {
+    min-height: 420px;
+  }
+
+  .v2-side-stack {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .v2-score-row strong {
+    font-size: 4.1rem;
+  }
+
+  .v2-candidate-header {
+    display: none;
+  }
+
+  .v2-candidate-row {
+    grid-template-columns: 38px minmax(0, 1fr) 58px;
+    gap: 8px;
+  }
+
+  .v2-candidate-signal,
+  .v2-candidate-status,
+  .v2-candidate-rent {
+    grid-column: 2 / -1;
+    justify-self: start;
+  }
+}
+
+@media (min-width: 981px) {
+  .v2-shell {
+    grid-template-columns: 148px minmax(0, 1fr);
+    gap: 18px;
+    width: min(1720px, 100%);
+    padding: 18px;
+  }
+
+  .v2-sidebar {
+    position: sticky;
+    top: 18px;
+    height: calc(100vh - 36px);
+    padding: 18px 13px;
+  }
+
+  .v2-dashboard {
+    grid-template-columns: minmax(0, 1fr) 390px;
+    grid-template-areas:
+      "hero side"
+      "map side"
+      "candidates workflow";
+    gap: 18px;
+  }
+
+  .v2-hero-panel {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.5fr) auto;
+  }
+
+  .v2-side-stack {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+  }
+
+  .v2-workflow-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 981px) and (max-width: 1280px) {
+  .v2-shell {
+    grid-template-columns: 126px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .v2-sidebar {
+    top: 12px;
+    height: calc(100vh - 24px);
+    padding: 14px 10px;
+  }
+
+  .v2-side-nav a {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    min-height: 50px;
+    text-align: center;
+  }
+
+  .v2-side-nav a span {
+    display: none;
+  }
+
+  .v2-dashboard {
+    grid-template-columns: minmax(0, 1fr) 330px;
+    gap: 12px;
+  }
+
+  .v2-hero-panel {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .v2-hero-copy h1 {
+    font-size: clamp(1.85rem, 2.5vw, 2.3rem);
+  }
+
+  .v2-mission-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .v2-hero-actions {
+    display: none;
+  }
+
+  .v2-map-panel {
+    min-height: 820px;
+  }
+
+  .v2-map-canvas,
+  .v2-risk-map-svg {
+    min-height: 690px;
+  }
+
+  .v2-risk-index,
+  .v2-top-signal,
+  .v2-decision-card {
+    padding: 18px;
+  }
+
+  .v2-score-row strong {
+    font-size: 5rem;
+  }
+}

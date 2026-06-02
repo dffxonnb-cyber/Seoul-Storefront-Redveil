@@ -520,12 +520,22 @@
   function renderSelectedDistrict() {
     const detail = currentDistrict();
     if (!detail) return;
+    const score = toNumber(detail.riskScore);
+    const decisionLabel = score >= 65 ? "Hold-first review" : score >= 45 ? "Compare before entry" : "Keep as candidate";
+    const decisionCopy =
+      score >= 65
+        ? `${detail.name}은 고위험 신호가 강합니다. 매입 판단보다 가격 부담과 대체 후보 검토를 먼저 진행하세요.`
+        : score >= 45
+          ? `${detail.name}은 주의 구간입니다. 후보로 유지하되 임대료 조건과 거래 표본을 함께 비교하세요.`
+          : `${detail.name}은 낮은 위험 구간입니다. 현장 임대 조건과 개별 매물 프리미엄을 확인하면 됩니다.`;
 
     setText("#selected-node-label", `${detail.name} · ${riskStatus(detail.riskScore)} · ${detail.riskScore}`);
     setText("#overall-risk-score", detail.riskScore);
     setText("#overall-risk-summary", detail.riskSummary);
     setText("#top-signal-district", `${detail.name} · ${detail.riskArchetype}`);
     setText("#top-signal-copy", detail.topSignalCopy);
+    setText("#decision-mode-label", decisionLabel);
+    setText("#decision-mode-copy", decisionCopy);
 
     const meter = document.querySelector("[data-risk-meter]");
     if (meter) meter.style.width = `${clamp(detail.riskScore, 0, 100)}%`;

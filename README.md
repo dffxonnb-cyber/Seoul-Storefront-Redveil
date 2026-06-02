@@ -74,9 +74,17 @@ python scripts/check_public_site.py
 
 ## Preview
 
-![Redveil 대표 화면](./dashboard/README_HERO.svg)
+### Redveil Overview
 
-![Redveil 근거 시각화](./dashboard/README_EVIDENCE.svg)
+![Redveil Home](docs/images/redveil-home.png)
+
+### Candidate Compare
+
+![Candidate Compare](docs/images/redveil-compare.png)
+
+### District Risk Report
+
+![District Report](docs/images/redveil-districts.png)
 
 ## Key Results
 

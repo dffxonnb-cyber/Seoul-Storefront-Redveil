@@ -2,6 +2,10 @@
   "use strict";
 
   const SVG_NS = "http://www.w3.org/2000/svg";
+  const MAP_WIDTH = 760;
+  const MAP_HEIGHT = 540;
+  const MAP_PADDING = { top: 34, right: 42, bottom: 34, left: 42 };
+  const BOUNDARY_DATA_URL = "./data/seoul-districts.geojson";
 
   const DISTRICT_CELLS = [
     { code: "11320", name: "도봉구", x: 394, y: 74, rx: 50, ry: 42, fallbackScore: 42, archetype: "외곽 안정형" },
@@ -34,6 +38,8 @@
   const state = {
     districts: [],
     selectedCode: null,
+    mapProject: null,
+    boundarySource: null,
   };
 
   function isPlainObject(value) {
@@ -159,6 +165,156 @@
     return DISTRICT_CELLS.map((cell) => normalizeDistrict(cell, districtMap.get(cell.code)));
   }
 
+  function featureRings(feature) {
+    const geometry = feature && feature.geometry;
+    if (!geometry || !Array.isArray(geometry.coordinates)) return [];
+    if (geometry.type === "Polygon") return geometry.coordinates.filter(Array.isArray);
+    if (geometry.type === "MultiPolygon") return geometry.coordinates.flatMap((polygon) => polygon.filter(Array.isArray));
+    return [];
+  }
+
+  function forEachCoordinate(features, callback) {
+    features.forEach((feature) => {
+      featureRings(feature).forEach((ring) => {
+        ring.forEach((coordinate) => {
+          if (Array.isArray(coordinate) && coordinate.length >= 2) callback(toNumber(coordinate[0]), toNumber(coordinate[1]));
+        });
+      });
+    });
+  }
+
+  function createBoundaryProjection(features) {
+    const coordinates = [];
+    forEachCoordinate(features, (lon, lat) => coordinates.push([lon, lat]));
+    if (!coordinates.length) return null;
+
+    const meanLat = coordinates.reduce((sum, item) => sum + item[1], 0) / coordinates.length;
+    const lonScale = Math.cos((meanLat * Math.PI) / 180);
+    const projected = coordinates.map(([lon, lat]) => [lon * lonScale, lat]);
+    const minX = Math.min(...projected.map((item) => item[0]));
+    const maxX = Math.max(...projected.map((item) => item[0]));
+    const minY = Math.min(...projected.map((item) => item[1]));
+    const maxY = Math.max(...projected.map((item) => item[1]));
+    const availableWidth = MAP_WIDTH - MAP_PADDING.left - MAP_PADDING.right;
+    const availableHeight = MAP_HEIGHT - MAP_PADDING.top - MAP_PADDING.bottom;
+    const scale = Math.min(availableWidth / Math.max(maxX - minX, 0.0001), availableHeight / Math.max(maxY - minY, 0.0001));
+    const mapWidth = (maxX - minX) * scale;
+    const mapHeight = (maxY - minY) * scale;
+    const offsetX = MAP_PADDING.left + (availableWidth - mapWidth) / 2;
+    const offsetY = MAP_PADDING.top + (availableHeight - mapHeight) / 2;
+
+    return function project(lon, lat) {
+      const x = (lon * lonScale - minX) * scale + offsetX;
+      const y = (maxY - lat) * scale + offsetY;
+      return [x, y];
+    };
+  }
+
+  function pathFromRings(rings) {
+    return rings
+      .map((ring) => {
+        if (!ring.length) return "";
+        const [firstX, firstY] = ring[0];
+        const points = ring.slice(1).map(([x, y]) => `L${x.toFixed(1)} ${y.toFixed(1)}`);
+        return `M${firstX.toFixed(1)} ${firstY.toFixed(1)} ${points.join(" ")} Z`;
+      })
+      .join(" ");
+  }
+
+  function projectedBounds(rings) {
+    const points = rings.flat();
+    const xs = points.map((point) => point[0]);
+    const ys = points.map((point) => point[1]);
+    return {
+      minX: Math.min(...xs),
+      minY: Math.min(...ys),
+      maxX: Math.max(...xs),
+      maxY: Math.max(...ys),
+    };
+  }
+
+  function projectBoundaryGeoJson(geojson) {
+    const features = Array.isArray(geojson?.features) ? geojson.features : [];
+    const project = createBoundaryProjection(features);
+    if (!project) return null;
+
+    const boundaries = new Map();
+    features.forEach((feature) => {
+      const properties = isPlainObject(feature.properties) ? feature.properties : {};
+      const code = String(properties.code || properties.SIGNGU_CD || "");
+      if (!code) return;
+
+      const rings = featureRings(feature)
+        .map((ring) =>
+          ring
+            .filter((coordinate) => Array.isArray(coordinate) && coordinate.length >= 2)
+            .map((coordinate) => project(toNumber(coordinate[0]), toNumber(coordinate[1])))
+        )
+        .filter((ring) => ring.length >= 3);
+      if (!rings.length) return;
+
+      const bounds = projectedBounds(rings);
+      const centroidSource = Array.isArray(properties.centroid) ? properties.centroid : null;
+      const centroid = centroidSource
+        ? project(toNumber(centroidSource[0]), toNumber(centroidSource[1]))
+        : [(bounds.minX + bounds.maxX) / 2, (bounds.minY + bounds.maxY) / 2];
+      boundaries.set(code, {
+        code,
+        name: properties.name || properties.SIGNGU_NM,
+        rings,
+        path: pathFromRings(rings),
+        x: centroid[0],
+        y: centroid[1],
+        rx: clamp((bounds.maxX - bounds.minX) / 2, 20, 92),
+        ry: clamp((bounds.maxY - bounds.minY) / 2, 18, 78),
+        bounds,
+      });
+    });
+
+    return { boundaries, project };
+  }
+
+  function applyBoundaryGeometry(districts, geojson) {
+    const projected = projectBoundaryGeoJson(geojson);
+    if (!projected || projected.boundaries.size < 25) {
+      state.mapProject = null;
+      state.boundarySource = null;
+      return districts;
+    }
+
+    state.mapProject = projected.project;
+    state.boundarySource = geojson.source || {};
+    return districts.map((district) => {
+      const boundary = projected.boundaries.get(district.code);
+      if (!boundary) return district;
+      return {
+        ...district,
+        name: hasReadableKorean(boundary.name) ? boundary.name : district.name,
+        x: boundary.x,
+        y: boundary.y,
+        rx: boundary.rx,
+        ry: boundary.ry,
+        boundaryPath: boundary.path,
+        boundaryRings: boundary.rings,
+        boundaryBounds: boundary.bounds,
+      };
+    });
+  }
+
+  async function loadBoundaryGeoJson() {
+    if (typeof window.fetch !== "function") return null;
+    try {
+      const response = await window.fetch(BOUNDARY_DATA_URL);
+      if (!response.ok) return null;
+      const geojson = await response.json();
+      if (!isPlainObject(geojson) || !Array.isArray(geojson.features)) return null;
+      return geojson;
+    } catch (error) {
+      console.warn("[Redveil v2] Boundary GeoJSON unavailable; using cartogram fallback.", error);
+      return null;
+    }
+  }
+
   function selectInitialDistrict() {
     return state.districts.reduce((highest, item) => {
       if (!highest) return item;
@@ -224,7 +380,26 @@
       .join(" ");
   }
 
+  function pointInRing(x, y, ring) {
+    let inside = false;
+    for (let index = 0, previous = ring.length - 1; index < ring.length; previous = index, index += 1) {
+      const [xi, yi] = ring[index];
+      const [xj, yj] = ring[previous];
+      const intersects = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi || 1) + xi;
+      if (intersects) inside = !inside;
+    }
+    return inside;
+  }
+
+  function isInDistrictBoundary(x, y, district) {
+    return Array.isArray(district.boundaryRings) && district.boundaryRings.some((ring) => pointInRing(x, y, ring));
+  }
+
   function isInSeoulFootprint(x, y, districts) {
+    if (districts.some((district) => Array.isArray(district.boundaryRings))) {
+      return districts.some((district) => isInDistrictBoundary(x, y, district));
+    }
+
     return districts.some((district) => {
       const dx = (x - district.x) / (district.rx * 1.18);
       const dy = (y - district.y) / (district.ry * 1.12);
@@ -294,18 +469,64 @@
     svg.appendChild(layer);
   }
 
+  function projectedPathFromLonLat(points) {
+    if (!state.mapProject || !Array.isArray(points) || !points.length) return "";
+    return points
+      .map(([lon, lat], index) => {
+        const [x, y] = state.mapProject(lon, lat);
+        return `${index === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
+      })
+      .join(" ");
+  }
+
   function renderMapDetails(svg) {
-    const riverPath =
-      "M32 346 C92 320 134 304 190 318 C245 332 276 330 326 308 C386 282 432 300 492 294 C574 286 628 248 736 224";
+    const riverPath = state.mapProject
+      ? projectedPathFromLonLat([
+          [126.765, 37.575],
+          [126.82, 37.562],
+          [126.88, 37.548],
+          [126.93, 37.525],
+          [126.99, 37.518],
+          [127.045, 37.527],
+          [127.095, 37.525],
+          [127.15, 37.545],
+          [127.185, 37.56],
+        ])
+      : "M32 346 C92 320 134 304 190 318 C245 332 276 330 326 308 C386 282 432 300 492 294 C574 286 628 248 736 224";
     svg.appendChild(svgElement("path", { class: "v2-map-river-bank", d: riverPath }));
     svg.appendChild(svgElement("path", { class: "v2-map-river", d: riverPath }));
 
     const roadLines = svgElement("g", { class: "v2-map-road-lines", "aria-hidden": "true" });
-    [
-      "M58 392 C150 350 230 374 326 332 C420 292 514 302 706 246",
-      "M126 118 C214 176 296 216 368 292 C446 374 536 410 664 438",
-      "M106 494 C176 430 248 402 344 356 C456 302 540 250 646 132",
-    ].forEach((d) => {
+    const roads = state.mapProject
+      ? [
+          projectedPathFromLonLat([
+            [126.82, 37.49],
+            [126.92, 37.515],
+            [127.02, 37.52],
+            [127.13, 37.54],
+            [127.18, 37.57],
+          ]),
+          projectedPathFromLonLat([
+            [126.91, 37.66],
+            [126.96, 37.61],
+            [127.0, 37.56],
+            [127.055, 37.5],
+            [127.1, 37.46],
+          ]),
+          projectedPathFromLonLat([
+            [126.78, 37.55],
+            [126.88, 37.57],
+            [126.98, 37.59],
+            [127.08, 37.61],
+            [127.16, 37.64],
+          ]),
+        ]
+      : [
+          "M58 392 C150 350 230 374 326 332 C420 292 514 302 706 246",
+          "M126 118 C214 176 296 216 368 292 C446 374 536 410 664 438",
+          "M106 494 C176 430 248 402 344 356 C456 302 540 250 646 132",
+        ];
+    roads.forEach((d) => {
       roadLines.appendChild(svgElement("path", { d }));
     });
     svg.appendChild(roadLines);
@@ -400,9 +621,11 @@
     defs.append(gridPattern, glow, focusBlur);
     svg.appendChild(defs);
     svg.appendChild(svgElement("desc", { id: "v2-map-desc" }));
-    svg.querySelector("#v2-map-desc").textContent = "서울 25개 자치구의 상가 매입 리스크를 카토그램으로 표현한 SVG 지도입니다.";
-    svg.appendChild(svgElement("rect", { class: "v2-map-grid-fill", x: "0", y: "0", width: "760", height: "540" }));
-    svg.appendChild(svgElement("rect", { class: "v2-map-core", x: "0", y: "0", width: "760", height: "540" }));
+    svg.querySelector("#v2-map-desc").textContent = state.mapProject
+      ? "서울 25개 자치구 실제 경계를 기반으로 상가 매입 리스크를 표현한 SVG 지도입니다."
+      : "서울 25개 자치구의 상가 매입 리스크를 카토그램으로 표현한 SVG 지도입니다.";
+    svg.appendChild(svgElement("rect", { class: "v2-map-grid-fill", x: "0", y: "0", width: MAP_WIDTH, height: MAP_HEIGHT }));
+    svg.appendChild(svgElement("rect", { class: "v2-map-core", x: "0", y: "0", width: MAP_WIDTH, height: MAP_HEIGHT }));
   }
 
   function renderMapTarget(svg, detail) {
@@ -411,7 +634,11 @@
     group.appendChild(svgElement("circle", { class: "v2-map-focus-halo", cx: detail.x, cy: detail.y, r: radius + 34 }));
     group.appendChild(svgElement("circle", { class: "v2-map-focus-ring is-outer", cx: detail.x, cy: detail.y, r: radius + 21 }));
     group.appendChild(svgElement("circle", { class: "v2-map-focus-ring", cx: detail.x, cy: detail.y, r: radius }));
-    group.appendChild(svgElement("polygon", { class: "v2-selected-district-boundary", points: cellPoints(detail) }));
+    group.appendChild(
+      detail.boundaryPath
+        ? svgElement("path", { class: "v2-selected-district-boundary", d: detail.boundaryPath })
+        : svgElement("polygon", { class: "v2-selected-district-boundary", points: cellPoints(detail) })
+    );
 
     const crosshair = svgElement("g", { class: "v2-map-crosshair" });
     crosshair.appendChild(svgElement("line", { x1: detail.x - radius - 40, y1: detail.y, x2: detail.x - radius + 5, y2: detail.y }));
@@ -445,7 +672,9 @@
         focusable: "true",
         "aria-label": `${detail.name} 리스크 ${detail.riskScore}점, ${riskStatus(detail.riskScore)} 구간`,
       });
-      const polygon = svgElement("polygon", { points: cellPoints(detail) });
+      const shape = detail.boundaryPath
+        ? svgElement("path", { d: detail.boundaryPath })
+        : svgElement("polygon", { points: cellPoints(detail) });
       const label = svgElement("text", {
         class: "v2-map-cell-label",
         x: detail.x,
@@ -462,7 +691,7 @@
       });
       score.textContent = String(detail.riskScore);
 
-      group.append(polygon, label, score);
+      group.append(shape, label, score);
       group.addEventListener("click", () => selectDistrict(detail.code));
       group.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -595,6 +824,7 @@
     setText("#selected-node-label", `${detail.name} · ${riskStatus(detail.riskScore)} · ${detail.riskScore}`);
     setText("#map-selected-name", detail.name);
     setText("#map-selected-tier", `${riskStatus(detail.riskScore)} Risk`);
+    setText("#map-layer-mode", state.mapProject ? "REAL BOUNDARY" : "VISUAL CARTOGRAM");
     setText("#selected-district-name", detail.name);
     setText("#overall-risk-score", detail.riskScore);
     setText("#overall-risk-summary", detail.riskSummary);
@@ -616,10 +846,11 @@
     renderSelectedDistrict();
   }
 
-  function safeRender() {
+  async function safeRender() {
     try {
       const payload = getAvailablePayload();
-      state.districts = buildDistricts(payload);
+      const geojson = await loadBoundaryGeoJson();
+      state.districts = geojson ? applyBoundaryGeometry(buildDistricts(payload), geojson) : buildDistricts(payload);
       state.selectedCode = selectInitialDistrict()?.code || DISTRICT_CELLS[0].code;
       renderRiskMap();
       renderSelectedDistrict();
@@ -628,6 +859,8 @@
 
       try {
         state.districts = buildDistricts({});
+        state.mapProject = null;
+        state.boundarySource = null;
         state.selectedCode = selectInitialDistrict()?.code || DISTRICT_CELLS[0].code;
         renderRiskMap();
         renderSelectedDistrict();

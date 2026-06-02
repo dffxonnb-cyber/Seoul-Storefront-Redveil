@@ -2276,3 +2276,78 @@ body[data-page="redveil-v2"] {
     height: 52px;
   }
 }
+
+/* Real Seoul boundary map layer */
+.v2-map-cell path {
+  opacity: 0.72;
+  fill: rgba(24, 31, 43, 0.34);
+  stroke: rgba(255, 255, 255, 0.24);
+  stroke-linejoin: round;
+  stroke-width: 1.05;
+  vector-effect: non-scaling-stroke;
+  transition:
+    fill 150ms ease,
+    stroke 150ms ease,
+    stroke-width 150ms ease,
+    filter 150ms ease,
+    opacity 150ms ease;
+}
+
+.v2-map-cell.is-high path {
+  fill: rgba(119, 31, 42, 0.3);
+  stroke: rgba(255, 51, 71, 0.42);
+}
+
+.v2-map-cell.is-watch path {
+  fill: rgba(103, 82, 45, 0.27);
+  stroke: rgba(226, 178, 97, 0.35);
+}
+
+.v2-map-cell.is-low path {
+  fill: rgba(34, 69, 67, 0.23);
+  stroke: rgba(116, 210, 157, 0.3);
+}
+
+.v2-map-cell:hover path,
+.v2-map-cell:focus-visible path {
+  opacity: 0.92;
+  stroke: rgba(255, 255, 255, 0.42);
+  stroke-width: 1.55;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.08));
+}
+
+.v2-map-cell.is-selected path {
+  opacity: 1;
+  fill: rgba(170, 31, 48, 0.7);
+  stroke: rgba(255, 51, 71, 0.98);
+  stroke-width: 2.2;
+  filter:
+    drop-shadow(0 0 10px rgba(255, 51, 71, 0.27))
+    drop-shadow(0 7px 14px rgba(0, 0, 0, 0.28));
+}
+
+.v2-selected-district-boundary {
+  vector-effect: non-scaling-stroke;
+}
+
+.v2-map-source {
+  margin: 10px 0 0;
+  color: rgba(148, 160, 184, 0.58);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+  .v2-map-cell path {
+    stroke-width: 0.86;
+  }
+
+  .v2-map-cell.is-selected path {
+    stroke-width: 1.7;
+  }
+
+  .v2-map-source {
+    font-size: 0.68rem;
+  }
+}

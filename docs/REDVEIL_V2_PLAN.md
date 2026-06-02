@@ -77,3 +77,5 @@ The visual system polish pass should improve scale, typography, panel depth, and
 The command-center redesign pass should make the v2 homepage visibly different from the earlier admin-like dashboard by emphasizing a larger map screen, product rail, connected intelligence column, and ranking-style candidate module.
 
 The map focus system pass should keep the command-center layout stable while making the Seoul map feel like a live risk scan surface: deterministic hotspots, selected-district target ring/crosshair/halo, clearer boundaries, a muted Han River anchor, and selected-district intelligence labels in the right-side panels.
+
+The real-boundary map pass uses a static `app/site/v2/data/seoul-districts.geojson` converted from the Seoul Open Data Plaza dataset `서울시 상권분석서비스(영역-자치구)`. The source Shapefile was EPSG:5181 and is converted to EPSG:4326 GeoJSON for GitHub Pages friendly SVG rendering with no external map API.

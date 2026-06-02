@@ -71,3 +71,5 @@ The next v2 iteration promotes the Seoul risk map from a decorative panel to the
 V2 map direction shifted from district-only cartogram to district plus urban grid risk scan layer.
 
 The homepage layout should now prioritize a premium map-first command center: slimmer navigation, compact header copy, a dominant Seoul risk map, connected signal panels, and quieter workflow links.
+
+The visual system polish pass should improve scale, typography, panel depth, and candidate-table clarity without changing the v1 flow or adding external map dependencies.

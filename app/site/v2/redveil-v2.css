@@ -913,6 +913,271 @@ body[data-page="redveil-v2"] button:focus-visible {
   margin: 0;
 }
 
+/* Premium map-first polish */
+body[data-page="redveil-v2"] {
+  background:
+    radial-gradient(circle at 52% -8%, rgba(255, 51, 71, 0.105), transparent 30%),
+    radial-gradient(circle at 100% 18%, rgba(121, 167, 255, 0.06), transparent 24%),
+    linear-gradient(115deg, #020408 0%, #050914 46%, #03050a 100%);
+}
+
+.v2-shell {
+  grid-template-columns: 116px minmax(0, 1fr);
+  gap: 14px;
+  width: min(1540px, 100%);
+  padding: 14px;
+}
+
+.v2-sidebar {
+  top: 14px;
+  height: calc(100vh - 28px);
+  border-color: rgba(255, 255, 255, 0.085);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 34%),
+    rgba(8, 11, 18, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 16px 42px rgba(0, 0, 0, 0.2);
+}
+
+.v2-brand img {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 0 0 4px rgba(255, 51, 71, 0.035);
+}
+
+.v2-brand strong {
+  color: rgba(245, 247, 251, 0.92);
+}
+
+.v2-side-nav a {
+  border-color: rgba(255, 255, 255, 0.045);
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.v2-side-nav a:hover,
+.v2-side-nav a.is-active {
+  border-color: rgba(255, 51, 71, 0.28);
+  background: rgba(255, 51, 71, 0.08);
+}
+
+.v2-topbar {
+  min-height: 48px;
+  border-color: rgba(255, 255, 255, 0.085);
+  background:
+    linear-gradient(90deg, rgba(255, 51, 71, 0.045), transparent 32%),
+    rgba(8, 11, 18, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+
+.v2-topbar-title span,
+.v2-status-pills span,
+.v2-topbar-nav a {
+  color: rgba(193, 201, 217, 0.62);
+}
+
+.v2-dashboard {
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 14px;
+}
+
+.v2-hero-panel {
+  padding: 16px 18px;
+  border-color: rgba(255, 255, 255, 0.085);
+  background:
+    linear-gradient(90deg, rgba(255, 51, 71, 0.052), transparent 38%),
+    rgba(8, 11, 18, 0.74);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+
+.v2-hero-copy h1 {
+  font-size: 2.08rem;
+  line-height: 1.16;
+}
+
+.v2-hero-copy p:not(.v2-eyebrow) {
+  color: rgba(207, 214, 228, 0.74);
+  font-size: 0.95rem;
+}
+
+.v2-map-panel {
+  min-height: 780px;
+  border-color: rgba(255, 255, 255, 0.105);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 22%),
+    rgba(7, 10, 17, 0.88);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.018),
+    0 28px 78px rgba(0, 0, 0, 0.34);
+}
+
+.v2-map-panel .v2-panel-head h2 {
+  font-size: 1.28rem;
+}
+
+.v2-selected-node {
+  border-color: rgba(255, 51, 71, 0.24);
+  color: rgba(245, 247, 251, 0.9);
+  background: rgba(255, 51, 71, 0.065);
+}
+
+.v2-map-canvas {
+  min-height: 680px;
+  border-color: rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 36%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.021) 0 1px, transparent 1px 74px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 68px),
+    #060a12;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.026),
+    inset 0 -44px 70px rgba(0, 0, 0, 0.25),
+    0 18px 42px rgba(0, 0, 0, 0.3);
+}
+
+.v2-map-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(3, 5, 10, 0.3), transparent 18%, transparent 78%, rgba(3, 5, 10, 0.38)),
+    linear-gradient(90deg, rgba(3, 5, 10, 0.28), transparent 16%, transparent 84%, rgba(3, 5, 10, 0.28));
+}
+
+.v2-map-canvas::after {
+  z-index: 3;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.026),
+    inset 0 0 74px rgba(255, 51, 71, 0.045);
+}
+
+.v2-risk-map-svg {
+  min-height: 680px;
+}
+
+.v2-map-cell-label {
+  font-size: 15px;
+}
+
+.v2-map-cell-score {
+  font-size: 11.5px;
+}
+
+.v2-risk-index,
+.v2-top-signal {
+  padding: 18px;
+  border-color: rgba(255, 255, 255, 0.095);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.046), transparent 42%),
+    rgba(8, 11, 18, 0.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 16px 42px rgba(0, 0, 0, 0.2);
+}
+
+.v2-score-row {
+  margin-top: 12px;
+  padding: 6px 0 2px;
+}
+
+.v2-score-row strong {
+  font-size: 5.35rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.v2-risk-meter {
+  height: 10px;
+  margin-top: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background:
+    linear-gradient(90deg, rgba(116, 210, 157, 0.16), rgba(226, 178, 97, 0.15), rgba(255, 51, 71, 0.16)),
+    rgba(255, 255, 255, 0.045);
+}
+
+.v2-risk-meter span {
+  background: linear-gradient(90deg, rgba(255, 51, 71, 0.54), rgba(255, 51, 71, 0.88));
+  box-shadow: 0 0 18px rgba(255, 51, 71, 0.18);
+}
+
+.v2-top-signal strong {
+  margin-top: 12px;
+  font-size: 1.28rem;
+}
+
+.v2-top-signal p {
+  border-left: 2px solid rgba(255, 51, 71, 0.38);
+  padding: 10px 0 10px 12px;
+  background: linear-gradient(90deg, rgba(255, 51, 71, 0.045), transparent 70%);
+}
+
+.v2-candidate-panel {
+  padding: 17px;
+  border-color: rgba(255, 255, 255, 0.092);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 34%),
+    rgba(8, 11, 18, 0.78);
+}
+
+.v2-candidate-list {
+  border-color: rgba(255, 255, 255, 0.095);
+}
+
+.v2-candidate-header,
+.v2-candidate-row {
+  display: grid;
+  grid-template-columns: 52px minmax(108px, 0.86fr) minmax(210px, 1.25fr) 76px 92px 92px;
+  align-items: center;
+  gap: 12px;
+}
+
+.v2-candidate-header {
+  min-width: 0;
+  padding: 9px 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.085);
+  color: rgba(148, 160, 184, 0.7);
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.024);
+}
+
+.v2-candidate-row {
+  grid-template-columns: 52px minmax(108px, 0.86fr) minmax(210px, 1.25fr) 76px 92px 92px;
+  min-height: 58px;
+  padding: 12px 13px;
+}
+
+.v2-candidate-row:hover {
+  background: rgba(255, 255, 255, 0.026);
+}
+
+.v2-candidate-name {
+  font-size: 0.95rem;
+}
+
+.v2-candidate-signal {
+  min-width: 0;
+  color: rgba(193, 201, 217, 0.7);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.42;
+}
+
+.v2-candidate-score {
+  font-variant-numeric: tabular-nums;
+}
+
+.v2-workflow-panel {
+  opacity: 0.7;
+  border-color: rgba(255, 255, 255, 0.075);
+}
+
+.v2-workflow-card {
+  background: rgba(255, 255, 255, 0.022);
+}
+
 @media (max-width: 1180px) {
   .v2-dashboard {
     grid-template-columns: minmax(0, 1fr);
@@ -1071,6 +1336,15 @@ body[data-page="redveil-v2"] button:focus-visible {
   .v2-candidate-row {
     grid-template-columns: 34px minmax(0, 1fr) 56px;
     gap: 8px;
+  }
+
+  .v2-candidate-header {
+    display: none;
+  }
+
+  .v2-candidate-signal {
+    grid-column: 2 / -1;
+    font-size: 0.78rem;
   }
 
   .v2-candidate-status,

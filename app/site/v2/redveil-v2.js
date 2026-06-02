@@ -481,6 +481,12 @@
 
     const safeCandidates = Array.isArray(candidates) && candidates.length ? candidates.slice(0, 3) : [];
     const fragment = document.createDocumentFragment();
+    const header = document.createElement("div");
+    header.className = "v2-candidate-header";
+    ["Rank", "District", "Signal Summary", "Score", "Status", "Delta"].forEach((label) => {
+      appendTextElement(header, "span", "", label);
+    });
+    fragment.appendChild(header);
 
     safeCandidates.forEach((candidate, index) => {
       const normalized = normalizeCandidate(candidate, index) || candidate;
@@ -498,8 +504,8 @@
       const nameCell = document.createElement("div");
       nameCell.className = "v2-candidate-name";
       nameCell.textContent = normalized.districtName;
-      appendTextElement(nameCell, "span", "v2-candidate-sub", normalized.note);
       row.appendChild(nameCell);
+      appendTextElement(row, "span", "v2-candidate-signal", normalized.note);
 
       appendTextElement(row, "strong", "v2-candidate-score", String(normalized.riskScore));
       appendTextElement(row, "span", `v2-candidate-status ${tone}`, status);

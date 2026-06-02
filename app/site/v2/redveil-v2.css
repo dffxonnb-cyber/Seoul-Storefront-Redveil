@@ -476,17 +476,64 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-map-river {
   fill: none;
-  stroke: rgba(112, 169, 220, 0.16);
+  stroke: rgba(112, 169, 220, 0.2);
   stroke-linecap: round;
-  stroke-width: 34;
+  stroke-width: 32;
+}
+
+.v2-grid-risk-layer {
+  opacity: 0.96;
+}
+
+.v2-grid-cell {
+  opacity: var(--grid-opacity, 0.28);
+  stroke: rgba(255, 255, 255, 0.075);
+  stroke-width: 0.8;
+}
+
+.v2-grid-cell.is-high {
+  fill: rgba(184, 47, 62, 0.72);
+  stroke: rgba(255, 51, 71, 0.18);
+}
+
+.v2-grid-cell.is-watch {
+  fill: rgba(174, 132, 61, 0.66);
+  stroke: rgba(226, 178, 97, 0.16);
+}
+
+.v2-grid-cell.is-low {
+  fill: rgba(72, 118, 120, 0.62);
+  stroke: rgba(116, 210, 157, 0.13);
+}
+
+.v2-grid-cell.is-selected-near {
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 1.1;
+}
+
+.v2-map-road-lines path {
+  fill: none;
+  stroke: rgba(218, 226, 242, 0.12);
+  stroke-dasharray: 9 11;
+  stroke-linecap: round;
+  stroke-width: 1.1;
 }
 
 .v2-map-scan-lines path {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.085);
-  stroke-dasharray: 7 12;
+  stroke: rgba(255, 255, 255, 0.07);
+  stroke-dasharray: 5 13;
   stroke-linecap: round;
   stroke-width: 1.1;
+}
+
+.v2-map-scan-label text {
+  fill: rgba(193, 201, 217, 0.5);
+  font-family: var(--v2-font);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 
 .v2-map-cells {
@@ -499,8 +546,8 @@ body[data-page="redveil-v2"] button:focus-visible {
 }
 
 .v2-map-cell polygon {
-  fill: rgba(42, 51, 65, 0.78);
-  stroke: rgba(255, 255, 255, 0.11);
+  fill: rgba(24, 31, 43, 0.42);
+  stroke: rgba(255, 255, 255, 0.18);
   stroke-width: 1.2;
   transition:
     fill 150ms ease,
@@ -511,18 +558,18 @@ body[data-page="redveil-v2"] button:focus-visible {
 }
 
 .v2-map-cell.is-high polygon {
-  fill: rgba(119, 31, 42, 0.8);
-  stroke: rgba(255, 51, 71, 0.44);
+  fill: rgba(119, 31, 42, 0.36);
+  stroke: rgba(255, 51, 71, 0.48);
 }
 
 .v2-map-cell.is-watch polygon {
-  fill: rgba(103, 82, 45, 0.78);
-  stroke: rgba(226, 178, 97, 0.4);
+  fill: rgba(103, 82, 45, 0.34);
+  stroke: rgba(226, 178, 97, 0.44);
 }
 
 .v2-map-cell.is-low polygon {
-  fill: rgba(34, 69, 67, 0.72);
-  stroke: rgba(116, 210, 157, 0.28);
+  fill: rgba(34, 69, 67, 0.28);
+  stroke: rgba(116, 210, 157, 0.34);
 }
 
 .v2-map-cell:hover polygon,
@@ -533,10 +580,10 @@ body[data-page="redveil-v2"] button:focus-visible {
 }
 
 .v2-map-cell.is-selected polygon {
-  fill: rgba(145, 32, 48, 0.92);
+  fill: rgba(145, 32, 48, 0.62);
   stroke: rgba(255, 51, 71, 0.88);
   stroke-width: 2.2;
-  filter: drop-shadow(0 0 16px rgba(255, 51, 71, 0.28));
+  filter: drop-shadow(0 0 12px rgba(255, 51, 71, 0.22));
 }
 
 .v2-map-cell-label,
@@ -946,6 +993,10 @@ body[data-page="redveil-v2"] button:focus-visible {
     min-height: 320px;
   }
 
+  .v2-grid-risk-layer {
+    opacity: 0.72;
+  }
+
   .v2-map-cell-label {
     font-size: 13px;
   }
@@ -991,5 +1042,13 @@ body[data-page="redveil-v2"] button:focus-visible {
 
   .v2-hero-copy p:not(.v2-eyebrow) {
     font-size: 0.92rem;
+  }
+
+  .v2-grid-risk-layer {
+    opacity: 0.62;
+  }
+
+  .v2-map-scan-label {
+    opacity: 0.72;
   }
 }

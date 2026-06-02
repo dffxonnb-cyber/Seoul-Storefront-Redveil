@@ -67,3 +67,5 @@ The page loads `../website_payload.js` when available, safely falls back to Kore
 ## Map-first update
 
 The next v2 iteration promotes the Seoul risk map from a decorative panel to the primary dashboard surface. The v2 homepage should render all 25 Seoul districts as an SVG cartogram, keep district selection connected to the risk index and top signal panels, and use the existing v1 flows only as linked workflow destinations.
+
+V2 map direction shifted from district-only cartogram to district plus urban grid risk scan layer.

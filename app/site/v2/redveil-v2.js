@@ -188,9 +188,26 @@
     return setAttributes(document.createElementNS(SVG_NS, tagName), attributes);
   }
 
+  function districtCodeSeed(code) {
+    return String(code || "")
+      .split("")
+      .reduce((total, char) => total + char.charCodeAt(0), 0);
+  }
+
   function cellPoints(cell) {
     const { x, y, rx, ry } = cell;
-    return [
+    const seed = districtCodeSeed(cell.code);
+    const wobble = [
+      [((seed % 5) - 2) * 0.016, ((seed % 7) - 3) * 0.012],
+      [((seed % 3) - 1) * 0.018, ((seed % 11) - 5) * 0.007],
+      [((seed % 13) - 6) * 0.008, ((seed % 5) - 2) * 0.014],
+      [((seed % 7) - 3) * 0.012, ((seed % 3) - 1) * 0.018],
+      [((seed % 11) - 5) * 0.007, ((seed % 13) - 6) * 0.008],
+      [((seed % 5) - 2) * 0.014, ((seed % 7) - 3) * 0.012],
+      [((seed % 3) - 1) * 0.018, ((seed % 11) - 5) * 0.007],
+      [((seed % 13) - 6) * 0.008, ((seed % 5) - 2) * 0.014],
+    ];
+    const basePoints = [
       [x - rx * 0.78, y - ry * 0.94],
       [x - rx * 0.04, y - ry * 1.06],
       [x + rx * 0.72, y - ry * 0.76],
@@ -200,8 +217,114 @@
       [x - rx * 0.86, y + ry * 0.54],
       [x - rx * 1.02, y - ry * 0.16],
     ]
+      .map(([pointX, pointY], index) => [pointX + rx * wobble[index][0], pointY + ry * wobble[index][1]]);
+
+    return basePoints
       .map((point) => point.map((value) => value.toFixed(1)).join(","))
       .join(" ");
+  }
+
+  function isInSeoulFootprint(x, y, districts) {
+    return districts.some((district) => {
+      const dx = (x - district.x) / (district.rx * 1.18);
+      const dy = (y - district.y) / (district.ry * 1.12);
+      return dx * dx + dy * dy <= 1;
+    });
+  }
+
+  function distanceToDistrict(x, y, district) {
+    const dx = (x - district.x) / Math.max(1, district.rx);
+    const dy = (y - district.y) / Math.max(1, district.ry);
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function gridRiskScore(x, y, selectedDistrict, districts) {
+    let weightedScore = 0;
+    let totalWeight = 0;
+
+    districts.forEach((district) => {
+      const distance = distanceToDistrict(x, y, district);
+      const weight = 1 / Math.pow(distance + 0.78, 2.2);
+      weightedScore += toNumber(district.riskScore) * weight;
+      totalWeight += weight;
+    });
+
+    const baseScore = totalWeight > 0 ? weightedScore / totalWeight : 45;
+    const selectedDistance = selectedDistrict ? distanceToDistrict(x, y, selectedDistrict) : 3;
+    const selectedEmphasis = Math.max(0, 1 - selectedDistance / 2.35) * 6;
+    const scanTexture = Math.sin(x * 0.031 + y * 0.017) * 2.2 + Math.cos(x * 0.013 - y * 0.023) * 1.6;
+    return clamp(baseScore + selectedEmphasis + scanTexture, 0, 100);
+  }
+
+  function renderGridRiskLayer(svg, selectedDistrict, districts) {
+    const layer = svgElement("g", {
+      class: "v2-grid-risk-layer",
+      "aria-label": "500m risk scan layer",
+    });
+    const cellSize = 14;
+    const step = 18;
+
+    for (let y = 48; y <= 512; y += step) {
+      for (let x = 32; x <= 728; x += step) {
+        const centerX = x + cellSize / 2;
+        const centerY = y + cellSize / 2;
+        if (!isInSeoulFootprint(centerX, centerY, districts)) continue;
+
+        const selectedDistance = selectedDistrict ? distanceToDistrict(centerX, centerY, selectedDistrict) : 3;
+        const seed = (Math.floor(x / step) * 17 + Math.floor(y / step) * 23) % 19;
+        if (seed === 0 && selectedDistance > 1.35) continue;
+
+        const score = gridRiskScore(centerX, centerY, selectedDistrict, districts);
+        const tier = riskTier(score);
+        const opacity = clamp(0.15 + score / 190 + Math.max(0, 1.1 - selectedDistance) * 0.12, 0.18, 0.55);
+        const rect = svgElement("rect", {
+          class: `v2-grid-cell is-${tier}${selectedDistance <= 1.05 ? " is-selected-near" : ""}`,
+          x,
+          y,
+          width: cellSize,
+          height: cellSize,
+          rx: "2",
+          "data-grid-risk": Math.round(score),
+          style: `--grid-opacity:${opacity.toFixed(2)}`,
+        });
+        layer.appendChild(rect);
+      }
+    }
+
+    svg.appendChild(layer);
+  }
+
+  function renderMapDetails(svg) {
+    svg.appendChild(
+      svgElement("path", {
+        class: "v2-map-river",
+        d: "M36 344 C134 294 216 336 302 306 C396 274 454 326 544 288 C620 258 684 254 732 226",
+      })
+    );
+
+    const roadLines = svgElement("g", { class: "v2-map-road-lines", "aria-hidden": "true" });
+    [
+      "M58 392 C150 350 230 374 326 332 C420 292 514 302 706 246",
+      "M126 118 C214 176 296 216 368 292 C446 374 536 410 664 438",
+      "M106 494 C176 430 248 402 344 356 C456 302 540 250 646 132",
+    ].forEach((d) => {
+      roadLines.appendChild(svgElement("path", { d }));
+    });
+    svg.appendChild(roadLines);
+
+    const scanLines = svgElement("g", { class: "v2-map-scan-lines", "aria-hidden": "true" });
+    ["M92 126 H690", "M56 260 H722", "M74 432 H674", "M132 68 V502", "M308 46 V514", "M512 60 V488"].forEach((d) => {
+      scanLines.appendChild(svgElement("path", { d }));
+    });
+    svg.appendChild(scanLines);
+
+    const labels = svgElement("g", { class: "v2-map-scan-label", "aria-hidden": "true" });
+    const label = svgElement("text", { x: "34", y: "38" });
+    label.textContent = "500m risk scan layer";
+    const coordinate = svgElement("text", { x: "588", y: "504" });
+    coordinate.textContent = "SEOUL GRID / VISUAL MODEL";
+    labels.append(label, coordinate);
+    svg.appendChild(labels);
   }
 
   function renderMapBackground(svg) {
@@ -225,18 +348,6 @@
     svg.querySelector("#v2-map-desc").textContent = "서울 25개 자치구의 상가 매입 리스크를 카토그램으로 표현한 SVG 지도입니다.";
     svg.appendChild(svgElement("rect", { class: "v2-map-grid-fill", x: "0", y: "0", width: "760", height: "540" }));
     svg.appendChild(svgElement("rect", { class: "v2-map-core", x: "0", y: "0", width: "760", height: "540" }));
-    svg.appendChild(
-      svgElement("path", {
-        class: "v2-map-river",
-        d: "M36 344 C134 294 216 336 302 306 C396 274 454 326 544 288 C620 258 684 254 732 226",
-      })
-    );
-
-    const scanLines = svgElement("g", { class: "v2-map-scan-lines", "aria-hidden": "true" });
-    ["M92 126 H690", "M56 260 H722", "M74 432 H674", "M132 68 V502", "M308 46 V514", "M512 60 V488"].forEach((d) => {
-      scanLines.appendChild(svgElement("path", { d }));
-    });
-    svg.appendChild(scanLines);
   }
 
   function renderMapTarget(svg, detail) {
@@ -258,6 +369,8 @@
     svg.replaceChildren();
     svg.setAttribute("aria-describedby", "v2-map-desc");
     renderMapBackground(svg);
+    renderGridRiskLayer(svg, selected, state.districts);
+    renderMapDetails(svg);
 
     const cellsGroup = svgElement("g", { class: "v2-map-cells" });
     state.districts.forEach((detail) => {

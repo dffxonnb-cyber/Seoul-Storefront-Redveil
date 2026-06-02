@@ -310,7 +310,7 @@
       if (!isPlainObject(geojson) || !Array.isArray(geojson.features)) return null;
       return geojson;
     } catch (error) {
-      console.warn("[Redveil v2] Boundary GeoJSON unavailable; using cartogram fallback.", error);
+      console.warn("[Redveil v2] Boundary GeoJSON unavailable.", error);
       return null;
     }
   }
@@ -344,269 +344,11 @@
     return setAttributes(document.createElementNS(SVG_NS, tagName), attributes);
   }
 
-  function districtCodeSeed(code) {
-    return String(code || "")
-      .split("")
-      .reduce((total, char) => total + char.charCodeAt(0), 0);
-  }
-
-  function cellPoints(cell) {
-    const { x, y, rx, ry } = cell;
-    const seed = districtCodeSeed(cell.code);
-    const wobble = [
-      [((seed % 5) - 2) * 0.016, ((seed % 7) - 3) * 0.012],
-      [((seed % 3) - 1) * 0.018, ((seed % 11) - 5) * 0.007],
-      [((seed % 13) - 6) * 0.008, ((seed % 5) - 2) * 0.014],
-      [((seed % 7) - 3) * 0.012, ((seed % 3) - 1) * 0.018],
-      [((seed % 11) - 5) * 0.007, ((seed % 13) - 6) * 0.008],
-      [((seed % 5) - 2) * 0.014, ((seed % 7) - 3) * 0.012],
-      [((seed % 3) - 1) * 0.018, ((seed % 11) - 5) * 0.007],
-      [((seed % 13) - 6) * 0.008, ((seed % 5) - 2) * 0.014],
-    ];
-    const basePoints = [
-      [x - rx * 0.78, y - ry * 0.94],
-      [x - rx * 0.04, y - ry * 1.06],
-      [x + rx * 0.72, y - ry * 0.76],
-      [x + rx * 0.98, y - ry * 0.04],
-      [x + rx * 0.54, y + ry * 0.82],
-      [x - rx * 0.18, y + ry * 1.02],
-      [x - rx * 0.86, y + ry * 0.54],
-      [x - rx * 1.02, y - ry * 0.16],
-    ]
-      .map(([pointX, pointY], index) => [pointX + rx * wobble[index][0], pointY + ry * wobble[index][1]]);
-
-    return basePoints
-      .map((point) => point.map((value) => value.toFixed(1)).join(","))
-      .join(" ");
-  }
-
-  function pointInRing(x, y, ring) {
-    let inside = false;
-    for (let index = 0, previous = ring.length - 1; index < ring.length; previous = index, index += 1) {
-      const [xi, yi] = ring[index];
-      const [xj, yj] = ring[previous];
-      const intersects = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi || 1) + xi;
-      if (intersects) inside = !inside;
-    }
-    return inside;
-  }
-
-  function isInDistrictBoundary(x, y, district) {
-    return Array.isArray(district.boundaryRings) && district.boundaryRings.some((ring) => pointInRing(x, y, ring));
-  }
-
-  function isInSeoulFootprint(x, y, districts) {
-    if (districts.some((district) => Array.isArray(district.boundaryRings))) {
-      return districts.some((district) => isInDistrictBoundary(x, y, district));
-    }
-
-    return districts.some((district) => {
-      const dx = (x - district.x) / (district.rx * 1.18);
-      const dy = (y - district.y) / (district.ry * 1.12);
-      return dx * dx + dy * dy <= 1;
-    });
-  }
-
-  function distanceToDistrict(x, y, district) {
-    const dx = (x - district.x) / Math.max(1, district.rx);
-    const dy = (y - district.y) / Math.max(1, district.ry);
-    return Math.sqrt(dx * dx + dy * dy);
-  }
-
-  function gridRiskScore(x, y, selectedDistrict, districts) {
-    let weightedScore = 0;
-    let totalWeight = 0;
-
-    districts.forEach((district) => {
-      const distance = distanceToDistrict(x, y, district);
-      const weight = 1 / Math.pow(distance + 0.78, 2.2);
-      weightedScore += toNumber(district.riskScore) * weight;
-      totalWeight += weight;
-    });
-
-    const baseScore = totalWeight > 0 ? weightedScore / totalWeight : 45;
-    const selectedDistance = selectedDistrict ? distanceToDistrict(x, y, selectedDistrict) : 3;
-    const selectedEmphasis = Math.max(0, 1 - selectedDistance / 2.35) * 6;
-    const scanTexture = Math.sin(x * 0.031 + y * 0.017) * 2.2 + Math.cos(x * 0.013 - y * 0.023) * 1.6;
-    return clamp(baseScore + selectedEmphasis + scanTexture, 0, 100);
-  }
-
-  function renderGridRiskLayer(svg, selectedDistrict, districts) {
-    const layer = svgElement("g", {
-      class: "v2-grid-risk-layer",
-      "aria-label": "500m risk scan layer",
-    });
-    const cellSize = 14;
-    const step = 18;
-
-    for (let y = 48; y <= 512; y += step) {
-      for (let x = 32; x <= 728; x += step) {
-        const centerX = x + cellSize / 2;
-        const centerY = y + cellSize / 2;
-        if (!isInSeoulFootprint(centerX, centerY, districts)) continue;
-
-        const selectedDistance = selectedDistrict ? distanceToDistrict(centerX, centerY, selectedDistrict) : 3;
-        const seed = (Math.floor(x / step) * 17 + Math.floor(y / step) * 23) % 19;
-        if (seed === 0 && selectedDistance > 1.35) continue;
-
-        const score = gridRiskScore(centerX, centerY, selectedDistrict, districts);
-        const tier = riskTier(score);
-        const opacity = clamp(0.15 + score / 190 + Math.max(0, 1.1 - selectedDistance) * 0.12, 0.18, 0.55);
-        const rect = svgElement("rect", {
-          class: `v2-grid-cell is-${tier}${selectedDistance <= 1.05 ? " is-selected-near" : ""}`,
-          x,
-          y,
-          width: cellSize,
-          height: cellSize,
-          rx: "2",
-          "data-grid-risk": Math.round(score),
-          style: `--grid-opacity:${opacity.toFixed(2)}`,
-        });
-        layer.appendChild(rect);
-      }
-    }
-
-    svg.appendChild(layer);
-  }
-
-  function projectedPathFromLonLat(points) {
-    if (!state.mapProject || !Array.isArray(points) || !points.length) return "";
-    return points
-      .map(([lon, lat], index) => {
-        const [x, y] = state.mapProject(lon, lat);
-        return `${index === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
-      })
-      .join(" ");
-  }
-
-  function renderMapDetails(svg) {
-    const riverPath = state.mapProject
-      ? projectedPathFromLonLat([
-          [126.765, 37.575],
-          [126.82, 37.562],
-          [126.88, 37.548],
-          [126.93, 37.525],
-          [126.99, 37.518],
-          [127.045, 37.527],
-          [127.095, 37.525],
-          [127.15, 37.545],
-          [127.185, 37.56],
-        ])
-      : "M32 346 C92 320 134 304 190 318 C245 332 276 330 326 308 C386 282 432 300 492 294 C574 286 628 248 736 224";
-    svg.appendChild(svgElement("path", { class: "v2-map-river-bank", d: riverPath }));
-    svg.appendChild(svgElement("path", { class: "v2-map-river", d: riverPath }));
-
-    const roadLines = svgElement("g", { class: "v2-map-road-lines", "aria-hidden": "true" });
-    const roads = state.mapProject
-      ? [
-          projectedPathFromLonLat([
-            [126.82, 37.49],
-            [126.92, 37.515],
-            [127.02, 37.52],
-            [127.13, 37.54],
-            [127.18, 37.57],
-          ]),
-          projectedPathFromLonLat([
-            [126.91, 37.66],
-            [126.96, 37.61],
-            [127.0, 37.56],
-            [127.055, 37.5],
-            [127.1, 37.46],
-          ]),
-          projectedPathFromLonLat([
-            [126.78, 37.55],
-            [126.88, 37.57],
-            [126.98, 37.59],
-            [127.08, 37.61],
-            [127.16, 37.64],
-          ]),
-        ]
-      : [
-          "M58 392 C150 350 230 374 326 332 C420 292 514 302 706 246",
-          "M126 118 C214 176 296 216 368 292 C446 374 536 410 664 438",
-          "M106 494 C176 430 248 402 344 356 C456 302 540 250 646 132",
-        ];
-    roads.forEach((d) => {
-      roadLines.appendChild(svgElement("path", { d }));
-    });
-    svg.appendChild(roadLines);
-
-    const scanLines = svgElement("g", { class: "v2-map-scan-lines", "aria-hidden": "true" });
-    ["M92 126 H690", "M56 260 H722", "M74 432 H674", "M132 68 V502", "M308 46 V514", "M512 60 V488"].forEach((d) => {
-      scanLines.appendChild(svgElement("path", { d }));
-    });
-    svg.appendChild(scanLines);
-
-    const labels = svgElement("g", { class: "v2-map-scan-label", "aria-hidden": "true" });
-    const label = svgElement("text", { x: "34", y: "38" });
-    label.textContent = "500m risk scan layer";
-    const coordinate = svgElement("text", { x: "588", y: "504" });
-    coordinate.textContent = "SEOUL GRID / VISUAL MODEL";
-    labels.append(label, coordinate);
-    svg.appendChild(labels);
-  }
-
-  function renderHotspotLayer(svg, districts, selectedDistrict) {
-    const layer = svgElement("g", { class: "v2-map-hotspot-layer", "aria-hidden": "true" });
-
-    districts
-      .filter((district) => toNumber(district.riskScore) >= 58 || district.code === selectedDistrict.code)
-      .forEach((district) => {
-        const score = toNumber(district.riskScore);
-        const seed = districtCodeSeed(district.code);
-        const selected = district.code === selectedDistrict.code;
-        const count = selected ? 7 : score >= 70 ? 5 : score >= 65 ? 4 : 3;
-        const intensity = clamp((score - 50) / 50, 0.22, 0.95);
-
-        for (let index = 0; index < count; index += 1) {
-          const angle = seed * 0.17 + index * 1.31;
-          const spread = 0.2 + ((seed + index * 11) % 23) / 42;
-          const x = clamp(district.x + Math.cos(angle) * district.rx * spread, 24, 736);
-          const y = clamp(district.y + Math.sin(angle) * district.ry * (spread + 0.08), 28, 512);
-          const radius = selected ? 3.8 + (index % 2) : 2.2 + ((seed + index) % 4) * 0.45;
-          const opacity = clamp((selected ? 0.34 : 0.2) + intensity * 0.28 - index * 0.018, 0.16, 0.56);
-          const hotspot = svgElement("circle", {
-            class: `v2-map-hotspot${selected ? " is-selected" : ""}${score >= 70 ? " is-critical" : ""}`,
-            cx: x.toFixed(1),
-            cy: y.toFixed(1),
-            r: radius.toFixed(1),
-            style: `--hotspot-opacity:${opacity.toFixed(2)}`,
-          });
-          layer.appendChild(hotspot);
-
-          if (index % 2 === 0) {
-            const pixelOffset = ((seed + index * 5) % 9) - 4;
-            layer.appendChild(
-              svgElement("rect", {
-                class: `v2-map-risk-pixel${selected ? " is-selected" : ""}`,
-                x: (x + pixelOffset - 2).toFixed(1),
-                y: (y - pixelOffset / 2 - 2).toFixed(1),
-                width: selected ? "6" : "4",
-                height: selected ? "6" : "4",
-                rx: "1",
-                style: `--hotspot-opacity:${clamp(opacity + 0.08, 0.2, 0.62).toFixed(2)}`,
-              })
-            );
-          }
-        }
-      });
-
-    if (layer.childNodes.length) svg.appendChild(layer);
-  }
-
   function renderMapBackground(svg) {
     const defs = svgElement("defs");
-    const gridPattern = svgElement("pattern", {
-      id: "v2-map-grid",
-      width: "38",
-      height: "38",
-      patternUnits: "userSpaceOnUse",
-    });
-    gridPattern.appendChild(svgElement("path", { d: "M38 0 H0 V38", class: "v2-map-grid-path" }));
-
     const glow = svgElement("radialGradient", { id: "v2-map-core", cx: "52%", cy: "48%", r: "62%" });
-    glow.appendChild(svgElement("stop", { offset: "0%", "stop-color": "#ff3347", "stop-opacity": "0.14" }));
-    glow.appendChild(svgElement("stop", { offset: "58%", "stop-color": "#ff3347", "stop-opacity": "0.035" }));
+    glow.appendChild(svgElement("stop", { offset: "0%", "stop-color": "#ff3347", "stop-opacity": "0.075" }));
+    glow.appendChild(svgElement("stop", { offset: "58%", "stop-color": "#ff3347", "stop-opacity": "0.022" }));
     glow.appendChild(svgElement("stop", { offset: "100%", "stop-color": "#ff3347", "stop-opacity": "0" }));
 
     const focusBlur = svgElement("filter", {
@@ -618,27 +360,24 @@
     });
     focusBlur.appendChild(svgElement("feGaussianBlur", { stdDeviation: "8" }));
 
-    defs.append(gridPattern, glow, focusBlur);
+    defs.append(glow, focusBlur);
     svg.appendChild(defs);
     svg.appendChild(svgElement("desc", { id: "v2-map-desc" }));
     svg.querySelector("#v2-map-desc").textContent = state.mapProject
       ? "서울 25개 자치구 실제 경계를 기반으로 상가 매입 리스크를 표현한 SVG 지도입니다."
       : "서울 25개 자치구의 상가 매입 리스크를 카토그램으로 표현한 SVG 지도입니다.";
-    svg.appendChild(svgElement("rect", { class: "v2-map-grid-fill", x: "0", y: "0", width: MAP_WIDTH, height: MAP_HEIGHT }));
     svg.appendChild(svgElement("rect", { class: "v2-map-core", x: "0", y: "0", width: MAP_WIDTH, height: MAP_HEIGHT }));
   }
 
   function renderMapTarget(svg, detail) {
+    if (!detail.boundaryPath) return;
+
     const group = svgElement("g", { class: "v2-map-target", "aria-hidden": "true" });
     const radius = Math.max(detail.rx, detail.ry) + 15;
     group.appendChild(svgElement("circle", { class: "v2-map-focus-halo", cx: detail.x, cy: detail.y, r: radius + 34 }));
     group.appendChild(svgElement("circle", { class: "v2-map-focus-ring is-outer", cx: detail.x, cy: detail.y, r: radius + 21 }));
     group.appendChild(svgElement("circle", { class: "v2-map-focus-ring", cx: detail.x, cy: detail.y, r: radius }));
-    group.appendChild(
-      detail.boundaryPath
-        ? svgElement("path", { class: "v2-selected-district-boundary", d: detail.boundaryPath })
-        : svgElement("polygon", { class: "v2-selected-district-boundary", points: cellPoints(detail) })
-    );
+    group.appendChild(svgElement("path", { class: "v2-selected-district-boundary", d: detail.boundaryPath }));
 
     const crosshair = svgElement("g", { class: "v2-map-crosshair" });
     crosshair.appendChild(svgElement("line", { x1: detail.x - radius - 40, y1: detail.y, x2: detail.x - radius + 5, y2: detail.y }));
@@ -658,25 +397,20 @@
     svg.replaceChildren();
     svg.setAttribute("aria-describedby", "v2-map-desc");
     renderMapBackground(svg);
-    renderGridRiskLayer(svg, selected, state.districts);
-    renderMapDetails(svg);
-    renderHotspotLayer(svg, state.districts, selected);
 
-    const cellsGroup = svgElement("g", { class: "v2-map-cells" });
-    state.districts.forEach((detail) => {
+    const districtsGroup = svgElement("g", { class: "v2-map-districts" });
+    state.districts.filter((detail) => detail.boundaryPath).forEach((detail) => {
       const group = svgElement("g", {
-        class: `v2-map-cell is-${detail.tier}${detail.code === selected.code ? " is-selected" : ""}`,
+        class: `v2-map-district is-${detail.tier}${detail.code === selected.code ? " is-selected" : ""}`,
         "data-code": detail.code,
         role: "button",
         tabindex: "0",
         focusable: "true",
         "aria-label": `${detail.name} 리스크 ${detail.riskScore}점, ${riskStatus(detail.riskScore)} 구간`,
       });
-      const shape = detail.boundaryPath
-        ? svgElement("path", { d: detail.boundaryPath })
-        : svgElement("polygon", { points: cellPoints(detail) });
+      const shape = svgElement("path", { d: detail.boundaryPath });
       const label = svgElement("text", {
-        class: "v2-map-cell-label",
+        class: "v2-map-district-label",
         x: detail.x,
         y: detail.y - 2,
         "text-anchor": "middle",
@@ -684,7 +418,7 @@
       label.textContent = shortDistrictName(detail.name);
 
       const score = svgElement("text", {
-        class: "v2-map-cell-score",
+        class: "v2-map-district-score",
         x: detail.x,
         y: detail.y + 17,
         "text-anchor": "middle",
@@ -699,10 +433,22 @@
           selectDistrict(detail.code);
         }
       });
-      cellsGroup.appendChild(group);
+      districtsGroup.appendChild(group);
     });
 
-    svg.appendChild(cellsGroup);
+    if (!districtsGroup.childNodes.length) {
+      const message = svgElement("text", {
+        class: "v2-map-unavailable",
+        x: MAP_WIDTH / 2,
+        y: MAP_HEIGHT / 2,
+        "text-anchor": "middle",
+      });
+      message.textContent = "서울 경계 지도를 불러오지 못했습니다.";
+      svg.appendChild(message);
+      return;
+    }
+
+    svg.appendChild(districtsGroup);
     renderMapTarget(svg, selected);
   }
 
@@ -824,7 +570,7 @@
     setText("#selected-node-label", `${detail.name} · ${riskStatus(detail.riskScore)} · ${detail.riskScore}`);
     setText("#map-selected-name", detail.name);
     setText("#map-selected-tier", `${riskStatus(detail.riskScore)} Risk`);
-    setText("#map-layer-mode", state.mapProject ? "REAL BOUNDARY" : "VISUAL CARTOGRAM");
+    setText("#map-layer-mode", state.mapProject ? "RISK PATHS" : "MAP DATA OFFLINE");
     setText("#selected-district-name", detail.name);
     setText("#overall-risk-score", detail.riskScore);
     setText("#overall-risk-summary", detail.riskSummary);

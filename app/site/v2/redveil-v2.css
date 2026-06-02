@@ -2351,3 +2351,157 @@ body[data-page="redveil-v2"] {
     font-size: 0.68rem;
   }
 }
+
+/* Clean real Seoul district map */
+.v2-map-canvas {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255, 51, 71, 0.045), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.024), transparent 34%),
+    #050914;
+}
+
+.v2-map-canvas::before {
+  background:
+    linear-gradient(180deg, rgba(3, 5, 10, 0.22), transparent 16%, transparent 82%, rgba(3, 5, 10, 0.32)),
+    linear-gradient(90deg, rgba(3, 5, 10, 0.24), transparent 14%, transparent 86%, rgba(3, 5, 10, 0.24));
+}
+
+.v2-map-grid-fill,
+.v2-grid-risk-layer,
+.v2-grid-cell,
+.v2-map-scan-lines,
+.v2-map-scan-label,
+.v2-map-hotspot-layer,
+.v2-map-hotspot,
+.v2-map-risk-pixel,
+.v2-map-road-lines {
+  display: none;
+}
+
+.v2-map-districts {
+  isolation: isolate;
+}
+
+.v2-map-district {
+  cursor: pointer;
+  outline: none;
+}
+
+.v2-map-district path {
+  opacity: 0.82;
+  fill: rgba(24, 31, 43, 0.34);
+  stroke: rgba(255, 255, 255, 0.26);
+  stroke-linejoin: round;
+  stroke-width: 1.05;
+  vector-effect: non-scaling-stroke;
+  transition:
+    fill 150ms ease,
+    stroke 150ms ease,
+    stroke-width 150ms ease,
+    filter 150ms ease,
+    opacity 150ms ease;
+}
+
+.v2-map-district.is-high path {
+  fill: rgba(121, 29, 42, 0.38);
+  stroke: rgba(255, 51, 71, 0.45);
+}
+
+.v2-map-district.is-watch path {
+  fill: rgba(106, 81, 43, 0.32);
+  stroke: rgba(226, 178, 97, 0.38);
+}
+
+.v2-map-district.is-low path {
+  fill: rgba(37, 71, 70, 0.28);
+  stroke: rgba(116, 210, 157, 0.32);
+}
+
+.v2-map-district:hover path,
+.v2-map-district:focus-visible path {
+  opacity: 0.96;
+  stroke: rgba(255, 255, 255, 0.48);
+  stroke-width: 1.55;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.08));
+}
+
+.v2-map-district.is-selected path {
+  opacity: 1;
+  fill: rgba(177, 31, 49, 0.74);
+  stroke: rgba(255, 51, 71, 0.98);
+  stroke-width: 2.25;
+  filter:
+    drop-shadow(0 0 10px rgba(255, 51, 71, 0.27))
+    drop-shadow(0 7px 14px rgba(0, 0, 0, 0.28));
+}
+
+.v2-map-district-label,
+.v2-map-district-score {
+  pointer-events: none;
+  fill: rgba(245, 247, 251, 0.84);
+  font-family: var(--v2-font);
+  font-weight: 900;
+  letter-spacing: 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.72);
+}
+
+.v2-map-district-label {
+  font-size: 12.2px;
+}
+
+.v2-map-district-score {
+  fill: rgba(193, 201, 217, 0.64);
+  font-size: 9.8px;
+}
+
+.v2-map-district:not(.is-selected) .v2-map-district-label {
+  fill: rgba(230, 235, 245, 0.72);
+}
+
+.v2-map-district:not(.is-selected) .v2-map-district-score {
+  fill: rgba(193, 201, 217, 0.52);
+}
+
+.v2-map-district.is-selected .v2-map-district-label {
+  fill: #fff;
+  font-size: 13.5px;
+}
+
+.v2-map-district.is-selected .v2-map-district-score {
+  fill: rgba(255, 225, 229, 0.96);
+  font-size: 10.8px;
+}
+
+.v2-map-unavailable {
+  fill: rgba(193, 201, 217, 0.68);
+  font-family: var(--v2-font);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+@media (max-width: 760px) {
+  .v2-map-district path {
+    stroke-width: 0.82;
+  }
+
+  .v2-map-district.is-selected path {
+    stroke-width: 1.65;
+  }
+
+  .v2-map-district-label {
+    font-size: 9.6px;
+  }
+
+  .v2-map-district-score {
+    display: none;
+  }
+
+  .v2-map-district:not(.is-selected) .v2-map-district-label {
+    opacity: 0.58;
+  }
+
+  .v2-map-district.is-selected .v2-map-district-label {
+    opacity: 1;
+    font-size: 11.2px;
+  }
+}

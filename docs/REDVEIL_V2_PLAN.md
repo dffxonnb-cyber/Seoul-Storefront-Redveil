@@ -79,3 +79,5 @@ The command-center redesign pass should make the v2 homepage visibly different f
 The map focus system pass should keep the command-center layout stable while making the Seoul map feel like a live risk scan surface: deterministic hotspots, selected-district target ring/crosshair/halo, clearer boundaries, a muted Han River anchor, and selected-district intelligence labels in the right-side panels.
 
 The real-boundary map pass uses a static `app/site/v2/data/seoul-districts.geojson` converted from the Seoul Open Data Plaza dataset `서울시 상권분석서비스(영역-자치구)`. The source Shapefile was EPSG:5181 and is converted to EPSG:4326 GeoJSON for GitHub Pages friendly SVG rendering with no external map API.
+
+The latest v2 map direction removes the earlier cartogram, hotspot, and 500m grid experiment layers from the visible map. The dashboard now treats the real Seoul district boundary paths as the primary clickable risk map surface.

@@ -1939,3 +1939,340 @@ body[data-page="redveil-v2"] {
     font-size: 5rem;
   }
 }
+
+/* Live risk scan focus system */
+.v2-map-screen {
+  position: relative;
+}
+
+.v2-map-status-strip {
+  position: absolute;
+  top: 48px;
+  left: 14px;
+  right: 14px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  pointer-events: none;
+}
+
+.v2-map-status-strip span {
+  min-height: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.092);
+  border-radius: 999px;
+  padding: 6px 8px;
+  color: rgba(193, 201, 217, 0.68);
+  font-size: 0.66rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  background: rgba(4, 7, 13, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+}
+
+.v2-map-status-strip span:first-child,
+.v2-map-status-strip span:nth-child(4) {
+  border-color: rgba(255, 51, 71, 0.22);
+  color: rgba(255, 218, 222, 0.9);
+  background: rgba(255, 51, 71, 0.085);
+}
+
+.v2-map-status-strip strong {
+  color: #fff;
+  font-weight: 900;
+}
+
+.v2-map-grid-fill {
+  opacity: 0.32;
+}
+
+.v2-map-core {
+  opacity: 0.78;
+}
+
+.v2-grid-risk-layer {
+  opacity: 0.58;
+}
+
+.v2-grid-cell {
+  stroke: transparent;
+  stroke-width: 0;
+}
+
+.v2-grid-cell.is-high {
+  fill: rgba(184, 47, 62, 0.5);
+}
+
+.v2-grid-cell.is-watch {
+  fill: rgba(174, 132, 61, 0.46);
+}
+
+.v2-grid-cell.is-low {
+  fill: rgba(72, 118, 120, 0.4);
+}
+
+.v2-grid-cell.is-selected-near {
+  opacity: calc(var(--grid-opacity, 0.3) + 0.1);
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 0.8;
+}
+
+.v2-map-river-bank {
+  fill: none;
+  stroke: rgba(11, 20, 34, 0.78);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 38;
+}
+
+.v2-map-river {
+  stroke: rgba(105, 151, 190, 0.24);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 24;
+}
+
+.v2-map-road-lines path {
+  stroke: rgba(218, 226, 242, 0.1);
+}
+
+.v2-map-scan-lines path {
+  stroke: rgba(255, 255, 255, 0.052);
+}
+
+.v2-map-hotspot-layer,
+.v2-map-target {
+  pointer-events: none;
+}
+
+.v2-map-hotspot {
+  opacity: var(--hotspot-opacity, 0.32);
+  fill: rgba(255, 51, 71, 0.82);
+  filter: drop-shadow(0 0 8px rgba(255, 51, 71, 0.18));
+}
+
+.v2-map-hotspot.is-critical {
+  fill: rgba(255, 61, 78, 0.92);
+}
+
+.v2-map-hotspot.is-selected {
+  fill: rgba(255, 92, 105, 0.92);
+  filter: drop-shadow(0 0 11px rgba(255, 51, 71, 0.24));
+}
+
+.v2-map-risk-pixel {
+  opacity: var(--hotspot-opacity, 0.36);
+  fill: rgba(255, 98, 112, 0.76);
+}
+
+.v2-map-risk-pixel.is-selected {
+  fill: rgba(255, 210, 216, 0.82);
+}
+
+.v2-map-cell polygon {
+  opacity: 0.7;
+  stroke: rgba(255, 255, 255, 0.24);
+  stroke-width: 1.15;
+}
+
+.v2-map-cell.is-high polygon {
+  fill: rgba(119, 31, 42, 0.28);
+  stroke: rgba(255, 51, 71, 0.4);
+}
+
+.v2-map-cell.is-watch polygon {
+  fill: rgba(103, 82, 45, 0.26);
+  stroke: rgba(226, 178, 97, 0.34);
+}
+
+.v2-map-cell.is-low polygon {
+  fill: rgba(34, 69, 67, 0.22);
+  stroke: rgba(116, 210, 157, 0.28);
+}
+
+.v2-map-cell:not(.is-selected) .v2-map-cell-label {
+  fill: rgba(230, 235, 245, 0.74);
+}
+
+.v2-map-cell:not(.is-selected) .v2-map-cell-score {
+  fill: rgba(193, 201, 217, 0.54);
+}
+
+.v2-map-cell.is-selected polygon {
+  opacity: 1;
+  fill: rgba(170, 31, 48, 0.68);
+  stroke: rgba(255, 51, 71, 0.98);
+  stroke-width: 3;
+  filter:
+    drop-shadow(0 0 10px rgba(255, 51, 71, 0.26))
+    drop-shadow(0 7px 14px rgba(0, 0, 0, 0.28));
+}
+
+.v2-map-cell.is-selected .v2-map-cell-label {
+  font-size: 16px;
+}
+
+.v2-map-cell.is-selected .v2-map-cell-score {
+  fill: rgba(255, 225, 229, 0.96);
+  font-size: 12.5px;
+}
+
+.v2-map-focus-halo {
+  fill: rgba(255, 51, 71, 0.13);
+  filter: url("#v2-focus-blur");
+}
+
+.v2-map-focus-ring {
+  fill: none;
+  stroke: rgba(255, 51, 71, 0.88);
+  stroke-dasharray: 8 7;
+  stroke-linecap: round;
+  stroke-width: 1.6;
+}
+
+.v2-map-focus-ring.is-outer {
+  opacity: 0.48;
+  stroke: rgba(255, 220, 225, 0.62);
+  stroke-dasharray: 2 12;
+  stroke-width: 1.2;
+}
+
+.v2-map-crosshair line {
+  fill: none;
+  stroke: rgba(255, 51, 71, 0.76);
+  stroke-linecap: round;
+  stroke-width: 1.35;
+}
+
+.v2-map-focus-core {
+  fill: rgba(255, 245, 247, 0.94);
+  filter: drop-shadow(0 0 8px rgba(255, 51, 71, 0.62));
+}
+
+.v2-selected-district-boundary {
+  fill: none;
+  stroke: rgba(255, 245, 247, 0.9);
+  stroke-linejoin: round;
+  stroke-width: 1.3;
+}
+
+.v2-selected-district-panel {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(255, 51, 71, 0.22);
+  background:
+    linear-gradient(180deg, rgba(255, 51, 71, 0.07), transparent 42%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent 50%),
+    rgba(8, 11, 18, 0.84);
+}
+
+.v2-selected-district-panel::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 74px;
+  height: 74px;
+  border: 1px solid rgba(255, 51, 71, 0.16);
+  border-radius: 999px;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 12px rgba(255, 51, 71, 0.018),
+    0 0 28px rgba(255, 51, 71, 0.055);
+}
+
+.v2-selected-district-panel .v2-panel-head,
+.v2-selected-district-panel .v2-score-label,
+.v2-selected-district-panel .v2-score-row,
+.v2-selected-district-panel p,
+.v2-selected-district-panel .v2-risk-meter {
+  position: relative;
+  z-index: 1;
+}
+
+.v2-selected-district-panel h2 {
+  font-size: 1.42rem;
+}
+
+.v2-score-label {
+  display: inline-flex;
+  margin-top: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  padding: 6px 8px;
+  color: rgba(193, 201, 217, 0.66);
+  font-size: 0.66rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.v2-selected-district-panel .v2-score-row {
+  margin-top: 10px;
+}
+
+.v2-decision-card {
+  border-color: rgba(255, 51, 71, 0.14);
+}
+
+.v2-decision-card strong {
+  display: inline-flex;
+  border: 1px solid rgba(255, 51, 71, 0.22);
+  border-radius: 999px;
+  padding: 8px 10px;
+  color: #fff;
+  background: rgba(255, 51, 71, 0.08);
+}
+
+.v2-top-signal {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.v2-analyst-note {
+  border-left: 2px solid rgba(255, 51, 71, 0.38);
+  padding: 11px 0 11px 13px;
+  background: linear-gradient(90deg, rgba(255, 51, 71, 0.045), transparent 76%);
+}
+
+@media (max-width: 760px) {
+  .v2-map-status-strip {
+    top: 44px;
+    left: 10px;
+    right: 10px;
+    gap: 5px;
+  }
+
+  .v2-map-status-strip span {
+    padding: 5px 7px;
+    font-size: 0.6rem;
+  }
+
+  .v2-map-status-strip span:nth-child(2),
+  .v2-map-status-strip span:nth-child(5) {
+    display: none;
+  }
+
+  .v2-map-hotspot-layer {
+    opacity: 0.72;
+  }
+
+  .v2-map-focus-ring.is-outer {
+    opacity: 0.36;
+  }
+
+  .v2-map-crosshair line {
+    stroke-width: 1;
+  }
+
+  .v2-map-cell.is-selected .v2-map-cell-label {
+    font-size: 14px;
+  }
+
+  .v2-selected-district-panel::before {
+    width: 52px;
+    height: 52px;
+  }
+}

@@ -127,6 +127,13 @@
                 <span></span>
                 <strong>REDVEIL / SEOUL COMMERCIAL RISK SURFACE</strong>
               </div>
+              <div class="v2-map-status-strip" aria-label="지도 스캔 상태">
+                <span>LIVE GRID SCAN</span>
+                <span>25 DISTRICTS</span>
+                <span>SELECTED: <strong id="map-selected-name" aria-live="polite">강남구</strong></span>
+                <span id="map-selected-tier">High Risk</span>
+                <span>GRID RISK LAYER</span>
+              </div>
               <div class="v2-map-canvas" role="group" aria-label="서울 25개 구 리스크 카토그램">
               <svg
                 id="v2-seoul-risk-map"
@@ -147,13 +154,14 @@
           </section>
 
           <aside class="v2-side-stack" aria-label="선택 구 리스크 신호">
-            <article class="v2-panel v2-risk-index" aria-labelledby="risk-index-heading">
+            <article class="v2-panel v2-risk-index v2-selected-district-panel" aria-labelledby="risk-index-heading">
               <div class="v2-panel-head v2-panel-head-compact">
                 <div>
-                  <p class="v2-section-label">OVERALL RISK INDEX</p>
-                  <h2 id="risk-index-heading">종합 리스크</h2>
+                  <p class="v2-section-label">SELECTED DISTRICT</p>
+                  <h2 id="risk-index-heading"><span id="selected-district-name">강남구</span></h2>
                 </div>
               </div>
+              <span class="v2-score-label">Risk Score</span>
               <div class="v2-score-row">
                 <strong id="overall-risk-score">72</strong>
                 <span>/100</span>
@@ -169,12 +177,12 @@
             <article class="v2-panel v2-top-signal" aria-labelledby="top-signal-heading">
               <div class="v2-panel-head v2-panel-head-compact">
                 <div>
-                  <p class="v2-section-label">TOP SIGNAL</p>
-                  <h2 id="top-signal-heading">가장 강한 신호</h2>
+                  <p class="v2-section-label">PRIMARY SIGNAL</p>
+                  <h2 id="top-signal-heading">Analyst note</h2>
                 </div>
               </div>
               <strong id="top-signal-district">강남구 신사동</strong>
-              <p id="top-signal-copy">
+              <p id="top-signal-copy" class="v2-analyst-note">
                 높은 임대료 수준, 경쟁 밀도, 최근 거래 변동성이 동시에 상승해 매입 전 보류 사유가 분명합니다.
               </p>
             </article>

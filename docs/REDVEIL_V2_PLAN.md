@@ -75,3 +75,5 @@ The homepage layout should now prioritize a premium map-first command center: sl
 The visual system polish pass should improve scale, typography, panel depth, and candidate-table clarity without changing the v1 flow or adding external map dependencies.
 
 The command-center redesign pass should make the v2 homepage visibly different from the earlier admin-like dashboard by emphasizing a larger map screen, product rail, connected intelligence column, and ranking-style candidate module.
+
+The map focus system pass should keep the command-center layout stable while making the Seoul map feel like a live risk scan surface: deterministic hotspots, selected-district target ring/crosshair/halo, clearer boundaries, a muted Han River anchor, and selected-district intelligence labels in the right-side panels.

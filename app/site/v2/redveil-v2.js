@@ -295,12 +295,10 @@
   }
 
   function renderMapDetails(svg) {
-    svg.appendChild(
-      svgElement("path", {
-        class: "v2-map-river",
-        d: "M36 344 C134 294 216 336 302 306 C396 274 454 326 544 288 C620 258 684 254 732 226",
-      })
-    );
+    const riverPath =
+      "M32 346 C92 320 134 304 190 318 C245 332 276 330 326 308 C386 282 432 300 492 294 C574 286 628 248 736 224";
+    svg.appendChild(svgElement("path", { class: "v2-map-river-bank", d: riverPath }));
+    svg.appendChild(svgElement("path", { class: "v2-map-river", d: riverPath }));
 
     const roadLines = svgElement("g", { class: "v2-map-road-lines", "aria-hidden": "true" });
     [
@@ -327,6 +325,54 @@
     svg.appendChild(labels);
   }
 
+  function renderHotspotLayer(svg, districts, selectedDistrict) {
+    const layer = svgElement("g", { class: "v2-map-hotspot-layer", "aria-hidden": "true" });
+
+    districts
+      .filter((district) => toNumber(district.riskScore) >= 58 || district.code === selectedDistrict.code)
+      .forEach((district) => {
+        const score = toNumber(district.riskScore);
+        const seed = districtCodeSeed(district.code);
+        const selected = district.code === selectedDistrict.code;
+        const count = selected ? 7 : score >= 70 ? 5 : score >= 65 ? 4 : 3;
+        const intensity = clamp((score - 50) / 50, 0.22, 0.95);
+
+        for (let index = 0; index < count; index += 1) {
+          const angle = seed * 0.17 + index * 1.31;
+          const spread = 0.2 + ((seed + index * 11) % 23) / 42;
+          const x = clamp(district.x + Math.cos(angle) * district.rx * spread, 24, 736);
+          const y = clamp(district.y + Math.sin(angle) * district.ry * (spread + 0.08), 28, 512);
+          const radius = selected ? 3.8 + (index % 2) : 2.2 + ((seed + index) % 4) * 0.45;
+          const opacity = clamp((selected ? 0.34 : 0.2) + intensity * 0.28 - index * 0.018, 0.16, 0.56);
+          const hotspot = svgElement("circle", {
+            class: `v2-map-hotspot${selected ? " is-selected" : ""}${score >= 70 ? " is-critical" : ""}`,
+            cx: x.toFixed(1),
+            cy: y.toFixed(1),
+            r: radius.toFixed(1),
+            style: `--hotspot-opacity:${opacity.toFixed(2)}`,
+          });
+          layer.appendChild(hotspot);
+
+          if (index % 2 === 0) {
+            const pixelOffset = ((seed + index * 5) % 9) - 4;
+            layer.appendChild(
+              svgElement("rect", {
+                class: `v2-map-risk-pixel${selected ? " is-selected" : ""}`,
+                x: (x + pixelOffset - 2).toFixed(1),
+                y: (y - pixelOffset / 2 - 2).toFixed(1),
+                width: selected ? "6" : "4",
+                height: selected ? "6" : "4",
+                rx: "1",
+                style: `--hotspot-opacity:${clamp(opacity + 0.08, 0.2, 0.62).toFixed(2)}`,
+              })
+            );
+          }
+        }
+      });
+
+    if (layer.childNodes.length) svg.appendChild(layer);
+  }
+
   function renderMapBackground(svg) {
     const defs = svgElement("defs");
     const gridPattern = svgElement("pattern", {
@@ -342,7 +388,16 @@
     glow.appendChild(svgElement("stop", { offset: "58%", "stop-color": "#ff3347", "stop-opacity": "0.035" }));
     glow.appendChild(svgElement("stop", { offset: "100%", "stop-color": "#ff3347", "stop-opacity": "0" }));
 
-    defs.append(gridPattern, glow);
+    const focusBlur = svgElement("filter", {
+      id: "v2-focus-blur",
+      x: "-30%",
+      y: "-30%",
+      width: "160%",
+      height: "160%",
+    });
+    focusBlur.appendChild(svgElement("feGaussianBlur", { stdDeviation: "8" }));
+
+    defs.append(gridPattern, glow, focusBlur);
     svg.appendChild(defs);
     svg.appendChild(svgElement("desc", { id: "v2-map-desc" }));
     svg.querySelector("#v2-map-desc").textContent = "서울 25개 자치구의 상가 매입 리스크를 카토그램으로 표현한 SVG 지도입니다.";
@@ -352,12 +407,19 @@
 
   function renderMapTarget(svg, detail) {
     const group = svgElement("g", { class: "v2-map-target", "aria-hidden": "true" });
-    const radius = Math.max(detail.rx, detail.ry) + 13;
-    group.appendChild(svgElement("circle", { cx: detail.x, cy: detail.y, r: radius }));
-    group.appendChild(svgElement("line", { x1: detail.x - radius - 18, y1: detail.y, x2: detail.x - radius + 7, y2: detail.y }));
-    group.appendChild(svgElement("line", { x1: detail.x + radius - 7, y1: detail.y, x2: detail.x + radius + 18, y2: detail.y }));
-    group.appendChild(svgElement("line", { x1: detail.x, y1: detail.y - radius - 18, x2: detail.x, y2: detail.y - radius + 7 }));
-    group.appendChild(svgElement("line", { x1: detail.x, y1: detail.y + radius - 7, x2: detail.x, y2: detail.y + radius + 18 }));
+    const radius = Math.max(detail.rx, detail.ry) + 15;
+    group.appendChild(svgElement("circle", { class: "v2-map-focus-halo", cx: detail.x, cy: detail.y, r: radius + 34 }));
+    group.appendChild(svgElement("circle", { class: "v2-map-focus-ring is-outer", cx: detail.x, cy: detail.y, r: radius + 21 }));
+    group.appendChild(svgElement("circle", { class: "v2-map-focus-ring", cx: detail.x, cy: detail.y, r: radius }));
+    group.appendChild(svgElement("polygon", { class: "v2-selected-district-boundary", points: cellPoints(detail) }));
+
+    const crosshair = svgElement("g", { class: "v2-map-crosshair" });
+    crosshair.appendChild(svgElement("line", { x1: detail.x - radius - 40, y1: detail.y, x2: detail.x - radius + 5, y2: detail.y }));
+    crosshair.appendChild(svgElement("line", { x1: detail.x + radius - 5, y1: detail.y, x2: detail.x + radius + 40, y2: detail.y }));
+    crosshair.appendChild(svgElement("line", { x1: detail.x, y1: detail.y - radius - 40, x2: detail.x, y2: detail.y - radius + 5 }));
+    crosshair.appendChild(svgElement("line", { x1: detail.x, y1: detail.y + radius - 5, x2: detail.x, y2: detail.y + radius + 40 }));
+    group.appendChild(crosshair);
+    group.appendChild(svgElement("circle", { class: "v2-map-focus-core", cx: detail.x, cy: detail.y, r: "3.2" }));
     svg.appendChild(group);
   }
 
@@ -371,6 +433,7 @@
     renderMapBackground(svg);
     renderGridRiskLayer(svg, selected, state.districts);
     renderMapDetails(svg);
+    renderHotspotLayer(svg, state.districts, selected);
 
     const cellsGroup = svgElement("g", { class: "v2-map-cells" });
     state.districts.forEach((detail) => {
@@ -530,6 +593,9 @@
           : `${detail.name}은 낮은 위험 구간입니다. 현장 임대 조건과 개별 매물 프리미엄을 확인하면 됩니다.`;
 
     setText("#selected-node-label", `${detail.name} · ${riskStatus(detail.riskScore)} · ${detail.riskScore}`);
+    setText("#map-selected-name", detail.name);
+    setText("#map-selected-tier", `${riskStatus(detail.riskScore)} Risk`);
+    setText("#selected-district-name", detail.name);
     setText("#overall-risk-score", detail.riskScore);
     setText("#overall-risk-summary", detail.riskSummary);
     setText("#top-signal-district", `${detail.name} · ${detail.riskArchetype}`);

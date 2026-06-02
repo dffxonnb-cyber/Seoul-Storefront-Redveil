@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redveil v2 | Risk Intelligence Dashboard</title>
+    <meta
+      name="description"
+      content="서울 상가 매입 전 위험 신호를 먼저 확인하는 Redveil v2 리스크 인텔리전스 대시보드 실험 화면입니다."
+    />
+    <link rel="icon" type="image/png" href="../assets/redveil-logo.png" />
+    <link rel="stylesheet" href="./redveil-v2.css" />
+    <script src="../website_payload.js" defer></script>
+    <script src="./redveil-v2.js" defer></script>
+  </head>
+  <body data-page="redveil-v2">
+    <a class="skip-link" href="#redveil-v2-main">본문 바로가기</a>
+
+    <div class="v2-shell">
+      <aside class="v2-sidebar" aria-label="Redveil v2 사이드바">
+        <a class="v2-brand" href="./index.html" aria-label="Redveil v2 홈">
+          <img src="../assets/redveil-logo.png" alt="" aria-hidden="true" decoding="async" />
+          <span>
+            <small>SEOUL RISK INTELLIGENCE</small>
+            <strong>Redveil v2</strong>
+          </span>
+        </a>
+
+        <nav class="v2-side-nav" aria-label="대시보드 메뉴">
+          <a class="is-active" href="./index.html" aria-current="page">Home</a>
+          <a href="../review.html">Property Detail</a>
+          <a href="../assessment.html">Risk Diagnosis</a>
+          <a href="../compare.html">Candidate Compare</a>
+          <a href="../districts.html">District Report</a>
+        </nav>
+
+        <div class="v2-sidebar-status" aria-label="서비스 상태">
+          <span>Mode</span>
+          <strong>Portfolio v2 Lab</strong>
+          <p>v1 화면은 유지하고 별도 대시보드 UX를 검증합니다.</p>
+        </div>
+      </aside>
+
+      <div class="v2-workspace">
+        <header class="v2-topbar" aria-label="상단 상태 바">
+          <div class="v2-topbar-title">
+            <span>Live Seoul Monitor</span>
+            <strong>상가 매입 리스크 인텔리전스</strong>
+          </div>
+
+          <nav class="v2-topbar-nav" aria-label="빠른 이동">
+            <a href="../index.html">v1 Home</a>
+            <a href="../districts.html">Districts</a>
+          </nav>
+
+          <div class="v2-status-pills" aria-label="데이터 상태">
+            <span>Updated 2026.06</span>
+            <span>Static Dashboard</span>
+          </div>
+        </header>
+
+        <main id="redveil-v2-main" class="v2-dashboard" aria-label="Redveil v2 리스크 대시보드">
+          <section class="v2-hero-panel" aria-labelledby="v2-hero-title">
+            <div class="v2-hero-copy">
+              <p class="v2-eyebrow">REDVEIL V2 EXPERIMENT</p>
+              <h1 id="v2-hero-title">서울 상가 매입 전, 위험 신호부터 확인합니다.</h1>
+              <p>
+                상권 수요, 가격 부담, 거래 유동성, 경쟁 밀도를 함께 읽어 매입 전
+                보류·비교·확인 판단을 돕습니다.
+              </p>
+            </div>
+
+            <div class="v2-hero-actions" aria-label="주요 작업">
+              <a class="v2-button v2-button-primary" href="#risk-map">리스크 대시보드 보기</a>
+              <a class="v2-button v2-button-secondary" href="#candidate-comparison">후보 비교 열기</a>
+            </div>
+
+            <dl class="v2-hero-metrics" aria-label="대시보드 핵심 지표">
+              <div>
+                <dt>Districts</dt>
+                <dd>25</dd>
+              </div>
+              <div>
+                <dt>Signals</dt>
+                <dd>5</dd>
+              </div>
+              <div>
+                <dt>Decision</dt>
+                <dd>Hold-first</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section id="risk-map" class="v2-panel v2-map-panel" aria-labelledby="risk-map-heading">
+            <div class="v2-panel-head">
+              <div>
+                <p class="v2-section-label">SEOUL RISK MAP</p>
+                <h2 id="risk-map-heading">서울 상권 위험 지도</h2>
+              </div>
+              <span id="selected-node-label" class="v2-selected-node" aria-live="polite">강남구 · High · 78</span>
+            </div>
+
+            <div class="v2-map-canvas" role="group" aria-label="서울 구 단위 위험 노드 지도">
+              <svg class="v2-map-lines" viewBox="0 0 720 430" aria-hidden="true" focusable="false">
+                <defs>
+                  <linearGradient id="river-flow" x1="0" x2="1" y1="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(116, 184, 255, 0.16)" />
+                    <stop offset="100%" stop-color="rgba(116, 184, 255, 0.04)" />
+                  </linearGradient>
+                </defs>
+                <path
+                  class="v2-river"
+                  d="M24 230 C130 176, 210 276, 320 218 C430 160, 514 210, 696 156"
+                />
+                <path class="v2-road" d="M88 74 C184 122, 250 154, 332 232 C402 298, 492 324, 636 348" />
+                <path class="v2-road" d="M92 344 C164 274, 260 250, 360 188 C458 126, 542 100, 642 70" />
+                <path class="v2-road v2-road-soft" d="M172 52 L210 374" />
+                <path class="v2-road v2-road-soft" d="M312 40 L292 398" />
+                <path class="v2-road v2-road-soft" d="M486 54 L452 394" />
+                <path class="v2-grid-line" d="M60 126 H660" />
+                <path class="v2-grid-line" d="M44 294 H682" />
+                <path class="v2-grid-line" d="M120 28 V398" />
+                <path class="v2-grid-line" d="M584 34 V392" />
+              </svg>
+
+              <button
+                type="button"
+                class="v2-map-node is-high is-selected"
+                style="--x: 57%; --y: 57%"
+                data-risk-node
+                data-district="강남구"
+                data-risk="High"
+                data-score="78"
+                aria-pressed="true"
+              >
+                <span>강남</span>
+                <strong>78</strong>
+              </button>
+              <button
+                type="button"
+                class="v2-map-node is-high"
+                style="--x: 50%; --y: 64%"
+                data-risk-node
+                data-district="서초구"
+                data-risk="High"
+                data-score="76"
+                aria-pressed="false"
+              >
+                <span>서초</span>
+                <strong>76</strong>
+              </button>
+              <button
+                type="button"
+                class="v2-map-node is-watch"
+                style="--x: 37%; --y: 47%"
+                data-risk-node
+                data-district="마포구"
+                data-risk="Watch"
+                data-score="58"
+                aria-pressed="false"
+              >
+                <span>마포</span>
+                <strong>58</strong>
+              </button>
+              <button
+                type="button"
+                class="v2-map-node is-watch"
+                style="--x: 65%; --y: 42%"
+                data-risk-node
+                data-district="성동구"
+                data-risk="Watch"
+                data-score="55"
+                aria-pressed="false"
+              >
+                <span>성동</span>
+                <strong>55</strong>
+              </button>
+              <button
+                type="button"
+                class="v2-map-node is-low"
+                style="--x: 28%; --y: 66%"
+                data-risk-node
+                data-district="구로구"
+                data-risk="Low"
+                data-score="39"
+                aria-pressed="false"
+              >
+                <span>구로</span>
+                <strong>39</strong>
+              </button>
+              <button
+                type="button"
+                class="v2-map-node is-low"
+                style="--x: 73%; --y: 29%"
+                data-risk-node
+                data-district="노원구"
+                data-risk="Low"
+                data-score="34"
+                aria-pressed="false"
+              >
+                <span>노원</span>
+                <strong>34</strong>
+              </button>
+            </div>
+
+            <div class="v2-map-legend" aria-label="위험 등급 범례">
+              <span><i class="legend-high"></i>High</span>
+              <span><i class="legend-watch"></i>Watch</span>
+              <span><i class="legend-low"></i>Low</span>
+            </div>
+          </section>
+
+          <aside class="v2-side-stack" aria-label="핵심 위험 신호">
+            <article class="v2-panel v2-risk-index" aria-labelledby="risk-index-heading">
+              <div class="v2-panel-head v2-panel-head-compact">
+                <div>
+                  <p class="v2-section-label">OVERALL RISK INDEX</p>
+                  <h2 id="risk-index-heading">종합 리스크</h2>
+                </div>
+              </div>
+              <div class="v2-score-row">
+                <strong id="overall-risk-score">72</strong>
+                <span>/100</span>
+              </div>
+              <p id="overall-risk-summary">
+                가격 부담과 거래 유동성 약화가 함께 감지되어 즉시 매입보다 후보 비교가 우선입니다.
+              </p>
+              <div class="v2-risk-meter" aria-hidden="true">
+                <span data-risk-meter style="width: 72%"></span>
+              </div>
+            </article>
+
+            <article class="v2-panel v2-top-signal" aria-labelledby="top-signal-heading">
+              <div class="v2-panel-head v2-panel-head-compact">
+                <div>
+                  <p class="v2-section-label">TOP SIGNAL</p>
+                  <h2 id="top-signal-heading">가장 강한 신호</h2>
+                </div>
+              </div>
+              <strong id="top-signal-district">강남구 신사동</strong>
+              <p id="top-signal-copy">
+                높은 임대료 수준, 경쟁 밀도, 최근 거래 변동성이 동시에 상승해 매입 전 보류 사유가 분명합니다.
+              </p>
+            </article>
+          </aside>
+
+          <section
+            id="candidate-comparison"
+            class="v2-panel v2-candidate-panel"
+            aria-labelledby="candidate-heading"
+          >
+            <div class="v2-panel-head">
+              <div>
+                <p class="v2-section-label">CANDIDATE COMPARISON</p>
+                <h2 id="candidate-heading">후보 상권 비교</h2>
+              </div>
+              <span class="v2-panel-meta">JS Rendered</span>
+            </div>
+            <div class="v2-candidate-list" data-candidate-list aria-live="polite"></div>
+            <noscript>
+              <p class="v2-noscript">후보 비교 행은 JavaScript가 활성화되면 표시됩니다.</p>
+            </noscript>
+          </section>
+
+          <section class="v2-panel v2-workflow-panel" aria-labelledby="workflow-heading">
+            <div class="v2-panel-head">
+              <div>
+                <p class="v2-section-label">WORKFLOW</p>
+                <h2 id="workflow-heading">검토 흐름</h2>
+              </div>
+            </div>
+
+            <div class="v2-workflow-grid">
+              <a class="v2-workflow-card" href="../review.html">
+                <span>01</span>
+                <strong>Review</strong>
+                <p>매물 조건과 현장 메모를 먼저 정리합니다.</p>
+              </a>
+              <a class="v2-workflow-card" href="../assessment.html">
+                <span>02</span>
+                <strong>Diagnosis</strong>
+                <p>가격 부담과 보유 기간 기준으로 진단합니다.</p>
+              </a>
+              <a class="v2-workflow-card" href="../compare.html">
+                <span>03</span>
+                <strong>Compare</strong>
+                <p>대체 후보의 리스크와 임대료 차이를 봅니다.</p>
+              </a>
+              <a class="v2-workflow-card" href="../districts.html">
+                <span>04</span>
+                <strong>District Report</strong>
+                <p>구별 위험 축과 추천 확인 항목을 확인합니다.</p>
+              </a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

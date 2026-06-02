@@ -63,3 +63,7 @@ The first implementation creates a static GitHub Pages friendly dashboard scaffo
 - `docs/REDVEIL_V2_PLAN.md`
 
 The page loads `../website_payload.js` when available, safely falls back to Korean sample data, renders candidate comparison rows through JavaScript, and links workflow cards back to the existing v1 pages.
+
+## Map-first update
+
+The next v2 iteration promotes the Seoul risk map from a decorative panel to the primary dashboard surface. The v2 homepage should render all 25 Seoul districts as an SVG cartogram, keep district selection connected to the risk index and top signal panels, and use the existing v1 flows only as linked workflow destinations.

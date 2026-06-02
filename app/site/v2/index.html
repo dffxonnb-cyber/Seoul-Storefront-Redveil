@@ -55,7 +55,7 @@
 
           <div class="v2-status-pills" aria-label="데이터 상태">
             <span>Updated 2026.06</span>
-            <span>Static Dashboard</span>
+            <span>25 District Cartogram</span>
           </div>
         </header>
 
@@ -95,112 +95,20 @@
             <div class="v2-panel-head">
               <div>
                 <p class="v2-section-label">SEOUL RISK MAP</p>
-                <h2 id="risk-map-heading">서울 상권 위험 지도</h2>
+                <h2 id="risk-map-heading">서울 25개 구 리스크 지도</h2>
               </div>
-              <span id="selected-node-label" class="v2-selected-node" aria-live="polite">강남구 · High · 78</span>
+              <span id="selected-node-label" class="v2-selected-node" aria-live="polite">강남구 · High · 72</span>
             </div>
 
-            <div class="v2-map-canvas" role="group" aria-label="서울 구 단위 위험 노드 지도">
-              <svg class="v2-map-lines" viewBox="0 0 720 430" aria-hidden="true" focusable="false">
-                <defs>
-                  <linearGradient id="river-flow" x1="0" x2="1" y1="0" y2="1">
-                    <stop offset="0%" stop-color="rgba(116, 184, 255, 0.16)" />
-                    <stop offset="100%" stop-color="rgba(116, 184, 255, 0.04)" />
-                  </linearGradient>
-                </defs>
-                <path
-                  class="v2-river"
-                  d="M24 230 C130 176, 210 276, 320 218 C430 160, 514 210, 696 156"
-                />
-                <path class="v2-road" d="M88 74 C184 122, 250 154, 332 232 C402 298, 492 324, 636 348" />
-                <path class="v2-road" d="M92 344 C164 274, 260 250, 360 188 C458 126, 542 100, 642 70" />
-                <path class="v2-road v2-road-soft" d="M172 52 L210 374" />
-                <path class="v2-road v2-road-soft" d="M312 40 L292 398" />
-                <path class="v2-road v2-road-soft" d="M486 54 L452 394" />
-                <path class="v2-grid-line" d="M60 126 H660" />
-                <path class="v2-grid-line" d="M44 294 H682" />
-                <path class="v2-grid-line" d="M120 28 V398" />
-                <path class="v2-grid-line" d="M584 34 V392" />
-              </svg>
-
-              <button
-                type="button"
-                class="v2-map-node is-high is-selected"
-                style="--x: 57%; --y: 57%"
-                data-risk-node
-                data-district="강남구"
-                data-risk="High"
-                data-score="78"
-                aria-pressed="true"
-              >
-                <span>강남</span>
-                <strong>78</strong>
-              </button>
-              <button
-                type="button"
-                class="v2-map-node is-high"
-                style="--x: 50%; --y: 64%"
-                data-risk-node
-                data-district="서초구"
-                data-risk="High"
-                data-score="76"
-                aria-pressed="false"
-              >
-                <span>서초</span>
-                <strong>76</strong>
-              </button>
-              <button
-                type="button"
-                class="v2-map-node is-watch"
-                style="--x: 37%; --y: 47%"
-                data-risk-node
-                data-district="마포구"
-                data-risk="Watch"
-                data-score="58"
-                aria-pressed="false"
-              >
-                <span>마포</span>
-                <strong>58</strong>
-              </button>
-              <button
-                type="button"
-                class="v2-map-node is-watch"
-                style="--x: 65%; --y: 42%"
-                data-risk-node
-                data-district="성동구"
-                data-risk="Watch"
-                data-score="55"
-                aria-pressed="false"
-              >
-                <span>성동</span>
-                <strong>55</strong>
-              </button>
-              <button
-                type="button"
-                class="v2-map-node is-low"
-                style="--x: 28%; --y: 66%"
-                data-risk-node
-                data-district="구로구"
-                data-risk="Low"
-                data-score="39"
-                aria-pressed="false"
-              >
-                <span>구로</span>
-                <strong>39</strong>
-              </button>
-              <button
-                type="button"
-                class="v2-map-node is-low"
-                style="--x: 73%; --y: 29%"
-                data-risk-node
-                data-district="노원구"
-                data-risk="Low"
-                data-score="34"
-                aria-pressed="false"
-              >
-                <span>노원</span>
-                <strong>34</strong>
-              </button>
+            <div class="v2-map-canvas" role="group" aria-label="서울 25개 구 리스크 카토그램">
+              <svg
+                id="v2-seoul-risk-map"
+                class="v2-risk-map-svg"
+                viewBox="0 0 760 540"
+                role="group"
+                aria-label="서울 25개 구 리스크 SVG 지도"
+                data-v2-risk-map
+              ></svg>
             </div>
 
             <div class="v2-map-legend" aria-label="위험 등급 범례">
@@ -210,7 +118,7 @@
             </div>
           </section>
 
-          <aside class="v2-side-stack" aria-label="핵심 위험 신호">
+          <aside class="v2-side-stack" aria-label="선택 구 리스크 신호">
             <article class="v2-panel v2-risk-index" aria-labelledby="risk-index-heading">
               <div class="v2-panel-head v2-panel-head-compact">
                 <div>

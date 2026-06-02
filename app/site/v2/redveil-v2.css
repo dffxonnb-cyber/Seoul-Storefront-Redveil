@@ -96,12 +96,12 @@ body[data-page="redveil-v2"] button:focus-visible {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 248px minmax(0, 1fr);
-  gap: 16px;
-  width: min(1440px, 100%);
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+  width: min(1480px, 100%);
   min-height: 100vh;
   margin: 0 auto;
-  padding: 16px;
+  padding: 12px;
 }
 
 .v2-sidebar,
@@ -118,26 +118,29 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-sidebar {
   position: sticky;
-  top: 16px;
+  top: 12px;
   display: flex;
   flex-direction: column;
   min-width: 0;
-  height: calc(100vh - 32px);
-  padding: 16px;
+  height: calc(100vh - 24px);
+  padding: 12px 9px;
+  box-shadow: none;
 }
 
 .v2-brand {
-  display: flex;
+  display: grid;
+  justify-items: center;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   min-width: 0;
   color: var(--v2-text);
   text-decoration: none;
+  text-align: center;
 }
 
 .v2-brand img {
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   flex: 0 0 auto;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--v2-radius);
@@ -147,6 +150,10 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-brand span {
   min-width: 0;
+}
+
+.v2-brand small {
+  display: none;
 }
 
 .v2-brand small,
@@ -166,29 +173,33 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-brand strong {
   display: block;
-  margin-top: 2px;
+  margin-top: 0;
   color: var(--v2-text);
-  font-size: 1.05rem;
+  font-size: 0.82rem;
 }
 
 .v2-side-nav {
   display: grid;
-  gap: 8px;
-  margin-top: 28px;
+  gap: 7px;
+  margin-top: 24px;
 }
 
 .v2-side-nav a {
   display: flex;
   align-items: center;
-  min-height: 42px;
+  justify-content: center;
+  min-height: 48px;
   min-width: 0;
   border: 1px solid transparent;
   border-radius: var(--v2-radius);
-  padding: 10px 12px;
+  padding: 8px 6px;
   color: var(--v2-muted);
-  font-size: 0.9rem;
+  font-size: 0.72rem;
   font-weight: 700;
+  line-height: 1.18;
+  text-align: center;
   text-decoration: none;
+  overflow-wrap: anywhere;
   transition:
     border-color 160ms ease,
     background 160ms ease,
@@ -207,11 +218,7 @@ body[data-page="redveil-v2"] button:focus-visible {
 }
 
 .v2-sidebar-status {
-  margin-top: auto;
-  border: 1px solid var(--v2-line-soft);
-  border-radius: var(--v2-radius);
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.035);
+  display: none;
 }
 
 .v2-sidebar-status strong {
@@ -235,13 +242,14 @@ body[data-page="redveil-v2"] button:focus-visible {
   display: grid;
   grid-template-columns: minmax(220px, 1fr) auto auto;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   min-width: 0;
-  margin-bottom: 16px;
-  padding: 12px 14px;
+  margin-bottom: 12px;
+  padding: 8px 10px;
   background:
-    linear-gradient(90deg, rgba(255, 51, 71, 0.08), transparent 38%),
+    linear-gradient(90deg, rgba(255, 51, 71, 0.045), transparent 38%),
     var(--v2-panel-strong);
+  box-shadow: none;
 }
 
 .v2-topbar-title,
@@ -252,8 +260,8 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-topbar-title strong {
   display: block;
-  margin-top: 3px;
-  font-size: 0.96rem;
+  margin-top: 2px;
+  font-size: 0.88rem;
 }
 
 .v2-topbar-nav,
@@ -269,9 +277,9 @@ body[data-page="redveil-v2"] button:focus-visible {
 .v2-status-pills span {
   border: 1px solid var(--v2-line-soft);
   border-radius: var(--v2-radius);
-  padding: 8px 10px;
+  padding: 6px 8px;
   color: var(--v2-muted);
-  font-size: 0.8rem;
+  font-size: 0.74rem;
   font-weight: 700;
   text-decoration: none;
   background: rgba(255, 255, 255, 0.035);
@@ -284,27 +292,28 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-dashboard {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.55fr);
+  grid-template-columns: minmax(0, 1fr) 310px;
   grid-template-areas:
     "hero hero"
     "map side"
     "candidates workflow";
-  gap: 16px;
+  gap: 12px;
   min-width: 0;
 }
 
 .v2-hero-panel {
   grid-area: hero;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(260px, 0.45fr);
+  grid-template-columns: minmax(0, 1fr) auto minmax(240px, 0.32fr);
   align-items: center;
-  gap: 22px;
+  gap: 16px;
   min-width: 0;
-  padding: 22px;
+  padding: 14px 16px;
   background:
-    linear-gradient(90deg, rgba(255, 51, 71, 0.09), transparent 44%),
+    linear-gradient(90deg, rgba(255, 51, 71, 0.055), transparent 44%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
     var(--v2-panel);
+  box-shadow: none;
 }
 
 .v2-hero-copy {
@@ -313,19 +322,19 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-hero-copy h1 {
   max-width: 760px;
-  margin: 8px 0 0;
+  margin: 4px 0 0;
   color: #fff;
-  font-size: 2.65rem;
-  line-height: 1.16;
+  font-size: 1.9rem;
+  line-height: 1.18;
   letter-spacing: 0;
 }
 
 .v2-hero-copy p:not(.v2-eyebrow) {
   max-width: 760px;
-  margin: 12px 0 0;
+  margin: 7px 0 0;
   color: var(--v2-muted);
-  font-size: 1rem;
-  line-height: 1.72;
+  font-size: 0.91rem;
+  line-height: 1.56;
 }
 
 .v2-hero-actions {
@@ -340,11 +349,11 @@ body[data-page="redveil-v2"] button:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
+  min-height: 36px;
   border: 1px solid var(--v2-line);
   border-radius: var(--v2-radius);
-  padding: 10px 14px;
-  font-size: 0.92rem;
+  padding: 8px 11px;
+  font-size: 0.82rem;
   font-weight: 800;
   text-decoration: none;
 }
@@ -353,7 +362,7 @@ body[data-page="redveil-v2"] button:focus-visible {
   border-color: rgba(255, 51, 71, 0.62);
   color: #fff;
   background: linear-gradient(180deg, rgba(255, 51, 71, 0.92), rgba(181, 20, 39, 0.9));
-  box-shadow: 0 16px 38px rgba(255, 30, 53, 0.2);
+  box-shadow: 0 10px 24px rgba(255, 30, 53, 0.14);
 }
 
 .v2-button-secondary {
@@ -368,7 +377,7 @@ body[data-page="redveil-v2"] button:focus-visible {
 .v2-hero-metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
   margin: 0;
 }
@@ -377,20 +386,20 @@ body[data-page="redveil-v2"] button:focus-visible {
   min-width: 0;
   border: 1px solid var(--v2-line-soft);
   border-radius: var(--v2-radius);
-  padding: 12px;
+  padding: 9px;
   background: rgba(255, 255, 255, 0.035);
 }
 
 .v2-hero-metrics dd {
-  margin: 6px 0 0;
+  margin: 4px 0 0;
   color: #fff;
-  font-size: 1.02rem;
+  font-size: 0.92rem;
   font-weight: 900;
 }
 
 .v2-panel {
   min-width: 0;
-  padding: 16px;
+  padding: 14px;
 }
 
 .v2-panel-head {
@@ -399,7 +408,7 @@ body[data-page="redveil-v2"] button:focus-visible {
   justify-content: space-between;
   gap: 12px;
   min-width: 0;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .v2-panel-head h2 {
@@ -425,12 +434,17 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-map-panel {
   grid-area: map;
-  min-height: 650px;
+  min-height: 720px;
+  padding: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 24%),
+    linear-gradient(90deg, rgba(255, 51, 71, 0.035), transparent 36%),
+    var(--v2-panel);
 }
 
 .v2-map-canvas {
   position: relative;
-  min-height: 540px;
+  min-height: 625px;
   border: 1px solid var(--v2-line-soft);
   border-radius: var(--v2-radius);
   overflow: hidden;
@@ -456,7 +470,7 @@ body[data-page="redveil-v2"] button:focus-visible {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 540px;
+  min-height: 625px;
 }
 
 .v2-map-grid-fill {
@@ -670,22 +684,30 @@ body[data-page="redveil-v2"] button:focus-visible {
   grid-area: side;
   display: grid;
   align-content: start;
-  gap: 16px;
+  gap: 12px;
   min-width: 0;
+}
+
+.v2-risk-index,
+.v2-top-signal {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    rgba(9, 12, 19, 0.78);
+  box-shadow: none;
 }
 
 .v2-score-row {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .v2-score-row strong {
   color: var(--v2-red);
-  font-size: 4.4rem;
+  font-size: 4.85rem;
   line-height: 0.96;
-  text-shadow: 0 0 32px rgba(255, 51, 71, 0.18);
+  text-shadow: 0 0 24px rgba(255, 51, 71, 0.16);
 }
 
 .v2-score-row span {
@@ -704,8 +726,8 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-risk-index p,
 .v2-top-signal p {
-  margin: 12px 0 0;
-  font-size: 0.92rem;
+  margin: 10px 0 0;
+  font-size: 0.88rem;
 }
 
 .v2-risk-meter {
@@ -725,22 +747,30 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-top-signal strong {
   display: block;
-  margin-top: 12px;
+  margin-top: 10px;
   color: #fff;
-  font-size: 1.35rem;
+  font-size: 1.18rem;
 }
 
 .v2-top-signal {
-  border-color: rgba(255, 51, 71, 0.18);
+  border-color: rgba(255, 51, 71, 0.14);
 }
 
 .v2-candidate-panel {
   grid-area: candidates;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+    rgba(9, 12, 19, 0.76);
+  box-shadow: none;
 }
 
 .v2-candidate-list {
   display: grid;
-  gap: 8px;
+  gap: 0;
+  border: 1px solid var(--v2-line-soft);
+  border-radius: var(--v2-radius);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.018);
 }
 
 .v2-candidate-row {
@@ -749,21 +779,26 @@ body[data-page="redveil-v2"] button:focus-visible {
   align-items: center;
   gap: 10px;
   min-width: 0;
-  border: 1px solid var(--v2-line-soft);
-  border-radius: var(--v2-radius);
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.034);
+  border: 0;
+  border-bottom: 1px solid var(--v2-line-soft);
+  border-radius: 0;
+  padding: 11px 13px;
+  background: transparent;
+}
+
+.v2-candidate-row:last-child {
+  border-bottom: 0;
 }
 
 .v2-candidate-row.is-high {
-  border-color: rgba(255, 51, 71, 0.2);
+  box-shadow: inset 3px 0 0 rgba(255, 51, 71, 0.34);
 }
 
 .v2-candidate-rank {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border: 1px solid var(--v2-line-soft);
   border-radius: var(--v2-radius);
   color: var(--v2-muted);
@@ -788,7 +823,7 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-candidate-score {
   color: var(--v2-red);
-  font-size: 1.15rem;
+  font-size: 1.08rem;
   font-weight: 900;
   text-align: right;
 }
@@ -823,21 +858,24 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-workflow-panel {
   grid-area: workflow;
+  opacity: 0.78;
+  background: rgba(9, 12, 19, 0.62);
+  box-shadow: none;
 }
 
 .v2-workflow-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 7px;
 }
 
 .v2-workflow-card {
   display: block;
   min-width: 0;
-  min-height: 142px;
+  min-height: auto;
   border: 1px solid var(--v2-line-soft);
   border-radius: var(--v2-radius);
-  padding: 12px;
+  padding: 9px 10px;
   text-decoration: none;
   background: rgba(255, 255, 255, 0.035);
   transition:
@@ -860,14 +898,15 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 .v2-workflow-card strong {
   display: block;
-  margin-top: 10px;
+  margin-top: 5px;
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .v2-workflow-card p {
-  margin: 8px 0 0;
-  font-size: 0.84rem;
+  margin: 4px 0 0;
+  font-size: 0.76rem;
+  line-height: 1.46;
 }
 
 .v2-noscript {
@@ -907,18 +946,28 @@ body[data-page="redveil-v2"] button:focus-visible {
   .v2-sidebar {
     position: static;
     height: auto;
-    padding: 12px;
+    padding: 9px;
+  }
+
+  .v2-brand {
+    display: flex;
+    justify-content: center;
+  }
+
+  .v2-brand img {
+    width: 34px;
+    height: 34px;
   }
 
   .v2-side-nav {
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 6px;
-    margin-top: 12px;
+    margin-top: 9px;
   }
 
   .v2-side-nav a {
     justify-content: center;
-    min-height: 44px;
+    min-height: 36px;
     padding: 8px 5px;
     font-size: 0.72rem;
     line-height: 1.18;
@@ -932,11 +981,13 @@ body[data-page="redveil-v2"] button:focus-visible {
 
   .v2-topbar {
     grid-template-columns: minmax(0, 1fr);
+    margin-bottom: 10px;
+    padding: 8px 10px;
   }
 
   .v2-topbar-nav,
   .v2-status-pills {
-    justify-content: flex-start;
+    display: none;
   }
 
   .v2-map-panel {
@@ -954,22 +1005,30 @@ body[data-page="redveil-v2"] button:focus-visible {
 
 @media (max-width: 700px) {
   .v2-shell {
-    gap: 10px;
+    gap: 8px;
   }
 
   .v2-hero-panel,
   .v2-panel {
-    padding: 13px;
+    padding: 12px;
   }
 
   .v2-hero-copy h1 {
-    font-size: 1.9rem;
+    font-size: 1.55rem;
   }
 
-  .v2-hero-metrics,
   .v2-side-stack,
   .v2-workflow-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .v2-hero-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .v2-hero-actions,
+  .v2-hero-metrics {
+    display: none;
   }
 
   .v2-button {
@@ -986,11 +1045,11 @@ body[data-page="redveil-v2"] button:focus-visible {
   }
 
   .v2-map-canvas {
-    min-height: 320px;
+    min-height: 390px;
   }
 
   .v2-risk-map-svg {
-    min-height: 320px;
+    min-height: 390px;
   }
 
   .v2-grid-risk-layer {
@@ -1037,7 +1096,7 @@ body[data-page="redveil-v2"] button:focus-visible {
   }
 
   .v2-hero-copy h1 {
-    font-size: 1.72rem;
+    font-size: 1.45rem;
   }
 
   .v2-hero-copy p:not(.v2-eyebrow) {

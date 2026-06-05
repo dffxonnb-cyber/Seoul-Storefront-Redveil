@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "node scripts/validate-static-build.mjs"
+  },
   "devDependencies": {
     "playwright": "^1.60.0"
   }

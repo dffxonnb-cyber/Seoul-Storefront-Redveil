@@ -2008,3 +2008,45 @@ body[data-page="districts"] .map-target line {
   stroke-width: 1 !important;
   stroke-linecap: round !important;
 }
+
+@media (max-width: 760px) {
+  body[data-page="districts"] .district-layout,
+  body[data-page="districts"] .panel-stack {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+  }
+
+  body[data-page="districts"] .district-selector-card,
+  body[data-page="districts"] .district-list-panel {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body[data-page="districts"] .district-list-panel {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    overflow-x: hidden !important;
+  }
+
+  body[data-page="districts"] .district-select-button {
+    display: grid !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    text-align: left !important;
+    overflow-wrap: normal !important;
+    word-break: keep-all !important;
+  }
+
+  body[data-page="districts"] .district-select-button strong,
+  body[data-page="districts"] .district-select-button span {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+    word-break: keep-all !important;
+  }
+}

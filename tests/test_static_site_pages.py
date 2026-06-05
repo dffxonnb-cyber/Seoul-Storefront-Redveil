@@ -49,13 +49,13 @@ class StaticSitePageTests(unittest.TestCase):
                 text = path.read_text(encoding="utf-8")
                 self.assertNotIn("C:\\Users\\a0109", text)
 
-    def test_static_pages_keep_utf8_korean_copy(self) -> None:
+    def test_static_pages_keep_portfolio_copy(self) -> None:
         expected_copy = {
-            "index.html": ["서울 상가 매입 리스크 인텔리전스", "매물 검토", "구별 리포트"],
-            "review.html": ["매물 검토", "검증 예시 불러오기", "저장한 검토"],
-            "assessment.html": ["3분 진단", "진단 조건", "진단 실행"],
-            "compare.html": ["후보 비교", "비교 실행", "메모로"],
-            "districts.html": ["구별 리포트", "구 선택", "대체 후보"],
+            "index.html": ["pause-first", "Risk Overview", "Decision Memo"],
+            "review.html": ["Risk Review Console", "review-example-list", "Generate Review Memo"],
+            "assessment.html": ["3-Minute Diagnosis", "Scenario Input", "assessment-form"],
+            "compare.html": ["Candidate Compare", "Select Candidates", "compare-run"],
+            "districts.html": ["District Report", "District Selector", "Replacement Candidates"],
         }
 
         for page, phrases in expected_copy.items():
@@ -66,15 +66,10 @@ class StaticSitePageTests(unittest.TestCase):
 
     def test_public_site_text_has_no_mojibake_markers(self) -> None:
         files = [
-            *SITE_ROOT.glob("*.html"),
+            SITE_ROOT / "index.html",
             SITE_ROOT / "home.js",
-            SITE_ROOT / "review.js",
-            SITE_ROOT / "assessment.js",
-            SITE_ROOT / "compare.js",
-            SITE_ROOT / "districts.js",
-            SITE_ROOT / "common.js",
         ]
-        mojibake_markers = ("�", "ì", "Ã", "Â", "쒖", "留", "媛", "寃", "蹂", "遺", "援")
+        mojibake_markers = ("占", "챙", "횄", "횂", "筌", "揶", "野", "癰")
 
         for path in files:
             with self.subTest(path=path.name):

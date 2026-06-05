@@ -1,661 +1,191 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Redveil | 서울 상가 매입 리스크 인텔리전스</title>
+    <title>Redveil | Seoul storefront pause-first risk diagnosis</title>
     <meta
       name="description"
-      content="서울 소형 상가 매입 전, 가격 부담과 거래 둔화, 상권 과밀 신호를 먼저 확인하는 Redveil 공개 웹사이트입니다."
+      content="Redveil is a portfolio prototype for Seoul storefront acquisition review. It helps buyers identify pause reasons before purchase decisions."
     />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="icon" type="image/png" href="./assets/redveil-logo.png" />
     <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@700;800&family=Noto+Serif+KR:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260429-typography" />
+    <link rel="stylesheet" href="./styles.css?v=20260605-redveil-v1" />
   </head>
   <body data-page="home">
-    <div class="page-shell">
-      <div class="ambient ambient-one"></div>
-      <div class="ambient ambient-two"></div>
-
+    <div class="page-shell redveil-v1-shell">
       <header class="topbar">
-        <a class="brand" href="./index.html" aria-label="Redveil 홈">
+        <a class="brand" href="./index.html" aria-label="Redveil home">
           <img class="brand-mark brand-logo" src="./assets/redveil-logo.png" alt="" aria-hidden="true" decoding="async" />
           <span>
-            <small>SEOUL STOREFRONT ACQUISITION INTELLIGENCE</small>
+            <small>SEOUL STOREFRONT RISK INTELLIGENCE</small>
             <strong>Redveil</strong>
           </span>
         </a>
 
-        <nav class="topnav" aria-label="주요 이동">
-          <a href="./index.html">홈</a>
-          <a href="./review.html">매물 검토</a>
-          <a href="./assessment.html">3분 진단</a>
-          <a href="./compare.html">후보 비교</a>
-          <a href="./districts.html">구별 리포트</a>
+        <nav class="topnav" aria-label="Primary navigation">
+          <a class="is-active" href="./index.html" aria-current="page">Home</a>
+          <a href="./review.html">Review</a>
+          <a href="./assessment.html">Diagnosis</a>
+          <a href="./compare.html">Compare</a>
+          <a href="./districts.html">Districts</a>
         </nav>
       </header>
 
-      <section class="product-hero-page" aria-label="Redveil 웹서비스 소개">
-  <section class="product-hero">
-    <div class="product-hero-copy">
-      <p class="product-kicker">SEOUL STOREFRONT RISK INTELLIGENCE</p>
-
-      <h1 style="max-width: 9.8ch;">
-        서울 상가 매입 전,<br />
-        <span style="display: inline-block; white-space: nowrap; color: #ff3347; text-shadow: 0 0 34px rgba(255, 30, 53, 0.34);">위험 신호부터</span><br />
-        확인합니다.
-      </h1>
-
-      <p class="product-lead">
-        Redveil은 상가 실거래, 상권 수요, 거래 유동성, 경쟁 밀도를 함께 읽어
-        매입 후보의 보류 사유와 대체 상권을 한 화면에서 정리하는 리스크 분석 웹서비스입니다.
-      </p>
-
-      <div class="product-hero-actions">
-        <a class="product-primary-button" href="./review.html">매물 리스크 검토하기</a>
-        <a class="product-secondary-button" href="./districts.html">서울 구별 리포트 보기</a>
-      </div>
-
-      <div class="product-metric-strip" aria-label="Redveil 핵심 지표">
-        <article>
-          <span>Transactions</span>
-          <strong>12,074</strong>
-          <p>상가 실거래 분석</p>
-        </article>
-        <article>
-          <span>Districts</span>
-          <strong>25</strong>
-          <p>서울 전체 구 단위</p>
-        </article>
-        <article>
-          <span>Signals</span>
-          <strong>5</strong>
-          <p>리스크 축 분해</p>
-        </article>
-      </div>
-    </div>
-
-    <div class="web-dashboard-mockup" aria-label="Redveil 웹 대시보드 미리보기">
-      <div class="dashboard-browser-bar">
-        <span></span>
-        <span></span>
-        <span></span>
-        <p>redveil.local / intelligence-dashboard</p>
-      </div>
-<div class="dashboard-shell">
-  <aside class="dashboard-sidebar">
-    <strong>REDVEIL</strong>
-
-    <nav class="dashboard-product-nav" aria-label="Redveil 서비스 단계">
-      <a class="is-active" href="./index.html">
-        <span>01</span>
-        <strong>Overview</strong>
-        <small>서울 상권 전체 위험 신호를 먼저 확인</small>
-      </a>
-
-      <a href="./districts.html">
-        <span>02</span>
-        <strong>Risk Map</strong>
-        <small>구·상권별 위험 밀도와 후보 지역 비교</small>
-      </a>
-
-      <a href="./review.html">
-        <span>03</span>
-        <strong>Review</strong>
-        <small>매입 후보 주소를 입력해 보류 사유 분석</small>
-      </a>
-
-      <a href="./compare.html">
-        <span>04</span>
-        <strong>Compare</strong>
-        <small>대체 상권과 비용·리스크 차이 비교</small>
-      </a>
-    </nav>
-  </aside>
-
-        <section class="dashboard-main-panel">
-          <header class="dashboard-main-head">
-            <div>
-              <p>Live Risk Monitor</p>
-              <h2>서울 상가 리스크 대시보드</h2>
-            </div>
-            <span>Updated · 2026.05</span>
-          </header>
-
-          <div class="dashboard-content-grid">
-            <article class="web-risk-map-panel">
-              <div class="panel-label-row">
-                <span>Risk Map</span>
-                <strong>Seoul / 25 districts</strong>
-              </div>
-
-              <div class="web-seoul-map">
-                <span class="web-map-shape shape-one"></span>
-                <span class="web-map-shape shape-two"></span>
-                <span class="web-map-shape shape-three"></span>
-                <span class="web-map-shape shape-four"></span>
-                <i class="web-map-pulse"></i>
-              </div>
-
-              <div class="web-map-legend">
-                <span><i class="high"></i>High Risk</span>
-                <span><i class="watch"></i>Watch</span>
-                <span><i class="low"></i>Low</span>
-              </div>
-            </article>
-
-            <aside class="web-risk-side">
-              <article class="web-score-card">
-                <span>Overall Risk Index</span>
-                <strong>62<small>/100</small></strong>
-                <p>High Risk · 가격 부담과 거래 둔화가 동시에 감지됨</p>
-              </article>
-
-              <article class="web-alert-card">
-                <span>Top Signal</span>
-                <strong>강남구 신사동</strong>
-                <p>임대료 상승, 경쟁 밀도, 최근 거래 변동성이 함께 상승했습니다.</p>
-              </article>
-            </aside>
-
-            <article class="web-table-panel">
-              <div class="panel-label-row">
-                <span>Candidate Comparison</span>
-                <strong>대체 상권 후보</strong>
-              </div>
-
-              <div class="web-table-row is-hot">
-                <span>01</span>
-                <strong>성수동 연무장길</strong>
-                <em>58 / Watch</em>
-                <p>임대료 -18%</p>
-              </div>
-              <div class="web-table-row is-watch">
-                <span>02</span>
-                <strong>마포구 합정동</strong>
-                <em>52 / Watch</em>
-                <p>임대료 -22%</p>
-              </div>
-              <div class="web-table-row">
-                <span>03</span>
-                <strong>용산구 한남동</strong>
-                <em>45 / Low</em>
-                <p>임대료 -27%</p>
-              </div>
-            </article>
-          </div>
-        </section>
-      </div>
-    </div>
-  </section>
-</section>
-
-      <main class="app-showcase-page" aria-label="Redveil 앱 목업">
-        <section class="app-showcase-hero">
-          <article class="phone-frame phone-welcome" aria-label="Redveil 시작 화면">
-            <div class="phone-screen">
-              <div class="phone-statusbar">
-                <span>9:41</span>
-                <span class="phone-status-icons">▮▮▮ ︱ ◔</span>
-              </div>
-
-              <div class="welcome-visual">
-                <div class="city-grid-scene">
-                  <span class="city-beam"></span>
-                  <span class="city-block city-block-one"></span>
-                  <span class="city-block city-block-two"></span>
-                  <span class="city-block city-block-three"></span>
-                </div>
-              </div>
-
-              <div class="welcome-copy">
-                <p class="app-logo-word">REDVEIL</p>
-                <h1>서울 상권 <span>리스크</span>를 읽다.</h1>
-              </div>
-
-              <ul class="welcome-feature-list" aria-label="Redveil 핵심 기능">
-                <li>
-                  <span class="feature-icon">▣</span>
-                  <div>
-                    <strong>Risk Intelligence</strong>
-                    <p>데이터로 검증된 상권 리스크 분석</p>
-                  </div>
-                </li>
-                <li>
-                  <span class="feature-icon">⌖</span>
-                  <div>
-                    <strong>Location Insight</strong>
-                    <p>서울 전역의 상권 경쟁력 진단</p>
-                  </div>
-                </li>
-                <li>
-                  <span class="feature-icon">✦</span>
-                  <div>
-                    <strong>Strategic Decision</strong>
-                    <p>더 나은 의사결정을 위한 인사이트</p>
-                  </div>
-                </li>
-              </ul>
-
-              <a class="app-primary-button" href="./review.html">
-                Redveil 시작하기
-                <span>→</span>
-              </a>
-
-              <div class="phone-pager" aria-hidden="true">
-                <span class="is-active"></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-          </article>
-
-          <article class="phone-frame phone-dashboard" aria-label="Redveil 대시보드">
-            <div class="phone-screen">
-              <div class="phone-statusbar">
-                <span>9:41</span>
-                <span class="phone-status-icons">▮▮▮ ︱ ◔</span>
-              </div>
-
-              <header class="app-topbar">
-                <div>
-                  <p class="app-logo-mini">REDVEIL</p>
-                  <h2>안녕하세요, Analyst <span></span></h2>
-                  <p>서울 전체 리스크 현황</p>
-                </div>
-                <button type="button" aria-label="알림">⌾</button>
-              </header>
-
-              <section class="dashboard-risk-card">
-                <div class="dashboard-risk-head">
-                  <span>Overall Risk Index</span>
-                  <span>100</span>
-                </div>
-                <div class="dashboard-risk-body">
-                  <strong>62<small>/100</small></strong>
-                  <div class="mini-sparkline" aria-hidden="true">
-                    <span></span>
-                  </div>
-                </div>
-                <p>High Risk</p>
-              </section>
-
-              <div class="dashboard-stat-grid">
-                <article>
-                  <span>High Risk</span>
-                  <strong>124</strong>
-                  <p>▲ 18%</p>
-                </article>
-                <article>
-                  <span>Watch</span>
-                  <strong>238</strong>
-                  <p>▲ 6%</p>
-                </article>
-                <article>
-                  <span>Low Risk</span>
-                  <strong>156</strong>
-                  <p>▼ 12%</p>
-                </article>
-              </div>
-
-              <section class="risk-map-card">
-                <div class="app-section-head">
-                  <h3>리스크 맵</h3>
-                  <a href="./districts.html">전체 보기 ›</a>
-                </div>
-                <div class="seoul-risk-map" aria-label="서울 리스크 맵">
-                  <span class="map-zone map-zone-one"></span>
-                  <span class="map-zone map-zone-two"></span>
-                  <span class="map-zone map-zone-three"></span>
-                  <span class="map-target">⌖</span>
-                </div>
-                <div class="map-legend">
-                  <span><i class="high"></i>High</span>
-                  <span><i class="watch"></i>Watch</span>
-                  <span><i class="low"></i>Low</span>
-                </div>
-              </section>
-
-              <nav class="app-tabbar" aria-label="앱 하단 메뉴">
-                <a class="is-active" href="./index.html">⌂<span>홈</span></a>
-                <a href="./districts.html">▱<span>지도</span></a>
-                <a href="./assessment.html">▥<span>분석</span></a>
-                <a href="./review.html">♡<span>관심목록</span></a>
-                <a href="./compare.html">•••<span>더보기</span></a>
-              </nav>
-            </div>
-          </article>
-
-          <article class="phone-frame phone-analysis" aria-label="상권 분석 화면">
-            <div class="phone-screen">
-              <div class="phone-statusbar">
-                <span>9:41</span>
-                <span class="phone-status-icons">▮▮▮ ︱ ◔</span>
-              </div>
-
-              <header class="analysis-header">
-                <a href="./review.html" aria-label="뒤로가기">←</a>
-                <strong>상권 분석</strong>
-                <span>☆ ⋯</span>
-              </header>
-
-              <div class="search-pill">서울 강남구 신사동 가로수길 <span>⌖</span></div>
-
-              <div class="analysis-tabs" role="tablist" aria-label="분석 탭">
-                <span class="is-active">개요</span>
-                <span>리스크</span>
-                <span>경쟁</span>
-                <span>유동인구</span>
-                <span>매출</span>
-              </div>
-
-              <section class="analysis-score-card">
-                <div class="risk-ring">
-                  <strong>78<small>/100</small></strong>
-                  <span>Risk Score</span>
-                </div>
-                <div class="radar-card" aria-hidden="true">
-                  <span></span>
-                </div>
-              </section>
-
-              <section class="risk-alert-card">
-                <div>
-                  <strong>리스크 요약</strong>
-                  <p>공급 과밀과 임대료 상승으로 중단 리스크가 높은 상권입니다.</p>
-                </div>
-                <span>⚠</span>
-              </section>
-
-              <section class="metric-list-card">
-                <div class="app-section-head">
-                  <h3>핵심 지표</h3>
-                  <a href="./districts.html">비교: 강남구 평균 ›</a>
-                </div>
-
-                <div class="metric-row">
-                  <span>임대료</span>
-                  <strong>₩ 92,000</strong>
-                  <em>▲ 28%</em>
-                </div>
-                <div class="metric-row">
-                  <span>공실률</span>
-                  <strong>14.2%</strong>
-                  <em>▲ 4.6%p</em>
-                </div>
-                <div class="metric-row">
-                  <span>경쟁 업체 수</span>
-                  <strong>286</strong>
-                  <em>▲ 36%</em>
-                </div>
-                <div class="metric-row muted">
-                  <span>유동인구</span>
-                  <strong>32,650</strong>
-                  <em>▼ 6%</em>
-                </div>
-              </section>
-
-              <a class="app-primary-button compact" href="./review.html">리스크 리포트 다운로드 <span>⇩</span></a>
-            </div>
-          </article>
-
-          <article class="phone-frame phone-recommend" aria-label="대체 상권 추천 화면">
-            <div class="phone-screen">
-              <div class="phone-statusbar">
-                <span>9:41</span>
-                <span class="phone-status-icons">▮▮▮ ︱ ◔</span>
-              </div>
-
-              <header class="analysis-header">
-                <a href="./compare.html" aria-label="뒤로가기">←</a>
-                <strong>대체 상권 추천</strong>
-                <span>▽</span>
-              </header>
-
-              <section class="recommend-head">
-                <h2>신사동 가로수길 대체 상권</h2>
-                <p>유사업종 기준 최적 상권을 추천합니다.</p>
-              </section>
-
-              <div class="recommend-list">
-                <article class="recommend-card is-hot">
-                  <div>
-                    <span class="recommend-rank">01</span>
-                    <strong>서울 성수동 연무장길</strong>
-                    <p>Risk Score</p>
-                    <b>58<small>/100</small> <em>Watch</em></b>
-                  </div>
-                  <div class="recommend-map red"></div>
-                  <footer>
-                    <span>유사도 87%</span>
-                    <span>거리 6.2km</span>
-                    <span>임대료 -18%</span>
-                  </footer>
-                </article>
-
-                <article class="recommend-card is-watch">
-                  <div>
-                    <span class="recommend-rank">02</span>
-                    <strong>서울 마포구 합정동</strong>
-                    <p>Risk Score</p>
-                    <b>52<small>/100</small> <em>Watch</em></b>
-                  </div>
-                  <div class="recommend-map orange"></div>
-                  <footer>
-                    <span>유사도 81%</span>
-                    <span>거리 7.8km</span>
-                    <span>임대료 -22%</span>
-                  </footer>
-                </article>
-
-                <article class="recommend-card is-low">
-                  <div>
-                    <span class="recommend-rank">03</span>
-                    <strong>서울 용산구 한남동</strong>
-                    <p>Risk Score</p>
-                    <b>45<small>/100</small> <em>Low</em></b>
-                  </div>
-                  <div class="recommend-map gray"></div>
-                  <footer>
-                    <span>유사도 76%</span>
-                    <span>거리 8.1km</span>
-                    <span>임대료 -27%</span>
-                  </footer>
-                </article>
-              </div>
-
-              <a class="app-primary-button compact" href="./compare.html">⌁ 비교 분석하기</a>
-            </div>
-          </article>
-        </section>
-      </main>
-
-      <main class="page-stack homepage-shell legacy-homepage">
-        <section class="homepage-hero">
-          <div class="homepage-copy">
-            <p class="section-label hero-eyebrow">Seoul Storefront Acquisition Intelligence</p>
-            <h1 class="hero-title">
-              좋아 보이는 매물일수록,<br class="hero-break" />
-              먼저 <span class="hero-title-accent-wrap"><span class="hero-title-accent">보류 사유부터</span></span><br class="hero-break" />
-              확인합니다.
+      <main class="redveil-v1-page" aria-label="Redveil V1 product experience">
+        <section class="redveil-hero" aria-labelledby="redveil-title">
+          <div class="redveil-hero-copy">
+            <p class="redveil-kicker">PAUSE-FIRST STOREFRONT RISK DIAGNOSIS</p>
+            <h1 id="redveil-title" class="hero-title">
+              Before buying a Seoul storefront,
+              see the reasons to pause.
             </h1>
-            <p class="homepage-summary hero-subcopy" id="hero-description"></p>
-
-            <div class="hero-actions">
-              <a class="button button-primary" href="./review.html">매물 1개 바로 검토하기</a>
-              <a class="homepage-action-button homepage-action-button-outline" href="./districts.html">서울 구별 보류 사유 보기</a>
+            <p class="redveil-lead">
+              Redveil is an interactive portfolio prototype for prospective small-commercial-property buyers.
+              It reframes district and transaction signals into a caution-first workflow: review the risk, compare alternatives,
+              and document why a purchase needs more scrutiny.
+            </p>
+            <div class="redveil-hero-actions">
+              <a class="product-primary-button" href="./review.html">Start a review</a>
+              <a class="product-secondary-button" href="#workflow">See the workflow</a>
             </div>
-
-            <div class="hero-impact-strip" id="hero-impact-strip"></div>
-            <dl class="hero-facts" id="hero-facts"></dl>
-            <div class="homepage-footnote" id="hero-caveat"></div>
+            <p class="redveil-advisory-note">
+              Portfolio prototype only. Redveil is not financial, legal, or real-estate investment advice.
+            </p>
           </div>
 
-          <div class="homepage-screen" aria-label="실제 화면 미리보기">
-            <div class="screen-window-bar">
+          <aside class="redveil-command-panel" aria-label="Risk diagnosis preview">
+            <div class="redveil-panel-bar">
               <span></span>
               <span></span>
               <span></span>
+              <strong>REDVEIL / DECISION SURFACE</strong>
             </div>
-
-            <div class="screen-surface">
-              <div class="screen-overview">
-                <div>
-                  <p class="screen-label">이번 달 리스크 상승 1위</p>
-                  <h2 id="hero-preview-name"></h2>
-                </div>
-
-                <div class="screen-score">
-                  <span class="signal-pill" id="hero-preview-grade"></span>
-                  <strong id="hero-preview-score"></strong>
-                </div>
+            <div class="redveil-score-row">
+              <div>
+                <span>Current review mode</span>
+                <strong>Hold-first</strong>
               </div>
-
-              <p class="screen-summary" id="hero-preview-summary"></p>
-              <div id="hero-preview-signals"></div>
-
-              <div class="screen-panel">
-                <div class="chart-head hero-chart-head">
-                  <strong>최근 ㎡당 거래가 흐름</strong>
-                  <span id="hero-preview-type"></span>
-                </div>
-                <svg id="hero-preview-chart" viewBox="0 0 420 180" aria-label="최근 ㎡당 거래가 추이"></svg>
-                <p class="screen-subtitle">먼저 보는 보류 사유</p>
-                <ul class="screen-list" id="hero-preview-list"></ul>
+              <div class="redveil-score-orbit" aria-label="Example risk score">
+                <strong id="hero-score">--</strong>
+                <span>/100</span>
               </div>
             </div>
-          </div>
+            <div class="redveil-target-strip">
+              <span>Selected signal</span>
+              <strong id="hero-district">Seoul district</strong>
+              <p id="hero-summary">Loading risk interpretation...</p>
+            </div>
+            <div class="redveil-signal-stack" id="hero-signals"></div>
+          </aside>
         </section>
 
-        <section class="homepage-project-strip" aria-label="프로젝트 요약">
-          <div class="project-identity-panel">
-            <article class="project-summary-card project-summary-primary">
-              <p class="section-label">Project Summary / 프로젝트 요약</p>
-              <p class="project-summary-lead">
-                Redveil은 서울 소형 상가 매입 전, 추천보다 보류 사유를 먼저 제시하는 리스크 진단 서비스입니다.
-                상가 실거래와 상권 수요 데이터를 바탕으로 가격 부담, 거래 유동성, 상권 과밀, 가격 변동성 신호를 구조화했습니다.
+        <section id="workflow" class="redveil-section" aria-labelledby="workflow-heading">
+          <div class="redveil-section-head">
+            <p class="section-label">One Clear Workflow</p>
+            <h2 id="workflow-heading">A buyer moves from curiosity to documented caution.</h2>
+            <p>
+              The V1 product is intentionally narrow: one storefront or district at a time, one risk summary, one comparison path,
+              and one memo that explains why the buyer should pause or review.
+            </p>
+          </div>
+          <div class="redveil-workflow-grid" id="entry-grid"></div>
+        </section>
+
+        <section class="redveil-dashboard-grid" aria-label="Core risk dashboard">
+          <article class="redveil-card redveil-card-primary" aria-labelledby="overview-heading">
+            <div class="redveil-card-head">
+              <p class="section-label">Risk Overview</p>
+              <h2 id="overview-heading">What Redveil surfaces first</h2>
+            </div>
+            <div class="redveil-metric-grid" id="risk-overview"></div>
+          </article>
+
+          <article class="redveil-card" aria-labelledby="pause-heading">
+            <div class="redveil-card-head">
+              <p class="section-label">Pause Reasons</p>
+              <h2 id="pause-heading">Why this should be reviewed</h2>
+            </div>
+            <ul class="redveil-reason-list" id="pause-reason-list"></ul>
+          </article>
+
+          <article class="redveil-card" aria-labelledby="district-heading">
+            <div class="redveil-card-head">
+              <p class="section-label">District Signal</p>
+              <h2 id="district-heading">Highest-caution districts</h2>
+            </div>
+            <div class="redveil-district-grid" id="district-signal-grid"></div>
+          </article>
+
+          <article class="redveil-card" aria-labelledby="alternative-heading">
+            <div class="redveil-card-head">
+              <p class="section-label">Alternative Candidates</p>
+              <h2 id="alternative-heading">Compare before committing</h2>
+            </div>
+            <div class="redveil-alternative-list" id="alternative-list"></div>
+          </article>
+        </section>
+
+        <section class="redveil-split-section" aria-label="Risk factor breakdown and memo">
+          <article class="redveil-card" aria-labelledby="factor-heading">
+            <div class="redveil-card-head">
+              <p class="section-label">Risk Factor Breakdown</p>
+              <h2 id="factor-heading">Signals are interpreted, not overclaimed.</h2>
+              <p>
+                Each factor is a screening cue. It points to what needs verification, not a guaranteed investment result.
               </p>
-              <div class="project-principle-list" aria-label="프로젝트 원칙">
-                <span class="project-pill">보류 사유 우선</span>
-                <span class="project-pill">상가 실거래 기반</span>
-                <span class="project-pill">상권 수요 결합</span>
-              </div>
-            </article>
-            <aside class="project-summary-card project-summary-role" aria-label="담당 범위">
-              <p class="section-label">My Role / 담당 범위</p>
-              <div class="role-chip-list">
-                <span class="role-chip">기획</span>
-                <span class="role-chip">데이터 수집/전처리</span>
-                <span class="role-chip">리스크 지표 설계</span>
-                <span class="role-chip">대체 후보 로직</span>
-                <span class="role-chip">웹 UI 구현</span>
-              </div>
-            </aside>
-          </div>
+            </div>
+            <div class="redveil-factor-list" id="factor-list"></div>
+          </article>
+
+          <article class="redveil-card redveil-memo-card" aria-labelledby="memo-heading">
+            <div class="redveil-card-head">
+              <p class="section-label">Decision Memo</p>
+              <h2 id="memo-heading">The output is a review note, not a buy signal.</h2>
+            </div>
+            <div class="redveil-memo-panel">
+              <strong>Recommended stance</strong>
+              <p id="decision-mode">Pause and review before purchase.</p>
+              <ul id="memo-points"></ul>
+            </div>
+          </article>
         </section>
 
-        <section class="homepage-section homepage-entry-section">
-          <div class="homepage-section-head">
-            <p class="section-label">Start Here</p>
-            <h2>필요한 작업부터 바로 시작할 수 있습니다.</h2>
-            <p>
-              매물을 검토하거나, 빠르게 진단하거나, 후보를 비교하는 세 가지 흐름으로 시작할 수 있습니다.
-            </p>
-          </div>
-
-          <div class="homepage-entry-list" id="entry-grid"></div>
-        </section>
-
-        <section class="homepage-section homepage-scenario-section">
-          <div class="homepage-section-head">
+        <section class="redveil-section" aria-labelledby="case-heading">
+          <div class="redveil-section-head">
             <p class="section-label">Validation Cases</p>
-            <h2>세 가지 예시로 점수 해석을 고정했습니다.</h2>
+            <h2 id="case-heading">V1 uses fixed examples to make interpretation reviewable.</h2>
             <p>
-              위험 후보, 애매 후보, 보수 검토 후보를 같은 형식으로 놓고 입력값과 판단 근거를 확인합니다.
+              These cases keep the portfolio prototype understandable even when the underlying dataset is static.
             </p>
           </div>
-
-          <div class="scenario-case-grid" id="scenario-case-grid"></div>
+          <div class="scenario-case-grid redveil-case-grid" id="scenario-case-grid"></div>
         </section>
 
-        <section class="homepage-section homepage-evidence-section">
-          <div class="homepage-section-head">
-            <div>
-              <p class="section-label">Data Evidence</p>
-              <h2>점수의 <span class="text-accent">근거를</span> 바로 확인할 수 있습니다.</h2>
-              <p id="report-description"></p>
-            </div>
+        <section class="redveil-section redveil-limits" aria-labelledby="limits-heading">
+          <div class="redveil-section-head">
+            <p class="section-label">Data Basis / Limitations</p>
+            <h2 id="limits-heading">Built for portfolio review, not production advice.</h2>
           </div>
-
-          <div class="homepage-evidence-layout">
-            <div class="homepage-evidence-copy">
-              <div class="homepage-support-links" aria-label="프로젝트 근거 확인">
-                <div class="homepage-support-head">
-                  <div>
-                    <p class="section-label">PROJECT EVIDENCE</p>
-                    <h3>프로젝트 근거 확인</h3>
-                  </div>
-                  <p>케이스, 방법론, 데이터 기준을 한 화면에서 간단히 확인할 수 있습니다.</p>
-                </div>
-                <div class="homepage-support-grid">
-                  <article class="homepage-support-card">
-                    <span>01</span>
-                    <strong>케이스</strong>
-                    <p>상위 리스크 구의 판단 사례와 현장 체크 포인트를 확인합니다.</p>
-                  </article>
-                  <article class="homepage-support-card">
-                    <span>02</span>
-                    <strong>방법론</strong>
-                    <p>보류 점수와 리스크 축을 어떻게 계산했는지 확인합니다.</p>
-                  </article>
-                  <article class="homepage-support-card">
-                    <span>03</span>
-                    <strong>데이터</strong>
-                    <p>실거래, 행정동, 상권 수요 데이터의 범위와 한계를 확인합니다.</p>
-                  </article>
-                </div>
-              </div>
-
-              <p class="validation-lead" id="validation-lead"></p>
-              <div class="evidence-axis-grid" id="evidence-axis-grid"></div>
-              <div class="validation-grid" id="validation-grid"></div>
-              <div class="report-lines" id="evidence-list"></div>
-            </div>
-
-            <aside class="homepage-mini-board homepage-info-grid">
-              <article class="homepage-info-card homepage-info-card-primary">
-                <div class="table-panel-head">
-                  <span>Risk Snapshot</span>
-                  <strong>지금 먼저 볼 구</strong>
-                </div>
-
-                <div class="district-brief-list" id="district-brief-list"></div>
-                <div class="score-breakdown" id="score-breakdown"></div>
-                <a class="homepage-action-button homepage-action-button-soft" href="./districts.html">구별 리포트 보기</a>
-              </article>
-
-              <article class="homepage-info-card">
-                <p class="homepage-side-label" id="feature-kicker"></p>
-                <strong id="feature-title"></strong>
-                <p id="feature-body"></p>
-              </article>
-
-              <article class="homepage-info-card">
-                <p class="homepage-side-label">최근 저장 메모</p>
-                <div id="recent-review"></div>
-              </article>
-
-              <article class="homepage-info-card homepage-data-card">
-                <p class="homepage-side-label">데이터 범위</p>
-                <div class="source-note" id="source-note"></div>
-              </article>
-            </aside>
+          <div class="redveil-limit-grid" id="data-limitations">
+            <article>
+              <strong>Static and exploratory signals</strong>
+              <p>V1 is built around available public/commercial-area assumptions and tracked public-safe payloads.</p>
+            </article>
+            <article>
+              <strong>No advisory claim</strong>
+              <p>The score is not legal, financial, or real-estate investment advice.</p>
+            </article>
+            <article>
+              <strong>Real use needs validation</strong>
+              <p>Production use would require updated transaction data, verified commercial-area data, professional review, and stronger validation.</p>
+            </article>
           </div>
         </section>
       </main>

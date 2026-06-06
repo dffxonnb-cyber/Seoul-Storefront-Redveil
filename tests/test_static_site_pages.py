@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import unittest
 from pathlib import Path
 
@@ -34,6 +35,21 @@ class StaticSitePageTests(unittest.TestCase):
         self.assertIn('id="scenario-case-grid"', index_html)
         self.assertIn('id="review-example-list"', review_html)
 
+    def test_v2_keeps_real_boundary_map_and_product_links(self) -> None:
+        v2_root = SITE_ROOT / "v2"
+        v2_html = (v2_root / "index.html").read_text(encoding="utf-8")
+        geojson = json.loads((v2_root / "data" / "seoul-districts.geojson").read_text(encoding="utf-8"))
+
+        self.assertIn("data-v2-risk-map", v2_html)
+        self.assertIn('src="../website_payload.js"', v2_html)
+        self.assertIn('href="../review.html"', v2_html)
+        self.assertIn('href="../assessment.html"', v2_html)
+        self.assertIn('href="../compare.html"', v2_html)
+        self.assertIn('href="../districts.html"', v2_html)
+        self.assertEqual(geojson["type"], "FeatureCollection")
+        self.assertEqual(len(geojson["features"]), 25)
+        self.assertEqual(len({feature["properties"]["code"] for feature in geojson["features"]}), 25)
+
     def test_public_files_do_not_reference_old_local_user_path(self) -> None:
         files = [
             PROJECT_ROOT / "run_streamlit.ps1",
@@ -56,6 +72,7 @@ class StaticSitePageTests(unittest.TestCase):
             "assessment.html": ["3-Minute Diagnosis", "Scenario Input", "assessment-form"],
             "compare.html": ["Candidate Compare", "Select Candidates", "compare-run"],
             "districts.html": ["District Report", "District Selector", "Replacement Candidates"],
+            "v2/index.html": ["REDVEIL V2 MAP DASHBOARD", "서울 리스크 지도", "선택 자치구"],
         }
 
         for page, phrases in expected_copy.items():
@@ -68,6 +85,8 @@ class StaticSitePageTests(unittest.TestCase):
         files = [
             SITE_ROOT / "index.html",
             SITE_ROOT / "home.js",
+            SITE_ROOT / "v2" / "index.html",
+            SITE_ROOT / "v2" / "redveil-v2.js",
         ]
         mojibake_markers = ("占", "챙", "횄", "횂", "筌", "揶", "野", "癰")
 

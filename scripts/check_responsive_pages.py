@@ -40,6 +40,7 @@ def responsive_script() -> str:
           { path: "/assessment.html", selector: "#assessment-form" },
           { path: "/compare.html", selector: "#compare-run" },
           { path: "/districts.html", selector: "#district-list" },
+          { path: "/v2/index.html", selector: "[data-v2-risk-map]" },
         ];
 
         function assert(condition, message) {
@@ -72,6 +73,27 @@ def responsive_script() -> str:
                 page.on("pageerror", (error) => pageErrors.push(`${viewport.label}: ${error.message}`));
                 await page.goto(`${baseUrl}${item.path}`, { waitUntil: "commit", timeout: 15000 });
                 await page.locator(item.selector).first().waitFor({ state: "visible", timeout: 5000 });
+                if (item.path === "/v2/index.html") {
+                  const mapDistricts = page.locator(".v2-map-district");
+                  await mapDistricts.first().waitFor({ state: "visible", timeout: 5000 });
+                  assert((await mapDistricts.count()) === 25, `${viewport.label} V2 map should render 25 districts`);
+                  const guro = page.locator('.v2-map-district[data-code="11530"]');
+                  await guro.click();
+                  assert(
+                    (await page.locator("#selected-district-name").textContent()).trim() === "구로구",
+                    `${viewport.label} V2 map click did not select 구로구`
+                  );
+                  const candidateGaps = await page.locator(".v2-candidate-gap").allTextContents();
+                  assert(
+                    candidateGaps.length === 3 && candidateGaps.every((gap) => gap.trim().startsWith("+")),
+                    `${viewport.label} V2 low-risk comparison gaps are inaccurate: ${candidateGaps.join(", ")}`
+                  );
+                  await guro.press("ArrowRight");
+                  assert(
+                    (await page.locator("#selected-district-name").textContent()).trim() === "금천구",
+                    `${viewport.label} V2 keyboard map selection did not advance to 금천구`
+                  );
+                }
                 const metrics = await page.evaluate(() => {
                   const visibleButtons = [...document.querySelectorAll("button, .button, .homepage-action-button")]
                     .filter((element) => {

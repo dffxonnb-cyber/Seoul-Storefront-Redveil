@@ -102,6 +102,7 @@ def check_pages(base_url: str) -> None:
         "/assessment.html": ("assessment.js", "district-code", "assessment-result"),
         "/compare.html": ("compare.js", "compare-grid", "compare-run"),
         "/districts.html": ("districts.js", "district-list", "detail-score"),
+        "/v2/index.html": ("redveil-v2.js", "data-v2-risk-map", "v2-candidate-list"),
     }
     for path, markers in expected_pages.items():
         text = fetch_text(base_url, path)

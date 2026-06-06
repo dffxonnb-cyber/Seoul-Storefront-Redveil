@@ -79,15 +79,15 @@
 
   function riskStatus(score) {
     const tier = riskTier(score);
-    if (tier === "high") return "High";
-    if (tier === "watch") return "Watch";
-    return "Low";
+    if (tier === "high") return "고위험";
+    if (tier === "watch") return "관찰";
+    return "낮음";
   }
 
   function riskGrade(score) {
     const tier = riskTier(score);
-    if (tier === "high") return "높음";
-    if (tier === "watch") return "주의";
+    if (tier === "high") return "고위험";
+    if (tier === "watch") return "관찰";
     return "낮음";
   }
 
@@ -95,7 +95,7 @@
     const status = typeof statusOrScore === "number" ? riskStatus(statusOrScore) : String(statusOrScore || "");
     const normalized = status.toLowerCase();
     if (normalized.includes("high") || normalized.includes("높") || normalized.includes("위험")) return "is-high";
-    if (normalized.includes("watch") || normalized.includes("주의")) return "is-watch";
+    if (normalized.includes("watch") || normalized.includes("주의") || normalized.includes("관찰")) return "is-watch";
     return "is-low";
   }
 
@@ -136,27 +136,35 @@
   }
 
   function normalizeDistrict(cell, payloadDistrict) {
-    const score = clamp(toNumber(payloadDistrict?.riskScore, cell.fallbackScore), 0, 100);
+    const dataAvailable = isPlainObject(payloadDistrict) && payloadDistrict.riskScore !== undefined;
+    const score = dataAvailable ? clamp(toNumber(payloadDistrict.riskScore), 0, 100) : 0;
     const readableSummary =
       hasReadableKorean(payloadDistrict?.riskSummary) && String(payloadDistrict.riskSummary).length <= 180
         ? String(payloadDistrict.riskSummary)
         : "";
-    const readableGrade = hasReadableKorean(payloadDistrict?.riskGrade) ? String(payloadDistrict.riskGrade) : riskGrade(score);
-    const readableArchetype = hasReadableKorean(payloadDistrict?.riskArchetype)
+    const readableGrade = dataAvailable
+      ? hasReadableKorean(payloadDistrict?.riskGrade) ? String(payloadDistrict.riskGrade) : riskGrade(score)
+      : "데이터 확인 필요";
+    const readableArchetype = dataAvailable && hasReadableKorean(payloadDistrict?.riskArchetype)
       ? String(payloadDistrict.riskArchetype)
-      : cell.archetype;
+      : dataAvailable ? cell.archetype : "데이터 연결 필요";
 
     const detail = {
       ...cell,
       riskScore: Math.round(score),
       riskGrade: readableGrade,
       riskArchetype: readableArchetype,
+      dataAvailable,
       raw: payloadDistrict || {},
     };
-    detail.riskSummary = readableSummary || buildRiskSummary(detail);
-    detail.topSignalCopy = buildTopSignalCopy(detail);
-    detail.tier = riskTier(detail.riskScore);
-    detail.status = riskStatus(detail.riskScore);
+    detail.riskSummary = dataAvailable
+      ? readableSummary || buildRiskSummary(detail)
+      : "리스크 payload를 연결한 뒤 자치구 점수와 해석을 확인할 수 있습니다.";
+    detail.topSignalCopy = dataAvailable
+      ? buildTopSignalCopy(detail)
+      : "현재 자치구의 리스크 신호를 불러오지 못했습니다. 데이터 연결 상태를 먼저 확인하세요.";
+    detail.tier = dataAvailable ? riskTier(detail.riskScore) : "unavailable";
+    detail.status = dataAvailable ? riskStatus(detail.riskScore) : "데이터 확인 필요";
     return detail;
   }
 
@@ -406,7 +414,10 @@
         role: "button",
         tabindex: "0",
         focusable: "true",
-        "aria-label": `${detail.name} 리스크 ${detail.riskScore}점, ${riskStatus(detail.riskScore)} 구간`,
+        "aria-pressed": detail.code === selected.code ? "true" : "false",
+        "aria-label": detail.dataAvailable
+          ? `${detail.name} 리스크 ${detail.riskScore}점, ${riskStatus(detail.riskScore)} 구간`
+          : `${detail.name} 리스크 데이터 확인 필요`,
       });
       const shape = svgElement("path", { d: detail.boundaryPath });
       const label = svgElement("text", {
@@ -423,14 +434,22 @@
         y: detail.y + 17,
         "text-anchor": "middle",
       });
-      score.textContent = String(detail.riskScore);
+      score.textContent = detail.dataAvailable ? String(detail.riskScore) : "--";
 
       group.append(shape, label, score);
       group.addEventListener("click", () => selectDistrict(detail.code));
       group.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          selectDistrict(detail.code);
+          selectDistrict(detail.code, true);
+          return;
+        }
+        if (["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].includes(event.key)) {
+          event.preventDefault();
+          const currentIndex = state.districts.findIndex((item) => item.code === detail.code);
+          const direction = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1;
+          const nextIndex = (currentIndex + direction + state.districts.length) % state.districts.length;
+          selectDistrict(state.districts[nextIndex].code, true);
         }
       });
       districtsGroup.appendChild(group);
@@ -452,16 +471,6 @@
     renderMapTarget(svg, selected);
   }
 
-  function normalizeRentDelta(value, fallback) {
-    if (typeof value === "number" && Number.isFinite(value)) {
-      return `${value > 0 ? "+" : ""}${Math.round(value)}%`;
-    }
-    if (value !== undefined && value !== null && String(value).trim()) {
-      return String(value);
-    }
-    return fallback;
-  }
-
   function normalizeCandidate(item, index) {
     if (!isPlainObject(item)) return null;
 
@@ -474,7 +483,7 @@
       districtName: String(districtName),
       riskScore: Math.round(riskScore),
       status: riskStatus(riskScore),
-      rentDelta: normalizeRentDelta(item.rentDelta ?? item.rentDeltaPct ?? item.rent_delta, index === 0 ? "-12%" : index === 1 ? "-8%" : "-5%"),
+      scoreDelta: toNumber(item.scoreDelta, 0),
       note: String(item.note || item.whyBetter || item.reason || "대체 후보 조건 확인"),
     };
   }
@@ -482,27 +491,47 @@
   function fallbackCandidatesFor(detail) {
     const selectedScore = toNumber(detail.riskScore);
     return state.districts
-      .filter((candidate) => candidate.code !== detail.code)
+      .filter((candidate) => candidate.code !== detail.code && candidate.dataAvailable)
       .sort((left, right) => toNumber(left.riskScore) - toNumber(right.riskScore))
       .slice(0, 3)
       .map((candidate, index) => {
-        const scoreGap = Math.max(4, Math.round((selectedScore - toNumber(candidate.riskScore)) / 2));
+        const scoreDelta = Math.round(toNumber(candidate.riskScore) - selectedScore);
+        const comparison = scoreDelta < 0
+          ? `선택 구보다 총 리스크가 ${Math.abs(scoreDelta)}점 낮습니다.`
+          : scoreDelta > 0
+            ? `선택 구보다 총 리스크가 ${scoreDelta}점 높지만 비교 기준으로 확인할 수 있습니다.`
+            : "선택 구와 총 리스크 점수가 같은 비교 기준 후보입니다.";
         return {
           rank: index + 1,
           districtName: candidate.name,
           riskScore: candidate.riskScore,
           status: riskStatus(candidate.riskScore),
-          rentDelta: `-${Math.min(28, scoreGap + 6)}%`,
-          note: `${candidate.riskArchetype} · 위험 점수 ${scoreGap}p 완화 가능`,
+          scoreDelta,
+          note: `${candidate.riskArchetype} · ${comparison}`,
         };
       });
   }
 
   function candidatesForDistrict(detail) {
+    if (!detail.dataAvailable) return [];
     const rawCandidates = Array.isArray(detail.raw?.replacementCandidates) ? detail.raw.replacementCandidates : [];
     const normalized = rawCandidates.map(normalizeCandidate).filter(Boolean).slice(0, 3);
-    if (normalized.length >= 3) return normalized;
-    return fallbackCandidatesFor(detail);
+    const normalizedNames = new Set(normalized.map((candidate) => candidate.districtName));
+    const fallback = fallbackCandidatesFor(detail).filter((candidate) => !normalizedNames.has(candidate.districtName));
+    return [...normalized, ...fallback]
+      .slice(0, 3)
+      .map((candidate, index) => ({
+        ...candidate,
+        rank: index + 1,
+        scoreDelta: Math.round(toNumber(candidate.riskScore) - toNumber(detail.riskScore)),
+      }));
+  }
+
+  function formatScoreDelta(value) {
+    const numeric = Math.round(toNumber(value));
+    if (numeric > 0) return `+${numeric}점`;
+    if (numeric < 0) return `${numeric}점`;
+    return "0점";
   }
 
   function appendTextElement(parent, tagName, className, text) {
@@ -519,9 +548,16 @@
 
     const safeCandidates = Array.isArray(candidates) && candidates.length ? candidates.slice(0, 3) : [];
     const fragment = document.createDocumentFragment();
+    if (!safeCandidates.length) {
+      const empty = document.createElement("p");
+      empty.className = "v2-candidate-empty";
+      empty.textContent = "비교 가능한 자치구 데이터를 불러오지 못했습니다.";
+      list.replaceChildren(empty);
+      return;
+    }
     const header = document.createElement("div");
     header.className = "v2-candidate-header";
-    ["Rank", "District", "Signal Summary", "Score", "Status", "Delta"].forEach((label) => {
+    ["순위", "자치구", "비교 근거", "점수", "등급", "점수 격차"].forEach((label) => {
       appendTextElement(header, "span", "", label);
     });
     fragment.appendChild(header);
@@ -530,11 +566,12 @@
       const normalized = normalizeCandidate(candidate, index) || candidate;
       const status = riskStatus(normalized.riskScore);
       const tone = toneClass(status);
+      const deltaTone = toNumber(normalized.scoreDelta) <= 0 ? "is-better" : "is-higher";
       const row = document.createElement("article");
       row.className = `v2-candidate-row ${tone}`;
       row.setAttribute(
         "aria-label",
-        `${normalized.rank}순위 ${normalized.districtName}, 리스크 ${normalized.riskScore}, 상태 ${status}, 임대료 차이 ${normalized.rentDelta}`
+        `${normalized.rank}순위 ${normalized.districtName}, 리스크 ${normalized.riskScore}점, ${status}, 선택 구 대비 ${formatScoreDelta(normalized.scoreDelta)}`
       );
 
       appendTextElement(row, "span", "v2-candidate-rank", String(normalized.rank).padStart(2, "0"));
@@ -547,7 +584,7 @@
 
       appendTextElement(row, "strong", "v2-candidate-score", String(normalized.riskScore));
       appendTextElement(row, "span", `v2-candidate-status ${tone}`, status);
-      appendTextElement(row, "span", "v2-candidate-rent", normalized.rentDelta);
+      appendTextElement(row, "span", `v2-candidate-gap ${deltaTone}`, formatScoreDelta(normalized.scoreDelta));
 
       fragment.appendChild(row);
     });
@@ -559,20 +596,26 @@
     const detail = currentDistrict();
     if (!detail) return;
     const score = toNumber(detail.riskScore);
-    const decisionLabel = score >= 65 ? "Hold-first review" : score >= 45 ? "Compare before entry" : "Keep as candidate";
-    const decisionCopy =
-      score >= 65
+    const decisionLabel = !detail.dataAvailable
+      ? "데이터 확인 필요"
+      : score >= 65 ? "보류 우선 검토" : score >= 45 ? "비교 후 판단" : "후보 유지";
+    const decisionCopy = !detail.dataAvailable
+      ? `${detail.name}의 리스크 payload를 연결한 뒤 판단 모드를 확인할 수 있습니다.`
+      : score >= 65
         ? `${detail.name}은 고위험 신호가 강합니다. 매입 판단보다 가격 부담과 대체 후보 검토를 먼저 진행하세요.`
         : score >= 45
           ? `${detail.name}은 주의 구간입니다. 후보로 유지하되 임대료 조건과 거래 표본을 함께 비교하세요.`
           : `${detail.name}은 낮은 위험 구간입니다. 현장 임대 조건과 개별 매물 프리미엄을 확인하면 됩니다.`;
 
-    setText("#selected-node-label", `${detail.name} · ${riskStatus(detail.riskScore)} · ${detail.riskScore}`);
+    const status = detail.dataAvailable ? riskStatus(detail.riskScore) : "데이터 확인 필요";
+    const tone = detail.dataAvailable ? toneClass(detail.riskScore) : "is-unavailable";
+    setText("#selected-node-label", detail.dataAvailable ? `${detail.name} · ${status} · ${detail.riskScore}점` : `${detail.name} · 데이터 확인 필요`);
     setText("#map-selected-name", detail.name);
-    setText("#map-selected-tier", `${riskStatus(detail.riskScore)} Risk`);
-    setText("#map-layer-mode", state.mapProject ? "RISK PATHS" : "MAP DATA OFFLINE");
+    setText("#map-selected-tier", `${status} 구간`);
+    setText("#map-layer-mode", state.mapProject ? "실제 경계 연결됨" : "경계 데이터 오프라인");
     setText("#selected-district-name", detail.name);
-    setText("#overall-risk-score", detail.riskScore);
+    setText("#selected-tier-badge", status);
+    setText("#overall-risk-score", detail.dataAvailable ? detail.riskScore : "--");
     setText("#overall-risk-summary", detail.riskSummary);
     setText("#top-signal-district", `${detail.name} · ${detail.riskArchetype}`);
     setText("#top-signal-copy", detail.topSignalCopy);
@@ -580,16 +623,25 @@
     setText("#decision-mode-copy", decisionCopy);
 
     const meter = document.querySelector("[data-risk-meter]");
-    if (meter) meter.style.width = `${clamp(detail.riskScore, 0, 100)}%`;
+    if (meter) {
+      meter.style.width = `${clamp(detail.riskScore, 0, 100)}%`;
+      meter.className = tone;
+    }
+
+    const tierBadge = document.querySelector("#selected-tier-badge");
+    if (tierBadge) tierBadge.className = `v2-tier-badge ${tone}`;
 
     renderCandidates(candidatesForDistrict(detail));
   }
 
-  function selectDistrict(code) {
+  function selectDistrict(code, shouldFocus = false) {
     if (!state.districts.some((item) => item.code === code)) return;
     state.selectedCode = code;
     renderRiskMap();
     renderSelectedDistrict();
+    if (shouldFocus) {
+      document.querySelector(`.v2-map-district[data-code="${code}"]`)?.focus();
+    }
   }
 
   async function safeRender() {
@@ -598,6 +650,8 @@
       const geojson = await loadBoundaryGeoJson();
       state.districts = geojson ? applyBoundaryGeometry(buildDistricts(payload), geojson) : buildDistricts(payload);
       state.selectedCode = selectInitialDistrict()?.code || DISTRICT_CELLS[0].code;
+      setText("#v2-data-updated", payload.summary?.latestMonth ? `${payload.summary.latestMonth} 기준 데이터` : "데이터 시점 확인 필요");
+      setText("#v2-boundary-status", state.mapProject ? "실제 자치구 경계 연결됨" : "경계 데이터 확인 필요");
       renderRiskMap();
       renderSelectedDistrict();
     } catch (error) {
@@ -608,6 +662,8 @@
         state.mapProject = null;
         state.boundarySource = null;
         state.selectedCode = selectInitialDistrict()?.code || DISTRICT_CELLS[0].code;
+        setText("#v2-data-updated", "데이터 연결 확인 필요");
+        setText("#v2-boundary-status", "경계 데이터 확인 필요");
         renderRiskMap();
         renderSelectedDistrict();
       } catch (fallbackError) {

@@ -27,6 +27,7 @@ PAGES = (
     PublicPage("assessment.html", ("Redveil", "assessment-form", "assessment.js")),
     PublicPage("compare.html", ("Redveil", "compare-run", "compare.js")),
     PublicPage("districts.html", ("Redveil", "district-list", "districts.js")),
+    PublicPage("v2/index.html", ("Redveil", "data-v2-risk-map", "redveil-v2.js")),
 )
 
 LATEST_LOCAL_MARKERS = {

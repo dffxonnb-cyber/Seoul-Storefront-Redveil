@@ -29,11 +29,11 @@ for (const fileName of requiredFiles) {
 
 const indexHtml = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
 const requiredMarkers = [
-  "pause-first",
-  "Risk Overview",
-  "Pause Reasons",
-  "Alternative Candidates",
-  "Data Basis / Limitations",
+  "PAUSE-FIRST",
+  "리스크 요약",
+  "보류 사유",
+  "대체 후보",
+  "데이터 기준과 한계",
   'src="./website_payload.js"',
   'src="./common.js"',
   'src="./home.js"',

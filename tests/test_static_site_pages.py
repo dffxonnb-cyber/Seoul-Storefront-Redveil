@@ -51,7 +51,7 @@ class StaticSitePageTests(unittest.TestCase):
 
     def test_static_pages_keep_portfolio_copy(self) -> None:
         expected_copy = {
-            "index.html": ["pause-first", "Risk Overview", "Decision Memo"],
+            "index.html": ["PAUSE-FIRST", "리스크 요약", "판단 메모"],
             "review.html": ["Risk Review Console", "review-example-list", "Generate Review Memo"],
             "assessment.html": ["3-Minute Diagnosis", "Scenario Input", "assessment-form"],
             "compare.html": ["Candidate Compare", "Select Candidates", "compare-run"],

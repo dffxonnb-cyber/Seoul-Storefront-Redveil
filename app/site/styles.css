@@ -10810,3 +10810,485 @@ body[data-page] .chart-axis-label {
     height: 112px;
   }
 }
+
+/* Korean product entry experience */
+body[data-page="home"] .redveil-v1-page {
+  gap: clamp(54px, 7vw, 92px);
+}
+
+body[data-page="home"] .redveil-hero {
+  position: relative;
+  grid-template-columns: minmax(0, 1.06fr) minmax(390px, 0.94fr);
+  gap: clamp(34px, 5vw, 76px);
+  min-height: min(780px, calc(100vh - 112px));
+  padding: clamp(42px, 7vw, 88px) 0 clamp(24px, 4vw, 48px);
+}
+
+body[data-page="home"] .redveil-hero::before {
+  content: "";
+  position: absolute;
+  inset: 6% -12% auto 38%;
+  height: 70%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 30, 53, 0.13), transparent 68%);
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+body[data-page="home"] .redveil-hero-copy {
+  gap: 20px;
+}
+
+body[data-page="home"] .redveil-hero h1 {
+  max-width: 12.5ch;
+  font-size: clamp(48px, 6.6vw, 84px);
+  font-weight: 820;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+body[data-page="home"] .redveil-hero h1 span {
+  display: inline;
+  color: #ff4054;
+  text-shadow: 0 0 34px rgba(255, 30, 53, 0.25);
+}
+
+body[data-page="home"] .redveil-lead {
+  max-width: 650px;
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.78;
+  text-wrap: pretty;
+}
+
+.redveil-quick-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.redveil-quick-actions a {
+  display: grid;
+  gap: 7px;
+  min-height: 106px;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(20, 24, 34, 0.86), rgba(9, 11, 17, 0.86)),
+    rgba(255, 255, 255, 0.03);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.redveil-quick-actions a:hover,
+.redveil-quick-actions a:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(255, 51, 71, 0.42);
+  background:
+    linear-gradient(180deg, rgba(28, 30, 42, 0.92), rgba(12, 14, 21, 0.9)),
+    rgba(255, 30, 53, 0.07);
+}
+
+.redveil-quick-actions strong {
+  color: #fff;
+  font-size: 14px;
+}
+
+.redveil-quick-actions span {
+  color: rgba(190, 196, 210, 0.66);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+body[data-page="home"] .redveil-command-panel {
+  position: sticky;
+  top: 18px;
+  border-color: rgba(255, 51, 71, 0.2);
+  background:
+    radial-gradient(circle at 82% 14%, rgba(255, 30, 53, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(20, 24, 34, 0.97), rgba(6, 8, 12, 0.98));
+  box-shadow:
+    0 34px 80px rgba(0, 0, 0, 0.48),
+    0 0 76px rgba(255, 30, 53, 0.08);
+}
+
+.redveil-score-row em {
+  display: inline-flex;
+  margin-top: 14px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 51, 71, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 30, 53, 0.1);
+  color: #ff7a88;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 750;
+}
+
+.redveil-panel-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0 clamp(22px, 4vw, 34px) clamp(22px, 4vw, 34px);
+}
+
+.redveil-panel-actions a,
+.redveil-inline-link,
+.redveil-case-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(238, 241, 248, 0.88);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.redveil-panel-actions a:last-child,
+.redveil-inline-link:hover,
+.redveil-inline-link:focus-visible,
+.redveil-case-link:hover,
+.redveil-case-link:focus-visible {
+  border-color: rgba(255, 51, 71, 0.34);
+  background: rgba(255, 30, 53, 0.12);
+  color: #fff;
+}
+
+.redveil-panel-actions a:hover,
+.redveil-panel-actions a:focus-visible {
+  border-color: rgba(255, 51, 71, 0.45);
+  background: rgba(255, 30, 53, 0.16);
+  color: #fff;
+}
+
+.redveil-workflow-section {
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 88% 4%, rgba(255, 30, 53, 0.13), transparent 28%),
+    linear-gradient(180deg, rgba(17, 20, 29, 0.9), rgba(8, 10, 15, 0.88));
+  box-shadow: var(--shadow-card);
+}
+
+body[data-page="home"] .redveil-workflow-grid {
+  gap: 10px;
+}
+
+body[data-page="home"] .redveil-workflow-card {
+  position: relative;
+  min-height: 220px;
+  align-content: start;
+  padding: 20px;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+body[data-page="home"] .redveil-workflow-card::after {
+  content: "";
+  position: absolute;
+  top: 24px;
+  right: -8px;
+  width: 16px;
+  height: 1px;
+  background: rgba(255, 51, 71, 0.55);
+}
+
+body[data-page="home"] .redveil-workflow-card:last-child::after {
+  display: none;
+}
+
+body[data-page="home"] .redveil-workflow-card:hover,
+body[data-page="home"] .redveil-workflow-card:focus-visible {
+  transform: translateY(-5px);
+  border-color: rgba(255, 51, 71, 0.42);
+  box-shadow: 0 24px 48px rgba(255, 30, 53, 0.12);
+}
+
+.redveil-workflow-card em {
+  align-self: end;
+  margin-top: auto;
+  color: #ff6d7c;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 750;
+}
+
+.redveil-pause-section {
+  grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+
+.redveil-pause-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.redveil-pause-grid article {
+  display: grid;
+  grid-template-columns: minmax(118px, 0.35fr) 1fr;
+  gap: 18px;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(20, 24, 34, 0.88), rgba(9, 11, 17, 0.88)),
+    rgba(255, 255, 255, 0.03);
+}
+
+.redveil-pause-grid span {
+  color: #ff6675;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.redveil-pause-grid strong {
+  color: #fff;
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.55;
+}
+
+body[data-page="home"] .redveil-card {
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+body[data-page="home"] .redveil-card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 26px 64px rgba(0, 0, 0, 0.4);
+}
+
+body[data-page="home"] .redveil-card-primary {
+  grid-row: auto;
+  border-color: rgba(255, 51, 71, 0.2);
+  background:
+    radial-gradient(circle at 90% 8%, rgba(255, 30, 53, 0.14), transparent 32%),
+    linear-gradient(180deg, rgba(20, 24, 34, 0.94), rgba(8, 10, 15, 0.96));
+}
+
+body[data-page="home"] .redveil-metric-grid article,
+body[data-page="home"] .redveil-district-grid a,
+body[data-page="home"] .redveil-alternative-list a {
+  display: grid;
+  gap: 8px;
+  padding: 17px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+body[data-page="home"] .redveil-district-grid a:hover,
+body[data-page="home"] .redveil-district-grid a:focus-visible,
+body[data-page="home"] .redveil-alternative-list a:hover,
+body[data-page="home"] .redveil-alternative-list a:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(255, 51, 71, 0.35);
+  background: rgba(255, 30, 53, 0.07);
+}
+
+body[data-page="home"] .redveil-district-grid strong {
+  font-size: clamp(20px, 2.5vw, 28px);
+}
+
+body[data-page="home"] .redveil-alternative-list a {
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+}
+
+.redveil-alternative-list em {
+  color: #ff7a88;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+body[data-page="home"] .redveil-memo-panel > span {
+  color: #ff7a88;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+body[data-page="home"] .redveil-memo-panel .product-primary-button {
+  justify-self: start;
+  margin-top: 4px;
+}
+
+body[data-page="home"] .redveil-case-grid .scenario-case-card {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  min-height: 300px;
+}
+
+body[data-page="home"] .redveil-case-grid .scenario-action-line {
+  margin-top: auto;
+}
+
+body[data-page="home"] .redveil-case-link {
+  justify-self: start;
+}
+
+body[data-page="home"] .redveil-limits {
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+@media (max-width: 1100px) {
+  body[data-page="home"] .redveil-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(350px, 0.82fr);
+    gap: 28px;
+  }
+
+  .redveil-quick-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .redveil-quick-actions a {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 980px) {
+  body[data-page="home"] .redveil-hero,
+  .redveil-pause-section {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="home"] .redveil-command-panel {
+    position: relative;
+    top: auto;
+  }
+
+  body[data-page="home"] .redveil-workflow-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="home"] .redveil-workflow-card::after {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  body[data-page="home"] .page-shell {
+    width: min(100% - 28px, var(--home-page-max));
+    padding-top: 12px;
+  }
+
+  body[data-page="home"] .topbar {
+    align-items: flex-start;
+    border-radius: 20px;
+  }
+
+  body[data-page="home"] .topnav {
+    flex-wrap: nowrap;
+    max-width: 100%;
+    padding-bottom: 4px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  body[data-page="home"] .topnav a {
+    flex: 0 0 auto;
+  }
+
+  body[data-page="home"] .redveil-v1-page {
+    gap: 48px;
+  }
+
+  body[data-page="home"] .redveil-hero {
+    padding-top: 34px;
+  }
+
+  body[data-page="home"] .redveil-hero h1 {
+    max-width: none;
+    font-size: clamp(42px, 12vw, 58px);
+    line-height: 1.08;
+  }
+
+  body[data-page="home"] .redveil-hero-actions > a {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .redveil-panel-actions,
+  body[data-page="home"] .redveil-workflow-grid,
+  .redveil-pause-grid article {
+    grid-template-columns: 1fr;
+  }
+
+  .redveil-workflow-section,
+  body[data-page="home"] .redveil-limits {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  body[data-page="home"] .redveil-workflow-card {
+    min-height: 180px;
+  }
+}
+
+@media (max-width: 520px) {
+  body[data-page="home"] .topbar {
+    display: grid;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  body[data-page="home"] .brand small {
+    font-size: 9px;
+  }
+
+  body[data-page="home"] .redveil-score-row {
+    grid-template-columns: 1fr auto;
+    padding: 20px;
+  }
+
+  body[data-page="home"] .redveil-score-row strong {
+    font-size: 30px;
+  }
+
+  body[data-page="home"] .redveil-score-orbit {
+    width: 96px;
+    height: 96px;
+  }
+
+  body[data-page="home"] .redveil-score-orbit strong {
+    font-size: 34px;
+  }
+
+  body[data-page="home"] .redveil-target-strip {
+    margin: 0 20px;
+  }
+
+  body[data-page="home"] .redveil-signal-stack {
+    padding: 20px;
+  }
+
+  body[data-page="home"] .redveil-alternative-list a {
+    grid-template-columns: auto 1fr;
+  }
+
+  body[data-page="home"] .redveil-alternative-list em {
+    grid-column: 2;
+  }
+}

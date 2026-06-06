@@ -41,6 +41,7 @@ def responsive_script() -> str:
           { path: "/compare.html", selector: "#compare-run" },
           { path: "/districts.html", selector: "#district-list" },
           { path: "/v2/index.html", selector: "[data-v2-risk-map]" },
+          { path: "/v2/districts.html?district=11650", selector: "#v2-report-factor-grid" },
         ];
 
         function assert(condition, message) {
@@ -83,6 +84,10 @@ def responsive_script() -> str:
                     (await page.locator("#selected-district-name").textContent()).trim() === "구로구",
                     `${viewport.label} V2 map click did not select 구로구`
                   );
+                  assert(
+                    (await page.locator("#selected-district-report-link").getAttribute("href")) === "./districts.html?district=11530",
+                    `${viewport.label} V2 district report CTA did not follow the selected code`
+                  );
                   const candidateGaps = await page.locator(".v2-candidate-gap").allTextContents();
                   assert(
                     candidateGaps.length === 3 && candidateGaps.every((gap) => gap.trim().startsWith("+")),
@@ -92,6 +97,20 @@ def responsive_script() -> str:
                   assert(
                     (await page.locator("#selected-district-name").textContent()).trim() === "금천구",
                     `${viewport.label} V2 keyboard map selection did not advance to 금천구`
+                  );
+                }
+                if (item.path.startsWith("/v2/districts.html")) {
+                  assert(
+                    (await page.locator("#v2-report-district-name").textContent()).trim() === "서초구",
+                    `${viewport.label} V2 district query did not select 서초구`
+                  );
+                  assert(
+                    (await page.locator(".v2-report-factor-card").count()) === 5,
+                    `${viewport.label} V2 district report should render 5 factor cards`
+                  );
+                  assert(
+                    (await page.locator(".v2-report-alternative-card").count()) === 3,
+                    `${viewport.label} V2 district report should render 3 alternatives`
                   );
                 }
                 const metrics = await page.evaluate(() => {

@@ -631,6 +631,9 @@
     const tierBadge = document.querySelector("#selected-tier-badge");
     if (tierBadge) tierBadge.className = `v2-tier-badge ${tone}`;
 
+    const reportLink = document.querySelector("#selected-district-report-link");
+    if (reportLink) reportLink.href = `./districts.html?district=${encodeURIComponent(detail.code)}`;
+
     renderCandidates(candidatesForDistrict(detail));
   }
 

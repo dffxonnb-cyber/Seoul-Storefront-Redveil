@@ -21,6 +21,8 @@ const requiredFiles = [
   "v2/index.html",
   "v2/redveil-v2.css",
   "v2/redveil-v2.js",
+  "v2/districts.html",
+  "v2/redveil-v2-districts.js",
   "v2/data/seoul-districts.geojson",
 ];
 
@@ -63,6 +65,21 @@ const v2RequiredMarkers = [
 for (const marker of v2RequiredMarkers) {
   if (!v2Html.includes(marker)) {
     throw new Error(`v2/index.html is missing marker: ${marker}`);
+  }
+}
+
+const v2DistrictHtml = fs.readFileSync(path.join(siteRoot, "v2", "districts.html"), "utf8");
+const v2DistrictMarkers = [
+  "DISTRICT RISK REPORT",
+  "v2-report-factor-grid",
+  "v2-report-alternative-list",
+  'src="../website_payload.js"',
+  'src="./redveil-v2-districts.js"',
+];
+
+for (const marker of v2DistrictMarkers) {
+  if (!v2DistrictHtml.includes(marker)) {
+    throw new Error(`v2/districts.html is missing marker: ${marker}`);
   }
 }
 

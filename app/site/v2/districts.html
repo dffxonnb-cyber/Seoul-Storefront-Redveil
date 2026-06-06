@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redveil V2 | 자치구 리스크 리포트</title>
+    <meta
+      name="description"
+      content="서울 자치구의 매입 리스크 점수, 핵심 위험 요인, 보류 사유와 대체 후보를 검토하는 Redveil V2 전용 리포트입니다."
+    />
+    <link rel="icon" type="image/png" href="../assets/redveil-logo.png" />
+    <link rel="stylesheet" href="./redveil-v2.css?v=20260606-district-report" />
+    <script src="../website_payload.js" defer></script>
+    <script src="./redveil-v2-districts.js" defer></script>
+  </head>
+  <body data-page="redveil-v2" class="v2-report-page">
+    <a class="skip-link" href="#v2-district-report-main">본문 바로가기</a>
+
+    <div class="v2-shell">
+      <aside class="v2-sidebar" aria-label="Redveil V2 메뉴">
+        <div class="v2-sidebar-primary">
+          <a class="v2-brand" href="./index.html" aria-label="Redveil V2 지도 대시보드">
+            <img src="../assets/redveil-logo.png" alt="" aria-hidden="true" decoding="async" />
+            <span>
+              <small>SEOUL RISK INTELLIGENCE</small>
+              <strong>Redveil V2</strong>
+            </span>
+          </a>
+
+          <nav class="v2-side-nav" aria-label="대시보드 메뉴">
+            <a href="./index.html">
+              <span>01</span>
+              <strong>지도 홈</strong>
+            </a>
+            <a href="../review.html">
+              <span>02</span>
+              <strong>매물 검토</strong>
+            </a>
+            <a href="../assessment.html">
+              <span>03</span>
+              <strong>3분 진단</strong>
+            </a>
+            <a href="../compare.html">
+              <span>04</span>
+              <strong>후보 비교</strong>
+            </a>
+            <a class="is-active" href="./districts.html" aria-current="page">
+              <span>05</span>
+              <strong>구별 리포트</strong>
+            </a>
+          </nav>
+        </div>
+
+        <div class="v2-sidebar-status" aria-label="리포트 모드">
+          <span>MODE</span>
+          <strong>District Report</strong>
+          <p>선택 자치구의 위험 신호와 다음 확인 행동을 상세 검토합니다.</p>
+        </div>
+      </aside>
+
+      <div class="v2-workspace">
+        <header class="v2-topbar" aria-label="상단 상태 바">
+          <div class="v2-topbar-title">
+            <span>서울 리스크 리포트</span>
+            <strong id="v2-report-topbar-title">자치구 상세 신호 확인 중</strong>
+          </div>
+
+          <nav class="v2-topbar-nav" aria-label="빠른 이동">
+            <a href="./index.html">V2 지도 대시보드</a>
+            <a href="../districts.html">V1 구별 리포트</a>
+          </nav>
+
+          <div class="v2-status-pills" aria-label="데이터 상태">
+            <span id="v2-report-data-updated">데이터 시점 확인 중</span>
+            <span>상세 리포트 모드</span>
+          </div>
+        </header>
+
+        <main id="v2-district-report-main" class="v2-report-layout" aria-label="V2 자치구 리스크 리포트">
+          <section class="v2-panel v2-report-summary" aria-labelledby="v2-report-title">
+            <div class="v2-report-summary-copy">
+              <p class="v2-section-label">DISTRICT RISK REPORT · 자치구 리스크 리포트</p>
+              <h1 id="v2-report-title"><span id="v2-report-district-name">자치구</span> 상세 리스크 검토</h1>
+              <p id="v2-report-summary">선택한 자치구의 가격 부담, 거래 유동성, 상권 과밀과 변동성 신호를 불러오는 중입니다.</p>
+              <p class="v2-report-advisory">
+                이 점수는 매수 추천이 아닌 보류·비교·추가 확인을 위한 스크리닝 신호입니다.
+              </p>
+            </div>
+            <div class="v2-report-summary-actions">
+              <span id="v2-report-grade" class="v2-tier-badge">등급 확인 중</span>
+              <span id="v2-report-period" class="v2-panel-meta">데이터 시점 확인 중</span>
+              <a class="v2-button v2-button-primary" href="./index.html">V2 지도 대시보드로 돌아가기</a>
+            </div>
+          </section>
+
+          <section class="v2-panel v2-report-score" aria-labelledby="v2-report-score-heading">
+            <div class="v2-panel-head v2-panel-head-compact">
+              <div>
+                <p class="v2-section-label">RISK INDEX · 종합 점수</p>
+                <h2 id="v2-report-score-heading">선택 자치구 리스크</h2>
+              </div>
+            </div>
+            <div class="v2-score-row">
+              <strong id="v2-report-score">--</strong>
+              <span>/100</span>
+            </div>
+            <div class="v2-risk-meter" aria-label="선택 자치구 리스크 점수">
+              <span id="v2-report-score-meter" style="width: 0%"></span>
+            </div>
+            <dl class="v2-report-score-meta">
+              <div>
+                <dt>리스크 유형</dt>
+                <dd id="v2-report-archetype">확인 중</dd>
+              </div>
+              <div>
+                <dt>표본 신뢰도</dt>
+                <dd id="v2-report-reliability">확인 중</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="v2-panel v2-report-factors" aria-labelledby="v2-report-factors-heading">
+            <div class="v2-panel-head">
+              <div>
+                <p class="v2-section-label">KEY RISK FACTORS · 핵심 위험 요인</p>
+                <h2 id="v2-report-factors-heading">어떤 신호가 점수를 끌어올리는가</h2>
+                <p>페이로드에서 확인되는 위험 점수만 표시합니다.</p>
+              </div>
+              <span class="v2-panel-meta">5개 신호</span>
+            </div>
+            <div id="v2-report-factor-grid" class="v2-report-factor-grid" aria-live="polite"></div>
+          </section>
+
+          <section class="v2-panel v2-report-pause" aria-labelledby="v2-report-pause-heading">
+            <div class="v2-panel-head">
+              <div>
+                <p class="v2-section-label">PAUSE REASONS · 보류 사유</p>
+                <h2 id="v2-report-pause-heading">먼저 검토해야 하는 이유</h2>
+              </div>
+              <span class="v2-panel-meta">최대 3개</span>
+            </div>
+            <ol id="v2-report-pause-list" class="v2-report-numbered-list" aria-live="polite"></ol>
+          </section>
+
+          <section class="v2-panel v2-report-alternatives" aria-labelledby="v2-report-alternatives-heading">
+            <div class="v2-panel-head">
+              <div>
+                <p class="v2-section-label">ALTERNATIVE DISTRICTS · 대체 후보</p>
+                <h2 id="v2-report-alternatives-heading">같은 기준으로 비교할 자치구</h2>
+              </div>
+              <span class="v2-panel-meta">최대 3개</span>
+            </div>
+            <div id="v2-report-alternative-list" class="v2-report-alternative-list" aria-live="polite"></div>
+          </section>
+
+          <section class="v2-panel v2-report-memo" aria-labelledby="v2-report-memo-heading">
+            <div class="v2-panel-head">
+              <div>
+                <p class="v2-section-label">DECISION MEMO · 결정 메모</p>
+                <h2 id="v2-report-memo-heading">매입 판단 전 다음 확인</h2>
+              </div>
+            </div>
+            <p id="v2-report-decision-question" class="v2-report-decision-question">핵심 판단 질문을 불러오는 중입니다.</p>
+            <ul id="v2-report-checklist" class="v2-report-checklist" aria-live="polite"></ul>
+            <p class="v2-report-professional-note">
+              계약 전에는 최신 거래 자료, 임대차 조건, 현장 공실과 전문가 검토를 함께 확인하세요.
+            </p>
+          </section>
+
+          <section class="v2-panel v2-limitations-panel v2-report-limitations" aria-labelledby="v2-report-limitations-heading">
+            <div>
+              <p class="v2-section-label">LIMITATIONS · 이용 전 확인</p>
+              <h2 id="v2-report-limitations-heading">리스크 점수는 매수 추천이 아닌 1차 스크리닝 신호입니다.</h2>
+            </div>
+            <p>
+              Redveil은 포트폴리오용 프로토타입이며 금융·법률·부동산 투자 자문이 아닙니다.
+              실제 사용에는 최신 거래 데이터, 검증된 상권 데이터, 현장 조사와 전문가 검토가 필요합니다.
+            </p>
+          </section>
+
+          <section id="v2-report-fallback" class="v2-panel v2-report-fallback" hidden aria-live="polite">
+            <p class="v2-section-label">DATA STATUS · 데이터 상태</p>
+            <h2>데이터 확인 필요</h2>
+            <p>자치구 리스크 페이로드를 불러오지 못했습니다. 데이터 연결 상태를 확인한 뒤 다시 시도하세요.</p>
+            <a class="v2-button v2-button-secondary" href="./index.html">V2 지도 대시보드로 돌아가기</a>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

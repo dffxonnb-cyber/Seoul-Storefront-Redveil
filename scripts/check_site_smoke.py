@@ -103,6 +103,11 @@ def check_pages(base_url: str) -> None:
         "/compare.html": ("compare.js", "compare-grid", "compare-run"),
         "/districts.html": ("districts.js", "district-list", "detail-score"),
         "/v2/index.html": ("redveil-v2.js", "data-v2-risk-map", "v2-candidate-list"),
+        "/v2/districts.html?district=11650": (
+            "redveil-v2-districts.js",
+            "v2-report-factor-grid",
+            "v2-report-alternative-list",
+        ),
     }
     for path, markers in expected_pages.items():
         text = fetch_text(base_url, path)

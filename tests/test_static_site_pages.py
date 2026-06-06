@@ -45,10 +45,20 @@ class StaticSitePageTests(unittest.TestCase):
         self.assertIn('href="../review.html"', v2_html)
         self.assertIn('href="../assessment.html"', v2_html)
         self.assertIn('href="../compare.html"', v2_html)
-        self.assertIn('href="../districts.html"', v2_html)
+        self.assertIn('href="./districts.html"', v2_html)
+        self.assertIn('id="selected-district-report-link"', v2_html)
         self.assertEqual(geojson["type"], "FeatureCollection")
         self.assertEqual(len(geojson["features"]), 25)
         self.assertEqual(len({feature["properties"]["code"] for feature in geojson["features"]}), 25)
+
+    def test_v2_district_report_keeps_required_mounts_and_scripts(self) -> None:
+        report_html = (SITE_ROOT / "v2" / "districts.html").read_text(encoding="utf-8")
+
+        self.assertIn('src="../website_payload.js"', report_html)
+        self.assertIn('src="./redveil-v2-districts.js"', report_html)
+        self.assertIn('id="v2-report-factor-grid"', report_html)
+        self.assertIn('id="v2-report-alternative-list"', report_html)
+        self.assertIn('href="./districts.html"', report_html)
 
     def test_public_files_do_not_reference_old_local_user_path(self) -> None:
         files = [
@@ -73,6 +83,7 @@ class StaticSitePageTests(unittest.TestCase):
             "compare.html": ["Candidate Compare", "Select Candidates", "compare-run"],
             "districts.html": ["District Report", "District Selector", "Replacement Candidates"],
             "v2/index.html": ["REDVEIL V2 MAP DASHBOARD", "서울 리스크 지도", "선택 자치구"],
+            "v2/districts.html": ["DISTRICT RISK REPORT", "핵심 위험 요인", "결정 메모"],
         }
 
         for page, phrases in expected_copy.items():
@@ -87,6 +98,8 @@ class StaticSitePageTests(unittest.TestCase):
             SITE_ROOT / "home.js",
             SITE_ROOT / "v2" / "index.html",
             SITE_ROOT / "v2" / "redveil-v2.js",
+            SITE_ROOT / "v2" / "districts.html",
+            SITE_ROOT / "v2" / "redveil-v2-districts.js",
         ]
         mojibake_markers = ("占", "챙", "횄", "횂", "筌", "揶", "野", "癰")
 

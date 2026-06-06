@@ -10712,18 +10712,23 @@ body[data-page] .chart-axis-label {
   font-weight: 800;
 }
 
+/* Home risk factor bars: match Redveil's solid red chart system */
 .redveil-factor-bar {
+  position: relative;
   overflow: hidden;
-  height: 9px;
+  height: 10px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .redveil-factor-bar i {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #ff3347, #ff9f1a);
+  background: #ff6675;
+  background-image: none;
+  box-shadow: 0 0 14px rgba(255, 30, 53, 0.26);
 }
 
 .redveil-memo-card {

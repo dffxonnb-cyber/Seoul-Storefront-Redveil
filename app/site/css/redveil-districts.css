@@ -2050,3 +2050,47 @@ body[data-page="districts"] .map-target line {
     word-break: keep-all !important;
   }
 }
+
+/* Responsive visual containment */
+body[data-page="districts"] .district-layout,
+body[data-page="districts"] .panel-stack,
+body[data-page="districts"] .district-layout > *,
+body[data-page="districts"] .panel-stack > *,
+body[data-page="districts"] .seoul-risk-map-shell,
+body[data-page="districts"] #seoul-risk-map,
+body[data-page="districts"] .district-trend-card svg {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+@media (max-width: 480px) {
+  body[data-page="districts"] .page-shell {
+    width: min(100%, calc(100% - 20px)) !important;
+    max-width: calc(100% - 20px) !important;
+  }
+
+  body[data-page="districts"] .service-subhero,
+  body[data-page="districts"] .district-selector-card,
+  body[data-page="districts"] .seoul-risk-map-card,
+  body[data-page="districts"] .selected-district-card,
+  body[data-page="districts"] .district-drilldown-card,
+  body[data-page="districts"] .district-field-direction-card,
+  body[data-page="districts"] .district-risk-breakdown-card,
+  body[data-page="districts"] .district-objections-card,
+  body[data-page="districts"] .district-replacement-card,
+  body[data-page="districts"] .district-trend-card {
+    padding: 12px !important;
+  }
+
+  body[data-page="districts"] .seoul-risk-map-shell {
+    min-height: 300px !important;
+  }
+
+  body[data-page="districts"] #seoul-risk-map {
+    height: 300px !important;
+  }
+
+  body[data-page="districts"] .district-trend-card svg {
+    height: 176px !important;
+  }
+}

@@ -1011,3 +1011,34 @@ body[data-page="compare"] .candidate-scan-panel.is-cool .scan-building {
     linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 42%),
     rgba(142, 224, 210, 0.13) !important;
 }
+
+/* Responsive card containment */
+body[data-page="compare"] .page-stack,
+body[data-page="compare"] .page-stack > *,
+body[data-page="compare"] .compare-selector-grid,
+body[data-page="compare"] .compare-card-grid,
+body[data-page="compare"] .comparison-grid,
+body[data-page="compare"] .compare-decision-grid,
+body[data-page="compare"] .compare-card,
+body[data-page="compare"] .candidate-scan-panel {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 480px) {
+  body[data-page="compare"] .compare-heading-phrase {
+    white-space: normal;
+  }
+
+  body[data-page="compare"] .compare-card {
+    padding: 16px !important;
+  }
+
+  body[data-page="compare"] .candidate-scan-panel {
+    height: 104px !important;
+  }
+
+  body[data-page="compare"] .decision-memo-row {
+    padding: 14px 34px 14px 14px !important;
+  }
+}

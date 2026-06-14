@@ -1,0 +1,37 @@
+{
+  "evidenceDateKst": "2026-06-15",
+  "primaryLiveUrl": "https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/",
+  "alternateLiveUrl": "https://redveil.vercel.app/",
+  "payload": {
+    "latestMonth": "2026.03",
+    "transactionCount": 12074,
+    "districtCount": 25,
+    "tradeAreaCount": 1520,
+    "adminDongCount": 427,
+    "lowSampleDistrictCount": 8,
+    "caseStudyCount": 3
+  },
+  "dataSources": [
+    {
+      "name": "국토교통부 상업업무용 실거래가",
+      "role": "최근 12개월 가격 부담, 유동성, 변동성 산출",
+      "window": "2025.04~2026.03"
+    },
+    {
+      "name": "서울시 상권분석서비스(추정매출·길단위인구)",
+      "role": "상권 수요 취약성 신호와 매출 효율 분석",
+      "window": "2025년 4분기"
+    },
+    {
+      "name": "소상공인시장진흥공단 상가(상권)정보",
+      "role": "행정동 점포 밀도와 과밀 경쟁도 계산",
+      "window": "2026.03.31 기준 파일"
+    }
+  ],
+  "limitations": {
+    "investmentPerformanceClaimed": false,
+    "causalBusinessOutcomesClaimed": false,
+    "buySellRecommendation": false,
+    "publicSafeTrackedPayload": true
+  }
+}

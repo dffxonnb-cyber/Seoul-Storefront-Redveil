@@ -29,11 +29,14 @@ The product asks a narrower question:
 
 ## Live Product
 
-- Live site: [GitHub Pages](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/)
+- Primary live demo: [GitHub Pages](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/)
+- Alternate deployment: [Vercel](https://redveil.vercel.app/)
 - Property review: [review.html](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/review.html)
 - 3-minute diagnosis: [assessment.html](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/assessment.html)
 - Candidate compare: [compare.html](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/compare.html)
 - District report: [districts.html](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/districts.html)
+
+GitHub Pages is the representative URL because the repository's `Deploy Pages` workflow verifies and publishes `app/site` from `main`. Vercel remains a working alternate deployment. The core HTML pages were identical across both deployments when checked on 2026-06-15.
 
 ## V1 Workflow
 
@@ -57,6 +60,13 @@ The product asks a narrower question:
 ## Data And Logic Overview
 
 Redveil uses public-safe, portfolio-oriented payloads derived from Seoul storefront transaction and commercial-area assumptions.
+
+Current public payload:
+
+- Transaction data: `2025.04~2026.03`
+- Seoul commercial-district demand data: `2025년 4분기`
+- Store competition data: `2026.03.31 기준 파일`
+- Coverage: Seoul `25` districts, `427` admin dongs, `1,520` trade areas, `12,074` transactions
 
 Main signal families:
 
@@ -163,9 +173,22 @@ Public deployment check:
 python scripts/check_public_site.py
 ```
 
+## Production Evidence
+
+Public-safe Production evidence archived on 2026-06-15 KST:
+
+- [Production verification summary](./docs/evidence/production-verification-2026-06-15.md)
+- [Public payload metadata](./docs/evidence/public-payload-metadata-2026-06-15.json)
+- [Deploy Pages PASS](./docs/evidence/deploy-pages-verification-2026-06-15.json)
+- [Production home](./docs/evidence/redveil-production-home-2026-06-15.png)
+- [Production district report](./docs/evidence/redveil-production-districts-2026-06-15.png)
+
+The evidence verifies the public review surface, tracked payload period, and deployment boundary. It does not claim investment performance, causal business outcomes, individual-property accuracy, or complete upstream-data freshness.
+
 ## Portfolio Docs
 
 - [Portfolio case study](./docs/portfolio-case-study.md)
+- [Production evidence](./docs/evidence/README.md)
 - [Data sources](./docs/DATA_SOURCES.md)
 - [Risk validation](./docs/RISK_VALIDATION.md)
 - [Risk model spec](./docs/RISK_MODEL_SPEC.md)

@@ -6,6 +6,10 @@ Redveil is a concept-driven risk diagnosis interface for Seoul storefront purcha
 
 Redveil is built as a portfolio-ready frontend-first prototype, not as a production real-estate advisory product.
 
+- Primary live demo: https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/
+- Alternate deployment: https://redveil.vercel.app/
+- Production evidence: [evidence/production-verification-2026-06-15.md](evidence/production-verification-2026-06-15.md)
+
 ## Problem
 
 Small storefront purchases can look attractive before the buyer has checked price burden, transaction liquidity, competition density, volatility, and demand fragility together.
@@ -54,6 +58,12 @@ The UI should make the user slower and more careful, not more impulsive.
 ## Data Signals
 
 Redveil uses portfolio-safe public/commercial-area assumptions and static payloads.
+
+Current public payload periods:
+
+- transactions: `2025.04~2026.03`
+- Seoul commercial-district demand: `2025년 4분기`
+- store competition: `2026.03.31 기준 파일`
 
 Signal families:
 
@@ -112,6 +122,7 @@ Together, the two projects show that I can connect data, product thinking, inter
 - Redveil is a portfolio prototype.
 - It is not financial, legal, or real-estate investment advice.
 - Risk signals are exploratory and based on available/static data assumptions.
+- Low-sample districts require stronger caution, and the payload can become stale between public-data refreshes.
 - Real-world use would require updated transaction data, verified commercial-area data, professional review, and stronger validation.
 - Building-level lease terms, vacancy, rights premium, tenant quality, financing, and legal constraints are not fully modeled.
 

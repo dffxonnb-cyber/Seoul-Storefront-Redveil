@@ -13,6 +13,12 @@ Redveil has two reproducibility modes: public-safe verification from tracked art
 | GitHub Pages artifact | Yes | CI rebuilds `app/site/website_payload.js` before deployment. |
 | Full raw-data rebuild | Partially | Requires excluded local data under `data/`. |
 
+Archived public-safe Production evidence:
+
+- [2026-06-15 Production verification](docs/evidence/production-verification-2026-06-15.md)
+- [Public payload metadata](docs/evidence/public-payload-metadata-2026-06-15.json)
+- [Deploy Pages PASS](docs/evidence/deploy-pages-verification-2026-06-15.json)
+
 ## Local Verification
 
 ```bash
@@ -45,6 +51,8 @@ python scripts/check_public_site.py
 ```
 
 This checks the GitHub Pages URL by default. Set `REDVEIL_PUBLIC_URL` to test another deployment. The script distinguishes core availability from stale deployment warnings, because public Pages may lag behind local unpushed changes.
+
+GitHub Pages is the representative live URL. Vercel is a working alternate deployment and can be checked by setting `REDVEIL_PUBLIC_URL=https://redveil.vercel.app/`.
 
 ## CI Verification
 

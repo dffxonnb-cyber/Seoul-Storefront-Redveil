@@ -12,4 +12,5 @@
 - `USER_JOURNEY.md`: target user flow
 - `VALIDATION_STRATEGY.md`: validation approach
 - `RISK_VALIDATION.md`: score interpretation and fixed validation cases
+- `evidence/README.md`: public-safe Production screenshots, payload metadata, and deployment verification
 - `../VERIFY.md`: local, browser, and public deployment verification commands

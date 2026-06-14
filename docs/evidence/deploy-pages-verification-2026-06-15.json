@@ -1,0 +1,34 @@
+{
+  "evidenceDateKst": "2026-06-15",
+  "workflow": "Deploy Pages",
+  "event": "push",
+  "status": "completed",
+  "conclusion": "success",
+  "headSha": "0c6fbe497f5bd24dc2ca01b836347a109a3cde81",
+  "createdAt": "2026-06-11T21:33:40Z",
+  "updatedAt": "2026-06-11T21:34:37Z",
+  "runUrl": "https://github.com/dffxonnb-cyber/Seoul-Storefront-Redveil/actions/runs/27378847127",
+  "jobs": {
+    "verify": {
+      "conclusion": "success",
+      "steps": {
+        "tests": "success",
+        "publicPayloadBuild": "success",
+        "siteSmokeCheck": "success",
+        "generatedPayloadCheck": "success"
+      }
+    },
+    "deploy": {
+      "conclusion": "success",
+      "steps": {
+        "publicPayloadBuild": "success",
+        "pagesArtifactUpload": "success",
+        "githubPagesDeploy": "success"
+      }
+    }
+  },
+  "publicSafe": {
+    "secretValuesIncluded": false,
+    "privateDatasetsIncluded": false
+  }
+}

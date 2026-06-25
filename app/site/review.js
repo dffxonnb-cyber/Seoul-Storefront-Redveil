@@ -149,7 +149,7 @@
     document.getElementById("review-result").innerHTML = `
       <div class="section-head">
         <div>
-          <p class="section-label">Saved Output</p>
+          <p class="section-label">Hold-first Output</p>
           <h2>${result.assetName} · ${result.verdict}</h2>
         </div>
         <span class="signal-pill ${riskTone(result.customRiskScore)}">${result.riskArchetype}</span>
@@ -157,7 +157,7 @@
       <div class="result-card review-result-memo">
         <div class="review-result-scoreline">
           <div>
-            <span class="result-label">Decision Memo</span>
+            <span class="result-label">Hold Decision Memo</span>
             <strong>${result.verdict}</strong>
           </div>
           <span class="result-score">${formatNumber(result.customRiskScore, "점")}</span>

@@ -78,9 +78,9 @@ class StaticSitePageTests(unittest.TestCase):
     def test_static_pages_keep_portfolio_copy(self) -> None:
         expected_copy = {
             "index.html": ["PAUSE-FIRST", "리스크 요약", "판단 메모"],
-            "review.html": ["Risk Review Console", "review-example-list", "Generate Review Memo"],
-            "assessment.html": ["3-Minute Diagnosis", "Scenario Input", "assessment-form"],
-            "compare.html": ["Candidate Compare", "Select Candidates", "compare-run"],
+            "review.html": ["추천 전에 보류 사유", "review-example-list", "보류 메모 생성"],
+            "assessment.html": ["3-Minute Diagnosis", "보류 신호 진단 실행", "assessment-form"],
+            "compare.html": ["Candidate Compare", "보류 기준으로 비교", "compare-run"],
             "districts.html": ["District Report", "District Selector", "Replacement Candidates"],
             "v2/index.html": ["REDVEIL V2 MAP DASHBOARD", "서울 리스크 지도", "선택 자치구"],
             "v2/districts.html": ["DISTRICT RISK REPORT", "핵심 위험 요인", "결정 메모"],

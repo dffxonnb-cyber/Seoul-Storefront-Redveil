@@ -1,5 +1,6 @@
 (function () {
   const payload = window.__REDVEIL_PAYLOAD__ || {};
+  const { polishCopy } = window.RedveilV2 || {};
   const districts = [...(payload.districts || [])]
     .filter((district) => district && district.code)
     .sort((left, right) => Number(right.riskScore || 0) - Number(left.riskScore || 0));
@@ -57,6 +58,15 @@
     return `${numeric.toLocaleString("ko-KR", { maximumFractionDigits: digits })}${suffix}`;
   }
 
+  function cleanCopy(value) {
+    const source = typeof polishCopy === "function" ? polishCopy(value) : String(value || "");
+    return source
+      .replace(/더 안전한 대체 구/g, "리스크를 낮춰 볼 대체 구")
+      .replace(/더 안전한 구/g, "리스크를 낮춰 볼 구")
+      .replace(/대체 구 추천/g, "대체 구 비교")
+      .replace(/좋은 구를 추천/g, "좋은 구를 고르는");
+  }
+
   function districtName(district) {
     return district?.name || DISTRICT_NAMES[String(district?.code || "")] || "선택한 서울 자치구";
   }
@@ -100,7 +110,7 @@
     if ($("hero-risk-level")) $("hero-risk-level").textContent = `${riskLevel(target.riskScore, target.riskGrade)} · 스크리닝 신호`;
     if ($("hero-summary")) {
       $("hero-summary").textContent =
-        target.riskSummary || `${districtName(target)}의 가격, 거래 흐름, 과밀도, 변동성을 매입 전 다시 확인하세요.`;
+        cleanCopy(target.riskSummary || `${districtName(target)}의 가격, 거래 흐름, 과밀도, 변동성을 매입 전 다시 확인하세요.`);
     }
     if ($("hero-signals")) {
       $("hero-signals").innerHTML = factorItems(target)
@@ -173,7 +183,7 @@
       : factorItems(target).slice(0, 4).map((item) => `${item.label} ${formatNumber(item.score, "점", 1)}: ${item.note}`);
 
     if ($("pause-reason-list")) {
-      $("pause-reason-list").innerHTML = sourceReasons.map((reason) => `<li>${reason}</li>`).join("");
+      $("pause-reason-list").innerHTML = sourceReasons.map((reason) => `<li>${cleanCopy(reason)}</li>`).join("");
     }
   }
 
@@ -219,7 +229,7 @@
               <span>0${candidate.rank || index + 1}</span>
               <div>
                 <strong>${candidate.name}</strong>
-                <p>${candidate.whyBetter || "현재 후보와 같은 기준으로 리스크를 비교하세요."}</p>
+                <p>${cleanCopy(candidate.whyBetter || "현재 후보와 같은 기준으로 리스크를 비교하세요.")}</p>
               </div>
               ${candidate.score !== undefined ? `<em>${formatNumber(candidate.score, "점", 1)}</em>` : ""}
             </a>
@@ -254,15 +264,15 @@
     const memoPoints = Array.isArray(target.reviewChecklist) && target.reviewChecklist.length
       ? target.reviewChecklist.slice(0, 4)
       : [
-          "인지도가 높은 자치구를 자동으로 더 안전하다고 판단하지 마세요.",
+          "인지도가 높은 자치구를 자동으로 더 낮은 리스크라고 판단하지 마세요.",
           "호가를 수용하기 전 최근 유사 실거래를 다시 확인하세요.",
           "같은 기준으로 최소 두 개 대체 자치구를 비교하세요.",
           "실제 매입 결정 전 전문가 검토와 현장 확인을 진행하세요.",
         ];
 
-    if ($("decision-mode") && target.recommendedAction) $("decision-mode").textContent = target.recommendedAction;
+    if ($("decision-mode") && target.recommendedAction) $("decision-mode").textContent = cleanCopy(target.recommendedAction);
     if ($("memo-points")) {
-      $("memo-points").innerHTML = memoPoints.map((point) => `<li>${point}</li>`).join("");
+      $("memo-points").innerHTML = memoPoints.map((point) => `<li>${cleanCopy(point)}</li>`).join("");
     }
   }
 
@@ -284,10 +294,10 @@
                 <span class="scenario-case-label">V1 예시 · ${item.label}</span>
                 <strong>${item.assetName || item.title}</strong>
               </div>
-              <p>${item.summary}</p>
+              <p>${cleanCopy(item.summary)}</p>
               <div class="scenario-action-line">
                 <span>다음 확인</span>
-                <p>${item.nextAction || "보류 사유를 비교하고 검토 질문을 기록합니다."}</p>
+                <p>${cleanCopy(item.nextAction || "보류 사유를 비교하고 검토 질문을 기록합니다.")}</p>
               </div>
               <a class="redveil-case-link" href="./assessment.html">이 흐름으로 진단하기 →</a>
             </article>

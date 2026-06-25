@@ -129,7 +129,7 @@
 
     return {
       holdReason: `${districtName}은 ${riskText} 신호가 기준선보다 높아 보류 검토가 필요합니다.`,
-      offsetBasis: "대체 후보는 동일 예산대에서 거래 유동성이 더 안정적이고 상권 과밀도가 낮은 지역을 우선으로 봅니다.",
+      offsetBasis: "대체 후보는 같은 기준에서 가격 부담, 거래 유동성, 상권 과밀 신호를 다시 비교하는 기준점입니다.",
       candidateReason: firstCandidate
         ? `${firstCandidate.name}은 추가 검토 후보로, ${polishCopy(
             firstCandidate.whyBetter || "가격 부담과 거래 둔화 신호를 일부 상쇄할 수 있는지 확인합니다."

@@ -59,14 +59,14 @@
     document.getElementById("assessment-result").innerHTML = `
       <div class="section-head">
         <div>
-          <p class="section-label">Assessment Result</p>
+          <p class="section-label">Hold Signal Result</p>
           <h2>${result.districtName} · ${result.verdict}</h2>
         </div>
         <span class="signal-pill ${riskTone(result.customRiskScore)}">${result.riskArchetype}</span>
       </div>
       <div class="result-card diagnosis-result-card">
         <div class="diagnosis-result-section diagnosis-score-section">
-          <span class="result-label">Risk Score</span>
+          <span class="result-label">Hold Signal Score</span>
           <span class="result-score">${formatNumber(result.customRiskScore, "점")}</span>
           ${renderBenchmarkLine(result.customRiskScore, district)}
           ${renderReliabilityBadges(district, { includeNote: true })}
@@ -85,7 +85,7 @@
         <div class="diagnosis-result-section">
           <div class="result-grid">
             <div>
-              <span class="result-label">핵심 근거</span>
+              <span class="result-label">보류 근거</span>
               <ul class="result-list">${result.reasons.map((item) => `<li>${polishCopy(item)}</li>`).join("")}</ul>
             </div>
             <div>

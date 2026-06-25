@@ -231,7 +231,7 @@
     document.getElementById("compare-recommendation").innerHTML = `
       <article class="alternative-board">
         <div class="alternative-hero">
-          <span class="result-label">Safer Baseline</span>
+          <span class="result-label">Review Baseline</span>
           <strong>${best.name}</strong>
           <p>${formatNumber(best.riskScore, "점")} · ${best.riskArchetype}</p>
         </div>
@@ -250,9 +250,9 @@
         </div>
         <div class="alternative-support-grid">
           <section>
-            <span class="result-label">Why Safer</span>
+            <span class="result-label">Why Compare</span>
             <ul class="compact-checklist">
-              <li>총 리스크를 ${baseLabel} 낮춰 볼 수 있음</li>
+              <li>총 리스크를 ${baseLabel} 낮춰 비교할 수 있음</li>
               <li>가격 부담과 유동성 축을 같은 기준으로 재비교</li>
               <li>보류 후보의 초과 위험을 숫자로 분리</li>
             </ul>

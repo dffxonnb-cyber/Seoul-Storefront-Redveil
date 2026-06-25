@@ -9,6 +9,31 @@ Redveil is an interactive Seoul storefront risk diagnosis prototype that helps p
 
 It is a portfolio-ready frontend-first product prototype, not a production investment advisory service.
 
+## 3-Minute Reviewer Path
+
+| Step | Open | What to check |
+| --- | --- | --- |
+| 1 | [Live Home](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/) | Pause-first positioning and product surface |
+| 2 | [Property Review](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/review.html) | Risk summary, caution signals, saved review memo |
+| 3 | [Candidate Compare](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/compare.html) | Alternative district comparison and risk axes |
+| 4 | [District Report](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/districts.html) | District-level interpretation and caution points |
+| 5 | [Production Evidence](./docs/evidence/README.md) | Public-safe payload period, deployment proof, screenshot evidence |
+
+## Decision Evidence Snapshot
+
+| Question | Evidence |
+| --- | --- |
+| **What decision does it support?** | Before buying a small Seoul storefront, what should make the reviewer pause, compare, or escalate? |
+| **What did I build?** | Static product experience with review, diagnosis, comparison, district report, and pause memo flows. |
+| **What data boundary is public?** | Seoul 25 districts, 427 admin dongs, 1,520 trade areas, 12,074 transactions in the current public payload. |
+| **What signals are interpreted?** | Price burden, liquidity risk, competition density, price volatility, and demand fragility. |
+| **What is verified?** | Public GitHub Pages deployment, tracked public payload metadata, production screenshots, public-safe verification scripts. |
+| **What is not claimed?** | No investment advice, return prediction, causal business outcome, or individual-property accuracy claim. |
+
+![Redveil production home](./docs/evidence/redveil-production-home-2026-06-15.png)
+
+![Redveil production district report](./docs/evidence/redveil-production-districts-2026-06-15.png)
+
 ## Portfolio Positioning
 
 Shelter Signal demonstrates public-data pipeline, operational DB, API, and PWA architecture.

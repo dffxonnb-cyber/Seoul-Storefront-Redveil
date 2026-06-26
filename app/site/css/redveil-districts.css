@@ -2194,3 +2194,94 @@ body[data-page="districts"] .district-trend-card svg {
 .seoul-district-path.is-selected.tier-low {
   fill: rgba(66, 211, 146, 0.72);
 }
+
+.district-action-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.district-action-button {
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
+    rgba(12, 15, 22, 0.82);
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.district-action-button span {
+  display: grid;
+  gap: 5px;
+  line-height: 1.2;
+}
+
+.district-action-button small {
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.district-action-button strong {
+  width: 30px;
+  height: 30px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.district-action-button:hover,
+.district-action-button:focus {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.22);
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 16px 32px rgba(0, 0, 0, 0.28);
+}
+
+.district-action-primary {
+  border-color: rgba(255, 51, 71, 0.38);
+  background:
+    radial-gradient(circle at top left, rgba(255, 51, 71, 0.24), transparent 44%),
+    linear-gradient(135deg, rgba(255, 51, 71, 0.15), rgba(255, 255, 255, 0.025)),
+    rgba(16, 18, 25, 0.9);
+}
+
+.district-action-primary strong {
+  background: rgba(255, 51, 71, 0.18);
+  color: #ff5f72;
+}
+
+.district-action-secondary {
+  border-color: rgba(121, 193, 188, 0.28);
+}
+
+.district-action-secondary strong {
+  background: rgba(121, 193, 188, 0.14);
+  color: #79c1bc;
+}
+
+@media (max-width: 760px) {
+  .district-action-row {
+    grid-template-columns: 1fr;
+  }
+}

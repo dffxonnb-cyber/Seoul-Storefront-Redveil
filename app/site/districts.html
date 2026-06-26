@@ -7,7 +7,7 @@
     <meta name="description" content="서울 25개 구의 리스크, 추세, 대체 후보를 한 화면에서 보는 Redveil 구별 리포트입니다." />
     <link rel="icon" type="image/png" href="./assets/redveil-logo.png" />
     <link rel="stylesheet" href="./styles.css?v=20260501-district-summary-chips" />
-    <link rel="stylesheet" href="./css/redveil-districts.css?v=20260531-risk-map" />
+    <link rel="stylesheet" href="./css/redveil-districts.css?v=20260627-boundary-map" />
   </head>
   <body data-page="districts">
     <div class="page-shell">
@@ -122,6 +122,22 @@
                 </section>
               </div>
               <div class="detail-grid district-stat-grid" id="detail-summary-grid"></div>
+              <div class="district-action-row" aria-label="선택 구 다음 행동">
+                <a class="district-action-button district-action-primary" id="district-review-link" href="./review.html">
+                  <span>
+                    <small>Property Review</small>
+                    이 구로 매물 검토
+                  </span>
+                  <strong>→</strong>
+                </a>
+              <a class="district-action-button district-action-secondary" id="district-compare-link" href="./compare.html">
+                <span>
+                  <small>Candidate Compare</small>
+                    대체 후보와 비교
+                </span>
+                <strong>→</strong>
+              </a>
+            </div>
             </article>
 
             <article class="panel section-block district-drilldown-card">

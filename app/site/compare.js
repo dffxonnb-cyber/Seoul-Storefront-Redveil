@@ -12,15 +12,48 @@
   const districts = payload.districts || [];
   document.getElementById("compare-coverage").textContent = `${districts.length}개 구`;
 
+  function validDistrictCode(code) {
+    return districts.some((item) => String(item.code) === String(code));
+  }
+
+  function getInitialCompareParams() {
+    const params = new URLSearchParams(window.location.search);
+
+    return {
+      a: validDistrictCode(params.get("a")) ? params.get("a") : "",
+      b: validDistrictCode(params.get("b")) ? params.get("b") : "",
+      c: validDistrictCode(params.get("c")) ? params.get("c") : "",
+    };
+  }
+
   function optionHtml() {
     return districts.map((item) => `<option value="${item.code}">${item.name}</option>`).join("");
   }
 
-  document.getElementById("compare-a").innerHTML = optionHtml();
-  document.getElementById("compare-b").innerHTML = optionHtml();
-  document.getElementById("compare-c").innerHTML = optionHtml();
-  if (districts[1]) document.getElementById("compare-b").value = districts[1].code;
-  if (districts[2]) document.getElementById("compare-c").value = districts[2].code;
+  const compareA = document.getElementById("compare-a");
+  const compareB = document.getElementById("compare-b");
+  const compareC = document.getElementById("compare-c");
+  const initialCompareParams = getInitialCompareParams();
+
+  compareA.innerHTML = optionHtml();
+  compareB.innerHTML = optionHtml();
+  compareC.innerHTML = optionHtml();
+
+  if (initialCompareParams.a) {
+    compareA.value = initialCompareParams.a;
+  }
+
+  if (initialCompareParams.b) {
+    compareB.value = initialCompareParams.b;
+  } else if (districts[1]) {
+    compareB.value = districts[1].code;
+  }
+
+  if (initialCompareParams.c) {
+    compareC.value = initialCompareParams.c;
+  } else if (districts[2]) {
+    compareC.value = districts[2].code;
+  }
 
   function selectedDistricts() {
     const codes = [

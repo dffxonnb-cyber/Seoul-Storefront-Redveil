@@ -20,6 +20,15 @@
   const districts = payload.districts || [];
   const reviewExamples = payload.reviewExamples || payload.validationCases || [];
 
+  function getInitialDistrictCode() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("district");
+
+  if (!code) return "";
+
+  return districts.some((item) => String(item.code) === String(code)) ? code : "";
+}
+
   function districtForRecord(record) {
     return districts.find((item) => item.code === record.districtCode) || null;
   }
@@ -317,16 +326,23 @@
     }
   }
 
-  document.getElementById("review-district-code").innerHTML = `
-    <option value="" selected disabled>검토 구 선택</option>
+  const reviewDistrictSelect = document.getElementById("review-district-code");
+  const initialDistrictCode = getInitialDistrictCode();
+
+  reviewDistrictSelect.innerHTML = `
+    <option value="" ${initialDistrictCode ? "" : "selected"} disabled>검토 구 선택</option>
     ${districts.map((item) => `<option value="${item.code}">${item.name}</option>`).join("")}
   `;
 
+  if (initialDistrictCode) {
+    reviewDistrictSelect.value = initialDistrictCode;
+  }
+
   renderHistory();
   renderExamples();
-  renderSpotlight(document.getElementById("review-district-code").value);
+  renderSpotlight(reviewDistrictSelect.value);
 
-  document.getElementById("review-district-code").addEventListener("change", (event) => {
+  reviewDistrictSelect.addEventListener("change", (event) => {
     renderSpotlight(event.target.value);
   });
 

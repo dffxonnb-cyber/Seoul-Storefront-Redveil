@@ -225,6 +225,32 @@ document.getElementById("district-coverage").textContent = `${state.districts.le
       .filter(Boolean);
   }
 
+  function updateDistrictActionLinks(detail) {
+  const reviewLink = document.getElementById("district-review-link");
+  const compareLink = document.getElementById("district-compare-link");
+
+  if (!detail) return;
+
+  if (reviewLink) {
+    reviewLink.href = `./review.html?district=${encodeURIComponent(detail.code)}`;
+  }
+
+  if (compareLink) {
+    const replacements = replacementNames(detail)
+      .map((name) => districtByName(name)?.code)
+      .filter(Boolean)
+      .slice(0, 2);
+
+    const params = new URLSearchParams();
+    params.set("a", detail.code);
+
+    if (replacements[0]) params.set("b", replacements[0]);
+    if (replacements[1]) params.set("c", replacements[1]);
+
+    compareLink.href = `./compare.html?${params.toString()}`;
+  }
+}
+
   function collectCoordinates(geometry) {
   const points = [];
 
@@ -583,6 +609,7 @@ function geometryBounds(features) {
     const alternatives = replacementNames(detail);
 
     renderRiskMap(detail);
+    updateDistrictActionLinks(detail);
 
     document.getElementById("district-context-chips").innerHTML = [benchmark.label, benchmark.detail]
       .filter(Boolean)

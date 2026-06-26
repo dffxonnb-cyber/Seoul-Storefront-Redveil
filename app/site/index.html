@@ -16,8 +16,9 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260606-redveil-home-ko" />
+    <link rel="stylesheet" href="./styles.css?v=20260627-redveil-v2-home-entry" />
   </head>
+
   <body data-page="home">
     <div class="page-shell redveil-v1-shell">
       <header class="topbar">
@@ -42,58 +43,73 @@
         <section class="redveil-hero" aria-labelledby="redveil-title">
           <div class="redveil-hero-copy">
             <p class="redveil-kicker">PAUSE-FIRST STOREFRONT RISK DIAGNOSIS · 매입 전 리스크 진단</p>
+
             <h1 id="redveil-title" class="hero-title">
               좋아 보이는 이유보다,
               <span>멈춰야 할 신호</span>를 먼저 봅니다.
             </h1>
+
             <p class="redveil-lead">
               Redveil은 서울 소형 상가 매입 전 가격 부담, 거래 둔화, 가격 변동성, 상권 과밀 신호를 한 화면에서
               검토하는 보류 우선 리스크 진단 프로토타입입니다.
             </p>
+
             <div class="redveil-hero-actions">
-              <a class="product-primary-button" href="./review.html">보류 사유 검토 시작</a>
-              <a class="product-secondary-button" href="./compare.html">대체 후보 비교</a>
+              <a class="product-primary-button" href="./districts.html">서울 리스크 지도에서 시작</a>
+              <a class="product-secondary-button" href="./review.html">내 매물 보류 메모</a>
             </div>
+
             <div class="redveil-quick-actions" aria-label="서비스 바로가기">
-              <a href="./review.html"><strong>보류 메모</strong><span>후보 조건을 보류 판단으로 기록</span></a>
-              <a href="./compare.html"><strong>대체 후보 비교</strong><span>같은 기준으로 보류 후보와 나란히 보기</span></a>
-              <a href="./districts.html"><strong>구별 리포트</strong><span>서울 25개 구 리스크 신호 확인</span></a>
+              <a href="./districts.html">
+                <strong>서울 리스크 지도</strong>
+                <span>25개 자치구 경계 지도에서 먼저 탐색</span>
+              </a>
+              <a href="./review.html">
+                <strong>보류 메모</strong>
+                <span>선택 구와 매물 조건을 보류 판단으로 기록</span>
+              </a>
+              <a href="./compare.html">
+                <strong>대체 후보 비교</strong>
+                <span>선택 구와 대체 후보를 같은 기준으로 비교</span>
+              </a>
             </div>
+
             <p class="redveil-advisory-note">
               포트폴리오용 프로토타입이며, 법률·금융·부동산 투자 자문이 아닙니다. 점수는 추가 확인이 필요한
               신호를 좁히는 1차 스크리닝 지표입니다.
             </p>
           </div>
+        </section>
 
-          <aside class="redveil-command-panel" aria-label="리스크 진단 미리보기">
-            <div class="redveil-panel-bar">
-              <span></span>
-              <span></span>
-              <span></span>
-              <strong>REDVEIL / DECISION SURFACE</strong>
-            </div>
-            <div class="redveil-score-row">
-              <div>
-                <span>현재 판단 모드</span>
-                <strong>보류 우선</strong>
-                <em id="hero-risk-level">리스크 해석 중</em>
-              </div>
-              <div class="redveil-score-orbit" aria-label="예시 리스크 점수">
-                <strong id="hero-score">--</strong>
-                <span>/100</span>
-              </div>
-            </div>
-            <div class="redveil-target-strip">
-              <span>선택된 리스크 신호</span>
-              <strong id="hero-district">서울 자치구</strong>
-              <p id="hero-summary">리스크 해석을 불러오는 중입니다.</p>
-            </div>
-            <div class="redveil-signal-stack" id="hero-signals"></div>
-            <div class="redveil-panel-actions">
-              <a href="./districts.html">구별 리포트 보기</a>
-              <a href="./review.html">이 신호로 보류 메모</a>
-            </div>
-          </aside>
+        <section class="redveil-section redveil-v2-preview" aria-labelledby="v2-preview-heading">
+          <div class="redveil-section-head">
+            <p class="section-label">V2 PREVIEW · Map-first Decision Flow</p>
+            <h2 id="v2-preview-heading">서울 지도에서 시작해 검토와 비교로 이어집니다.</h2>
+            <p>
+              서울 25개 자치구의 리스크 지형을 실제 경계 지도에서 훑고, 관심 구를 선택한 뒤
+              매물 검토와 후보 비교로 바로 이어지는 V2 흐름입니다.
+            </p>
+          </div>
+
+          <div class="redveil-v2-flow-grid">
+            <a class="redveil-v2-flow-card is-primary" href="./districts.html">
+              <span>01</span>
+              <strong>서울 리스크 지도 보기</strong>
+              <p>구별 리스크 신호를 실제 자치구 경계 지도에서 먼저 확인합니다.</p>
+            </a>
+
+            <a class="redveil-v2-flow-card" href="./review.html">
+              <span>02</span>
+              <strong>선택 구로 매물 검토</strong>
+              <p>관심 구와 매물 조건을 연결해 보류 사유와 확인 항목을 기록합니다.</p>
+            </a>
+
+            <a class="redveil-v2-flow-card" href="./compare.html">
+              <span>03</span>
+              <strong>대체 후보와 비교</strong>
+              <p>선택 구와 대체 후보를 같은 기준으로 비교해 초과 위험을 분리합니다.</p>
+            </a>
+          </div>
         </section>
 
         <section id="workflow" class="redveil-section redveil-workflow-section" aria-labelledby="workflow-heading">

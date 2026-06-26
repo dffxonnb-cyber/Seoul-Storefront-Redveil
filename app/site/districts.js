@@ -14,6 +14,8 @@
   const state = {
     districts: payload.districts || [],
     selectedCode: payload.districts?.[0]?.code || null,
+    mapFeatures: [],
+    mapGeometryLoaded: false,
   };
 
   const mapCells = [
@@ -46,7 +48,53 @@
 
   const byCode = () => new Map(state.districts.map((district) => [district.code, district]));
 
-  document.getElementById("district-coverage").textContent = `${state.districts.length}개 구`;
+async function loadDistrictGeometry() {
+  try {
+    const response = await fetch("./assets/seoul-districts.geojson");
+    if (!response.ok) {
+      throw new Error(`District geometry request failed: ${response.status}`);
+    }
+
+    const geojson = await response.json();
+    const features = Array.isArray(geojson.features) ? geojson.features : [];
+
+    state.mapFeatures = features;
+    state.mapGeometryLoaded = features.length > 0;
+
+    console.info(`[Redveil] Seoul district geometry loaded: ${features.length} features`);
+  } catch (error) {
+    state.mapFeatures = [];
+    state.mapGeometryLoaded = false;
+    console.warn("[Redveil] District geometry load failed. Falling back to abstract risk map.", error);
+  }
+}
+
+function featureDistrictCode(feature) {
+  const props = feature?.properties || {};
+  return props.code || props.SIG_CD || props.sig_cd || props.adm_cd || props.ADM_CD || null;
+}
+
+function featureDistrictName(feature) {
+  const props = feature?.properties || {};
+  return props.name || props.SIG_KOR_NM || props.sig_kor_nm || props.adm_nm || props.ADM_NM || null;
+}
+
+function districtFromFeature(feature) {
+  const code = featureDistrictCode(feature);
+  const name = featureDistrictName(feature);
+
+  const byCodeMatch = state.districts.find((item) => String(item.code) === String(code));
+  if (byCodeMatch) return byCodeMatch;
+
+  const byNameMatch = state.districts.find((item) => String(item.name) === String(name));
+  return byNameMatch || null;
+}
+
+function matchedGeometryCount() {
+  return state.mapFeatures.filter((feature) => districtFromFeature(feature)).length;
+}
+
+document.getElementById("district-coverage").textContent = `${state.districts.length}개 구`;
 
   function visibleDistricts(query) {
     const trimmed = String(query || "").trim();
@@ -177,7 +225,180 @@
       .filter(Boolean);
   }
 
+  function collectCoordinates(geometry) {
+  const points = [];
+
+  function walk(value) {
+    if (!Array.isArray(value)) return;
+
+    const isPoint =
+      value.length >= 2 &&
+      typeof value[0] === "number" &&
+      typeof value[1] === "number";
+
+    if (isPoint) {
+      points.push(value);
+      return;
+    }
+
+    value.forEach(walk);
+  }
+
+  walk(geometry?.coordinates);
+  return points;
+}
+
+function geometryBounds(features) {
+  const points = [];
+
+  features.forEach((feature) => {
+    points.push(...collectCoordinates(feature.geometry));
+  });
+
+  if (!points.length) {
+    return null;
+  }
+
+  const xs = points.map((point) => point[0]);
+  const ys = points.map((point) => point[1]);
+
+  return {
+    minX: Math.min(...xs),
+    maxX: Math.max(...xs),
+    minY: Math.min(...ys),
+    maxY: Math.max(...ys),
+  };
+}
+
+  function createProjector(bounds) {
+  const width = 760;
+  const height = 520;
+  const padding = 28;
+
+  const scaleX = (width - padding * 2) / (bounds.maxX - bounds.minX);
+  const scaleY = (height - padding * 2) / (bounds.maxY - bounds.minY);
+  const scale = Math.min(scaleX, scaleY);
+
+  const mapWidth = (bounds.maxX - bounds.minX) * scale;
+  const mapHeight = (bounds.maxY - bounds.minY) * scale;
+
+  const offsetX = (width - mapWidth) / 2;
+  const offsetY = (height - mapHeight) / 2;
+
+  return ([lng, lat]) => {
+    const x = offsetX + (lng - bounds.minX) * scale;
+    const y = height - (offsetY + (lat - bounds.minY) * scale);
+    return [x, y];
+  };
+}
+
+  function ringToPath(ring, project) {
+    return (
+      ring
+        .map((point, index) => {
+          const[x, y] = project(point);
+          return `${index === 0 ? "M" : "L"}${x.toFixed(2)} ${y.toFixed(2)}`;
+        })
+        .join(" ")+ " z"
+    );
+  }
+
+  function geometryToPath(geometry, project) {
+    if (!geometry) return "";
+
+    if (geometry.type === "Polygon") {
+      return geometry.coordinates.map((ring) => ringToPath(ring, project)).join(" ");
+    }
+
+    if (geometry.type === "MultiPolygon") {
+      return geometry.coordinates
+        .flatMap((polygon) => polygon.map((ring) => ringToPath(ring, project)))
+        .join(" ");
+    }
+
+
+    return "";
+  }
+
   function renderRiskMap(detail) {
+  const svg = document.getElementById("seoul-risk-map");
+  if (!svg || !detail) return;
+
+  if (!state.mapGeometryLoaded || !state.mapFeatures.length) {
+    renderFallbackRiskMap(detail);
+    return;
+  }
+
+  const bounds = geometryBounds(state.mapFeatures);
+  if (!bounds) {
+    renderFallbackRiskMap(detail);
+    return;
+  }
+
+  const project = createProjector(bounds);
+
+  const paths = state.mapFeatures
+    .map((feature) => {
+      const district = districtFromFeature(feature);
+      if (!district) return "";
+
+      const score = Number(district.riskScore || 0);
+      const tier = riskTier(score);
+      const selectedClass = district.code === detail.code ? " is-selected" : "";
+      const path = geometryToPath(feature.geometry, project);
+
+      return `
+        <path
+          class="seoul-district-path tier-${tier}${selectedClass}"
+          d="${path}"
+          data-code="${district.code}"
+          tabindex="0"
+          role="button"
+          aria-label="${district.name} ${formatNumber(score, "점")}"
+        >
+          <title>${district.name} · ${formatNumber(score, "점")} · ${district.riskGrade}</title>
+        </path>
+      `;
+    })
+    .join("");
+
+  svg.innerHTML = `
+    <defs>
+      <filter id="selected-boundary-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="5" result="blur"></feGaussianBlur>
+        <feMerge>
+          <feMergeNode in="blur"></feMergeNode>
+          <feMergeNode in="SourceGraphic"></feMergeNode>
+        </feMerge>
+      </filter>
+      <radialGradient id="boundary-map-glow" cx="50%" cy="48%" r="58%">
+        <stop offset="0%" stop-color="#ff3347" stop-opacity="0.13"></stop>
+        <stop offset="60%" stop-color="#ff3347" stop-opacity="0.04"></stop>
+        <stop offset="100%" stop-color="#ff3347" stop-opacity="0"></stop>
+      </radialGradient>
+    </defs>
+    <rect class="map-core-glow" x="0" y="0" width="760" height="520" fill="url(#boundary-map-glow)"></rect>
+    <g class="seoul-boundary-map">
+      ${paths}
+    </g>
+  `;
+
+  svg.querySelectorAll(".seoul-district-path").forEach((node) => {
+    node.addEventListener("click", () => selectDistrict(node.dataset.code));
+    node.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectDistrict(node.dataset.code);
+      }
+    });
+  });
+
+  document.getElementById("seoul-map-district").textContent = detail.name;
+  document.getElementById("seoul-map-zone").textContent = riskTierLabel(detail.riskScore);
+  document.getElementById("seoul-map-score").textContent = formatNumber(detail.riskScore, "점");
+}
+
+  function renderFallbackRiskMap(detail) {
     const svg = document.getElementById("seoul-risk-map");
     if (!svg || !detail) return;
 
@@ -436,15 +657,25 @@
     drawLineChart("volume-chart", detail.history || [], "transactionCount", "#79c1bc");
   }
 
+  async function init() {
+  await loadDistrictGeometry();
+
+  if (state.mapGeometryLoaded) {
+    console.info(`[Redveil] Seoul district geometry matched: ${matchedGeometryCount()} / ${state.mapFeatures.length}`);
+  }
+
   renderList();
   renderDetail();
+}
 
-  document.getElementById("district-search").addEventListener("input", (event) => {
-    const items = visibleDistricts(event.target.value);
-    if (!items.find((item) => item.code === state.selectedCode) && items[0]) {
-      state.selectedCode = items[0].code;
-      renderDetail();
-    }
-    renderList(event.target.value);
-  });
+document.getElementById("district-search").addEventListener("input", (event) => {
+  const items = visibleDistricts(event.target.value);
+  if (!items.find((item) => item.code === state.selectedCode) && items[0]) {
+    state.selectedCode = items[0].code;
+    renderDetail();
+  }
+  renderList(event.target.value);
+});
+
+init();
 })();

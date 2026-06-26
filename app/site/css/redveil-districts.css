@@ -2094,3 +2094,103 @@ body[data-page="districts"] .district-trend-card svg {
     height: 176px !important;
   }
 }
+
+.seoul-boundary-map {
+  filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.35));
+}
+
+.seoul-district-path {
+  cursor: pointer;
+  stroke: rgba(255, 255, 255, 0.24);
+  stroke-width: 1.2;
+  transition:
+    fill 180ms ease,
+    stroke 180ms ease,
+    stroke-width 180ms ease,
+    filter 180ms ease,
+    opecity 180ms ease;
+}
+
+.seoul-district-path.tier-high {
+  fill: rgba(255, 51, 71, 0.68);
+}
+
+.seoul-district-path.tier-watch {
+  fill: rgba(255, 176, 72, 0.55);
+}
+
+.seoul-district-path-tier-low {
+  fill: rgba(66, 211, 146, 0.42);
+}
+
+.seoul-district-path:hover,
+.seoul-district-path:focus {
+  stroke: rgba(255, 255, 255, 0.86);
+  stroke-width: 2;
+  outline: none;
+  filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.24));
+}
+
+.soul-district-path.is-selected {
+  stroke: rgba(255, 255, 255, 0.95);
+  stroke-width: 2.8;
+  filter: drop-shadow(0 0 18px rgba(255, 51, 71,0.7));
+}
+
+/* V2 Seoul boundary risk map */
+.seoul-boundary-map {
+  filter: drop-shadow(0 20px 36px rgba(0, 0, 0, 0.52));
+}
+
+.seoul-district-path {
+  cursor: pointer;
+  stroke: rgba(255, 255, 255, 0.34);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+  transition:
+    fill 180ms ease,
+    stroke 180ms ease,
+    stroke-width 180ms ease,
+    filter 180ms ease,
+    opacity 180ms ease;
+}
+
+.seoul-district-path.tier-high {
+  fill: rgba(255, 51, 71, 0.74);
+}
+
+.seoul-district-path.tier-watch {
+  fill: rgba(255, 176, 72, 0.62);
+}
+
+.seoul-district-path.tier-low {
+  fill: rgba(66, 211, 146, 0.5);
+}
+
+.seoul-district-path:hover,
+.seoul-district-path:focus {
+  stroke: rgba(255, 255, 255, 0.95);
+  stroke-width: 2.4;
+  outline: none;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.32));
+}
+
+.seoul-district-path.is-selected {
+  stroke: rgba(255, 255, 255, 1);
+  stroke-width: 3;
+  filter:
+    drop-shadow(0 0 16px rgba(255, 51, 71, 0.86))
+    drop-shadow(0 0 26px rgba(255, 51, 71, 0.36));
+}
+
+.seoul-district-path.is-selected.tier-high {
+  fill: rgba(255, 51, 71, 0.92);
+}
+
+.seoul-district-path.is-selected.tier-watch {
+  fill: rgba(255, 176, 72, 0.82);
+}
+
+.seoul-district-path.is-selected.tier-low {
+  fill: rgba(66, 211, 146, 0.72);
+}

@@ -14,6 +14,8 @@
   const state = {
     districts: payload.districts || [],
     selectedCode: payload.districts?.[0]?.code || null,
+    mapFeatures: [],
+    mapGeometryLoaded: false,
   };
 
   const mapCells = [
@@ -46,7 +48,53 @@
 
   const byCode = () => new Map(state.districts.map((district) => [district.code, district]));
 
-  document.getElementById("district-coverage").textContent = `${state.districts.length}개 구`;
+async function loadDistrictGeometry() {
+  try {
+    const response = await fetch("./assets/seoul-districts.geojson");
+    if (!response.ok) {
+      throw new Error(`District geometry request failed: ${response.status}`);
+    }
+
+    const geojson = await response.json();
+    const features = Array.isArray(geojson.features) ? geojson.features : [];
+
+    state.mapFeatures = features;
+    state.mapGeometryLoaded = features.length > 0;
+
+    console.info(`[Redveil] Seoul district geometry loaded: ${features.length} features`);
+  } catch (error) {
+    state.mapFeatures = [];
+    state.mapGeometryLoaded = false;
+    console.warn("[Redveil] District geometry load failed. Falling back to abstract risk map.", error);
+  }
+}
+
+function featureDistrictCode(feature) {
+  const props = feature?.properties || {};
+  return props.code || props.SIG_CD || props.sig_cd || props.adm_cd || props.ADM_CD || null;
+}
+
+function featureDistrictName(feature) {
+  const props = feature?.properties || [];
+  return props.name || props.SIG_KOR_NM || props.sig_kor_nm || props.adm_nm || props.ADM_NM || null;
+}
+
+function districtFromFeature(feature) {
+  const code = featureDistrictCode(feature);
+  const name = featureDistrictName(feature);
+
+  const byCodeMatch = state.districts.find((item) => String(item.code) === String(code));
+  if (byCodeMatch) return byCodeMatch;
+
+  const byNameMatch = state.districts.find((item => String(item.name) === String(name)));
+  return byNameMatch || null;
+}
+
+function matchedGeometryCount() {
+  return state.mapFeatures.filter((feature) => districtFromFeature(feature)).length;
+}
+
+document.getElementById("district-coverage").textContent = `${state.districts.length}개 구`;
 
   function visibleDistricts(query) {
     const trimmed = String(query || "").trim();
@@ -436,15 +484,25 @@
     drawLineChart("volume-chart", detail.history || [], "transactionCount", "#79c1bc");
   }
 
+  async function init() {
+  await loadDistrictGeometry();
+
+  if (state.mapGeometryLoaded) {
+    console.info(`[Redveil] Seoul district geometry matched: ${matchedGeometryCount()} / ${state.mapFeatures.length}`);
+  }
+
   renderList();
   renderDetail();
+}
 
-  document.getElementById("district-search").addEventListener("input", (event) => {
-    const items = visibleDistricts(event.target.value);
-    if (!items.find((item) => item.code === state.selectedCode) && items[0]) {
-      state.selectedCode = items[0].code;
-      renderDetail();
-    }
-    renderList(event.target.value);
-  });
+document.getElementById("district-search").addEventListener("input", (event) => {
+  const items = visibleDistricts(event.target.value);
+  if (!items.find((item) => item.code === state.selectedCode) && items[0]) {
+    state.selectedCode = items[0].code;
+    renderDetail();
+  }
+  renderList(event.target.value);
+});
+
+init();
 })();

@@ -592,6 +592,94 @@
     list.replaceChildren(fragment);
   }
 
+  function riskLevelLabelForDashboard(score, dataAvailable) {
+    if (!dataAvailable) return "데이터 확인 필요";
+    const numericScore = toNumber(score);
+    if (numericScore >= 75) return "매입 보류";
+    if (numericScore >= 60) return "강한 비교 필요";
+    if (numericScore >= 45) return "보수 검토";
+    return "추가 검토 가능";
+  }
+
+  function riskExplanationForDashboard(detail) {
+    const score = toNumber(detail.riskScore);
+    const candidates = candidatesForDistrict(detail);
+    const mainReasons = [
+      detail.topSignalCopy,
+      detail.riskSummary,
+      detail.riskArchetype ? detail.riskArchetype + " 유형으로 분류됩니다." : "",
+    ].filter(Boolean).slice(0, 4);
+
+    const verifiedSignals = [
+      "서울 자치구 단위 리스크 점수",
+      "실거래 기반 가격 부담",
+      "거래 유동성 및 변동성 신호",
+      "선택 구 대비 대체 후보 비교",
+    ];
+
+    const designingSignals = [
+      "행정동 단위 세부 상권 보정",
+      "업종별 생존율 추정",
+      "시간대별 유동인구 보정",
+      "개별 임대 조건 반영",
+    ];
+
+    const alternatives = candidates.slice(0, 3).map((candidate) => {
+      return candidate.districtName + " · " + candidate.note;
+    });
+
+    return {
+      riskLevelLabel: riskLevelLabelForDashboard(score, detail.dataAvailable),
+      riskScore: detail.dataAvailable ? Math.round(score) : "--",
+      summary: detail.dataAvailable
+        ? detail.name + "은 추천보다 보류 사유와 비교 기준을 먼저 확인해야 하는 구간입니다."
+        : detail.name + "은 연결된 리스크 payload가 부족해 데이터 확인이 먼저 필요합니다.",
+      mainReasons,
+      verifiedSignals,
+      designingSignals,
+      alternatives,
+    };
+  }
+
+  function renderExplanationList(selector, items, emptyText) {
+    const list = document.querySelector(selector);
+    if (!list) return;
+
+    const safeItems = Array.isArray(items) ? items.filter(Boolean).slice(0, 4) : [];
+    if (!safeItems.length) {
+      const empty = document.createElement("li");
+      empty.textContent = emptyText;
+      list.replaceChildren(empty);
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+    safeItems.forEach((text) => {
+      const item = document.createElement("li");
+      item.textContent = text;
+      fragment.appendChild(item);
+    });
+    list.replaceChildren(fragment);
+  }
+
+  function renderRiskExplanationPanel(detail) {
+    const panel = document.querySelector("[data-risk-explanation-panel]");
+    if (!panel || !detail) return;
+
+    const explanation = riskExplanationForDashboard(detail);
+    setText(
+      "#risk-explanation-level",
+      explanation.riskScore === "--"
+        ? explanation.riskLevelLabel
+        : explanation.riskLevelLabel + " · " + explanation.riskScore + "점"
+    );
+    setText("#risk-explanation-summary", explanation.summary);
+
+    renderExplanationList("[data-risk-main-reasons]", explanation.mainReasons, "선택 자치구의 위험 사유를 확인하는 중입니다.");
+    renderExplanationList("[data-risk-verified-signals]", explanation.verifiedSignals, "검증된 근거를 확인하는 중입니다.");
+    renderExplanationList("[data-risk-designing-signals]", explanation.designingSignals, "설계 중인 근거가 없습니다.");
+    renderExplanationList("[data-risk-alternatives]", explanation.alternatives, "대체 후보 데이터를 불러오지 못했습니다.");
+  }
   function renderSelectedDistrict() {
     const detail = currentDistrict();
     if (!detail) return;
@@ -635,6 +723,7 @@
     if (reportLink) reportLink.href = `./districts.html?district=${encodeURIComponent(detail.code)}`;
 
     renderCandidates(candidatesForDistrict(detail));
+    renderRiskExplanationPanel(detail);
   }
 
   function selectDistrict(code, shouldFocus = false) {

@@ -3783,3 +3783,74 @@ body[data-page="redveil-v2"] {
     font-size: 4rem;
   }
 }
+
+.v2-risk-explanation {
+  display: grid;
+  gap: 14px;
+}
+
+.v2-explanation-level {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  border: 1px solid rgba(255, 51, 71, 0.3);
+  border-radius: var(--v2-radius);
+  padding: 7px 10px;
+  color: #fff;
+  font-size: 0.78rem;
+  background: rgba(255, 51, 71, 0.12);
+}
+
+.v2-explanation-summary {
+  margin: 0;
+  color: var(--v2-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.v2-explanation-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.v2-explanation-grid section {
+  border: 1px solid var(--v2-line-soft);
+  border-radius: var(--v2-radius);
+  padding: 11px;
+  background: rgba(255, 255, 255, 0.028);
+}
+
+.v2-explanation-grid h3 {
+  margin: 0 0 8px;
+  color: var(--v2-text);
+  font-size: 0.82rem;
+}
+
+.v2-explanation-grid ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.v2-explanation-grid li {
+  position: relative;
+  padding-left: 13px;
+  color: var(--v2-muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.v2-explanation-grid li::before {
+  content: "";
+  position: absolute;
+  top: 0.72em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--v2-red);
+}
+

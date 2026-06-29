@@ -138,6 +138,85 @@
     };
   }
 
+﻿function riskLevelFor(score) {
+const numericScore = Number(score || 0);
+if (numericScore >= 75) return "high";
+if (numericScore >= 60) return "medium";
+if (numericScore >= 45) return "watch";
+return "low";
+}
+
+function riskLevelLabel(level) {
+const labels = {
+high: "매입 보류",
+medium: "강한 비교 필요",
+watch: "보수 검토",
+low: "추가 검토 가능",
+};
+return labels[level] || labels.low;
+}
+
+function buildRiskExplanation(district, result = {}) {
+const score = Number(result.customRiskScore || district?.riskScore || 0);
+const level = riskLevelFor(score);
+const overlap = riskOverlapInfo(district);
+const candidates = result.replacementCandidates || district?.replacementCandidates || [];
+
+```
+const mainReasons = [
+  district?.decisionQuestion,
+  ...(result.reasons || []),
+  overlap.sentence,
+]
+  .filter(Boolean)
+  .map(polishCopy)
+  .slice(0, 4);
+
+const verifiedSignals = [
+  "실거래 기반 가격 부담",
+  "최근 12개월 거래 표본",
+  "구 단위 리스크 점수",
+  ...(overlap.activeLabels || []).map((label) => String(label) + " 신호"),
+]
+  .filter(Boolean)
+  .slice(0, 5);
+
+const designingSignals = [
+  "행정동 단위 세부 상권 보정",
+  "업종별 생존율 추정",
+  "시간대별 유동인구 보정",
+  "개별 임대 조건 반영",
+];
+
+const alternatives = candidates.slice(0, 3).map((candidate) => ({
+  name: candidate.name,
+  reason: polishCopy(candidate.whyBetter || "가격 부담과 거래 흐름을 다시 비교할 후보입니다."),
+}));
+
+return {
+  riskLevel: level,
+  riskLevelLabel: riskLevelLabel(level),
+  riskScore: Math.round(score * 10) / 10,
+  mainReasons,
+  verifiedSignals,
+  designingSignals,
+  alternatives,
+  summary: polishCopy(
+    result.summary ||
+      district?.archetypeSummary ||
+      "현재 구 리스크와 개별 매물 조건을 함께 확인해야 합니다."
+  ),
+  claimBoundary: [
+    "서울 구 단위 공공·실거래 기반 리스크 해석입니다.",
+    "개별 점포의 실제 매출, 임대 조건, 권리금, 현장 유동인구를 보장하지 않습니다.",
+    "추천보다 보류 사유와 비교 기준을 먼저 제시합니다.",
+  ],
+};
+```
+
+}
+
+
   function renderReliabilityBadges(district, options = {}) {
     const info = reliabilityInfo(district);
     const className = options.className ? ` ${options.className}` : "";
@@ -269,6 +348,12 @@
       districtCode: district.code,
       verdict,
       customRiskScore: customScore,
+      riskExplanation: buildRiskExplanation(district, {
+        customRiskScore: customScore,
+        summary,
+        reasons,
+        replacementCandidates: district.replacementCandidates || [],
+      }),
       askingPricePerSqm,
       districtMedianPricePerSqm: districtPrice,
       premiumPct: Math.round(premiumPct * 10) / 10,
@@ -320,6 +405,7 @@
       memo: String(body.memo || "").trim(),
       verdict: assessment.verdict,
       customRiskScore: assessment.customRiskScore,
+      riskExplanation: assessment.riskExplanation,
       premiumPct: assessment.premiumPct,
       riskArchetype: assessment.riskArchetype,
       recommendedAction: assessment.recommendedAction,
@@ -411,6 +497,9 @@
     formatNumber,
     formatDateTime,
     riskTone,
+    riskLevelFor,
+    riskLevelLabel,
+    buildRiskExplanation,
     polishCopy,
     reliabilityInfo,
     benchmarkInfo,

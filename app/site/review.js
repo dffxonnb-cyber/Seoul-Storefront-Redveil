@@ -153,6 +153,57 @@
       .join("");
   }
 
+    function buildHoldMemoText(result) {
+    const district = districtForRecord(result);
+    const replacementCandidates = (result.replacementCandidates || [])
+      .map((item) => `- ${item.name}: ${formatNumber(item.score, "점")} · ${polishCopy(item.whyBetter || "총 리스크가 더 낮습니다")}`)
+      .join("\n") || "- 별도 대체 후보 없음";
+
+    return [
+      "Hold Decision Memo",
+      "",
+      `후보명: ${result.assetName}`,
+      `지역: ${result.districtName}${result.adminDongName ? ` · ${result.adminDongName}` : ""}`,
+      `가정 업종: ${result.targetTenant || "미입력"}`,
+      `리스크 점수: ${formatNumber(result.customRiskScore, "점")} · ${result.riskArchetype}`,
+      `보류 판단: ${result.verdict}`,
+      "",
+      "핵심 근거:",
+      ...(result.reasons || []).map((item) => `- ${polishCopy(item)}`),
+      "",
+      "재확인 항목:",
+      ...(result.checks || []).map((item) => `- ${polishCopy(item)}`),
+      "",
+      "대체 후보:",
+      replacementCandidates,
+      "",
+      "Claim boundary:",
+      "- 이 메모는 매입 추천이나 수익률 예측이 아니라 보류·비교·전문가 검토를 위한 decision artifact입니다.",
+      "- 실제 결정에는 최근 실거래, 공실, 임대 조건, 권리금, 대출 조건, 법률·세무·중개 전문가 검토가 필요합니다.",
+      "",
+      `저장 시각: ${formatDateTime(result.createdAt)}`,
+      district ? `지역 기준: ${district.name} · ${district.riskGrade}` : "지역 기준: 확인 필요",
+    ].join("\n");
+  }
+
+  async function copyHoldMemo(result, button) {
+    const memo = buildHoldMemoText(result);
+
+    try {
+      await navigator.clipboard.writeText(memo);
+      if (button) {
+        const originalText = button.textContent;
+        button.textContent = "복사 완료";
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1400);
+      }
+    } catch (error) {
+      console.warn("Hold memo copy failed", error);
+      window.prompt("복사할 메모입니다. Ctrl+C로 복사하세요.", memo);
+    }
+  }
+
   function renderResult(result) {
     const district = districtForRecord(result);
     document.getElementById("review-result").innerHTML = `
@@ -198,6 +249,12 @@
           </section>
         </div>
         ${renderAlternativeRationale(district, result)}
+        <div class="review-export-actions">
+          <button class="button button-secondary" type="button" data-hold-memo-copy="${result.id}">
+            Hold Memo 복사
+          </button>
+          <p class="compact-note">복사된 메모는 매입 추천이 아니라 보류·비교·전문가 검토용 decision artifact입니다.</p>
+        </div>
         <p class="compact-note">저장 시각 ${formatDateTime(result.createdAt)}</p>
       </div>
     `;
@@ -390,6 +447,15 @@
       renderResult(review);
       renderReviewDetail(review);
       document.getElementById("review-result")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+    document.getElementById("review-result")?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-hold-memo-copy]");
+    if (!button) return;
+
+    const review = loadReviews().find((item) => item.id === button.dataset.holdMemoCopy);
+    if (review) {
+      copyHoldMemo(review, button);
     }
   });
 })();

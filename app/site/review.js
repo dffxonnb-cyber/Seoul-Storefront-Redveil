@@ -298,6 +298,7 @@
         <p class="compact-note">저장 시각 ${formatDateTime(result.createdAt)}</p>
       </div>
     `;
+  }
 
   function renderExamples() {
     const target = document.getElementById("review-example-list");

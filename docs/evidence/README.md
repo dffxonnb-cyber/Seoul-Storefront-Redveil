@@ -15,6 +15,7 @@ GitHub Pages는 repository의 `Deploy Pages` workflow가 `main`에서 직접 검
 
 ## Current Evidence
 
+- [V2 decision artifact evidence](v2-decision-artifact.md)
 - [Production verification summary](production-verification-2026-06-15.md)
 - [Public payload metadata](public-payload-metadata-2026-06-15.json)
 - [Deploy Pages PASS](deploy-pages-verification-2026-06-15.json)

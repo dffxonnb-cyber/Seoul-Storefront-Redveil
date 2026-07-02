@@ -11498,3 +11498,93 @@ body[data-page="home"] .redveil-hero {
     grid-template-columns: 1fr;
   }
 }
+
+.professional-review-checklist {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+  padding: clamp(16px, 2vw, 20px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 96% 0%, rgba(255, 30, 53, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(20, 24, 34, 0.9), rgba(10, 12, 18, 0.84)),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+
+.professional-review-head {
+  display: grid;
+  gap: 8px;
+  max-width: 760px;
+}
+
+.professional-review-head .result-label {
+  margin-bottom: 0;
+}
+
+.professional-review-head strong {
+  color: #fff;
+  font-size: clamp(17px, 1.7vw, 20px);
+  font-weight: 820;
+  line-height: 1.34;
+}
+
+.professional-review-head p {
+  margin: 0;
+  color: rgba(190, 196, 210, 0.72);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.68;
+}
+
+.professional-review-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.professional-review-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  min-height: 48px;
+  padding: 12px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(225, 229, 238, 0.84);
+  font-size: 13.5px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.professional-review-list li::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-top: 0.48em;
+  border-radius: 999px;
+  background: #ff6675;
+  box-shadow: 0 0 14px rgba(255, 30, 53, 0.45);
+}
+
+body[data-page="review"] .professional-review-checklist,
+body[data-page="compare"] .professional-review-checklist {
+  color: var(--text-main);
+}
+
+body[data-page="review"] .review-result-memo > .professional-review-checklist,
+body[data-page="compare"] #compare-memo > .professional-review-checklist {
+  margin-top: 18px;
+}
+
+@media (max-width: 720px) {
+  .professional-review-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -10,6 +10,16 @@
   if (!payload) return;
 
   const districts = payload.districts || [];
+  const professionalReviewChecklist = [
+    "Re-check recent transaction prices / asking prices",
+    "Check vacancy possibility",
+    "Check lease terms",
+    "Check rights premium / management fees",
+    "Check loan conditions",
+    "Check same-business competition density on site",
+    "Check hourly foot-traffic variation",
+    "Legal / tax / brokerage professional review",
+  ];
   document.getElementById("compare-coverage").textContent = `${districts.length}개 구`;
 
   function validDistrictCode(code) {
@@ -87,6 +97,21 @@
     ]
       .sort((a, b) => b.value - a.value)
       .slice(0, limit);
+  }
+
+  function renderProfessionalReviewChecklist() {
+    return `
+      <section class="professional-review-checklist" aria-label="Professional review handoff checklist">
+        <div class="professional-review-head">
+          <span class="result-label">Professional Review Handoff</span>
+          <strong>Comparison baseline re-check items</strong>
+          <p>Use this decision artifact to pause, compare, and prepare a professional review handoff. It does not replace legal, tax, financial, brokerage, or on-site professional review.</p>
+        </div>
+        <ul class="professional-review-list">
+          ${professionalReviewChecklist.map((item) => `<li>${item}</li>`).join("")}
+        </ul>
+      </section>
+    `;
   }
 
   function riskSignalItems(item) {
@@ -303,10 +328,119 @@
     `;
   }
 
+    function safeFilename(value) {
+    return String(value || "redveil-comparison")
+      .trim()
+      .replace(/[\\/:*?"<>|]/g, "-")
+      .replace(/\s+/g, "-")
+      .slice(0, 80);
+  }
+
+  function downloadTextFile(filename, content) {
+    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    URL.revokeObjectURL(url);
+  }
+
+  function buildComparisonMemoText(items) {
+    const sorted = [...items].sort((a, b) => Number(a.riskScore) - Number(b.riskScore));
+    const safest = sorted[0];
+    const riskiest = sorted[sorted.length - 1];
+
+    const biggestGap = [
+      ["가격 부담", "priceBurdenRiskScore"],
+      ["거래 유동성", "liquidityRiskScore"],
+      ["가격 변동성", "volatilityRiskScore"],
+      ["상권 과밀", "competitionRiskScore"],
+    ]
+      .map(([label, key]) => {
+        const values = items.map((item) => Number(item[key] || 0));
+        return { label, gap: Math.max(...values) - Math.min(...values) };
+      })
+      .sort((a, b) => b.gap - a.gap)[0];
+
+    const caution =
+      Number(riskiest?.riskScore || 0) >= 70
+        ? "매입 보류"
+        : Number(riskiest?.riskScore || 0) >= 60
+          ? "강한 비교 필요"
+          : "추가 검토";
+
+    return [
+      "Comparison Memo",
+      "",
+      "후보 조합:",
+      ...items.map(
+        (item) =>
+          `- ${candidateLabel(item, items)} · ${item.name}: ${formatNumber(item.riskScore, "점")} · ${item.riskArchetype}`
+      ),
+      "",
+      `가장 보수적으로 볼 후보: ${candidateLabel(riskiest, items)} · ${riskiest.name} · ${caution}`,
+      `가장 낮은 리스크 후보: ${candidateLabel(safest, items)} · ${safest.name} · ${formatNumber(safest.riskScore, "점")}`,
+      `가장 큰 차이를 만든 리스크 축: ${biggestGap.label} · ${formatNumber(biggestGap.gap, "점")}`,
+      "",
+      "다음 액션:",
+      `- ${riskiest.name} 후보는 최근 체결가, 공실률, 임대 조건, 동일 업종 과밀도를 재확인합니다.`,
+      `- ${safest.name} 후보를 기준선으로 두고 초과 위험만 다시 비교합니다.`,
+      "- 현장 확인 전에는 어떤 후보도 매입 기준 후보로 확정하지 않습니다.",
+      "",
+      "Professional review handoff checklist:",
+      ...professionalReviewChecklist.map((item) => `- ${item}`),
+      "",
+      "Claim boundary:",
+      "- This checklist is a pause-first decision artifact for re-checking, comparison baseline review, and professional review handoff.",
+      "- It does not replace legal, tax, financial, brokerage, or on-site professional review.",
+      "- 이 비교 메모는 매입 추천이나 수익률 예측이 아니라 보류·비교·전문가 검토를 위한 decision artifact입니다.",
+      "- 실제 결정에는 최근 실거래, 공실, 임대 조건, 권리금, 대출 조건, 법률·세무·중개 전문가 검토가 필요합니다.",
+    ].join("\n");
+  }
+
+  async function copyComparisonMemo(items, button) {
+    const memo = buildComparisonMemoText(items);
+
+    try {
+      await navigator.clipboard.writeText(memo);
+      if (button) {
+        const originalText = button.textContent;
+        button.textContent = "복사 완료";
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1400);
+      }
+    } catch (error) {
+      console.warn("Comparison memo copy failed", error);
+      window.prompt("복사할 메모입니다. Ctrl+C로 복사하세요.", memo);
+    }
+  }
+
+  function exportComparisonMemo(items, button) {
+    const memo = buildComparisonMemoText(items);
+    const filename = `redveil-comparison-memo-${safeFilename(items.map((item) => item.name).join("-vs-"))}.txt`;
+
+    downloadTextFile(filename, memo);
+
+    if (button) {
+      const originalText = button.textContent;
+      button.textContent = "TXT 저장됨";
+      setTimeout(() => {
+        button.textContent = originalText;
+      }, 1400);
+    }
+  }
+
   function renderDecisionMemo(items) {
     const sorted = [...items].sort((a, b) => Number(a.riskScore) - Number(b.riskScore));
     const safest = sorted[0];
     const riskiest = sorted[sorted.length - 1];
+
     const biggestGap = [
       ["가격 부담", "priceBurdenRiskScore"],
       ["거래 유동성", "liquidityRiskScore"],
@@ -318,8 +452,17 @@
         return { label, key, gap: Math.max(...values) - Math.min(...values) };
       })
       .sort((a, b) => b.gap - a.gap)[0];
-    const caution = Number(riskiest?.riskScore || 0) >= 70 ? "매입 보류" : Number(riskiest?.riskScore || 0) >= 60 ? "강한 비교 필요" : "추가 검토";
-    const mainFactors = topRiskFactors(riskiest, 2).map((factor) => factor.label).join(" · ");
+
+    const caution =
+      Number(riskiest?.riskScore || 0) >= 70
+        ? "매입 보류"
+        : Number(riskiest?.riskScore || 0) >= 60
+          ? "강한 비교 필요"
+          : "추가 검토";
+
+    const mainFactors = topRiskFactors(riskiest, 2)
+      .map((factor) => factor.label)
+      .join(" · ");
 
     document.getElementById("compare-memo").innerHTML = `
       <div class="decision-memo-board">
@@ -344,6 +487,16 @@
           <p>낮은 리스크 후보를 기준선으로 두고 초과 위험만 다시 검토합니다.</p>
         </article>
       </div>
+      ${renderProfessionalReviewChecklist()}
+      <div class="review-export-actions">
+        <button class="button button-secondary" type="button" data-comparison-memo-copy>
+          Comparison Memo 복사
+        </button>
+        <button class="button button-secondary" type="button" data-comparison-memo-export>
+          TXT export
+        </button>
+        <p class="compact-note">복사·저장된 비교 메모는 매입 추천이 아니라 보류·비교·전문가 검토용 decision artifact입니다.</p>
+      </div>
     `;
   }
 
@@ -356,5 +509,21 @@
   }
 
   document.getElementById("compare-run").addEventListener("click", runCompare);
+
+  document.getElementById("compare-memo")?.addEventListener("click", (event) => {
+    const copyButton = event.target.closest("[data-comparison-memo-copy]");
+    const exportButton = event.target.closest("[data-comparison-memo-export]");
+    const items = selectedDistricts();
+
+    if (copyButton) {
+      copyComparisonMemo(items, copyButton);
+      return;
+    }
+
+    if (exportButton) {
+      exportComparisonMemo(items, exportButton);
+    }
+  });
+
   runCompare();
 })();

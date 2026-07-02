@@ -46,6 +46,8 @@ Instead of ranking areas as good or bad investments, it organizes risk signals i
 
 The UI should make the user slower and more careful, not more impulsive.
 
+V2 adds a decision artifact layer: Hold Memo, Comparison Memo, and Professional Review Checklist outputs turn pause-first review into a clearer professional handoff artifact without becoming investment advice or a buy/sell recommendation.
+
 ## User Workflow
 
 1. The user lands on Redveil and understands the pause-first concept.
@@ -92,6 +94,7 @@ The score is a screening signal for review priority. It is not an investment-ret
 - 3-minute diagnosis flow
 - Candidate comparison view
 - District report view
+- V2 decision artifact layer with Hold Memo, Comparison Memo, and Professional Review Checklist handoff surfaces
 - Public-safe website payload
 - Local verification server
 - Python unittest coverage
@@ -126,16 +129,21 @@ Together, the two projects show that I can connect data, product thinking, inter
 - Real-world use would require updated transaction data, verified commercial-area data, professional review, and stronger validation.
 - Building-level lease terms, vacancy, rights premium, tenant quality, financing, and legal constraints are not fully modeled.
 
-## V2 Roadmap
+## V2 Status And Roadmap
 
-Potential V2 additions:
+Completed V2 decision artifact additions:
+
+- Copy/exportable Hold Memo
+- Copy/exportable Comparison Memo
+- Professional Review Checklist for pause-first review and professional handoff
+
+Potential future additions:
 
 - Cleaner district and admin-dong level data refresh
 - More transparent signal weighting controls
 - Scenario notes and saved comparisons
 - More robust validation against historical outcomes
 - Better map interaction and location search
-- Professional-review handoff checklist
 
 Out of scope for V1:
 

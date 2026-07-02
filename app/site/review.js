@@ -19,6 +19,16 @@
 
   const districts = payload.districts || [];
   const reviewExamples = payload.reviewExamples || payload.validationCases || [];
+  const professionalReviewChecklist = [
+    "Re-check recent transaction prices / asking prices",
+    "Check vacancy possibility",
+    "Check lease terms",
+    "Check rights premium / management fees",
+    "Check loan conditions",
+    "Check same-business competition density on site",
+    "Check hourly foot-traffic variation",
+    "Legal / tax / brokerage professional review",
+  ];
 
   function getInitialDistrictCode() {
   const params = new URLSearchParams(window.location.search);
@@ -49,6 +59,21 @@
     ]
       .map(([label, value]) => ({ label, value: Number(value || 0) }))
       .sort((left, right) => right.value - left.value);
+  }
+
+  function renderProfessionalReviewChecklist() {
+    return `
+      <section class="professional-review-checklist" aria-label="Professional review handoff checklist">
+        <div class="professional-review-head">
+          <span class="result-label">Professional Review Handoff</span>
+          <strong>Pause reason and re-check item checklist</strong>
+          <p>This decision artifact supports pause-first review and comparison baseline work. It does not replace legal, tax, financial, brokerage, or on-site professional review.</p>
+        </div>
+        <ul class="professional-review-list">
+          ${professionalReviewChecklist.map((item) => `<li>${item}</li>`).join("")}
+        </ul>
+      </section>
+    `;
   }
 
   function renderHistory() {
@@ -174,10 +199,15 @@
       "재확인 항목:",
       ...(result.checks || []).map((item) => `- ${polishCopy(item)}`),
       "",
+      "Professional review handoff checklist:",
+      ...professionalReviewChecklist.map((item) => `- ${item}`),
+      "",
       "대체 후보:",
       replacementCandidates,
       "",
       "Claim boundary:",
+      "- This checklist is a pause-first decision artifact for re-checking, comparison baseline review, and professional review handoff.",
+      "- It does not replace legal, tax, financial, brokerage, or on-site professional review.",
       "- 이 메모는 매입 추천이나 수익률 예측이 아니라 보류·비교·전문가 검토를 위한 decision artifact입니다.",
       "- 실제 결정에는 최근 실거래, 공실, 임대 조건, 권리금, 대출 조건, 법률·세무·중개 전문가 검토가 필요합니다.",
       "",
@@ -286,6 +316,7 @@
           </section>
         </div>
         ${renderAlternativeRationale(district, result)}
+        ${renderProfessionalReviewChecklist()}
         <div class="review-export-actions">
           <button class="button button-secondary" type="button" data-hold-memo-copy="${result.id}">
             Hold Memo 복사

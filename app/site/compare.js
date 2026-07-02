@@ -10,6 +10,16 @@
   if (!payload) return;
 
   const districts = payload.districts || [];
+  const professionalReviewChecklist = [
+    "Re-check recent transaction prices / asking prices",
+    "Check vacancy possibility",
+    "Check lease terms",
+    "Check rights premium / management fees",
+    "Check loan conditions",
+    "Check same-business competition density on site",
+    "Check hourly foot-traffic variation",
+    "Legal / tax / brokerage professional review",
+  ];
   document.getElementById("compare-coverage").textContent = `${districts.length}개 구`;
 
   function validDistrictCode(code) {
@@ -87,6 +97,21 @@
     ]
       .sort((a, b) => b.value - a.value)
       .slice(0, limit);
+  }
+
+  function renderProfessionalReviewChecklist() {
+    return `
+      <section class="professional-review-checklist" aria-label="Professional review handoff checklist">
+        <div class="professional-review-head">
+          <span class="result-label">Professional Review Handoff</span>
+          <strong>Comparison baseline re-check items</strong>
+          <p>Use this decision artifact to pause, compare, and prepare a professional review handoff. It does not replace legal, tax, financial, brokerage, or on-site professional review.</p>
+        </div>
+        <ul class="professional-review-list">
+          ${professionalReviewChecklist.map((item) => `<li>${item}</li>`).join("")}
+        </ul>
+      </section>
+    `;
   }
 
   function riskSignalItems(item) {
@@ -367,7 +392,12 @@
       `- ${safest.name} 후보를 기준선으로 두고 초과 위험만 다시 비교합니다.`,
       "- 현장 확인 전에는 어떤 후보도 매입 기준 후보로 확정하지 않습니다.",
       "",
+      "Professional review handoff checklist:",
+      ...professionalReviewChecklist.map((item) => `- ${item}`),
+      "",
       "Claim boundary:",
+      "- This checklist is a pause-first decision artifact for re-checking, comparison baseline review, and professional review handoff.",
+      "- It does not replace legal, tax, financial, brokerage, or on-site professional review.",
       "- 이 비교 메모는 매입 추천이나 수익률 예측이 아니라 보류·비교·전문가 검토를 위한 decision artifact입니다.",
       "- 실제 결정에는 최근 실거래, 공실, 임대 조건, 권리금, 대출 조건, 법률·세무·중개 전문가 검토가 필요합니다.",
     ].join("\n");
@@ -457,6 +487,7 @@
           <p>낮은 리스크 후보를 기준선으로 두고 초과 위험만 다시 검토합니다.</p>
         </article>
       </div>
+      ${renderProfessionalReviewChecklist()}
       <div class="review-export-actions">
         <button class="button button-secondary" type="button" data-comparison-memo-copy>
           Comparison Memo 복사

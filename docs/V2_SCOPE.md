@@ -92,6 +92,14 @@ Redveil V2는 다음을 주장하지 않습니다.
 - 대체 후보가 더 좋은 매입처라고 주장하지 않음
 - professional checklist가 실제 법률·세무·금융 검토를 대체한다고 주장하지 않음
 
+Claim boundary summary:
+
+- Redveil is not investment advice.
+- Redveil does not provide buy/sell recommendations.
+- Redveil does not predict returns.
+- Redveil does not replace legal, tax, financial, brokerage, or on-site professional review.
+- Redveil is a public-safe portfolio prototype focused on pause-first decision support.
+
 ## V2 Completion Criteria
 
 V2 1차 완료 기준은 다음과 같습니다.
@@ -103,3 +111,17 @@ V2 1차 완료 기준은 다음과 같습니다.
 - V2 evidence 문서가 docs/evidence/에 추가됨
 - README의 V2 Roadmap이 구현 상태 기준으로 갱신됨
 - smoke / build 검증 통과
+
+## V2 Completion Status
+
+Status date: **2026-07-02 KST**
+
+| Criteria | Status | Evidence |
+| --- | --- | --- |
+| `docs/V2_SCOPE.md` 작성 | Complete | This document defines V2 scope, out-of-scope claims, checklist, and completion criteria. |
+| Review page Hold Memo copy/export | Complete | `app/site/review.js` has Hold Memo generation, clipboard copy, and TXT export. |
+| Compare page Comparison Memo copy/export | Complete | `app/site/compare.js` has Comparison Memo generation, clipboard copy, and TXT export. |
+| Professional Review Checklist 표시 | Complete | Checklist is shown in review result and compare memo surfaces, and included in copied/exported memo text. |
+| V2 evidence 문서 추가 | Complete | `docs/evidence/v2-decision-artifact.md` records the decision artifact evidence and boundary. |
+| README / portfolio case study 갱신 | Complete for documentation scope | README and portfolio case study now describe the V2 decision artifact layer without replacing the public V1 flow. |
+| smoke / build 검증 | Locally verified for build and unit/static tests | `npm run build` and `py -m unittest discover -s tests -p "test_*.py"` passed locally. Browser E2E and fresh production deploy verification are not claimed in this V2 evidence update. |

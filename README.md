@@ -141,6 +141,14 @@ Completed:
 - Portfolio case study
 - Local and public verification scripts
 
+## V2 Decision Artifact Status
+
+V2 strengthens Redveil's decision artifacts without replacing the existing public V1 flow. The review and compare flows now support copy/exportable Hold Memo and Comparison Memo outputs, plus a Professional Review Checklist for pause-first review and professional handoff.
+
+See [V2 decision artifact evidence](./docs/evidence/v2-decision-artifact.md).
+
+Redveil remains a public-safe portfolio prototype. It is not investment advice, does not provide buy/sell recommendations, does not predict returns, and does not replace legal, tax, financial, brokerage, or on-site professional review.
+
 ## Limitations
 
 - Redveil is a portfolio prototype.
@@ -200,9 +208,10 @@ python scripts/check_public_site.py
 
 ## Production Evidence
 
-Public-safe Production evidence archived on 2026-06-15 KST:
+Public-safe evidence includes production evidence archived on 2026-06-15 KST and V2 decision artifact evidence archived on 2026-07-02 KST:
 
 - [Production verification summary](./docs/evidence/production-verification-2026-06-15.md)
+- [V2 decision artifact evidence](./docs/evidence/v2-decision-artifact.md)
 - [Public payload metadata](./docs/evidence/public-payload-metadata-2026-06-15.json)
 - [Deploy Pages PASS](./docs/evidence/deploy-pages-verification-2026-06-15.json)
 - [Production home](./docs/evidence/redveil-production-home-2026-06-15.png)

@@ -38,7 +38,8 @@ function watchRuntimeErrors(page) {
 }
 
 test.beforeEach(async ({ page }) => {
-  await page.addInitScript(() => window.localStorage.clear());
+  await page.goto("/index.html");
+  await page.evaluate(() => window.localStorage.clear());
 });
 
 test("3분 진단은 선택 구를 계산하고 새로고침 뒤에도 유지한다", async ({ page }) => {

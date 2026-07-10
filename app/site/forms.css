@@ -1,0 +1,36 @@
+:root {
+  --redveil-form-surface: #080a0f;
+  --redveil-form-text: #f4f5f7;
+  --redveil-form-border: rgba(255, 255, 255, 0.12);
+  --redveil-form-focus: rgba(255, 30, 53, 0.42);
+  --redveil-form-invalid: rgba(255, 111, 73, 0.72);
+}
+
+body[data-page] select {
+  color-scheme: dark;
+}
+
+body[data-page] :is(.field input, .field select, .field textarea) {
+  color: var(--redveil-form-text);
+  border-color: var(--redveil-form-border);
+}
+
+body[data-page] select,
+body[data-page] select option {
+  color: var(--redveil-form-text);
+  background-color: var(--redveil-form-surface);
+}
+
+body[data-page] :is(.field input, .field select, .field textarea):focus {
+  outline: none;
+  border-color: var(--redveil-form-focus);
+  box-shadow: 0 0 0 3px rgba(255, 30, 53, 0.1);
+}
+
+body[data-page] select[aria-invalid="true"] {
+  outline: 1px solid var(--redveil-form-invalid);
+}
+
+.compare-selection-message {
+  margin-top: 0.65rem;
+}

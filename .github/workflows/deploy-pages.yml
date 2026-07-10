@@ -72,6 +72,15 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+      - name: Upload compare district minimap preview
+        if: always() && github.event_name == 'pull_request' && github.head_ref == 'agent/compare-district-minimaps'
+        uses: actions/upload-artifact@v4
+        with:
+          name: compare-district-minimap-preview
+          path: test-results/compare-district-minimaps.png
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Upload browser failure artifacts
         if: failure()
         uses: actions/upload-artifact@v4

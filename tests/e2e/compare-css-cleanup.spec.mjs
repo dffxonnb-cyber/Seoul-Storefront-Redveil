@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("compare page applies corrected legacy styles and calm rose accents", async ({ page }) => {
+test("compare page applies corrected styles and restrained crimson accents", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/compare.html?a=11620&b=11650&c=11680");
 
@@ -25,6 +25,7 @@ test("compare page applies corrected legacy styles and calm rose accents", async
     const metricBar = styleOf(".metric-mini-row .progress-track span");
     const rankPill = styleOf(".compare-card .rank-pill");
     const highSignal = styleOf(".risk-signal-card.tone-high");
+    const highSignalValue = styleOf(".risk-signal-card.tone-high strong");
     const compareButton = styleOf("#compare-run");
     const candidateMap = styleOf(".candidate-district-map:not(.is-amber):not(.is-cool)");
 
@@ -48,6 +49,7 @@ test("compare page applies corrected legacy styles and calm rose accents", async
       rankPillColor: rankPill.color,
       rankPillBorder: rankPill.borderTopColor,
       highSignalBorder: highSignal.borderTopColor,
+      highSignalValueColor: highSignalValue.color,
       compareButtonBackground: compareButton.backgroundImage,
       mapAccent: candidateMap.getPropertyValue("--map-accent").trim(),
     };
@@ -64,15 +66,16 @@ test("compare page applies corrected legacy styles and calm rose accents", async
   expect(computed.signalFontSize).toBe("12px");
   expect(computed.memoPosition).toBe("relative");
   expect(computed.memoOverflow).toBe("hidden");
-  expect(computed.primaryMemoBorder).toBe("rgba(231, 123, 136, 0.22)");
+  expect(computed.primaryMemoBorder).toBe("rgba(196, 63, 82, 0.2)");
   expect(computed.memoStrongSize).toBe("14px");
 
-  expect(computed.metricScoreColor).toBe("rgb(237, 135, 147)");
+  expect(computed.metricScoreColor).toBe("rgba(244, 246, 250, 0.95)");
   expect(computed.metricScoreShadow).toBe("none");
-  expect(computed.metricBarBackground).toContain("rgb(231, 123, 136)");
-  expect(computed.rankPillColor).toBe("rgb(237, 135, 147)");
-  expect(computed.rankPillBorder).toBe("rgba(231, 123, 136, 0.22)");
-  expect(computed.highSignalBorder).toBe("rgba(231, 123, 136, 0.22)");
-  expect(computed.compareButtonBackground).toContain("rgb(217, 95, 112)");
-  expect(computed.mapAccent).toBe("#e77b88");
+  expect(computed.metricBarBackground).toContain("rgb(196, 63, 82)");
+  expect(computed.rankPillColor).toBe("rgb(212, 90, 107)");
+  expect(computed.rankPillBorder).toBe("rgba(196, 63, 82, 0.2)");
+  expect(computed.highSignalBorder).toBe("rgba(196, 63, 82, 0.2)");
+  expect(computed.highSignalValueColor).toBe("rgba(244, 246, 250, 0.95)");
+  expect(computed.compareButtonBackground).toContain("rgb(173, 48, 69)");
+  expect(computed.mapAccent).toBe("#c43f52");
 });

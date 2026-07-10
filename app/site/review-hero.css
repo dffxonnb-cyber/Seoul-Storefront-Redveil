@@ -1,146 +1,143 @@
 body[data-page="review"] .review-subhero {
-  min-height: 360px;
+  min-height: 350px;
   padding: clamp(30px, 3vw, 38px);
 }
 
 body[data-page="review"] .review-hero-layout {
-  grid-template-columns: minmax(0, 0.84fr) minmax(630px, 1.16fr);
-  gap: clamp(24px, 2.2vw, 30px);
+  grid-template-columns: minmax(0, 0.9fr) minmax(660px, 1.1fr);
+  gap: clamp(26px, 2.4vw, 34px);
   align-items: center;
-  min-height: 284px;
+  min-height: 274px;
 }
 
 body[data-page="review"] .review-hero-main {
   align-content: center;
-  gap: 16px;
+  gap: 15px;
 }
 
 body[data-page="review"] .review-hero-main h2 {
   max-width: 14ch;
   font-size: clamp(40px, 4vw, 56px);
-  line-height: 1.02;
+  line-height: 1.03;
 }
 
 body[data-page="review"] .review-hero-main p:not(.section-label) {
   max-width: 590px;
   font-size: clamp(15px, 1.05vw, 16px);
-  line-height: 1.82;
+  line-height: 1.78;
 }
 
 body[data-page="review"] .review-status-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   align-items: stretch;
 }
 
 body[data-page="review"] .review-status-card {
   display: grid;
-  grid-template-columns: 46px minmax(0, 1fr);
-  grid-template-rows: 46px minmax(68px, 1fr) auto;
-  column-gap: 10px;
-  align-items: start;
-  align-self: stretch;
+  grid-template-columns: 44px 1px minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  column-gap: 14px;
+  row-gap: 7px;
+  align-content: center;
   min-width: 0;
-  min-height: 210px;
-  height: 100%;
-  padding: 20px 18px 18px;
-  border-color: rgba(255, 104, 121, 0.2);
-  border-radius: 22px;
+  min-height: 154px;
+  padding: 20px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 17px;
   background:
-    radial-gradient(circle at 86% 12%, rgba(255, 30, 53, 0.13), transparent 34%),
-    linear-gradient(145deg, rgba(25, 25, 34, 0.98), rgba(9, 11, 17, 0.94));
+    linear-gradient(145deg, rgba(18, 21, 29, 0.84), rgba(10, 12, 18, 0.76)),
+    rgba(11, 13, 19, 0.82);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 18px 40px rgba(0, 0, 0, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    0 12px 28px rgba(0, 0, 0, 0.18);
   transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease;
+    border-color 160ms ease,
+    background-color 160ms ease;
 }
 
 body[data-page="review"] .review-status-card::before {
   content: "";
   grid-column: 1;
-  grid-row: 1;
-  width: 46px;
-  height: 46px;
-  border: 1px solid rgba(255, 92, 111, 0.16);
-  border-radius: 14px;
+  grid-row: 1 / -1;
+  align-self: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 82, 102, 0.14);
+  border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.035);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 24px 24px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    0 10px 24px rgba(0, 0, 0, 0.18);
+  background-size: 23px 23px;
+}
+
+body[data-page="review"] .review-status-card::after {
+  content: "";
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: stretch;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.09);
 }
 
 body[data-page="review"] .review-status-card:nth-child(1)::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff455b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3.75h12v16.5l-6-4-6 4z'/%3E%3Cpath d='M9 8.25h6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff4056' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.75 7.25h6l1.6 2H20.25v9.5H3.75z'/%3E%3Cpath d='M3.75 7.25V5.5h6l1.5 1.75'/%3E%3C/svg%3E");
 }
 
 body[data-page="review"] .review-status-card:nth-child(2)::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff455b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 16.5-.75 4.25 4.25-.75L19 8.5 15.5 5z'/%3E%3Cpath d='m13.75 6.75 3.5 3.5'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff4056' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3.75h8l4 4v12.5H6z'/%3E%3Cpath d='M14 3.75v4h4M9 12h6M9 15.5h5'/%3E%3C/svg%3E");
 }
 
 body[data-page="review"] .review-status-card:nth-child(3)::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff455b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='6.5'/%3E%3Cpath d='M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M12 9v6M9 12h6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff4056' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='6.5'/%3E%3Ccircle cx='12' cy='12' r='2.25'/%3E%3Cpath d='M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3'/%3E%3C/svg%3E");
 }
 
 body[data-page="review"] .review-status-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 83, 103, 0.34);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 24px 46px rgba(0, 0, 0, 0.34),
-    0 0 36px rgba(255, 30, 53, 0.06);
+  border-color: rgba(255, 86, 105, 0.24);
+  background:
+    linear-gradient(145deg, rgba(20, 23, 31, 0.88), rgba(11, 13, 19, 0.8)),
+    rgba(11, 13, 19, 0.84);
+}
+
+body[data-page="review"] .review-status-card .card-label,
+body[data-page="review"] .review-status-card strong,
+body[data-page="review"] .review-status-card .compact-note {
+  grid-column: 3;
+  min-width: 0;
+  margin: 0;
 }
 
 body[data-page="review"] .review-status-card .card-label {
-  grid-column: 2;
   grid-row: 1;
-  align-self: center;
-  margin: 0;
-  color: #ff6678;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  line-height: 1.3;
+  color: rgba(194, 199, 211, 0.7);
+  font-size: 9.5px;
+  font-weight: 760;
+  letter-spacing: 0.12em;
+  line-height: 1.25;
   white-space: nowrap;
 }
 
-body[data-page="review"] .review-status-card:first-child .card-label {
-  font-size: 9.2px;
-  letter-spacing: 0.04em;
-}
-
 body[data-page="review"] .review-status-card strong {
-  grid-column: 1 / -1;
   grid-row: 2;
-  align-self: center;
-  min-width: 0;
-  margin: 10px 0 7px;
   color: #ff334a;
-  font-size: clamp(27px, 2vw, 33px);
-  font-weight: 840;
-  line-height: 1.04;
-  letter-spacing: -0.045em;
+  font-size: clamp(25px, 1.9vw, 31px);
+  font-weight: 820;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
   white-space: nowrap;
 }
 
 body[data-page="review"] .review-status-card:first-child strong {
-  font-size: clamp(36px, 2.8vw, 45px);
+  font-size: clamp(30px, 2.25vw, 36px);
 }
 
 body[data-page="review"] .review-status-card .compact-note {
-  grid-column: 1 / -1;
   grid-row: 3;
-  min-height: 38px;
-  margin: 0;
-  color: rgba(207, 211, 222, 0.72);
+  color: rgba(194, 199, 211, 0.68);
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.4;
+  white-space: nowrap;
 }
 
 @media (max-width: 1180px) {
@@ -157,10 +154,6 @@ body[data-page="review"] .review-status-card .compact-note {
   body[data-page="review"] .review-hero-main h2 {
     max-width: 15ch;
   }
-
-  body[data-page="review"] .review-status-card {
-    min-height: 184px;
-  }
 }
 
 @media (max-width: 760px) {
@@ -169,30 +162,6 @@ body[data-page="review"] .review-status-card .compact-note {
   }
 
   body[data-page="review"] .review-status-card {
-    grid-template-columns: 48px minmax(0, 1fr);
-    grid-template-rows: auto auto auto;
-    min-height: 0;
-    padding: 18px;
-  }
-
-  body[data-page="review"] .review-status-card::before {
-    width: 48px;
-    height: 48px;
-  }
-
-  body[data-page="review"] .review-status-card strong {
-    grid-column: 2;
-    grid-row: 2;
-    margin: 4px 0 5px;
-  }
-
-  body[data-page="review"] .review-status-card:first-child strong {
-    font-size: 36px;
-  }
-
-  body[data-page="review"] .review-status-card .compact-note {
-    grid-column: 2;
-    grid-row: 3;
-    min-height: 0;
+    min-height: 126px;
   }
 }

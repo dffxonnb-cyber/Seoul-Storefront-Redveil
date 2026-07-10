@@ -1,6 +1,7 @@
 (function () {
   const payload = window.__REDVEIL_PAYLOAD__;
   const STORAGE_KEY = "redveil-reviews";
+  const DISTRICT_STORAGE_KEY = "redveil-selected-district";
 
   function formatNumber(value, suffix = "", maximumFractionDigits = 1) {
     return `${Number(value || 0).toLocaleString("ko-KR", { maximumFractionDigits })}${suffix}`;
@@ -38,6 +39,15 @@
       .replace(noCandidateUnsafe, "현재 조건에서는 별도 대체 후보가 없어 현장 확인을 우선하세요.")
       .replace(candidateUnsafe, "바로 매입을 결정하기보다 $1 등 대체 후보를 먼저 비교하세요.")
       .replace(new RegExp("것이 안전" + "합니다", "g"), "것이 보수적입니다");
+  }
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   }
 
   function recentTransactionSample(district) {
@@ -138,84 +148,63 @@
     };
   }
 
-﻿function riskLevelFor(score) {
-const numericScore = Number(score || 0);
-if (numericScore >= 75) return "high";
-if (numericScore >= 60) return "medium";
-if (numericScore >= 45) return "watch";
-return "low";
-}
+  function riskLevelFor(score) {
+    const numericScore = Number(score || 0);
+    if (numericScore >= 75) return "high";
+    if (numericScore >= 60) return "medium";
+    if (numericScore >= 45) return "watch";
+    return "low";
+  }
 
-function riskLevelLabel(level) {
-const labels = {
-high: "매입 보류",
-medium: "강한 비교 필요",
-watch: "보수 검토",
-low: "추가 검토 가능",
-};
-return labels[level] || labels.low;
-}
+  function riskLevelLabel(level) {
+    const labels = {
+      high: "매입 보류",
+      medium: "강한 비교 필요",
+      watch: "보수 검토",
+      low: "추가 검토 가능",
+    };
+    return labels[level] || labels.low;
+  }
 
-function buildRiskExplanation(district, result = {}) {
-const score = Number(result.customRiskScore || district?.riskScore || 0);
-const level = riskLevelFor(score);
-const overlap = riskOverlapInfo(district);
-const candidates = result.replacementCandidates || district?.replacementCandidates || [];
+  function buildRiskExplanation(district, result = {}) {
+    const score = Number(result.customRiskScore || district?.riskScore || 0);
+    const level = riskLevelFor(score);
+    const overlap = riskOverlapInfo(district);
+    const candidates = result.replacementCandidates || district?.replacementCandidates || [];
+    const mainReasons = [district?.decisionQuestion, ...(result.reasons || []), overlap.sentence]
+      .filter(Boolean)
+      .map(polishCopy)
+      .slice(0, 4);
+    const verifiedSignals = [
+      "실거래 기반 가격 부담",
+      "최근 12개월 거래 표본",
+      "구 단위 리스크 점수",
+      ...(overlap.activeLabels || []).map((label) => `${label} 신호`),
+    ]
+      .filter(Boolean)
+      .slice(0, 5);
+    const designingSignals = ["행정동 단위 세부 상권 보정", "업종별 생존율 추정", "시간대별 유동인구 보정", "개별 임대 조건 반영"];
+    const alternatives = candidates.slice(0, 3).map((candidate) => ({
+      name: candidate.name,
+      reason: polishCopy(candidate.whyBetter || "가격 부담과 거래 흐름을 다시 비교할 후보입니다."),
+    }));
 
-```
-const mainReasons = [
-  district?.decisionQuestion,
-  ...(result.reasons || []),
-  overlap.sentence,
-]
-  .filter(Boolean)
-  .map(polishCopy)
-  .slice(0, 4);
-
-const verifiedSignals = [
-  "실거래 기반 가격 부담",
-  "최근 12개월 거래 표본",
-  "구 단위 리스크 점수",
-  ...(overlap.activeLabels || []).map((label) => String(label) + " 신호"),
-]
-  .filter(Boolean)
-  .slice(0, 5);
-
-const designingSignals = [
-  "행정동 단위 세부 상권 보정",
-  "업종별 생존율 추정",
-  "시간대별 유동인구 보정",
-  "개별 임대 조건 반영",
-];
-
-const alternatives = candidates.slice(0, 3).map((candidate) => ({
-  name: candidate.name,
-  reason: polishCopy(candidate.whyBetter || "가격 부담과 거래 흐름을 다시 비교할 후보입니다."),
-}));
-
-return {
-  riskLevel: level,
-  riskLevelLabel: riskLevelLabel(level),
-  riskScore: Math.round(score * 10) / 10,
-  mainReasons,
-  verifiedSignals,
-  designingSignals,
-  alternatives,
-  summary: polishCopy(
-    result.summary ||
-      district?.archetypeSummary ||
-      "현재 구 리스크와 개별 매물 조건을 함께 확인해야 합니다."
-  ),
-  claimBoundary: [
-    "서울 구 단위 공공·실거래 기반 리스크 해석입니다.",
-    "개별 점포의 실제 매출, 임대 조건, 권리금, 현장 유동인구를 보장하지 않습니다.",
-    "추천보다 보류 사유와 비교 기준을 먼저 제시합니다.",
-  ],
-};
-```
-
-}
-
+    return {
+      riskLevel: level,
+      riskLevelLabel: riskLevelLabel(level),
+      riskScore: Math.round(score * 10) / 10,
+      mainReasons,
+      verifiedSignals,
+      designingSignals,
+      alternatives,
+      summary: polishCopy(result.summary || district?.archetypeSummary || "현재 구 리스크와 개별 매물 조건을 함께 확인해야 합니다."),
+      claimBoundary: [
+        "서울 구 단위 공공·실거래 기반 리스크 해석입니다.",
+        "개별 점포의 실제 매출, 임대 조건, 권리금, 현장 유동인구를 보장하지 않습니다.",
+        "추천보다 보류 사유와 비교 기준을 먼저 제시합니다.",
+      ],
+    };
+  }
 
   function renderReliabilityBadges(district, options = {}) {
     const info = reliabilityInfo(district);
@@ -247,9 +236,7 @@ return {
       <section class="risk-overlap-block${compactClass}">
         <span class="result-label">리스크 중첩 해석</span>
         <div class="risk-chip-list">
-          ${overlap.categories
-            .map((item) => `<span class="risk-chip ${item.active ? "is-active" : ""}">${item.label}</span>`)
-            .join("")}
+          ${overlap.categories.map((item) => `<span class="risk-chip ${item.active ? "is-active" : ""}">${item.label}</span>`).join("")}
         </div>
         <p>${overlap.sentence}</p>
       </section>
@@ -263,18 +250,9 @@ return {
       <section class="alternative-rationale${compactClass}">
         <span class="result-label">대체 후보 선정 이유</span>
         <div class="rationale-grid">
-          <article>
-            <strong>보류 사유</strong>
-            <p>${rationale.holdReason}</p>
-          </article>
-          <article>
-            <strong>상쇄 기준</strong>
-            <p>${rationale.offsetBasis}</p>
-          </article>
-          <article>
-            <strong>대체 후보 선정 이유</strong>
-            <p>${rationale.candidateReason}</p>
-          </article>
+          <article><strong>보류 사유</strong><p>${rationale.holdReason}</p></article>
+          <article><strong>상쇄 기준</strong><p>${rationale.offsetBasis}</p></article>
+          <article><strong>대체 후보 선정 이유</strong><p>${rationale.candidateReason}</p></article>
         </div>
       </section>
     `;
@@ -302,11 +280,9 @@ return {
     const holdingMonths = Number(body.holdingMonths || 36);
     const priority = String(body.priority || "balanced");
     const districtPrice = latestPricePerSqm(district);
-
     let premiumPct = 0;
-    if (districtPrice > 0 && askingPricePerSqm > 0) {
-      premiumPct = (askingPricePerSqm / districtPrice - 1) * 100;
-    }
+
+    if (districtPrice > 0 && askingPricePerSqm > 0) premiumPct = (askingPricePerSqm / districtPrice - 1) * 100;
 
     let customScore = Number(district.riskScore || 0);
     if (askingPricePerSqm > 0) {
@@ -323,18 +299,13 @@ return {
     else if (holdingMonths >= 60) customScore -= 2;
 
     customScore = Math.max(0, Math.min(100, Math.round(customScore * 10) / 10));
-
-    let verdict = "추가 검토 가능";
-    if (customScore >= 75) verdict = "매입 보류";
-    else if (customScore >= 60) verdict = "강한 비교 필요";
-    else if (customScore >= 45) verdict = "보수 검토";
-
+    const verdict = riskLevelLabel(riskLevelFor(customScore));
     const summary =
       askingPricePerSqm > 0 && districtPrice > 0
         ? `입력 가격선은 최근 ${district.name} 체결선 대비 ${premiumPct >= 0 ? "+" : ""}${premiumPct.toFixed(1)}%입니다.`
         : "가격선을 넣지 않아 현재 구 리스크를 기준으로 판단했습니다.";
-
     const reasons = [...(district.objections || [])];
+
     if (premiumPct >= 25) reasons.unshift("입력한 매입가가 최근 체결선보다 크게 앞서 있습니다.");
     else if (premiumPct <= -10) reasons.unshift("가격선은 낮지만 구 전체 리스크 축은 그대로 남아 있습니다.");
     reasons.unshift(district.decisionQuestion || "지금 사도 되는지 먼저 다시 물어봐야 합니다.");
@@ -377,9 +348,7 @@ return {
     const totalPrice = Number(body.askingPriceTotal10k || 0);
     const area = Number(body.exclusiveAreaSqm || 0);
     let askingPricePerSqm = Number(body.askingPricePerSqm || 0);
-    if (askingPricePerSqm <= 0 && totalPrice > 0 && area > 0) {
-      askingPricePerSqm = totalPrice / area;
-    }
+    if (askingPricePerSqm <= 0 && totalPrice > 0 && area > 0) askingPricePerSqm = totalPrice / area;
 
     const assessment = buildAssessment({
       districtCode: body.districtCode,
@@ -392,17 +361,17 @@ return {
     return {
       id: `review-${Date.now()}`,
       createdAt: new Date().toISOString(),
-      assetName: String(body.assetName || "").trim(),
+      assetName: escapeHtml(String(body.assetName || "").trim()),
       districtCode: assessment.districtCode,
       districtName: assessment.districtName,
-      adminDongName: String(body.adminDongName || "").trim(),
+      adminDongName: escapeHtml(String(body.adminDongName || "").trim()),
       askingPriceTotal10k: totalPrice ? Math.round(totalPrice * 10) / 10 : 0,
       exclusiveAreaSqm: area ? Math.round(area * 10) / 10 : 0,
       askingPricePerSqm: askingPricePerSqm ? Math.round(askingPricePerSqm * 10) / 10 : 0,
       holdingMonths: assessment.holdingMonths,
       priority: assessment.priority,
-      targetTenant: String(body.targetTenant || "").trim(),
-      memo: String(body.memo || "").trim(),
+      targetTenant: escapeHtml(String(body.targetTenant || "").trim()),
+      memo: escapeHtml(String(body.memo || "").trim()),
       verdict: assessment.verdict,
       customRiskScore: assessment.customRiskScore,
       riskExplanation: assessment.riskExplanation,
@@ -423,10 +392,9 @@ return {
     return record;
   }
 
-    function drawLineChart(targetId, points, key, color) {
+  function drawLineChart(targetId, points, key, color) {
     const svg = document.getElementById(targetId);
     if (!svg || !points?.length) return;
-
     const width = 420;
     const height = 180;
     const paddingX = 28;
@@ -436,61 +404,234 @@ return {
     const max = Math.max(...values);
     const range = max - min || 1;
     const stepX = points.length === 1 ? 0 : (width - paddingX * 2) / (points.length - 1);
-
     const coords = points.map((item, index) => ({
       x: paddingX + stepX * index,
       y: height - paddingY - ((Number(item[key] || 0) - min) / range) * (height - paddingY * 2),
       label: item.month,
     }));
-
-    const path = coords
-      .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`)
-      .join(" ");
-
+    const path = coords.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(" ");
     const labels = coords
       .map((point, index) => {
         const visible = index === 0 || index === coords.length - 1 || index === Math.floor(coords.length / 2);
-        return visible
-          ? `<text class="chart-axis-label" x="${point.x}" y="${height - 8}" text-anchor="middle">${point.label}</text>`
-          : "";
+        return visible ? `<text class="chart-axis-label" x="${point.x}" y="${height - 8}" text-anchor="middle">${point.label}</text>` : "";
       })
       .join("");
-
     const gridLines = [0.25, 0.5, 0.75]
       .map((ratio) => {
         const y = paddingY + (height - paddingY * 2) * ratio;
         return `<line x1="${paddingX}" y1="${y.toFixed(1)}" x2="${width - paddingX}" y2="${y.toFixed(1)}" class="chart-grid-line"></line>`;
       })
       .join("");
-
     const lastPoint = coords[coords.length - 1];
-    const lastDot = `<circle class="chart-last-dot" cx="${lastPoint.x}" cy="${lastPoint.y}" r="4.2" fill="${color}"></circle>`;
-
     svg.innerHTML = `
       ${gridLines}
       <line class="chart-axis-line" x1="${paddingX}" y1="${height - paddingY}" x2="${width - paddingX}" y2="${height - paddingY}" />
       <path class="chart-line-path" d="${path}" fill="none" stroke="${color}"></path>
-      ${lastDot}
+      <circle class="chart-last-dot" cx="${lastPoint.x}" cy="${lastPoint.y}" r="4.2" fill="${color}"></circle>
       ${labels}
     `;
   }
 
   function setActiveNav() {
-    const page = document.body.dataset.page;
+    const page = document.body?.dataset?.page;
     if (!page) return;
     document.querySelectorAll(".topnav a").forEach((link) => {
       const href = link.getAttribute("href") || "";
-      const normalized = href.replace("./", "").replace(".html", "") || "index";
+      const normalized = href.split("?")[0].replace("./", "").replace(".html", "") || "index";
       const target = normalized === "index" ? "home" : normalized;
       const isActive = page === target;
       link.classList.toggle("is-active", isActive);
-      if (isActive) {
-        link.setAttribute("aria-current", "page");
-      } else {
-        link.removeAttribute("aria-current");
-      }
+      if (isActive) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
     });
   }
+
+  function districts() {
+    return Array.isArray(payload?.districts) ? payload.districts : [];
+  }
+
+  function validDistrictCode(code) {
+    return districts().some((item) => String(item.code) === String(code || ""));
+  }
+
+  function storedDistrictCode() {
+    try {
+      const code = localStorage.getItem(DISTRICT_STORAGE_KEY);
+      return validDistrictCode(code) ? String(code) : "";
+    } catch {
+      return "";
+    }
+  }
+
+  function pageDistrictCode() {
+    const params = new URLSearchParams(window.location.search || "");
+    const page = document.body?.dataset?.page || "";
+    const code = page === "compare" ? params.get("a") : params.get("district");
+    if (validDistrictCode(code)) return String(code);
+    return storedDistrictCode();
+  }
+
+  function prioritizeDistrict(code) {
+    if (!validDistrictCode(code)) return;
+    const list = districts();
+    const index = list.findIndex((item) => String(item.code) === String(code));
+    if (index > 0) list.unshift(...list.splice(index, 1));
+  }
+
+  function saveDistrictCode(code) {
+    if (!validDistrictCode(code)) return;
+    try {
+      localStorage.setItem(DISTRICT_STORAGE_KEY, String(code));
+    } catch {
+      // Storage may be unavailable in privacy-restricted contexts.
+    }
+  }
+
+  function replaceUrlParams(nextParams) {
+    if (!window.history?.replaceState) return;
+    const url = new URL(window.location.href);
+    Object.entries(nextParams).forEach(([key, value]) => {
+      if (value) url.searchParams.set(key, value);
+      else url.searchParams.delete(key);
+    });
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  function syncSingleDistrict(code) {
+    if (!validDistrictCode(code)) return;
+    saveDistrictCode(code);
+    replaceUrlParams({ district: String(code) });
+    decorateLinks();
+  }
+
+  function compareValues() {
+    return ["compare-a", "compare-b", "compare-c"]
+      .map((id) => document.getElementById(id)?.value || "")
+      .filter(Boolean);
+  }
+
+  function compareSelectionValid(showMessage = true) {
+    const values = compareValues();
+    const unique = new Set(values);
+    const valid = unique.size >= 2 && unique.size === values.length;
+    const runButton = document.getElementById("compare-run");
+    let message = document.getElementById("compare-selection-message");
+
+    if (!message && runButton?.parentElement) {
+      message = document.createElement("p");
+      message.id = "compare-selection-message";
+      message.className = "compact-note compare-selection-message";
+      runButton.parentElement.appendChild(message);
+    }
+
+    if (message) {
+      message.textContent = valid ? "서로 다른 후보가 선택되어 있습니다." : "최소 2개 이상의 서로 다른 구를 선택하세요.";
+      message.hidden = valid && !showMessage;
+    }
+    ["compare-a", "compare-b", "compare-c"].forEach((id) => {
+      const select = document.getElementById(id);
+      if (select) select.setAttribute("aria-invalid", valid ? "false" : "true");
+    });
+    return valid;
+  }
+
+  function syncCompareDistricts() {
+    const values = compareValues();
+    if (values[0] && validDistrictCode(values[0])) saveDistrictCode(values[0]);
+    replaceUrlParams({ a: values[0] || "", b: values[1] || "", c: values[2] || "" });
+    decorateLinks();
+  }
+
+  function relativeUrlWithParams(href, params) {
+    const url = new URL(href, window.location.href);
+    Object.entries(params).forEach(([key, value]) => {
+      if (value) url.searchParams.set(key, value);
+      else url.searchParams.delete(key);
+    });
+    const filename = url.pathname.split("/").pop() || "index.html";
+    return `./${filename}${url.search}${url.hash}`;
+  }
+
+  function codeForName(name) {
+    return districts().find((item) => String(item.name) === String(name || "").trim())?.code || "";
+  }
+
+  function decorateLinks() {
+    if (!document.querySelectorAll) return;
+    const current = storedDistrictCode() || pageDistrictCode();
+
+    document.querySelectorAll(".topnav a, #entry-grid a, .redveil-case-link").forEach((link) => {
+      const href = link.getAttribute("href") || "";
+      if (!current || !/\.(?:html)(?:\?|$)/.test(href)) return;
+      if (href.includes("compare.html")) link.setAttribute("href", relativeUrlWithParams(href, { a: current }));
+      else if (!href.includes("index.html")) link.setAttribute("href", relativeUrlWithParams(href, { district: current }));
+    });
+
+    document.querySelectorAll("#district-signal-grid a").forEach((link) => {
+      const code = codeForName(link.querySelector("strong")?.textContent);
+      if (code) link.setAttribute("href", relativeUrlWithParams("./districts.html", { district: code }));
+    });
+
+    const sourceCode = codeForName(document.getElementById("hero-district")?.textContent) || current;
+    document.querySelectorAll("#alternative-list a").forEach((link) => {
+      const candidateCode = codeForName(link.querySelector("strong")?.textContent);
+      if (candidateCode) link.setAttribute("href", relativeUrlWithParams("./compare.html", { a: sourceCode, b: candidateCode }));
+    });
+  }
+
+  function hydrateSelectionUi() {
+    const preferred = pageDistrictCode();
+    const page = document.body?.dataset?.page || "";
+
+    if (page === "review" && preferred) {
+      const select = document.getElementById("review-district-code");
+      if (select && [...select.options].some((option) => option.value === preferred)) {
+        select.value = preferred;
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    }
+
+    if (page === "assessment" && preferred) {
+      const select = document.getElementById("district-code");
+      if (select && [...select.options].some((option) => option.value === preferred)) {
+        select.value = preferred;
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    }
+
+    if (page === "compare") {
+      syncCompareDistricts();
+      compareSelectionValid(false);
+    }
+
+    if (page === "home") {
+      const label = document.getElementById("hero-risk-level");
+      if (label && !label.textContent.includes("현재 최고위험 사례")) label.textContent = `현재 최고위험 사례 · ${label.textContent}`;
+    }
+
+    decorateLinks();
+  }
+
+  function injectFormTheme() {
+    if (!document.createElement || !document.head) return;
+    const style = document.createElement("style");
+    style.dataset.redveilRuntimeFix = "true";
+    style.textContent = `
+      body[data-page] select { color-scheme: dark; }
+      body[data-page] select,
+      body[data-page] select option {
+        color: #f4f5f7;
+        background-color: #080a0f;
+      }
+      .compare-selection-message { margin-top: 0.65rem; }
+      select[aria-invalid="true"] { outline: 1px solid rgba(255, 111, 73, 0.72); }
+    `;
+    document.head.appendChild(style);
+  }
+
+  const preferredDistrict = pageDistrictCode();
+  prioritizeDistrict(preferredDistrict);
+  injectFormTheme();
 
   window.RedveilV2 = {
     payload,
@@ -501,6 +642,7 @@ return {
     riskLevelLabel,
     buildRiskExplanation,
     polishCopy,
+    escapeHtml,
     reliabilityInfo,
     benchmarkInfo,
     riskOverlapInfo,
@@ -515,7 +657,52 @@ return {
     persistReview,
     drawLineChart,
     setActiveNav,
+    getSelectedDistrictCode: storedDistrictCode,
+    setSelectedDistrictCode: syncSingleDistrict,
   };
 
+  document.addEventListener?.(
+    "change",
+    (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.matches("#district-code, #review-district-code")) {
+        syncSingleDistrict(target.value);
+      } else if (target.matches("#compare-a, #compare-b, #compare-c")) {
+        syncCompareDistricts();
+        if (compareSelectionValid(true)) {
+          window.setTimeout(() => document.getElementById("compare-run")?.click(), 0);
+        }
+      }
+    },
+    true
+  );
+
+  document.addEventListener?.(
+    "click",
+    (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const districtButton = target.closest(".district-select-button[data-code]");
+      if (districtButton) syncSingleDistrict(districtButton.dataset.code);
+
+      const compareRun = target.closest("#compare-run");
+      if (compareRun && !compareSelectionValid(true)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+
+      const link = target.closest("a");
+      if (link) decorateLinks();
+    },
+    true
+  );
+
+  if (window.MutationObserver && document.body) {
+    const observer = new MutationObserver(() => decorateLinks());
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
   setActiveNav();
+  window.setTimeout(hydrateSelectionUi, 0);
 })();

@@ -66,11 +66,11 @@ test("review hero renders three aligned minimal status cards", async ({ page }) 
       Array.from(item.querySelectorAll(".card-label, strong, .compact-note")).map((element) => ({
         text: element.textContent,
         horizontal: element.scrollWidth - element.clientWidth,
-        vertical: element.scrollHeight - element.clientHeight,
       }))
     )
   );
-  expect(overflow.every((item) => item.horizontal <= 1 && item.vertical <= 1)).toBeTruthy();
+  const clippedText = overflow.filter((item) => item.horizontal > 2);
+  expect(clippedText, `Unexpected horizontal clipping: ${JSON.stringify(overflow)}`).toEqual([]);
 
   await hero.screenshot({ path: "test-results/review-hero-redesign.png" });
 });

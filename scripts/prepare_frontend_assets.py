@@ -9,6 +9,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SITE_ROOT = PROJECT_ROOT / "app" / "site"
 GEOJSON_PATH = SITE_ROOT / "assets" / "seoul-districts.geojson"
 FORM_STYLESHEET = '<link rel="stylesheet" href="./forms.css?v=20260710" />'
+REVIEW_HERO_STYLESHEET = '<link rel="stylesheet" href="./review-hero.css?v=20260710-minimal-2" />'
 HTML_PATHS = (
     SITE_ROOT / "index.html",
     SITE_ROOT / "review.html",
@@ -89,16 +90,16 @@ def normalized_geojson() -> tuple[dict[str, object], list[str]]:
     return payload, changes
 
 
-def inject_form_stylesheet(path: Path, *, write: bool) -> bool:
+def inject_stylesheet(path: Path, stylesheet: str, *, write: bool) -> bool:
     text = path.read_text(encoding="utf-8-sig")
-    if FORM_STYLESHEET in text:
+    if stylesheet in text:
         return False
 
     marker = "</head>"
     if marker not in text:
         raise ValueError(f"Missing </head> in {path.relative_to(PROJECT_ROOT)}")
 
-    updated = text.replace(marker, f"    {FORM_STYLESHEET}\n  {marker}", 1)
+    updated = text.replace(marker, f"    {stylesheet}\n  {marker}", 1)
     if write:
         path.write_text(updated, encoding="utf-8")
     return True
@@ -117,8 +118,12 @@ def prepare(*, write: bool) -> list[str]:
             )
 
     for html_path in HTML_PATHS:
-        if inject_form_stylesheet(html_path, write=write):
+        if inject_stylesheet(html_path, FORM_STYLESHEET, write=write):
             messages.append(f"html add forms.css: {html_path.relative_to(PROJECT_ROOT)}")
+
+    review_path = SITE_ROOT / "review.html"
+    if inject_stylesheet(review_path, REVIEW_HERO_STYLESHEET, write=write):
+        messages.append(f"html add review-hero.css: {review_path.relative_to(PROJECT_ROOT)}")
 
     return messages
 

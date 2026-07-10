@@ -1,0 +1,186 @@
+/* GeoJSON district minimaps for candidate comparison cards. */
+
+body[data-page="compare"] .candidate-district-map {
+  --map-accent: #ff4a61;
+  position: relative;
+  isolation: isolate;
+  height: 148px !important;
+  margin: 4px 0 3px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.085) !important;
+  border-radius: 17px;
+  background:
+    radial-gradient(circle at 66% 38%, rgba(255, 74, 97, 0.075), transparent 34%),
+    linear-gradient(180deg, rgba(13, 16, 23, 0.96), rgba(8, 10, 15, 0.98)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    0 12px 26px rgba(0, 0, 0, 0.16);
+}
+
+body[data-page="compare"] .candidate-district-map.is-amber {
+  --map-accent: #ffbd68;
+  background:
+    radial-gradient(circle at 66% 38%, rgba(255, 189, 104, 0.065), transparent 34%),
+    linear-gradient(180deg, rgba(13, 16, 23, 0.96), rgba(8, 10, 15, 0.98)) !important;
+}
+
+body[data-page="compare"] .candidate-district-map.is-cool {
+  --map-accent: #8bded1;
+  background:
+    radial-gradient(circle at 66% 38%, rgba(139, 222, 209, 0.055), transparent 34%),
+    linear-gradient(180deg, rgba(13, 16, 23, 0.96), rgba(8, 10, 15, 0.98)) !important;
+}
+
+body[data-page="compare"] .candidate-district-map::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.28 !important;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) !important;
+  background-size: 20px 20px !important;
+  mask-image: linear-gradient(90deg, transparent, #000 20%, #000 82%, transparent) !important;
+}
+
+body[data-page="compare"] .candidate-district-map::after {
+  content: none !important;
+  display: none !important;
+}
+
+body[data-page="compare"] .candidate-map-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 7px 12px 17px;
+  overflow: visible;
+}
+
+body[data-page="compare"] .candidate-map-district {
+  vector-effect: non-scaling-stroke;
+  fill: rgba(158, 166, 184, 0.075);
+  stroke: rgba(211, 216, 228, 0.23);
+  stroke-width: 0.82;
+  stroke-linejoin: round;
+  transition:
+    fill 160ms ease,
+    stroke 160ms ease,
+    opacity 160ms ease;
+}
+
+body[data-page="compare"] .candidate-map-district.is-selected {
+  fill: color-mix(in srgb, var(--map-accent) 40%, transparent);
+  stroke: var(--map-accent);
+  stroke-width: 1.75;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--map-accent) 45%, transparent));
+}
+
+body[data-page="compare"] .candidate-map-marker {
+  color: var(--map-accent);
+  pointer-events: none;
+}
+
+body[data-page="compare"] .candidate-map-marker-halo {
+  fill: var(--map-accent);
+  opacity: 0.09;
+}
+
+body[data-page="compare"] .candidate-map-marker-ring {
+  fill: rgba(7, 9, 14, 0.9);
+  stroke: var(--map-accent);
+  stroke-width: 1.15;
+}
+
+body[data-page="compare"] .candidate-map-marker-dot {
+  fill: var(--map-accent);
+  filter: drop-shadow(0 0 4px var(--map-accent));
+}
+
+body[data-page="compare"] .candidate-map-kicker {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  z-index: 2;
+  color: rgba(196, 202, 215, 0.48);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+body[data-page="compare"] .candidate-map-meta {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(5, 7, 11, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+body[data-page="compare"] .candidate-map-meta span {
+  color: rgba(190, 196, 210, 0.5);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body[data-page="compare"] .candidate-map-meta strong {
+  color: var(--map-accent);
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1;
+}
+
+body[data-page="compare"] .candidate-map-loading,
+body[data-page="compare"] .candidate-map-fallback-mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+body[data-page="compare"] .candidate-map-loading {
+  color: rgba(190, 196, 210, 0.54);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+body[data-page="compare"] .candidate-map-fallback-mark {
+  width: 48px;
+  height: 48px;
+  border: 1px solid color-mix(in srgb, var(--map-accent) 42%, transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 18px color-mix(in srgb, var(--map-accent) 5%, transparent);
+}
+
+body[data-page="compare"] .candidate-district-map .scan-grid,
+body[data-page="compare"] .candidate-district-map .scan-road,
+body[data-page="compare"] .candidate-district-map .scan-core,
+body[data-page="compare"] .candidate-district-map .scan-building {
+  display: none !important;
+}
+
+@media (max-width: 980px) {
+  body[data-page="compare"] .candidate-district-map {
+    height: 170px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body[data-page="compare"] .candidate-district-map {
+    height: 142px !important;
+  }
+
+  body[data-page="compare"] .candidate-map-svg {
+    padding-inline: 8px;
+  }
+}

@@ -9,6 +9,7 @@ const payloadSource = fs.readFileSync(path.join(root, "app/site/website_payload.
 const commonSource = fs.readFileSync(path.join(root, "app/site/common.js"), "utf8");
 
 assert.equal(commonSource.includes("```"), false, "common.js must not contain Markdown code fences");
+assert.equal(commonSource.includes("\ufeff"), false, "common.js must not contain an embedded BOM");
 
 class ElementStub {
   matches() {
@@ -104,6 +105,8 @@ assert.equal(guro.districtCode, "11530");
 assert.equal(guro.districtName, "구로구");
 assert.equal(typeof guro.riskExplanation, "object");
 assert.ok(Array.isArray(guro.riskExplanation.mainReasons));
+assert.ok(Array.isArray(guro.riskExplanation.claimBoundary));
+assert.equal(api.buildAssessment({ districtCode: "99999" }), null, "unknown districts must not produce a result");
 
 const review = api.createReviewRecord({
   assetName: '<img src=x onerror="alert(1)">',

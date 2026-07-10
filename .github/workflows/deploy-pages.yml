@@ -63,6 +63,15 @@ jobs:
       - name: Run Chromium end-to-end tests
         run: npx playwright test
 
+      - name: Upload review hero preview
+        if: always() && github.event_name == 'pull_request' && github.head_ref == 'agent/redesign-review-hero'
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-hero-redesign-preview
+          path: test-results/review-hero-redesign.png
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Upload browser failure artifacts
         if: failure()
         uses: actions/upload-artifact@v4

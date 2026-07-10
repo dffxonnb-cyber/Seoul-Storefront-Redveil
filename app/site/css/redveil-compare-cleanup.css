@@ -1,3 +1,5 @@
+@import url("./redveil-compare-soft-accent.css?v=20260710");
+
 /* Final compare-page CSS corrections.
    These rules replace legacy declarations that browsers ignored because of
    malformed values or misspelled selectors. Loaded after compare/map styles. */

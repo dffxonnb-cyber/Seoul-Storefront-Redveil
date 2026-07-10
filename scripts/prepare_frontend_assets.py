@@ -9,7 +9,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SITE_ROOT = PROJECT_ROOT / "app" / "site"
 GEOJSON_PATH = SITE_ROOT / "assets" / "seoul-districts.geojson"
 FORM_STYLESHEET = '<link rel="stylesheet" href="./forms.css?v=20260710" />'
-REVIEW_HERO_STYLESHEET = '<link rel="stylesheet" href="./review-hero.css?v=20260710" />'
+REVIEW_HERO_STYLESHEET = '<link rel="stylesheet" href="./review-hero.css?v=20260710-minimal-2" />'
 HTML_PATHS = (
     SITE_ROOT / "index.html",
     SITE_ROOT / "review.html",

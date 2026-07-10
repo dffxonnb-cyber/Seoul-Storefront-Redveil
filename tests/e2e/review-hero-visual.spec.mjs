@@ -29,7 +29,7 @@ const reviewFixtures = [
   },
 ];
 
-test("review hero renders three aligned horizontal status cards", async ({ page }) => {
+test("review hero renders three aligned minimal status cards", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.addInitScript((reviews) => {
     localStorage.setItem("redveil-reviews", JSON.stringify(reviews));
@@ -42,6 +42,9 @@ test("review hero renders three aligned horizontal status cards", async ({ page 
   await expect(hero).toBeVisible();
   await expect(cards).toHaveCount(3);
   await expect(page.locator("#review-count")).toHaveText("2건");
+  await expect(cards.nth(0).locator(".compact-note")).toHaveText("Local archive");
+  await expect(cards.nth(1).locator(".compact-note")).toHaveText("보류 판단 우선");
+  await expect(cards.nth(2).locator(".compact-note")).toHaveText("구별 리스크 기준");
 
   const boxes = await cards.evaluateAll((items) =>
     items.map((item) => {
@@ -53,8 +56,21 @@ test("review hero renders three aligned horizontal status cards", async ({ page 
   expect(Math.max(...boxes.map((box) => box.y)) - Math.min(...boxes.map((box) => box.y))).toBeLessThan(2);
   expect(boxes[1].x).toBeGreaterThan(boxes[0].x + boxes[0].width);
   expect(boxes[2].x).toBeGreaterThan(boxes[1].x + boxes[1].width);
-  expect(Math.min(...boxes.map((box) => box.width))).toBeGreaterThan(170);
+  expect(Math.min(...boxes.map((box) => box.width))).toBeGreaterThan(180);
+  expect(Math.min(...boxes.map((box) => box.height))).toBeGreaterThanOrEqual(145);
+  expect(Math.max(...boxes.map((box) => box.height))).toBeLessThanOrEqual(175);
   expect(Math.max(...boxes.map((box) => box.height)) - Math.min(...boxes.map((box) => box.height))).toBeLessThan(2);
+
+  const overflow = await cards.evaluateAll((items) =>
+    items.flatMap((item) =>
+      Array.from(item.querySelectorAll(".card-label, strong, .compact-note")).map((element) => ({
+        text: element.textContent,
+        horizontal: element.scrollWidth - element.clientWidth,
+        vertical: element.scrollHeight - element.clientHeight,
+      }))
+    )
+  );
+  expect(overflow.every((item) => item.horizontal <= 1 && item.vertical <= 1)).toBeTruthy();
 
   await hero.screenshot({ path: "test-results/review-hero-redesign.png" });
 });

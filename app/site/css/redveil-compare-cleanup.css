@@ -69,3 +69,87 @@ body[data-page="compare"] .decision-memo-row strong {
     width: 100%;
   }
 }
+
+/* Softer compare-page accents.
+   Analytical chart lines stay untouched; red text, badges, borders, progress
+   bars, and decorative glows use a calmer rose family. */
+
+body[data-page="compare"] {
+  --compare-rose: #e77b88;
+  --compare-rose-strong: #ed8793;
+  --compare-rose-border: rgba(231, 123, 136, 0.22);
+  --compare-rose-border-strong: rgba(231, 123, 136, 0.32);
+  --compare-rose-surface: rgba(231, 123, 136, 0.075);
+  --compare-rose-surface-soft: rgba(231, 123, 136, 0.04);
+  --compare-rose-glow: rgba(231, 123, 136, 0.12);
+}
+
+body[data-page="compare"] .metric-scoreline span,
+body[data-page="compare"] .risk-signal-card.tone-high strong,
+body[data-page="compare"] .risk-signal-card.tone-high span,
+body[data-page="compare"] .decision-memo-row.is-primary span,
+body[data-page="compare"] .compare-card .rank-pill {
+  color: var(--compare-rose-strong) !important;
+  text-shadow: none !important;
+}
+
+body[data-page="compare"] .compare-card .rank-pill,
+body[data-page="compare"] .tone-pill.tone-high,
+body[data-page="compare"] .interpretation-badge.is-caution {
+  border-color: var(--compare-rose-border) !important;
+  background: var(--compare-rose-surface) !important;
+  box-shadow: none !important;
+}
+
+body[data-page="compare"] .risk-signal-card.tone-high,
+body[data-page="compare"] .decision-cue,
+body[data-page="compare"] .decision-memo-row.is-primary {
+  border-color: var(--compare-rose-border) !important;
+  background:
+    radial-gradient(circle at 92% 10%, var(--compare-rose-surface), transparent 38%),
+    linear-gradient(180deg, var(--compare-rose-surface-soft), rgba(255, 255, 255, 0.02)) !important;
+  box-shadow: none !important;
+}
+
+/* Progress bars are comparison UI, not Price Trend chart lines. */
+body[data-page="compare"] .progress-track span,
+body[data-page="compare"] .metric-mini-row .progress-track span,
+body[data-page="compare"] .progress-fill,
+body[data-page="compare"] .metric-mini-row .progress-fill {
+  background: linear-gradient(90deg, #d86675, var(--compare-rose)) !important;
+  box-shadow: none !important;
+}
+
+body[data-page="compare"] .compare-card::before,
+body[data-page="compare"] .decision-cue::before,
+body[data-page="compare"] .decision-memo-row.is-primary::after {
+  background: var(--compare-rose) !important;
+  box-shadow: 0 0 10px var(--compare-rose-glow) !important;
+}
+
+body[data-page="compare"] .compare-memo-card::after {
+  border-color: var(--compare-rose-border-strong) !important;
+  opacity: 0.62;
+}
+
+body[data-page="compare"] .button-primary,
+body[data-page="compare"] #compare-run {
+  border-color: var(--compare-rose-border-strong) !important;
+  background: linear-gradient(135deg, #d95f70, #a94655) !important;
+  box-shadow:
+    0 12px 28px rgba(169, 70, 85, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+body[data-page="compare"] .candidate-district-map:not(.is-amber):not(.is-cool) {
+  --map-accent: var(--compare-rose);
+  background:
+    radial-gradient(circle at 66% 38%, rgba(231, 123, 136, 0.05), transparent 34%),
+    linear-gradient(180deg, rgba(13, 16, 23, 0.96), rgba(8, 10, 15, 0.98)) !important;
+}
+
+body[data-page="compare"] .service-status-card {
+  border-color: var(--compare-rose-border) !important;
+  background:
+    linear-gradient(180deg, rgba(231, 123, 136, 0.07), rgba(255, 255, 255, 0.028)) !important;
+}

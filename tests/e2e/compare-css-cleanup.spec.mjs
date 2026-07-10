@@ -1,12 +1,13 @@
 import { expect, test } from "@playwright/test";
 
-test("compare page applies corrected legacy styles", async ({ page }) => {
+test("compare page applies corrected legacy styles and calm rose accents", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/compare.html?a=11620&b=11650&c=11680");
 
   await expect(page.locator(".compare-card")).toHaveCount(3);
   await expect(page.locator(".candidate-district-map.is-ready")).toHaveCount(3);
   await expect(page.locator(".decision-memo-row.is-primary")).toBeVisible();
+  await expect(page.locator(".metric-scoreline span").first()).toBeVisible();
 
   const computed = await page.evaluate(() => {
     const styleOf = (selector) => getComputedStyle(document.querySelector(selector));
@@ -20,6 +21,12 @@ test("compare page applies corrected legacy styles", async ({ page }) => {
     const memo = styleOf(".compare-memo-card");
     const primaryMemo = styleOf(".decision-memo-row.is-primary");
     const memoStrong = styleOf(".decision-memo-row strong");
+    const metricScore = styleOf(".metric-scoreline span");
+    const metricBar = styleOf(".metric-mini-row .progress-track span");
+    const rankPill = styleOf(".compare-card .rank-pill");
+    const highSignal = styleOf(".risk-signal-card.tone-high");
+    const compareButton = styleOf("#compare-run");
+    const candidateMap = styleOf(".candidate-district-map:not(.is-amber):not(.is-cool)");
 
     return {
       heroBackground: hero.backgroundImage,
@@ -35,6 +42,14 @@ test("compare page applies corrected legacy styles", async ({ page }) => {
       memoOverflow: memo.overflow,
       primaryMemoBorder: primaryMemo.borderTopColor,
       memoStrongSize: memoStrong.fontSize,
+      metricScoreColor: metricScore.color,
+      metricScoreShadow: metricScore.textShadow,
+      metricBarBackground: metricBar.backgroundImage,
+      rankPillColor: rankPill.color,
+      rankPillBorder: rankPill.borderTopColor,
+      highSignalBorder: highSignal.borderTopColor,
+      compareButtonBackground: compareButton.backgroundImage,
+      mapAccent: candidateMap.getPropertyValue("--map-accent").trim(),
     };
   });
 
@@ -49,6 +64,15 @@ test("compare page applies corrected legacy styles", async ({ page }) => {
   expect(computed.signalFontSize).toBe("12px");
   expect(computed.memoPosition).toBe("relative");
   expect(computed.memoOverflow).toBe("hidden");
-  expect(computed.primaryMemoBorder).toBe("rgba(255, 54, 80, 0.28)");
+  expect(computed.primaryMemoBorder).toBe("rgba(231, 123, 136, 0.22)");
   expect(computed.memoStrongSize).toBe("14px");
+
+  expect(computed.metricScoreColor).toBe("rgb(237, 135, 147)");
+  expect(computed.metricScoreShadow).toBe("none");
+  expect(computed.metricBarBackground).toContain("rgb(231, 123, 136)");
+  expect(computed.rankPillColor).toBe("rgb(237, 135, 147)");
+  expect(computed.rankPillBorder).toBe("rgba(231, 123, 136, 0.22)");
+  expect(computed.highSignalBorder).toBe("rgba(231, 123, 136, 0.22)");
+  expect(computed.compareButtonBackground).toContain("rgb(217, 95, 112)");
+  expect(computed.mapAccent).toBe("#e77b88");
 });

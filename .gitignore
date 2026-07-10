@@ -12,5 +12,8 @@ site_server_test.err.log
 streamlit_stdout.log
 streamlit_stderr.log
 
+playwright-report/
+test-results/
+
 .DS_Store
 Thumbs.db

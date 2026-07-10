@@ -19,6 +19,33 @@ OLD_LOCAL_PATH_MARKERS = (
     "/Users/" + "a0109",
     "commercial_" + "investment_risk",
 )
+CANONICAL_DISTRICT_CODES = {
+    "종로구": "11110",
+    "중구": "11140",
+    "용산구": "11170",
+    "성동구": "11200",
+    "광진구": "11215",
+    "동대문구": "11230",
+    "중랑구": "11260",
+    "성북구": "11290",
+    "강북구": "11305",
+    "도봉구": "11320",
+    "노원구": "11350",
+    "은평구": "11380",
+    "서대문구": "11410",
+    "마포구": "11440",
+    "양천구": "11470",
+    "강서구": "11500",
+    "구로구": "11530",
+    "금천구": "11545",
+    "영등포구": "11560",
+    "동작구": "11590",
+    "관악구": "11620",
+    "서초구": "11650",
+    "강남구": "11680",
+    "송파구": "11710",
+    "강동구": "11740",
+}
 
 
 def find_free_port() -> int:
@@ -97,11 +124,11 @@ def parse_site_payload(script_text: str) -> dict[str, Any]:
 
 def check_pages(base_url: str) -> None:
     expected_pages = {
-        "/index.html": ("scenario-case-grid", "home.js", "website_payload.js"),
-        "/review.html": ("review-example-list", "review.js", "website_payload.js"),
-        "/assessment.html": ("assessment.js", "district-code", "assessment-result"),
-        "/compare.html": ("compare.js", "compare-grid", "compare-run"),
-        "/districts.html": ("districts.js", "district-list", "detail-score"),
+        "/index.html": ("scenario-case-grid", "home.js", "website_payload.js", "forms.css"),
+        "/review.html": ("review-example-list", "review.js", "website_payload.js", "forms.css"),
+        "/assessment.html": ("assessment.js", "district-code", "assessment-result", "forms.css"),
+        "/compare.html": ("compare.js", "compare-grid", "compare-run", "forms.css"),
+        "/districts.html": ("districts.js", "district-list", "detail-score", "forms.css"),
         "/v2/index.html": ("redveil-v2.js", "data-v2-risk-map", "v2-candidate-list"),
         "/v2/districts.html?district=11650": (
             "redveil-v2-districts.js",
@@ -114,6 +141,26 @@ def check_pages(base_url: str) -> None:
         assert_contains(text, markers, path)
         assert_no_old_paths(text, path)
     print(f"checked {len(expected_pages)} HTML pages")
+
+
+def check_geojson(base_url: str) -> None:
+    payload = fetch_json(base_url, "/assets/seoul-districts.geojson")
+    features = payload.get("features")
+    if not isinstance(features, list) or len(features) != 25:
+        raise AssertionError("district GeoJSON must expose exactly 25 features")
+
+    actual = {
+        str(feature.get("properties", {}).get("name")): str(feature.get("properties", {}).get("code"))
+        for feature in features
+    }
+    if actual != CANONICAL_DISTRICT_CODES:
+        mismatches = {
+            name: {"expected": code, "actual": actual.get(name)}
+            for name, code in CANONICAL_DISTRICT_CODES.items()
+            if actual.get(name) != code
+        }
+        raise AssertionError(f"district GeoJSON code mismatch: {mismatches}")
+    print("checked canonical district GeoJSON codes")
 
 
 def check_payload(base_url: str) -> None:
@@ -178,6 +225,7 @@ def main() -> int:
     try:
         wait_for_server(base_url, process)
         check_pages(base_url)
+        check_geojson(base_url)
         check_payload(base_url)
         check_api(base_url)
         print(f"Redveil site smoke check passed at {base_url}")

@@ -35,20 +35,42 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      - name: Run tests
+      - name: Install Playwright
+        run: |
+          npm install --no-save @playwright/test
+          npx playwright install --with-deps chromium
+
+      - name: Run Python tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
       - name: Build website payload
         run: python src/redveil/pipelines/export_website_payload.py
+
+      - name: Prepare frontend assets
+        run: |
+          python scripts/prepare_frontend_assets.py
+          python scripts/prepare_frontend_assets.py --check
 
       - name: Run client runtime check
         run: node scripts/check_client_runtime.mjs
 
       - name: Run site smoke check
         run: python scripts/check_site_smoke.py
+
+      - name: Run Chromium end-to-end tests
+        run: npx playwright test
+
+      - name: Upload browser failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-failure-artifacts
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Check generated site payload
         run: test -f app/site/website_payload.js
@@ -74,6 +96,11 @@ jobs:
 
       - name: Build website payload
         run: python src/redveil/pipelines/export_website_payload.py
+
+      - name: Prepare frontend assets
+        run: |
+          python scripts/prepare_frontend_assets.py
+          python scripts/prepare_frontend_assets.py --check
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

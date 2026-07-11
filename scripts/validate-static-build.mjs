@@ -21,6 +21,7 @@ const requiredFiles = [
   "v2/index.html",
   "v2/review.html",
   "v2/assessment.html",
+  "v2/compare.html",
   "v2/redveil-v2.css",
   "v2/redveil-v2-mobile.css",
   "v2/redveil-v2-shell.css",
@@ -29,6 +30,8 @@ const requiredFiles = [
   "v2/redveil-v2-review.js",
   "v2/redveil-v2-assessment.css",
   "v2/redveil-v2-assessment.js",
+  "v2/redveil-v2-compare.css",
+  "v2/redveil-v2-compare.js",
   "v2/redveil-v2.js",
   "v2/districts.html",
   "v2/redveil-v2-districts.js",
@@ -148,6 +151,41 @@ const obsoleteV2AssessmentMarkers = ["3-Minute Diagnosis", "Quick Risk Check", "
 for (const marker of obsoleteV2AssessmentMarkers) {
   if (v2AssessmentHtml.includes(marker)) {
     throw new Error(`v2/assessment.html still contains obsolete marker: ${marker}`);
+  }
+}
+
+const v2CompareHtml = fs.readFileSync(path.join(siteRoot, "v2", "compare.html"), "utf8");
+const v2CompareMarkers = [
+  "보류 후보와 대체 후보를 같은 기준으로 비교합니다.",
+  'data-v2-view="compare"',
+  'id="v2-sidebar"',
+  'id="compare-a"',
+  'id="compare-b"',
+  'id="compare-c"',
+  'id="compare-run"',
+  'id="compare-grid"',
+  'id="compare-memo"',
+  'href="./redveil-v2-shell.css',
+  'href="./redveil-v2-feature.css',
+  'href="./redveil-v2-compare.css',
+  'src="../website_payload.js"',
+  'src="../common.js"',
+  'src="../compare.js"',
+  'src="../compare-minimap.js"',
+  'src="./redveil-v2-shell.js',
+  'src="./redveil-v2-compare.js',
+];
+
+for (const marker of v2CompareMarkers) {
+  if (!v2CompareHtml.includes(marker)) {
+    throw new Error(`v2/compare.html is missing marker: ${marker}`);
+  }
+}
+
+const obsoleteV2CompareMarkers = ["Candidate Compare", "Alternative Candidates", "Select Candidates", "Metric Comparison", "Comparison Memo"];
+for (const marker of obsoleteV2CompareMarkers) {
+  if (v2CompareHtml.includes(marker)) {
+    throw new Error(`v2/compare.html still contains obsolete marker: ${marker}`);
   }
 }
 

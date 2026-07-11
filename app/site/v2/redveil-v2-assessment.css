@@ -1,0 +1,261 @@
+/* V2 3-minute assessment layout. Loaded after shared V2 feature styles. */
+
+.v2-assessment-page .v2-assessment-hero {
+  margin: 0;
+  padding: 18px;
+  background:
+    linear-gradient(90deg, rgba(255, 51, 71, 0.06), transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    var(--v2-panel);
+}
+
+.v2-assessment-page .v2-assessment-hero .subhero-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 0.32fr);
+  align-items: center;
+  gap: 18px;
+}
+
+.v2-assessment-page .v2-assessment-hero-copy {
+  min-width: 0;
+}
+
+.v2-assessment-page .v2-assessment-hero-copy h1 {
+  max-width: 760px;
+  margin: 6px 0 0;
+  color: #fff;
+  font-size: clamp(1.9rem, 3.1vw, 2.75rem);
+  line-height: 1.14;
+  letter-spacing: -0.045em;
+}
+
+.v2-assessment-page .v2-assessment-hero-copy > p:last-child {
+  max-width: 760px;
+  margin: 11px 0 0;
+  color: var(--v2-muted);
+  font-size: 0.93rem;
+  line-height: 1.65;
+}
+
+.v2-assessment-page .service-status-card {
+  min-width: 0;
+  min-height: 126px;
+  border: 1px solid rgba(255, 51, 71, 0.24);
+  border-radius: var(--v2-radius);
+  padding: 18px;
+  background:
+    radial-gradient(circle at 88% 16%, rgba(255, 51, 71, 0.15), transparent 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+    rgba(7, 10, 17, 0.92);
+  box-shadow: none;
+}
+
+.v2-assessment-page .service-status-card strong {
+  display: block;
+  margin-top: 8px;
+  color: #fff;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  line-height: 1.1;
+}
+
+.v2-assessment-page .service-status-card p {
+  margin: 9px 0 0;
+}
+
+.v2-assessment-page .v2-assessment-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+  gap: 12px;
+  align-items: start;
+  min-width: 0;
+}
+
+.v2-assessment-page .assessment-input-column {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.v2-assessment-page .v2-assessment-input-panel,
+.v2-assessment-page .v2-assessment-result-panel,
+.v2-assessment-page .v2-assessment-insight-grid > .panel {
+  padding: 18px;
+}
+
+.v2-assessment-page .v2-assessment-input-panel .form-stack {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.v2-assessment-page .v2-assessment-input-panel .field,
+.v2-assessment-page .v2-assessment-input-panel .full-span {
+  min-width: 0;
+}
+
+.v2-assessment-page .v2-assessment-input-panel .full-span {
+  grid-column: 1 / -1;
+}
+
+.v2-assessment-page .v2-assessment-input-panel .button {
+  min-height: 48px;
+}
+
+.v2-assessment-page .v2-assessment-insight-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  min-width: 0;
+}
+
+.v2-assessment-page .v2-assessment-insight-grid > .panel {
+  min-width: 0;
+}
+
+.v2-assessment-page .inline-chart-card,
+.v2-assessment-page .progress-card,
+.v2-assessment-page .result-card,
+.v2-assessment-page .diagnosis-result-section,
+.v2-assessment-page .risk-overlap-block,
+.v2-assessment-page .alternative-rationale {
+  border-radius: var(--v2-radius);
+}
+
+.v2-assessment-page .v2-assessment-result-panel {
+  position: sticky;
+  top: 12px;
+  min-width: 0;
+}
+
+.v2-assessment-page .diagnosis-result-card {
+  min-width: 0;
+}
+
+.v2-assessment-page .diagnosis-result-section,
+.v2-assessment-page .result-grid,
+.v2-assessment-page .chip-row,
+.v2-assessment-page .interpretation-strip,
+.v2-assessment-page .risk-chip-list {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.v2-assessment-page .result-score {
+  overflow-wrap: anywhere;
+}
+
+.v2-assessment-page .chip-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.v2-assessment-page .chart-head,
+.v2-assessment-page .progress-row header,
+.v2-assessment-page .section-head {
+  min-width: 0;
+}
+
+.v2-assessment-page svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 1180px) {
+  .v2-assessment-page .v2-assessment-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .v2-assessment-page .v2-assessment-result-panel {
+    position: static;
+  }
+}
+
+@media (max-width: 900px) {
+  .v2-assessment-page .v2-assessment-hero .subhero-copy,
+  .v2-assessment-page .v2-assessment-insight-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .v2-assessment-page .service-status-card {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .v2-assessment-page .v2-assessment-hero,
+  .v2-assessment-page .v2-assessment-input-panel,
+  .v2-assessment-page .v2-assessment-result-panel,
+  .v2-assessment-page .v2-assessment-insight-grid > .panel {
+    width: 100%;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .v2-assessment-page .v2-assessment-hero .subhero-copy {
+    gap: 14px;
+  }
+
+  .v2-assessment-page .v2-assessment-hero-copy h1 {
+    max-width: 12ch;
+    font-size: clamp(1.9rem, 9.2vw, 2.65rem);
+    line-height: 1.1;
+  }
+
+  .v2-assessment-page .v2-assessment-hero-copy > p:last-child {
+    font-size: 0.9rem;
+  }
+
+  .v2-assessment-page .v2-assessment-input-panel .form-stack {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .v2-assessment-page .v2-assessment-input-panel .full-span {
+    grid-column: auto;
+  }
+
+  .v2-assessment-page .v2-assessment-workspace,
+  .v2-assessment-page .assessment-input-column,
+  .v2-assessment-page .v2-assessment-insight-grid {
+    gap: 10px;
+  }
+
+  .v2-assessment-page .field,
+  .v2-assessment-page input,
+  .v2-assessment-page select,
+  .v2-assessment-page button,
+  .v2-assessment-page .progress-card,
+  .v2-assessment-page .diagnosis-result-card,
+  .v2-assessment-page .diagnosis-result-section,
+  .v2-assessment-page .result-grid > *,
+  .v2-assessment-page .chip {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .v2-assessment-page .v2-assessment-input-panel .button {
+    width: 100%;
+  }
+
+  .v2-assessment-page .result-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 420px) {
+  .v2-assessment-page .v2-assessment-hero,
+  .v2-assessment-page .v2-assessment-input-panel,
+  .v2-assessment-page .v2-assessment-result-panel,
+  .v2-assessment-page .v2-assessment-insight-grid > .panel {
+    padding: 12px;
+  }
+
+  .v2-assessment-page .v2-assessment-hero-copy h1 {
+    font-size: clamp(1.75rem, 9vw, 2.25rem);
+  }
+
+  .v2-assessment-page .service-status-card {
+    padding: 14px;
+  }
+}

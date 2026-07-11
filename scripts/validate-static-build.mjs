@@ -21,6 +21,8 @@ const requiredFiles = [
   "v2/index.html",
   "v2/redveil-v2.css",
   "v2/redveil-v2-mobile.css",
+  "v2/redveil-v2-shell.css",
+  "v2/redveil-v2-shell.js",
   "v2/redveil-v2.js",
   "v2/districts.html",
   "v2/redveil-v2-districts.js",
@@ -60,7 +62,11 @@ const v2RequiredMarkers = [
   "선택 자치구",
   "후보 비교",
   "이용 전 확인",
+  'data-v2-view="map"',
+  'data-v2-menu-open',
   'href="./redveil-v2-mobile.css',
+  'href="./redveil-v2-shell.css',
+  'src="./redveil-v2-shell.js',
   'src="../website_payload.js"',
   'src="./redveil-v2.js"',
 ];
@@ -80,9 +86,13 @@ for (const marker of obsoleteV2Markers) {
 
 const v2DistrictHtml = fs.readFileSync(path.join(siteRoot, "v2", "districts.html"), "utf8");
 const v2DistrictMarkers = [
-  "DISTRICT RISK REPORT",
+  "자치구 리스크 리포트",
   "v2-report-factor-grid",
   "v2-report-alternative-list",
+  'data-v2-view="districts"',
+  'data-v2-menu-open',
+  'href="./redveil-v2-shell.css',
+  'src="./redveil-v2-shell.js',
   'src="../website_payload.js"',
   'src="./redveil-v2-districts.js"',
 ];
@@ -90,6 +100,13 @@ const v2DistrictMarkers = [
 for (const marker of v2DistrictMarkers) {
   if (!v2DistrictHtml.includes(marker)) {
     throw new Error(`v2/districts.html is missing marker: ${marker}`);
+  }
+}
+
+const obsoleteV2DistrictMarkers = ["DISTRICT RISK REPORT", "V1 구별 리포트", "MODE", "District Report"];
+for (const marker of obsoleteV2DistrictMarkers) {
+  if (v2DistrictHtml.includes(marker)) {
+    throw new Error(`v2/districts.html still contains obsolete marker: ${marker}`);
   }
 }
 

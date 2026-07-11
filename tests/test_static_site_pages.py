@@ -61,6 +61,7 @@ class StaticSitePageTests(unittest.TestCase):
             "index.html": "map",
             "review.html": "review",
             "assessment.html": "assessment",
+            "compare.html": "compare",
             "districts.html": "districts",
         }
 
@@ -108,6 +109,26 @@ class StaticSitePageTests(unittest.TestCase):
         self.assertNotIn("3-Minute Diagnosis", assessment_html)
         self.assertNotIn("Quick Risk Check", assessment_html)
 
+    def test_v2_compare_reuses_existing_compare_logic_inside_v2_shell(self) -> None:
+        compare_html = (SITE_ROOT / "v2" / "compare.html").read_text(encoding="utf-8")
+
+        self.assertIn('src="../website_payload.js"', compare_html)
+        self.assertIn('src="../common.js"', compare_html)
+        self.assertIn('src="../compare.js"', compare_html)
+        self.assertIn('src="../compare-minimap.js"', compare_html)
+        self.assertIn('src="./redveil-v2-compare.js', compare_html)
+        self.assertIn('href="./redveil-v2-feature.css', compare_html)
+        self.assertIn('href="./redveil-v2-compare.css', compare_html)
+        self.assertIn('id="compare-a"', compare_html)
+        self.assertIn('id="compare-b"', compare_html)
+        self.assertIn('id="compare-c"', compare_html)
+        self.assertIn('id="compare-run"', compare_html)
+        self.assertIn('id="compare-grid"', compare_html)
+        self.assertIn('id="compare-memo"', compare_html)
+        self.assertNotIn('<nav class="topnav"', compare_html)
+        self.assertNotIn("Candidate Compare", compare_html)
+        self.assertNotIn("Alternative Candidates", compare_html)
+
     def test_v2_district_report_keeps_required_mounts_and_scripts(self) -> None:
         report_html = (SITE_ROOT / "v2" / "districts.html").read_text(encoding="utf-8")
 
@@ -145,6 +166,7 @@ class StaticSitePageTests(unittest.TestCase):
             "v2/index.html": ["레드베일 V2 지도 대시보드", "서울 리스크 지도", "선택 자치구"],
             "v2/review.html": ["매물 검토", "추천 전에 보류 사유", "보류 메모 생성"],
             "v2/assessment.html": ["3분 진단", "보류 신호 진단 실행", "assessment-form"],
+            "v2/compare.html": ["후보 비교", "보류 기준으로 비교", "compare-run"],
             "v2/districts.html": ["자치구 리스크 리포트", "핵심 위험 요인", "결정 메모"],
         }
 
@@ -161,10 +183,12 @@ class StaticSitePageTests(unittest.TestCase):
             SITE_ROOT / "v2" / "index.html",
             SITE_ROOT / "v2" / "review.html",
             SITE_ROOT / "v2" / "assessment.html",
+            SITE_ROOT / "v2" / "compare.html",
             SITE_ROOT / "v2" / "redveil-v2.js",
             SITE_ROOT / "v2" / "redveil-v2-shell.js",
             SITE_ROOT / "v2" / "redveil-v2-review.js",
             SITE_ROOT / "v2" / "redveil-v2-assessment.js",
+            SITE_ROOT / "v2" / "redveil-v2-compare.js",
             SITE_ROOT / "v2" / "districts.html",
             SITE_ROOT / "v2" / "redveil-v2-districts.js",
         ]

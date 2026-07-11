@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" role="img" aria-labelledby="title desc">
+  <title id="title">서울 야경을 추상화한 Redveil 모바일 히어로 그래픽</title>
+  <desc id="desc">붉은 신호선과 어두운 건물 실루엣으로 구성된 장식용 도시 그래픽</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17101a"/>
+      <stop offset="0.55" stop-color="#090b12"/>
+      <stop offset="1" stop-color="#03050a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="72%" cy="30%" r="52%">
+      <stop offset="0" stop-color="#ff1e35" stop-opacity=".34"/>
+      <stop offset=".45" stop-color="#ff1e35" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#ff1e35" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <filter id="dotGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="720" height="520" fill="url(#sky)"/>
+  <rect width="720" height="520" fill="url(#glow)"/>
+
+  <g fill="none" stroke="#ff3347" stroke-opacity=".18">
+    <circle cx="528" cy="244" r="78"/>
+    <circle cx="528" cy="244" r="132"/>
+    <circle cx="528" cy="244" r="190"/>
+    <circle cx="528" cy="244" r="248"/>
+  </g>
+  <g fill="#ff3347" filter="url(#dotGlow)">
+    <circle cx="528" cy="54" r="3"/>
+    <circle cx="396" cy="104" r="3"/>
+    <circle cx="339" cy="244" r="3"/>
+    <circle cx="463" cy="362" r="3"/>
+    <circle cx="652" cy="319" r="3"/>
+  </g>
+
+  <g fill="#080a10" stroke="#ff3347" stroke-opacity=".12">
+    <path d="M0 390h48V214h66v176h26V286h72v104h28V172h86v218h34V250h68v140h28V308h58v82h36V200h92v190h78v130H0z"/>
+  </g>
+  <g fill="#ff3347" opacity=".58">
+    <rect x="67" y="246" width="8" height="5" rx="1"/><rect x="88" y="276" width="8" height="5" rx="1"/>
+    <rect x="161" y="319" width="8" height="5" rx="1"/><rect x="188" y="345" width="8" height="5" rx="1"/>
+    <rect x="265" y="214" width="9" height="6" rx="1"/><rect x="298" y="247" width="9" height="6" rx="1"/>
+    <rect x="381" y="282" width="8" height="5" rx="1"/><rect x="407" y="315" width="8" height="5" rx="1"/>
+    <rect x="481" y="341" width="8" height="5" rx="1"/><rect x="568" y="244" width="9" height="6" rx="1"/>
+    <rect x="602" y="286" width="9" height="6" rx="1"/><rect x="626" y="332" width="9" height="6" rx="1"/>
+  </g>
+
+  <g transform="translate(500 50)">
+    <rect x="22" y="132" width="12" height="220" rx="5" fill="#17111a" stroke="#ff3347" stroke-opacity=".4"/>
+    <path d="M28 0l7 93h-14z" fill="#ff3347" opacity=".82"/>
+    <rect x="11" y="94" width="34" height="12" rx="6" fill="#ff3347" opacity=".82" filter="url(#dotGlow)"/>
+    <rect x="6" y="113" width="44" height="14" rx="7" fill="#17111a" stroke="#ff3347" stroke-opacity=".55"/>
+    <circle cx="28" cy="98" r="20" fill="#ff1e35" opacity=".12" filter="url(#soft)"/>
+  </g>
+
+  <path d="M0 438c154-32 288-28 412-4 104 20 200 20 308-8v94H0z" fill="#020308"/>
+  <path d="M0 452c178-30 322-16 430 6 102 21 188 18 290-4" fill="none" stroke="#ff3347" stroke-opacity=".26"/>
+</svg>

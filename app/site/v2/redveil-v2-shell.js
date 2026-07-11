@@ -17,6 +17,8 @@
   const closeButton = document.querySelector("[data-v2-menu-close]");
   const backdrop = document.querySelector("[data-v2-menu-backdrop]");
   const mobileQuery = window.matchMedia("(max-width: 760px)");
+  let pendingMapRestoreCode = "";
+  let mapRestoreFinished = false;
 
   function districts() {
     const payload = window.__REDVEIL_PAYLOAD__ || window.RedveilV2?.payload || {};
@@ -42,7 +44,9 @@
 
   function pageDistrictCode() {
     const params = new URLSearchParams(window.location.search);
-    const code = params.get("district") || params.get("a") || "";
+    const code = currentView === "compare"
+      ? params.get("a") || params.get("district") || ""
+      : params.get("district") || params.get("code") || params.get("districtCode") || params.get("a") || "";
     return validDistrictCode(code) ? code : "";
   }
 
@@ -53,6 +57,15 @@
     } catch (_error) {
       // Selection persistence is optional when storage is unavailable.
     }
+  }
+
+  function syncCurrentUrl(code) {
+    if (!validDistrictCode(code)) return;
+    const parameter = currentView === "compare" ? "a" : "district";
+    const url = new URL(window.location.href);
+    if (url.searchParams.get(parameter) === String(code)) return;
+    url.searchParams.set(parameter, String(code));
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
   }
 
   function normalizeFeatureHref(view, originalHref) {
@@ -90,10 +103,55 @@
       .forEach((link) => updateLink(link, code));
   }
 
-  function syncDistrictCode(code) {
+  function syncDistrictCode(code, updateUrl = false) {
     if (!validDistrictCode(code)) return;
     saveDistrictCode(code);
     decorateV2Links(code);
+    if (updateUrl) syncCurrentUrl(code);
+  }
+
+  function restoreSelect(selector, code) {
+    const select = document.querySelector(selector);
+    if (!(select instanceof HTMLSelectElement) || !validDistrictCode(code)) return false;
+    if (select.value === String(code)) return true;
+    select.value = String(code);
+    if (select.value !== String(code)) return false;
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+    return true;
+  }
+
+  function restoreMapSelection(code) {
+    if (currentView !== "map" || mapRestoreFinished || !validDistrictCode(code)) return;
+    const target = document.querySelector(`.v2-map-district[data-code="${code}"]`);
+    if (!target) return;
+
+    mapRestoreFinished = true;
+    pendingMapRestoreCode = "";
+    const selectedName = document.getElementById("map-selected-name");
+    const currentCode = codeForName(selectedName?.textContent);
+    if (currentCode !== String(code)) {
+      target.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    }
+    syncDistrictCode(code, true);
+  }
+
+  function restoreCurrentView(code) {
+    if (!validDistrictCode(code)) return;
+    if (currentView === "review") {
+      restoreSelect("#review-district-code", code);
+      return;
+    }
+    if (currentView === "assessment") {
+      restoreSelect("#district-code", code);
+      return;
+    }
+    if (currentView === "compare") {
+      restoreSelect("#compare-a", code);
+      return;
+    }
+    if (currentView === "map") {
+      restoreMapSelection(code);
+    }
   }
 
   document.querySelectorAll("[data-v2-nav]").forEach((link) => {
@@ -153,7 +211,7 @@
     const target = event.target;
     if (!(target instanceof Element)) return;
     if (target.matches("#review-district-code, #district-code, #compare-a")) {
-      syncDistrictCode(target.value);
+      syncDistrictCode(target.value, true);
     }
   });
 
@@ -165,10 +223,21 @@
 
   const selectedName = document.getElementById("map-selected-name");
   if (selectedName && window.MutationObserver) {
-    const syncMapSelection = () => syncDistrictCode(codeForName(selectedName.textContent));
+    const syncMapSelection = () => {
+      const code = codeForName(selectedName.textContent);
+      if (!code) return;
+      if (pendingMapRestoreCode && !mapRestoreFinished && code !== pendingMapRestoreCode) return;
+      syncDistrictCode(code, true);
+    };
     const observer = new MutationObserver(syncMapSelection);
     observer.observe(selectedName, { childList: true, characterData: true, subtree: true });
     window.setTimeout(syncMapSelection, 0);
+  }
+
+  const mapRoot = document.querySelector("[data-v2-risk-map]");
+  if (mapRoot && window.MutationObserver) {
+    const mapObserver = new MutationObserver(() => restoreMapSelection(pendingMapRestoreCode));
+    mapObserver.observe(mapRoot, { childList: true, subtree: true });
   }
 
   if (typeof mobileQuery.addEventListener === "function") {
@@ -178,7 +247,13 @@
   }
 
   decorateV2Links();
-  const initialCode = pageDistrictCode() || storedDistrictCode();
-  if (initialCode) syncDistrictCode(initialCode);
+  const queryCode = pageDistrictCode();
+  const initialCode = queryCode || storedDistrictCode();
+  if (initialCode) {
+    if (currentView === "map") pendingMapRestoreCode = initialCode;
+    syncDistrictCode(initialCode, !queryCode);
+    restoreCurrentView(initialCode);
+    window.setTimeout(() => restoreCurrentView(initialCode), 0);
+  }
   syncViewport();
 })();

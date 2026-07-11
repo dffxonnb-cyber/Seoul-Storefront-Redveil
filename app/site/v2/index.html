@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#03050a" />
     <title>Redveil V2 | 서울 지도 리스크 대시보드</title>
     <meta
       name="description"
@@ -10,6 +11,7 @@
     />
     <link rel="icon" type="image/png" href="../assets/redveil-logo.png" />
     <link rel="stylesheet" href="./redveil-v2.css?v=20260606-map-dashboard" />
+    <link rel="stylesheet" href="./redveil-v2-mobile.css?v=20260711-v2-mobile-korean" />
     <script src="../website_payload.js" defer></script>
     <script src="./redveil-v2.js" defer></script>
   </head>
@@ -19,10 +21,10 @@
     <div class="v2-shell">
       <aside class="v2-sidebar" aria-label="Redveil V2 메뉴">
         <div class="v2-sidebar-primary">
-          <a class="v2-brand" href="./index.html" aria-label="Redveil V2 지도 대시보드">
+          <a class="v2-brand" href="./index.html" aria-label="Redveil V2 지도 대시보드 홈">
             <img src="../assets/redveil-logo.png" alt="" aria-hidden="true" decoding="async" />
             <span>
-              <small>SEOUL RISK INTELLIGENCE</small>
+              <small>서울 상가 리스크 인텔리전스</small>
               <strong>Redveil V2</strong>
             </span>
           </a>
@@ -51,9 +53,9 @@
           </nav>
         </div>
 
-        <div class="v2-sidebar-status" aria-label="대시보드 모드">
-          <span>MODE</span>
-          <strong>Map Dashboard</strong>
+        <div class="v2-sidebar-status" aria-label="대시보드 운영 모드">
+          <span>운영 모드</span>
+          <strong>지도 대시보드</strong>
           <p>서울 자치구 실제 경계 기반 리스크 신호를 검토합니다.</p>
         </div>
       </aside>
@@ -66,7 +68,7 @@
           </div>
 
           <nav class="v2-topbar-nav" aria-label="빠른 이동">
-            <a href="../index.html">V1 서비스 홈</a>
+            <a href="../assessment.html">3분 진단</a>
             <a href="./districts.html">구별 리포트</a>
           </nav>
 
@@ -79,10 +81,10 @@
         <main id="redveil-v2-main" class="v2-dashboard" aria-label="Redveil V2 지도 리스크 대시보드">
           <section class="v2-hero-panel" aria-labelledby="v2-hero-title">
             <div class="v2-hero-copy">
-              <p class="v2-eyebrow">REDVEIL V2 MAP DASHBOARD</p>
+              <p class="v2-eyebrow">레드베일 V2 지도 대시보드</p>
               <h1 id="v2-hero-title">서울 지도에서 멈춰야 할 신호를 먼저 찾습니다.</h1>
               <p>
-                V1의 보류 우선 진단 흐름을 서울 25개 자치구 실제 경계 위로 확장했습니다.
+                보류 우선 진단 흐름을 서울 25개 자치구 실제 경계 위로 확장했습니다.
                 자치구를 선택하고 리스크 점수, 주요 신호, 대체 후보를 같은 화면에서 비교하세요.
               </p>
             </div>
@@ -113,12 +115,12 @@
           <section id="risk-map" class="v2-panel v2-map-panel" aria-labelledby="risk-map-heading">
             <div class="v2-panel-head v2-map-command-head">
               <div>
-                <p class="v2-section-label">SEOUL RISK MAP · 서울 리스크 지도</p>
+                <p class="v2-section-label">서울 리스크 지도</p>
                 <h2 id="risk-map-heading">자치구를 선택해 리스크 신호를 비교하세요.</h2>
-                <p>실제 자치구 경계를 클릭하거나 키보드로 선택하면 오른쪽 분석 패널과 대체 후보가 함께 갱신됩니다.</p>
+                <p>실제 자치구 경계를 클릭하거나 키보드로 선택하면 분석 패널과 대체 후보가 함께 갱신됩니다.</p>
               </div>
               <div class="v2-map-command-status" aria-label="지도 상태">
-                <span>REAL SEOUL MAP</span>
+                <span>서울 실제 경계 지도</span>
                 <span>선택 가능한 25개 자치구</span>
                 <strong id="selected-node-label" class="v2-selected-node" aria-live="polite">선택 구 불러오는 중</strong>
               </div>
@@ -129,7 +131,7 @@
                 <span></span>
                 <span></span>
                 <span></span>
-                <strong>REDVEIL / SEOUL COMMERCIAL RISK SURFACE</strong>
+                <strong>레드베일 · 서울 상가 리스크 지도</strong>
               </div>
               <div class="v2-map-status-strip" aria-label="지도 선택 상태">
                 <span>실제 서울 지도</span>
@@ -156,7 +158,7 @@
                 <span><i class="legend-watch"></i>관찰</span>
                 <span><i class="legend-low"></i>낮음</span>
               </div>
-              <p class="v2-map-help">지도 선택: 클릭 또는 Tab 이동 후 Enter / Space / 방향키</p>
+              <p class="v2-map-help">지도 선택: 클릭 또는 탭 키 이동 후 엔터·스페이스·방향키</p>
             </div>
             <p class="v2-map-source">
               경계 출처: 서울시 상권분석서비스(영역-자치구), 공공누리 제1유형 출처표시.
@@ -167,7 +169,7 @@
             <article class="v2-panel v2-risk-index v2-selected-district-panel" aria-labelledby="risk-index-heading">
               <div class="v2-panel-head v2-panel-head-compact">
                 <div>
-                  <p class="v2-section-label">SELECTED DISTRICT · 선택 자치구</p>
+                  <p class="v2-section-label">선택 자치구</p>
                   <h2 id="risk-index-heading"><span id="selected-district-name">불러오는 중</span></h2>
                 </div>
                 <span id="selected-tier-badge" class="v2-tier-badge">등급 확인 중</span>
@@ -190,7 +192,7 @@
             <article class="v2-panel v2-risk-explanation" aria-labelledby="risk-explanation-heading" data-risk-explanation-panel>
               <div class="v2-panel-head v2-panel-head-compact">
                 <div>
-                  <p class="v2-section-label">RISK EXPLANATION · 위험 사유</p>
+                  <p class="v2-section-label">위험 사유</p>
                   <h2 id="risk-explanation-heading">왜 멈춰야 하는가</h2>
                 </div>
                 <strong id="risk-explanation-level" class="v2-explanation-level">분석 중</strong>
@@ -216,10 +218,11 @@
                 </section>
               </div>
             </article>
+
             <article class="v2-panel v2-top-signal" aria-labelledby="top-signal-heading">
               <div class="v2-panel-head v2-panel-head-compact">
                 <div>
-                  <p class="v2-section-label">PRIMARY SIGNAL · 주요 신호</p>
+                  <p class="v2-section-label">주요 신호</p>
                   <h2 id="top-signal-heading">분석 메모</h2>
                 </div>
               </div>
@@ -230,7 +233,7 @@
             <article class="v2-panel v2-decision-card" aria-labelledby="decision-card-heading">
               <div class="v2-panel-head v2-panel-head-compact">
                 <div>
-                  <p class="v2-section-label">DECISION MODE · 판단 모드</p>
+                  <p class="v2-section-label">판단 모드</p>
                   <h2 id="decision-card-heading">다음 확인</h2>
                 </div>
               </div>
@@ -246,7 +249,7 @@
           <section id="candidate-comparison" class="v2-panel v2-candidate-panel" aria-labelledby="candidate-heading">
             <div class="v2-panel-head">
               <div>
-                <p class="v2-section-label">CANDIDATE COMPARISON · 후보 비교</p>
+                <p class="v2-section-label">후보 비교</p>
                 <h2 id="candidate-heading">선택 자치구와 비교할 대체 후보</h2>
                 <p>대체 후보와 비교 기준 후보를 같은 리스크 점수 체계로 검토합니다.</p>
               </div>
@@ -254,7 +257,7 @@
             </div>
             <div class="v2-candidate-list" data-candidate-list aria-live="polite"></div>
             <noscript>
-              <p class="v2-noscript">후보 비교 결과는 JavaScript가 활성화되면 표시됩니다.</p>
+              <p class="v2-noscript">후보 비교 결과는 자바스크립트가 활성화되면 표시됩니다.</p>
             </noscript>
             <a class="v2-candidate-cta" href="../compare.html">후보 비교 화면에서 자세히 보기 →</a>
           </section>
@@ -262,8 +265,8 @@
           <section class="v2-panel v2-workflow-panel" aria-labelledby="workflow-heading">
             <div class="v2-panel-head">
               <div>
-                <p class="v2-section-label">WORKFLOW · 검토 흐름</p>
-                <h2 id="workflow-heading">지도 신호를 V1 검토로 이어가기</h2>
+                <p class="v2-section-label">검토 흐름</p>
+                <h2 id="workflow-heading">지도 신호를 실제 검토로 이어가기</h2>
               </div>
             </div>
 
@@ -293,7 +296,7 @@
 
           <section class="v2-panel v2-limitations-panel" aria-labelledby="v2-limitations-heading">
             <div>
-              <p class="v2-section-label">LIMITATIONS · 이용 전 확인</p>
+              <p class="v2-section-label">이용 전 확인</p>
               <h2 id="v2-limitations-heading">지도 점수는 매수 추천이 아닌 1차 스크리닝 신호입니다.</h2>
             </div>
             <p>

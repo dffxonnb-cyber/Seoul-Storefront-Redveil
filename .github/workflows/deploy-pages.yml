@@ -44,7 +44,21 @@ jobs:
           npx playwright install --with-deps chromium
 
       - name: Run Python tests
-        run: python -m unittest discover -s tests -p "test_*.py"
+        run: |
+          set +e
+          python -m unittest discover -s tests -p "test_*.py" > python-test.log 2>&1
+          status=$?
+          cat python-test.log
+          exit $status
+
+      - name: Upload Python test failure log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-test-failure-log
+          path: python-test.log
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Build website payload
         run: python src/redveil/pipelines/export_website_payload.py

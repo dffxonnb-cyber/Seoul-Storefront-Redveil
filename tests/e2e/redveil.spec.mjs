@@ -118,6 +118,43 @@ test("매물 검토는 사용자 입력을 HTML로 실행하지 않는다", asyn
   expect(runtimeErrors).toEqual([]);
 });
 
+test("V2 모바일 홈은 390px 화면 안에 들어오고 주요 문구를 한국어로 표시한다", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const runtimeErrors = watchRuntimeErrors(page);
+  await page.goto("/v2/index.html");
+
+  await expect(page.locator('link[href*="redveil-v2-mobile.css"]')).toHaveCount(1);
+  await expect(page.getByText("레드베일 V2 지도 대시보드", { exact: true })).toBeVisible();
+  await expect(page.getByText("서울 리스크 지도", { exact: true })).toBeVisible();
+  await expect(page.locator("body")).not.toContainText("REDVEIL V2 MAP DASHBOARD");
+  await expect(page.locator("[data-v2-risk-map] .v2-map-district")).toHaveCount(25);
+
+  const layout = await page.evaluate(() => ({
+    innerWidth: window.innerWidth,
+    documentWidth: document.documentElement.scrollWidth,
+    bodyWidth: document.body.scrollWidth,
+  }));
+  expect(layout.documentWidth).toBeLessThanOrEqual(layout.innerWidth + 1);
+  expect(layout.bodyWidth).toBeLessThanOrEqual(layout.innerWidth + 1);
+
+  for (const selector of [
+    ".v2-sidebar",
+    ".v2-hero-panel",
+    ".v2-map-panel",
+    ".v2-side-stack",
+    ".v2-candidate-panel",
+    ".v2-workflow-panel",
+  ]) {
+    const box = await page.locator(selector).boundingBox();
+    expect(box, `${selector} should have a rendered box`).not.toBeNull();
+    expect(box.x, `${selector} should not escape left`).toBeGreaterThanOrEqual(-1);
+    expect(box.x + box.width, `${selector} should not escape right`).toBeLessThanOrEqual(391);
+  }
+
+  await expect(page.locator(".v2-side-nav a")).toHaveCount(5);
+  expect(runtimeErrors).toEqual([]);
+});
+
 test("배포용 GeoJSON은 서울 25개 자치구의 현재 코드를 사용한다", async ({ request }) => {
   const response = await request.get("/assets/seoul-districts.geojson");
   expect(response.ok()).toBeTruthy();

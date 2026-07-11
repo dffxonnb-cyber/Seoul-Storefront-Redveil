@@ -1,0 +1,589 @@
+/* Redveil V2 mobile layout override. Loaded after redveil-v2.css. */
+
+@media (max-width: 760px) {
+  html,
+  body[data-page="redveil-v2"] {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  body[data-page="redveil-v2"] {
+    background:
+      radial-gradient(circle at 78% 0%, rgba(255, 51, 71, 0.12), transparent 24rem),
+      linear-gradient(180deg, #02040a 0%, #050811 46%, #020308 100%);
+  }
+
+  body[data-page="redveil-v2"]::before {
+    background-size: 34px 34px;
+    opacity: 0.5;
+  }
+
+  .v2-shell,
+  .v2-workspace,
+  .v2-dashboard,
+  .v2-sidebar,
+  .v2-sidebar-primary,
+  .v2-side-nav,
+  .v2-topbar,
+  .v2-hero-panel,
+  .v2-panel,
+  .v2-side-stack,
+  .v2-map-screen,
+  .v2-map-canvas,
+  .v2-candidate-list,
+  .v2-workflow-grid {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .v2-shell {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+  }
+
+  .v2-sidebar {
+    position: relative;
+    top: auto;
+    z-index: 20;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 0 10px;
+    padding: 12px;
+    border-radius: 16px;
+    overflow: visible;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 52%),
+      rgba(6, 9, 15, 0.96);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+  }
+
+  .v2-sidebar-primary {
+    display: grid;
+    gap: 12px;
+  }
+
+  .v2-brand {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .v2-brand img {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .v2-brand span {
+    display: grid;
+    gap: 2px;
+  }
+
+  .v2-brand small {
+    display: block;
+    color: rgba(193, 201, 217, 0.58);
+    font-size: 0.62rem;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+  }
+
+  .v2-brand strong {
+    margin: 0;
+    font-size: 0.98rem;
+  }
+
+  .v2-side-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .v2-side-nav a {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    align-items: center;
+    justify-items: start;
+    gap: 7px;
+    min-width: 0;
+    min-height: 44px;
+    padding: 8px 9px;
+    border: 1px solid rgba(255, 255, 255, 0.065);
+    border-radius: 12px;
+    font-size: 0.74rem;
+    line-height: 1.25;
+    text-align: left;
+    overflow: hidden;
+  }
+
+  .v2-side-nav a:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .v2-side-nav a span {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    font-size: 0.58rem;
+  }
+
+  .v2-side-nav a strong {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    color: rgba(235, 239, 247, 0.82);
+    font-size: 0.74rem;
+  }
+
+  .v2-side-nav a.is-active {
+    box-shadow: inset 3px 0 0 var(--v2-red);
+  }
+
+  .v2-sidebar-status,
+  .v2-topbar {
+    display: none;
+  }
+
+  .v2-dashboard {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "hero"
+      "map"
+      "side"
+      "candidates"
+      "workflow"
+      "limitations";
+    gap: 10px;
+    width: 100%;
+  }
+
+  .v2-hero-panel,
+  .v2-panel {
+    width: 100%;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .v2-hero-panel {
+    grid-area: hero;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    min-height: 0;
+    background:
+      radial-gradient(circle at 92% 8%, rgba(255, 51, 71, 0.12), transparent 38%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 40%),
+      rgba(8, 11, 18, 0.9);
+  }
+
+  .v2-eyebrow,
+  .v2-section-label,
+  .v2-panel-meta {
+    color: rgba(255, 91, 108, 0.8);
+    font-size: 0.66rem;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    text-transform: none;
+  }
+
+  .v2-hero-copy h1 {
+    max-width: 12ch;
+    margin-top: 9px;
+    font-size: clamp(1.9rem, 9.3vw, 2.65rem);
+    line-height: 1.1;
+    letter-spacing: -0.055em;
+  }
+
+  .v2-hero-copy p:not(.v2-eyebrow) {
+    max-width: 34ch;
+    margin-top: 14px;
+    font-size: 0.91rem;
+    line-height: 1.68;
+  }
+
+  .v2-hero-command {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .v2-mission-strip,
+  .v2-hero-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    width: 100%;
+  }
+
+  .v2-mission-strip div {
+    min-width: 0;
+    min-height: 72px;
+    padding: 10px 8px;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .v2-mission-strip dt {
+    font-size: 0.61rem;
+    line-height: 1.3;
+  }
+
+  .v2-mission-strip dd {
+    margin-top: 6px;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .v2-hero-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .v2-button,
+  .v2-hero-actions .v2-button,
+  .v2-selected-actions .v2-button {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 0 14px;
+    border-radius: 12px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .v2-map-panel {
+    grid-area: map;
+    min-height: 0;
+    padding: 12px;
+  }
+
+  .v2-map-command-head,
+  .v2-panel-head,
+  .v2-panel-head-compact {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+  }
+
+  .v2-map-command-head h2,
+  .v2-panel-head h2 {
+    font-size: 1.16rem;
+    line-height: 1.34;
+  }
+
+  .v2-map-command-head p,
+  .v2-panel-head p {
+    font-size: 0.82rem;
+    line-height: 1.56;
+  }
+
+  .v2-map-command-status {
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: start;
+    justify-content: flex-start;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .v2-map-command-status span,
+  .v2-selected-node,
+  .v2-panel-meta {
+    max-width: 100%;
+    padding: 6px 8px;
+    border-radius: 9px;
+    font-size: 0.66rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .v2-selected-node {
+    flex-basis: 100%;
+  }
+
+  .v2-map-screen {
+    width: 100%;
+    border-radius: 13px;
+    overflow: hidden;
+  }
+
+  .v2-map-screenbar {
+    min-height: 34px;
+    padding: 0 10px;
+  }
+
+  .v2-map-screenbar strong {
+    min-width: 0;
+    margin-left: 4px;
+    font-size: 0.56rem;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .v2-map-status-strip {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+    padding: 8px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  .v2-map-status-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .v2-map-status-strip > * {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .v2-map-canvas {
+    position: relative;
+    width: 100%;
+    min-height: 0;
+    aspect-ratio: 760 / 540;
+    overflow: hidden;
+  }
+
+  .v2-risk-map-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-width: 100%;
+  }
+
+  .v2-map-district-label {
+    font-size: 12px;
+  }
+
+  .v2-map-district-score {
+    font-size: 10px;
+  }
+
+  .v2-map-footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .v2-map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+
+  .v2-map-help,
+  .v2-map-source {
+    max-width: 100%;
+    font-size: 0.7rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+
+  .v2-side-stack {
+    grid-area: side;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .v2-risk-index,
+  .v2-top-signal,
+  .v2-decision-card,
+  .v2-risk-explanation {
+    min-height: 0;
+    padding: 14px;
+  }
+
+  .v2-score-row {
+    margin-top: 8px;
+  }
+
+  .v2-score-row strong {
+    font-size: clamp(3.2rem, 18vw, 4.7rem);
+  }
+
+  .v2-selected-actions,
+  .v2-decision-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .v2-explanation-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .v2-explanation-grid section {
+    min-width: 0;
+    padding: 11px;
+    border-radius: 11px;
+  }
+
+  .v2-candidate-panel {
+    grid-area: candidates;
+    padding: 14px;
+  }
+
+  .v2-candidate-list {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .v2-candidate-header {
+    display: none;
+  }
+
+  .v2-candidate-row {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 52px;
+    gap: 7px;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 11px;
+    border-radius: 12px;
+  }
+
+  .v2-candidate-name,
+  .v2-candidate-signal,
+  .v2-candidate-status,
+  .v2-candidate-rent {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .v2-candidate-signal,
+  .v2-candidate-status,
+  .v2-candidate-rent {
+    grid-column: 2 / -1;
+    justify-self: start;
+  }
+
+  .v2-candidate-score {
+    justify-self: end;
+    white-space: nowrap;
+  }
+
+  .v2-candidate-cta {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 11px 12px;
+    border-radius: 11px;
+    text-align: center;
+  }
+
+  .v2-workflow-panel {
+    grid-area: workflow;
+    padding: 14px;
+    opacity: 1;
+  }
+
+  .v2-workflow-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .v2-workflow-card {
+    min-width: 0;
+    padding: 12px;
+    border-radius: 11px;
+  }
+
+  .v2-limitations-panel {
+    grid-area: limitations;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .v2-limitations-panel p {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .v2-shell {
+    padding: 8px;
+  }
+
+  .v2-sidebar {
+    padding: 10px;
+  }
+
+  .v2-side-nav {
+    gap: 6px;
+  }
+
+  .v2-side-nav a {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    min-height: 42px;
+    padding: 7px 5px;
+    text-align: center;
+  }
+
+  .v2-side-nav a span {
+    display: none;
+  }
+
+  .v2-side-nav a strong {
+    font-size: 0.7rem;
+  }
+
+  .v2-hero-panel,
+  .v2-panel {
+    padding: 12px;
+  }
+
+  .v2-hero-copy h1 {
+    font-size: clamp(1.8rem, 9vw, 2.2rem);
+  }
+
+  .v2-mission-strip dd {
+    font-size: 0.82rem;
+  }
+
+  .v2-map-command-status span,
+  .v2-selected-node {
+    font-size: 0.62rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-side-nav a,
+  .v2-button,
+  .v2-map-district {
+    transition: none !important;
+  }
+}

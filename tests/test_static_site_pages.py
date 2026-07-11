@@ -47,6 +47,7 @@ class StaticSitePageTests(unittest.TestCase):
         self.assertIn('href="../compare.html"', v2_html)
         self.assertIn('href="./districts.html"', v2_html)
         self.assertIn('id="selected-district-report-link"', v2_html)
+        self.assertIn('href="./redveil-v2-mobile.css', v2_html)
         self.assertEqual(geojson["type"], "FeatureCollection")
         self.assertEqual(len(geojson["features"]), 25)
         self.assertEqual(len({feature["properties"]["code"] for feature in geojson["features"]}), 25)
@@ -82,7 +83,7 @@ class StaticSitePageTests(unittest.TestCase):
             "assessment.html": ["3-Minute Diagnosis", "보류 신호 진단 실행", "assessment-form"],
             "compare.html": ["Candidate Compare", "보류 기준으로 비교", "compare-run"],
             "districts.html": ["District Report", "District Selector", "Replacement Candidates"],
-            "v2/index.html": ["REDVEIL V2 MAP DASHBOARD", "서울 리스크 지도", "선택 자치구"],
+            "v2/index.html": ["레드베일 V2 지도 대시보드", "서울 리스크 지도", "선택 자치구"],
             "v2/districts.html": ["DISTRICT RISK REPORT", "핵심 위험 요인", "결정 메모"],
         }
 

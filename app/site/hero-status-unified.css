@@ -83,6 +83,11 @@ body[data-page="review"] .review-status-grid {
 body[data-page="review"] .review-status-card {
   width: 100% !important;
   min-width: 0 !important;
+  min-height: 150px !important;
+  max-height: 170px;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: repeat(3, auto) !important;
+  justify-items: start !important;
   justify-self: stretch !important;
 }
 
@@ -98,7 +103,9 @@ body[data-page="review"] .review-status-card::after {
 }
 
 body[data-page="review"] .review-status-card > * {
-  grid-column: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  grid-column: 1 !important;
   padding-left: 0 !important;
 }
 
@@ -119,6 +126,10 @@ body[data-page="review"] .review-status-card > * {
 
   body[data-page="review"] .review-status-grid {
     grid-template-columns: 1fr !important;
+  }
+
+  body[data-page="review"] .review-status-card {
+    max-height: none;
   }
 
   body[data-page="review"] .review-status-card strong {

@@ -58,6 +58,7 @@
   function normalizeFeatureHref(view, originalHref) {
     if (view === "review" || /(?:^|\/)review\.html(?:[?#]|$)/.test(originalHref)) return "./review.html";
     if (view === "assessment" || /(?:^|\/)assessment\.html(?:[?#]|$)/.test(originalHref)) return "./assessment.html";
+    if (view === "compare" || /(?:^|\/)compare\.html(?:[?#]|$)/.test(originalHref)) return "./compare.html";
     return originalHref;
   }
 
@@ -84,7 +85,7 @@
   function decorateV2Links(code = pageDistrictCode() || storedDistrictCode()) {
     document
       .querySelectorAll(
-        '[data-v2-nav], [data-v2-district-link], a[href*="review.html"], a[href*="assessment.html"]'
+        '[data-v2-nav], [data-v2-district-link], a[href*="review.html"], a[href*="assessment.html"], a[href*="compare.html"]'
       )
       .forEach((link) => updateLink(link, code));
   }

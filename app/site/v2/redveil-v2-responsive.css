@@ -1,0 +1,479 @@
+/* Final V2 responsive safety layer.
+   Loaded after every page stylesheet by redveil-v2-shell.js. */
+
+html,
+body[data-page="redveil-v2"],
+body.v2-feature-page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body[data-page="redveil-v2"] .v2-shell,
+body[data-page="redveil-v2"] .v2-workspace,
+body[data-page="redveil-v2"] main,
+body[data-page="redveil-v2"] section,
+body[data-page="redveil-v2"] article,
+body[data-page="redveil-v2"] form,
+body[data-page="redveil-v2"] fieldset,
+body[data-page="redveil-v2"] .panel,
+body[data-page="redveil-v2"] .v2-panel,
+body[data-page="redveil-v2"] .v2-hero-panel,
+body[data-page="redveil-v2"] .v2-side-stack,
+body[data-page="redveil-v2"] .v2-report-layout,
+body[data-page="redveil-v2"] .compare-card-grid,
+body[data-page="redveil-v2"] .comparison-grid {
+  min-width: 0;
+  max-width: 100%;
+}
+
+body[data-page="redveil-v2"] img,
+body[data-page="redveil-v2"] svg,
+body[data-page="redveil-v2"] canvas {
+  max-width: 100%;
+}
+
+body[data-page="redveil-v2"] h1,
+body[data-page="redveil-v2"] h2,
+body[data-page="redveil-v2"] h3,
+body[data-page="redveil-v2"] p,
+body[data-page="redveil-v2"] li,
+body[data-page="redveil-v2"] strong,
+body[data-page="redveil-v2"] span,
+body[data-page="redveil-v2"] label,
+body[data-page="redveil-v2"] dd {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1180px) {
+  body[data-page="redveil-v2"] .review-workspace,
+  body[data-page="redveil-v2"] .v2-assessment-workspace,
+  body[data-page="redveil-v2"] .v2-compare-analysis-grid,
+  body[data-page="redveil-v2"] .v2-report-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  body[data-page="redveil-v2"] .review-context-card,
+  body[data-page="redveil-v2"] .v2-assessment-result-panel {
+    position: static !important;
+    top: auto !important;
+  }
+}
+
+@media (max-width: 820px) {
+  html,
+  body[data-page="redveil-v2"],
+  body.v2-feature-page {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-x: clip !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-shell {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 100dvh;
+    margin: 0 !important;
+    padding: 10px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-workspace {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-mobile-bar {
+    display: flex !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-topbar {
+    display: none !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-dashboard {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas:
+      "hero"
+      "map"
+      "side"
+      "candidates"
+      "workflow"
+      "limitations" !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-hero-panel,
+  body[data-page="redveil-v2"] .v2-panel,
+  body[data-page="redveil-v2"] .panel,
+  body[data-page="redveil-v2"] .section-block,
+  body[data-page="redveil-v2"] .compare-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 14px !important;
+    border-radius: 16px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-hero-panel,
+  body[data-page="redveil-v2"] .subhero-copy,
+  body[data-page="redveil-v2"] .review-hero-layout,
+  body[data-page="redveil-v2"] .v2-assessment-hero .subhero-copy,
+  body[data-page="redveil-v2"] .v2-compare-hero .subhero-copy {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-hero-copy h1,
+  body[data-page="redveil-v2"] .review-hero-main h1,
+  body[data-page="redveil-v2"] .v2-assessment-hero-copy h1,
+  body[data-page="redveil-v2"] .v2-compare-hero-copy h1,
+  body[data-page="redveil-v2"] .v2-report-summary h1 {
+    max-width: 14ch !important;
+    font-size: clamp(1.85rem, 7.8vw, 2.65rem) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.045em !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-hero-actions,
+  body[data-page="redveil-v2"] .v2-selected-actions,
+  body[data-page="redveil-v2"] .v2-decision-actions,
+  body[data-page="redveil-v2"] .review-export-actions,
+  body[data-page="redveil-v2"] .v2-report-summary-actions {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-button,
+  body[data-page="redveil-v2"] .button,
+  body[data-page="redveil-v2"] button,
+  body[data-page="redveil-v2"] input,
+  body[data-page="redveil-v2"] select,
+  body[data-page="redveil-v2"] textarea {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-button,
+  body[data-page="redveil-v2"] .button,
+  body[data-page="redveil-v2"] button {
+    min-height: 46px;
+  }
+
+  body[data-page="redveil-v2"] input,
+  body[data-page="redveil-v2"] select,
+  body[data-page="redveil-v2"] textarea {
+    width: 100%;
+    min-height: 46px;
+    font-size: 16px !important;
+  }
+
+  body[data-page="redveil-v2"] textarea {
+    min-height: 118px;
+  }
+
+  body[data-page="redveil-v2"] .v2-mission-strip,
+  body[data-page="redveil-v2"] .v2-hero-metrics {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    width: 100%;
+  }
+
+  body[data-page="redveil-v2"] .v2-map-panel {
+    min-height: 0 !important;
+    padding: 12px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-map-screen {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  body[data-page="redveil-v2"] .v2-map-status-strip {
+    position: static !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    padding: 8px !important;
+    overflow-x: auto !important;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+    pointer-events: auto !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-map-status-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  body[data-page="redveil-v2"] .v2-map-status-strip > * {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  body[data-page="redveil-v2"] .v2-map-canvas,
+  body[data-page="redveil-v2"] .v2-risk-map-svg {
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    aspect-ratio: 760 / 540;
+  }
+
+  body[data-page="redveil-v2"] .v2-side-stack,
+  body[data-page="redveil-v2"] .v2-explanation-grid,
+  body[data-page="redveil-v2"] .v2-workflow-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-candidate-header {
+    display: none !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-candidate-list {
+    display: grid !important;
+    gap: 8px !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-candidate-row {
+    display: grid !important;
+    grid-template-columns: 34px minmax(0, 1fr) 54px !important;
+    gap: 7px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 11px !important;
+    border: 1px solid var(--v2-line-soft) !important;
+    border-radius: 12px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-candidate-signal,
+  body[data-page="redveil-v2"] .v2-candidate-status,
+  body[data-page="redveil-v2"] .v2-candidate-rent,
+  body[data-page="redveil-v2"] .v2-candidate-gap {
+    grid-column: 2 / -1 !important;
+    justify-self: start !important;
+  }
+
+  body[data-page="redveil-v2"] .review-status-grid,
+  body[data-page="redveil-v2"] .review-workspace,
+  body[data-page="redveil-v2"] .review-form-group,
+  body[data-page="redveil-v2"] .history-grid,
+  body[data-page="redveil-v2"] .review-detail-grid,
+  body[data-page="redveil-v2"] .review-detail-sections,
+  body[data-page="redveil-v2"] .review-result-sections,
+  body[data-page="redveil-v2"] .v2-assessment-workspace,
+  body[data-page="redveil-v2"] .v2-assessment-input-panel .form-stack,
+  body[data-page="redveil-v2"] .v2-assessment-insight-grid,
+  body[data-page="redveil-v2"] .result-grid,
+  body[data-page="redveil-v2"] .compare-selector-grid,
+  body[data-page="redveil-v2"] .compare-card-grid,
+  body[data-page="redveil-v2"] .v2-compare-analysis-grid,
+  body[data-page="redveil-v2"] .risk-delta-grid,
+  body[data-page="redveil-v2"] .alternative-support-grid,
+  body[data-page="redveil-v2"] .decision-memo-board {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  body[data-page="redveil-v2"] .review-context-card,
+  body[data-page="redveil-v2"] .v2-assessment-result-panel {
+    position: static !important;
+    top: auto !important;
+  }
+
+  body[data-page="redveil-v2"] .compare-card {
+    grid-template-columns: minmax(0, 1fr) !important;
+    overflow: hidden;
+  }
+
+  body[data-page="redveil-v2"] .compare-card > * {
+    grid-column: auto !important;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body[data-page="redveil-v2"] .candidate-scan-panel {
+    min-height: 128px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-report-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas: none !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-report-layout > section {
+    grid-column: 1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 14px !important;
+    border-radius: 16px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-report-summary {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-report-summary-actions {
+    align-items: stretch !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-report-factor-grid,
+  body[data-page="redveil-v2"] .v2-report-alternative-list,
+  body[data-page="redveil-v2"] .v2-report-score-meta {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 8px !important;
+    width: 100%;
+  }
+
+  body[data-page="redveil-v2"] .v2-report-alternative-card {
+    display: grid !important;
+    grid-template-columns: 36px minmax(0, 1fr) !important;
+    gap: 8px !important;
+    width: 100%;
+    min-width: 0;
+  }
+
+  body[data-page="redveil-v2"] .v2-report-alternative-score {
+    grid-column: 2 !important;
+    justify-self: start !important;
+    text-align: left !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-report-numbered-list,
+  body[data-page="redveil-v2"] .v2-report-checklist {
+    width: 100%;
+    min-width: 0;
+    padding-left: 0;
+  }
+
+  body[data-page="redveil-v2"] .v2-score-row strong,
+  body[data-page="redveil-v2"] #v2-report-score {
+    font-size: clamp(3rem, 15vw, 4.6rem) !important;
+  }
+}
+
+@media (max-width: 430px) {
+  body[data-page="redveil-v2"] .v2-shell {
+    padding: 8px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-mobile-bar {
+    top: 8px !important;
+    min-height: 56px;
+    margin-bottom: 8px;
+    border-radius: 14px;
+  }
+
+  body[data-page="redveil-v2"] .v2-hero-panel,
+  body[data-page="redveil-v2"] .v2-panel,
+  body[data-page="redveil-v2"] .panel,
+  body[data-page="redveil-v2"] .section-block,
+  body[data-page="redveil-v2"] .compare-card,
+  body[data-page="redveil-v2"] .v2-report-layout > section {
+    padding: 12px !important;
+    border-radius: 14px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-hero-copy h1,
+  body[data-page="redveil-v2"] .review-hero-main h1,
+  body[data-page="redveil-v2"] .v2-assessment-hero-copy h1,
+  body[data-page="redveil-v2"] .v2-compare-hero-copy h1,
+  body[data-page="redveil-v2"] .v2-report-summary h1 {
+    max-width: 13ch !important;
+    font-size: clamp(1.72rem, 8.5vw, 2.2rem) !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-mission-strip,
+  body[data-page="redveil-v2"] .v2-hero-metrics {
+    gap: 6px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-mission-strip div,
+  body[data-page="redveil-v2"] .v2-hero-metrics div {
+    padding-inline: 6px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-candidate-row {
+    grid-template-columns: 32px minmax(0, 1fr) 48px !important;
+    padding: 10px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-report-alternative-card {
+    grid-template-columns: 32px minmax(0, 1fr) !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-menu-toggle,
+  body[data-page="redveil-v2"] .v2-sidebar-close {
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  body[data-page="redveil-v2"] .v2-shell {
+    padding: 6px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-mobile-bar {
+    top: 6px !important;
+    padding: 6px 8px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-hero-panel,
+  body[data-page="redveil-v2"] .v2-panel,
+  body[data-page="redveil-v2"] .panel,
+  body[data-page="redveil-v2"] .section-block,
+  body[data-page="redveil-v2"] .compare-card,
+  body[data-page="redveil-v2"] .v2-report-layout > section {
+    padding: 10px !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-hero-copy h1,
+  body[data-page="redveil-v2"] .review-hero-main h1,
+  body[data-page="redveil-v2"] .v2-assessment-hero-copy h1,
+  body[data-page="redveil-v2"] .v2-compare-hero-copy h1,
+  body[data-page="redveil-v2"] .v2-report-summary h1 {
+    font-size: clamp(1.62rem, 8.2vw, 2rem) !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-mission-strip dt,
+  body[data-page="redveil-v2"] .v2-hero-metrics dt {
+    font-size: 0.58rem !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-mission-strip dd,
+  body[data-page="redveil-v2"] .v2-hero-metrics dd {
+    font-size: 0.78rem !important;
+  }
+}
+
+@media (max-width: 820px) and (max-height: 520px) {
+  body[data-page="redveil-v2"] .v2-sidebar {
+    max-height: calc(100dvh - 12px) !important;
+  }
+
+  body[data-page="redveil-v2"] .v2-sidebar-status {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-page="redveil-v2"] *,
+  body[data-page="redveil-v2"] *::before,
+  body[data-page="redveil-v2"] *::after {
+    scroll-behavior: auto !important;
+  }
+}

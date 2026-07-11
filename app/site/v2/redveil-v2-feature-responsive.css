@@ -1,0 +1,261 @@
+/* Responsive overrides for V1 feature logic hosted inside the V2 shell. */
+
+body.v2-feature-page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body.v2-feature-page .v2-shell,
+body.v2-feature-page .v2-workspace,
+body.v2-feature-page main,
+body.v2-feature-page section,
+body.v2-feature-page article,
+body.v2-feature-page form,
+body.v2-feature-page fieldset,
+body.v2-feature-page .panel,
+body.v2-feature-page .compare-card-grid,
+body.v2-feature-page .comparison-grid {
+  min-width: 0;
+  max-width: 100%;
+}
+
+body.v2-feature-page img,
+body.v2-feature-page svg,
+body.v2-feature-page canvas {
+  max-width: 100%;
+}
+
+body.v2-feature-page h1,
+body.v2-feature-page h2,
+body.v2-feature-page h3,
+body.v2-feature-page p,
+body.v2-feature-page li,
+body.v2-feature-page strong,
+body.v2-feature-page span,
+body.v2-feature-page label {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1180px) {
+  body.v2-feature-page .review-workspace,
+  body.v2-feature-page .v2-assessment-workspace,
+  body.v2-feature-page .v2-compare-analysis-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  body.v2-feature-page .review-context-card,
+  body.v2-feature-page .v2-assessment-result-panel {
+    position: static !important;
+    top: auto !important;
+  }
+}
+
+@media (max-width: 820px) {
+  body.v2-feature-page .v2-shell {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 100dvh;
+    margin: 0 !important;
+    padding: 10px !important;
+  }
+
+  body.v2-feature-page .v2-workspace,
+  body.v2-feature-page .v2-feature-main,
+  body.v2-feature-page .v2-compare-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: clip;
+  }
+
+  body.v2-feature-page .v2-mobile-bar {
+    display: flex !important;
+  }
+
+  body.v2-feature-page .v2-topbar {
+    display: none !important;
+  }
+
+  body.v2-feature-page .review-subhero,
+  body.v2-feature-page .v2-assessment-hero,
+  body.v2-feature-page .v2-compare-hero,
+  body.v2-feature-page .section-block,
+  body.v2-feature-page .v2-assessment-input-panel,
+  body.v2-feature-page .v2-assessment-result-panel,
+  body.v2-feature-page .v2-assessment-insight-grid > .panel,
+  body.v2-feature-page .v2-compare-selector-panel,
+  body.v2-feature-page .v2-compare-analysis-grid > .panel,
+  body.v2-feature-page .compare-memo-card,
+  body.v2-feature-page .compare-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 14px !important;
+    border-radius: 16px !important;
+  }
+
+  body.v2-feature-page .review-hero-layout,
+  body.v2-feature-page .v2-assessment-hero .subhero-copy,
+  body.v2-feature-page .v2-compare-hero .subhero-copy {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+  }
+
+  body.v2-feature-page .review-hero-main h1,
+  body.v2-feature-page .v2-assessment-hero-copy h1,
+  body.v2-feature-page .v2-compare-hero-copy h1 {
+    max-width: 14ch !important;
+    font-size: clamp(1.85rem, 7.8vw, 2.65rem) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.045em !important;
+  }
+
+  body.v2-feature-page .review-status-grid,
+  body.v2-feature-page .review-workspace,
+  body.v2-feature-page .review-form-group,
+  body.v2-feature-page .history-grid,
+  body.v2-feature-page .review-detail-grid,
+  body.v2-feature-page .review-detail-sections,
+  body.v2-feature-page .review-result-sections,
+  body.v2-feature-page .v2-assessment-workspace,
+  body.v2-feature-page .v2-assessment-input-panel .form-stack,
+  body.v2-feature-page .v2-assessment-insight-grid,
+  body.v2-feature-page .result-grid,
+  body.v2-feature-page .compare-selector-grid,
+  body.v2-feature-page .compare-card-grid,
+  body.v2-feature-page .v2-compare-analysis-grid,
+  body.v2-feature-page .risk-delta-grid,
+  body.v2-feature-page .alternative-support-grid,
+  body.v2-feature-page .decision-memo-board {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  body.v2-feature-page .review-context-card,
+  body.v2-feature-page .v2-assessment-result-panel {
+    position: static !important;
+    top: auto !important;
+  }
+
+  body.v2-feature-page .compare-card {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    overflow: hidden;
+  }
+
+  body.v2-feature-page .compare-card > * {
+    grid-column: auto !important;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body.v2-feature-page .candidate-scan-panel {
+    min-height: 128px !important;
+  }
+
+  body.v2-feature-page .review-export-actions,
+  body.v2-feature-page .v2-compare-run-row,
+  body.v2-feature-page .review-detail-actions {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 8px !important;
+    width: 100%;
+  }
+
+  body.v2-feature-page .button,
+  body.v2-feature-page button,
+  body.v2-feature-page input,
+  body.v2-feature-page select,
+  body.v2-feature-page textarea {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  body.v2-feature-page .button,
+  body.v2-feature-page button {
+    min-height: 46px;
+  }
+
+  body.v2-feature-page input,
+  body.v2-feature-page select,
+  body.v2-feature-page textarea {
+    width: 100%;
+    min-height: 46px;
+    font-size: 16px !important;
+  }
+
+  body.v2-feature-page textarea {
+    min-height: 118px;
+  }
+
+  body.v2-feature-page .review-submit-button,
+  body.v2-feature-page #compare-run,
+  body.v2-feature-page .review-export-actions .button,
+  body.v2-feature-page .v2-assessment-input-panel .button {
+    width: 100% !important;
+  }
+
+  body.v2-feature-page .metric-mini-row,
+  body.v2-feature-page .decision-memo-row,
+  body.v2-feature-page .alternative-support-grid section,
+  body.v2-feature-page .risk-delta-card,
+  body.v2-feature-page .review-entry,
+  body.v2-feature-page .result-card,
+  body.v2-feature-page .progress-card,
+  body.v2-feature-page .diagnosis-result-section {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 430px) {
+  body.v2-feature-page .v2-shell {
+    padding: 8px !important;
+  }
+
+  body.v2-feature-page .review-subhero,
+  body.v2-feature-page .v2-assessment-hero,
+  body.v2-feature-page .v2-compare-hero,
+  body.v2-feature-page .section-block,
+  body.v2-feature-page .v2-assessment-input-panel,
+  body.v2-feature-page .v2-assessment-result-panel,
+  body.v2-feature-page .v2-assessment-insight-grid > .panel,
+  body.v2-feature-page .v2-compare-selector-panel,
+  body.v2-feature-page .v2-compare-analysis-grid > .panel,
+  body.v2-feature-page .compare-memo-card,
+  body.v2-feature-page .compare-card {
+    padding: 12px !important;
+    border-radius: 14px !important;
+  }
+
+  body.v2-feature-page .review-hero-main h1,
+  body.v2-feature-page .v2-assessment-hero-copy h1,
+  body.v2-feature-page .v2-compare-hero-copy h1 {
+    max-width: 13ch !important;
+    font-size: clamp(1.72rem, 8.5vw, 2.2rem) !important;
+  }
+}
+
+@media (max-width: 360px) {
+  body.v2-feature-page .v2-shell {
+    padding: 6px !important;
+  }
+
+  body.v2-feature-page .review-subhero,
+  body.v2-feature-page .v2-assessment-hero,
+  body.v2-feature-page .v2-compare-hero,
+  body.v2-feature-page .section-block,
+  body.v2-feature-page .v2-assessment-input-panel,
+  body.v2-feature-page .v2-assessment-result-panel,
+  body.v2-feature-page .v2-assessment-insight-grid > .panel,
+  body.v2-feature-page .v2-compare-selector-panel,
+  body.v2-feature-page .v2-compare-analysis-grid > .panel,
+  body.v2-feature-page .compare-memo-card,
+  body.v2-feature-page .compare-card {
+    padding: 10px !important;
+  }
+}

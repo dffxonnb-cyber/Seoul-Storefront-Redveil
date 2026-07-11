@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#03050a" />
+    <title>Redveil V2 | 후보 비교</title>
+    <meta
+      name="description"
+      content="서울 자치구 2~3곳을 같은 리스크 기준으로 비교하고 보류 후보, 대체 기준과 다음 확인 항목을 정리하는 Redveil V2 후보 비교 화면입니다."
+    />
+    <link rel="icon" type="image/png" href="../assets/redveil-logo.png" />
+    <link rel="stylesheet" href="../styles.css?v=20260429-compare-heading" />
+    <link rel="stylesheet" href="../css/redveil-compare.css?v=20260531-split" />
+    <link rel="stylesheet" href="../css/redveil-compare-map.css?v=20260710" />
+    <link rel="stylesheet" href="../css/redveil-compare-cleanup.css?v=20260710" />
+    <link rel="stylesheet" href="../hero-status-unified.css?v=20260711" />
+    <link rel="stylesheet" href="./redveil-v2.css?v=20260606-map-dashboard" />
+    <link rel="stylesheet" href="./redveil-v2-mobile.css?v=20260711-v2-mobile-korean" />
+    <link rel="stylesheet" href="./redveil-v2-shell.css?v=20260711-shared-shell" />
+    <link rel="stylesheet" href="./redveil-v2-feature.css?v=20260711-review-page" />
+    <link rel="stylesheet" href="./redveil-v2-compare.css?v=20260712-compare-page" />
+  </head>
+  <body data-page="compare" data-v2-view="compare" class="v2-feature-page v2-compare-page">
+    <a class="skip-link" href="#v2-compare-main">본문 바로가기</a>
+
+    <div class="v2-shell">
+      <aside id="v2-sidebar" class="v2-sidebar" aria-label="Redveil V2 메뉴">
+        <button class="v2-sidebar-close" type="button" aria-label="메뉴 닫기" data-v2-menu-close></button>
+        <div class="v2-sidebar-primary">
+          <a class="v2-brand" href="./index.html" aria-label="Redveil V2 지도 홈">
+            <img src="../assets/redveil-logo.png" alt="" aria-hidden="true" decoding="async" />
+            <span>
+              <small>서울 상가 리스크 인텔리전스</small>
+              <strong>Redveil V2</strong>
+            </span>
+          </a>
+
+          <nav class="v2-side-nav" aria-label="대시보드 메뉴">
+            <a href="./index.html" data-v2-nav="map">
+              <span>01</span>
+              <strong>지도 홈</strong>
+            </a>
+            <a href="./review.html" data-v2-nav="review">
+              <span>02</span>
+              <strong>매물 검토</strong>
+            </a>
+            <a href="./assessment.html" data-v2-nav="assessment">
+              <span>03</span>
+              <strong>3분 진단</strong>
+            </a>
+            <a href="./compare.html" data-v2-nav="compare">
+              <span>04</span>
+              <strong>후보 비교</strong>
+            </a>
+            <a href="./districts.html" data-v2-nav="districts">
+              <span>05</span>
+              <strong>구별 리포트</strong>
+            </a>
+          </nav>
+        </div>
+
+        <div class="v2-sidebar-status" aria-label="후보 비교 운영 모드">
+          <span>운영 모드</span>
+          <strong>후보 비교</strong>
+          <p>보류 후보와 대체 후보를 같은 점수 체계로 붙여 초과 리스크를 확인합니다.</p>
+        </div>
+      </aside>
+      <button class="v2-sidebar-backdrop" type="button" aria-label="메뉴 닫기" data-v2-menu-backdrop></button>
+
+      <div class="v2-workspace">
+        <div class="v2-mobile-bar" aria-label="모바일 화면 메뉴">
+          <button
+            class="v2-menu-toggle"
+            type="button"
+            aria-label="화면 메뉴 열기"
+            aria-controls="v2-sidebar"
+            aria-expanded="false"
+            data-v2-menu-open
+          >
+            <span class="v2-menu-toggle-icon" aria-hidden="true"></span>
+          </button>
+          <div class="v2-mobile-bar-copy">
+            <small>Redveil V2</small>
+            <strong data-v2-current-title>후보 비교</strong>
+          </div>
+        </div>
+
+        <header class="v2-topbar" aria-label="상단 상태 바">
+          <div class="v2-topbar-title">
+            <span>자치구 후보 비교</span>
+            <strong>같은 기준으로 보류 후보와 대체 후보를 비교</strong>
+          </div>
+          <div class="v2-status-pills" aria-label="비교 상태">
+            <span id="v2-compare-selection-status">후보 조합 확인 중</span>
+            <span id="v2-compare-best-status">비교 기준 계산 중</span>
+          </div>
+        </header>
+
+        <main id="v2-compare-main" class="page-stack v2-feature-main v2-compare-main" aria-label="Redveil V2 후보 비교">
+          <section class="panel subhero service-subhero v2-compare-hero">
+            <div class="subhero-copy">
+              <div class="v2-compare-hero-copy">
+                <p class="section-label">후보 비교</p>
+                <h1>보류 후보와 대체 후보를 같은 기준으로 비교합니다.</h1>
+                <p>선택을 확정하기 전에 어떤 후보를 보류하고 어떤 후보를 추가 검토할지, 리스크 격차와 재확인 항목을 기준으로 좁혀갑니다.</p>
+              </div>
+              <div class="hero-status service-status-card">
+                <span class="card-label">비교 가능한 범위</span>
+                <strong id="compare-coverage"></strong>
+                <p class="compact-note">서울 전체 자치구 기준</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel section-block v2-compare-selector-panel">
+            <div class="section-head">
+              <div>
+                <p class="section-label">후보 선택 · 01</p>
+                <h2 class="compare-section-title">보류 기준으로 비교할 구를 선택하세요.</h2>
+                <p class="section-copy">후보 A는 현재 기준 후보로 유지하고, 후보 B·C를 바꿔 리스크 격차를 비교합니다.</p>
+              </div>
+            </div>
+            <div class="compare-selector-grid">
+              <label class="field">
+                <span>후보 A</span>
+                <select id="compare-a"></select>
+              </label>
+              <label class="field">
+                <span>후보 B</span>
+                <select id="compare-b"></select>
+              </label>
+              <label class="field">
+                <span>후보 C</span>
+                <select id="compare-c"></select>
+              </label>
+            </div>
+            <div class="v2-compare-run-row">
+              <button class="button button-primary" id="compare-run" type="button">보류 기준으로 비교</button>
+            </div>
+          </section>
+
+          <section class="compare-card-grid" id="compare-grid" aria-label="선택 후보 비교 카드"></section>
+
+          <section class="comparison-grid v2-compare-analysis-grid">
+            <article class="panel section-block">
+              <div class="section-head">
+                <div>
+                  <p class="section-label">리스크 축 비교 · 02</p>
+                  <h2 class="compare-section-title">핵심 리스크 축 비교</h2>
+                </div>
+              </div>
+              <div class="progress-list" id="compare-metrics"></div>
+            </article>
+
+            <article class="panel section-block">
+              <div class="section-head">
+                <div>
+                  <p class="section-label">대체 기준 · 03</p>
+                  <h2 class="compare-section-title compare-section-title-keep">보류 후보와 비교할 대체 기준</h2>
+                </div>
+              </div>
+              <div class="panel-stack" id="compare-recommendation"></div>
+            </article>
+          </section>
+
+          <section class="panel section-block compare-memo-card">
+            <div class="section-head">
+              <div>
+                <p class="section-label">비교 메모 · 04</p>
+                <h2 class="compare-section-title compare-section-title-keep"><span class="compare-heading-phrase">후보 조합의 보류 판단을 메모로</span> 정리합니다.</h2>
+              </div>
+            </div>
+            <div id="compare-memo"></div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="../website_payload.js"></script>
+    <script src="../common.js"></script>
+    <script src="../compare.js"></script>
+    <script src="../compare-minimap.js"></script>
+    <script src="./redveil-v2-shell.js?v=20260711-shared-shell"></script>
+    <script src="./redveil-v2-compare.js?v=20260712-compare-page"></script>
+  </body>
+</html>

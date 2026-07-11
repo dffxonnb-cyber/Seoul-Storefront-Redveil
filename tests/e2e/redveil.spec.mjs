@@ -158,6 +158,49 @@ test("V2 매물 검토는 기존 기능을 유지하고 결과 문구를 한국�
   expect(runtimeErrors).toEqual([]);
 });
 
+test("V2 지도에서 선택한 구를 V2 후보 비교로 이어간다", async ({ page }) => {
+  const runtimeErrors = watchRuntimeErrors(page);
+  await page.goto("/v2/index.html");
+  await expect(page.locator("[data-v2-risk-map] .v2-map-district")).toHaveCount(25);
+
+  await page.locator('.v2-map-district[data-code="11530"]').click();
+  await expect(page.locator("#map-selected-name")).toHaveText("구로구");
+
+  const compareNavigation = page.locator('[data-v2-nav="compare"]');
+  await expect(compareNavigation).toHaveAttribute("href", /\.\/compare\.html\?a=11530/);
+  await compareNavigation.click();
+
+  await expect(page).toHaveURL(/\/v2\/compare\.html\?a=11530/);
+  await expect(page.locator("body")).toHaveAttribute("data-v2-view", "compare");
+  await expect(page.locator('[data-v2-nav="compare"]')).toHaveAttribute("aria-current", "page");
+  await expect(page.locator("#compare-a")).toHaveValue("11530");
+  await expect(page.locator("#v2-compare-selection-status")).toContainText("구로구");
+  expect(runtimeErrors).toEqual([]);
+});
+
+test("V2 후보 비교는 기존 계산과 메모를 유지하고 한국어 문구를 표시한다", async ({ page }) => {
+  const runtimeErrors = watchRuntimeErrors(page);
+  await page.goto("/v2/compare.html?a=11530&b=11680&c=11140");
+
+  await expect(page.locator("#compare-grid .compare-card")).toHaveCount(3);
+  await expect(page.locator("#compare-grid")).toContainText("구로구");
+  await expect(page.locator("#compare-grid")).toContainText("강남구");
+  await expect(page.locator("#compare-grid")).toContainText("중구");
+  await expect(page.getByText("리스크 신호", { exact: true })).toHaveCount(3);
+  await expect(page.locator("#compare-memo")).toContainText("비교 메모 복사");
+  await expect(page.locator("#compare-memo")).not.toContainText("Professional Review Handoff");
+  await expect(page.locator(".topnav")).toHaveCount(0);
+
+  await page.locator("#compare-b").selectOption("11530");
+  await expect(page.locator("#compare-selection-message")).toContainText("최소 2개 이상의 서로 다른 구");
+  await expect(page.locator("#compare-b")).toHaveAttribute("aria-invalid", "true");
+
+  await page.locator("#compare-b").selectOption("11680");
+  await expect(page).toHaveURL(/b=11680/);
+  await expect(page.locator("#v2-compare-best-status")).toContainText("낮은 리스크");
+  expect(runtimeErrors).toEqual([]);
+});
+
 test("V2 모바일 홈은 390px 화면 안에 들어오고 주요 문구를 한국어로 표시한다", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   const runtimeErrors = watchRuntimeErrors(page);
@@ -221,6 +264,55 @@ test("V2 모바일 매물 검토는 드로어와 본문이 화면 너비를 넘�
     expect(box, `${selector} should have a rendered box`).not.toBeNull();
     expect(box.x, `${selector} should not escape left`).toBeGreaterThanOrEqual(-1);
     expect(box.x + box.width, `${selector} should not escape right`).toBeLessThanOrEqual(391);
+  }
+  expect(runtimeErrors).toEqual([]);
+});
+
+test("V2 모바일 후보 비교는 드로어와 모든 비교 패널이 화면 너비를 넘지 않는다", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const runtimeErrors = watchRuntimeErrors(page);
+  await page.goto("/v2/compare.html?a=11530&b=11680&c=11140");
+
+  await expect(page.locator(".v2-mobile-bar")).toBeVisible();
+  await expect(page.locator("#v2-sidebar")).toHaveAttribute("aria-hidden", "true");
+  await page.locator("[data-v2-menu-open]").click();
+  await expect(page.locator("body")).toHaveClass(/v2-nav-open/);
+  await expect(page.locator('[data-v2-nav="compare"]')).toHaveAttribute("aria-current", "page");
+  await page.locator("[data-v2-menu-close]").click();
+  await expect(page.locator("body")).not.toHaveClass(/v2-nav-open/);
+
+  const layout = await page.evaluate(() => ({
+    innerWidth: window.innerWidth,
+    documentWidth: document.documentElement.scrollWidth,
+    bodyWidth: document.body.scrollWidth,
+  }));
+  expect(layout.documentWidth).toBeLessThanOrEqual(layout.innerWidth + 1);
+  expect(layout.bodyWidth).toBeLessThanOrEqual(layout.innerWidth + 1);
+
+  for (const selector of [".v2-compare-hero", ".v2-compare-selector-panel", ".v2-compare-analysis-grid > .panel", ".compare-memo-card"]) {
+    const boxes = await page.locator(selector).evaluateAll((elements) =>
+      elements.map((element) => {
+        const rect = element.getBoundingClientRect();
+        return { x: rect.x, width: rect.width };
+      })
+    );
+    expect(boxes.length, `${selector} should render`).toBeGreaterThan(0);
+    for (const box of boxes) {
+      expect(box.x, `${selector} should not escape left`).toBeGreaterThanOrEqual(-1);
+      expect(box.x + box.width, `${selector} should not escape right`).toBeLessThanOrEqual(391);
+    }
+  }
+
+  const cardBoxes = await page.locator("#compare-grid .compare-card").evaluateAll((elements) =>
+    elements.map((element) => {
+      const rect = element.getBoundingClientRect();
+      return { x: rect.x, width: rect.width };
+    })
+  );
+  expect(cardBoxes).toHaveLength(3);
+  for (const box of cardBoxes) {
+    expect(box.x).toBeGreaterThanOrEqual(-1);
+    expect(box.x + box.width).toBeLessThanOrEqual(391);
   }
   expect(runtimeErrors).toEqual([]);
 });

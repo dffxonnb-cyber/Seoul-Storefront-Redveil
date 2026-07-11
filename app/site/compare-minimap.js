@@ -8,6 +8,9 @@
   const MAP_WIDTH = 360;
   const MAP_HEIGHT = 180;
   const MAP_PADDING = 12;
+  const GEOMETRY_URL = document.body?.dataset.v2View
+    ? "../assets/seoul-districts.geojson"
+    : "./assets/seoul-districts.geojson";
   let geometryPromise = null;
   let renderSequence = 0;
 
@@ -156,7 +159,7 @@
           <circle class="candidate-map-marker-dot" r="2.6"></circle>
         </g>
       </svg>
-      <div class="candidate-map-kicker">Seoul district map</div>
+      <div class="candidate-map-kicker">서울 자치구 지도</div>
       <div class="candidate-map-meta">
         <span>${candidateLabel}</span>
         <strong>${district.name}</strong>
@@ -174,7 +177,7 @@
     panel.innerHTML = `
       <div class="candidate-map-fallback-mark" aria-hidden="true"></div>
       <div class="candidate-map-meta">
-        <span>Map unavailable</span>
+        <span>지도 연결 확인 필요</span>
         <strong>${district.name}</strong>
       </div>
     `;
@@ -190,7 +193,7 @@
 
   async function loadGeometry() {
     if (!geometryPromise) {
-      geometryPromise = fetch("./assets/seoul-districts.geojson")
+      geometryPromise = fetch(GEOMETRY_URL)
         .then((response) => {
           if (!response.ok) throw new Error(`GeoJSON request failed: ${response.status}`);
           return response.json();

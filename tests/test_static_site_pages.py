@@ -59,6 +59,7 @@ class StaticSitePageTests(unittest.TestCase):
         v2_root = SITE_ROOT / "v2"
         pages = {
             "index.html": "map",
+            "review.html": "review",
             "districts.html": "districts",
         }
 
@@ -73,6 +74,22 @@ class StaticSitePageTests(unittest.TestCase):
                 self.assertEqual(html.count('data-v2-nav="'), 5)
                 self.assertIn('href="./redveil-v2-shell.css', html)
                 self.assertIn('src="./redveil-v2-shell.js', html)
+
+    def test_v2_review_reuses_existing_review_logic_inside_v2_shell(self) -> None:
+        review_html = (SITE_ROOT / "v2" / "review.html").read_text(encoding="utf-8")
+
+        self.assertIn('src="../website_payload.js"', review_html)
+        self.assertIn('src="../common.js"', review_html)
+        self.assertIn('src="../review.js"', review_html)
+        self.assertIn('src="./redveil-v2-review.js', review_html)
+        self.assertIn('href="./redveil-v2-feature.css', review_html)
+        self.assertIn('id="review-form"', review_html)
+        self.assertIn('id="review-district-code"', review_html)
+        self.assertIn('id="review-result"', review_html)
+        self.assertIn('id="review-history"', review_html)
+        self.assertNotIn('<nav class="topnav"', review_html)
+        self.assertNotIn("Saved Reviews", review_html)
+        self.assertNotIn("Local archive", review_html)
 
     def test_v2_district_report_keeps_required_mounts_and_scripts(self) -> None:
         report_html = (SITE_ROOT / "v2" / "districts.html").read_text(encoding="utf-8")
@@ -109,6 +126,7 @@ class StaticSitePageTests(unittest.TestCase):
             "compare.html": ["Candidate Compare", "보류 기준으로 비교", "compare-run"],
             "districts.html": ["District Report", "District Selector", "Replacement Candidates"],
             "v2/index.html": ["레드베일 V2 지도 대시보드", "서울 리스크 지도", "선택 자치구"],
+            "v2/review.html": ["매물 검토", "추천 전에 보류 사유", "보류 메모 생성"],
             "v2/districts.html": ["자치구 리스크 리포트", "핵심 위험 요인", "결정 메모"],
         }
 
@@ -123,8 +141,10 @@ class StaticSitePageTests(unittest.TestCase):
             SITE_ROOT / "index.html",
             SITE_ROOT / "home.js",
             SITE_ROOT / "v2" / "index.html",
+            SITE_ROOT / "v2" / "review.html",
             SITE_ROOT / "v2" / "redveil-v2.js",
             SITE_ROOT / "v2" / "redveil-v2-shell.js",
+            SITE_ROOT / "v2" / "redveil-v2-review.js",
             SITE_ROOT / "v2" / "districts.html",
             SITE_ROOT / "v2" / "redveil-v2-districts.js",
         ]

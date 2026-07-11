@@ -1,7 +1,8 @@
 (() => {
   const body = document.body;
-  if (!body || body.dataset.page !== "redveil-v2") return;
+  if (!body || !body.dataset.v2View) return;
 
+  const STORAGE_KEY = "redveil-selected-district";
   const pageLabels = {
     map: "지도 홈",
     review: "매물 검토",
@@ -16,6 +17,74 @@
   const closeButton = document.querySelector("[data-v2-menu-close]");
   const backdrop = document.querySelector("[data-v2-menu-backdrop]");
   const mobileQuery = window.matchMedia("(max-width: 760px)");
+
+  function districts() {
+    const payload = window.__REDVEIL_PAYLOAD__ || window.RedveilV2?.payload || {};
+    return Array.isArray(payload.districts) ? payload.districts : [];
+  }
+
+  function validDistrictCode(value) {
+    return districts().some((district) => String(district.code) === String(value || ""));
+  }
+
+  function codeForName(name) {
+    return districts().find((district) => String(district.name) === String(name || "").trim())?.code || "";
+  }
+
+  function storedDistrictCode() {
+    try {
+      const stored = window.localStorage.getItem(STORAGE_KEY) || "";
+      return validDistrictCode(stored) ? stored : "";
+    } catch (_error) {
+      return "";
+    }
+  }
+
+  function pageDistrictCode() {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("district") || params.get("a") || "";
+    return validDistrictCode(code) ? code : "";
+  }
+
+  function saveDistrictCode(code) {
+    if (!validDistrictCode(code)) return;
+    try {
+      window.localStorage.setItem(STORAGE_KEY, String(code));
+    } catch (_error) {
+      // Selection persistence is optional when storage is unavailable.
+    }
+  }
+
+  function updateLink(link, code) {
+    const originalHref = link.getAttribute("href") || "";
+    const view = link.dataset.v2Nav || "";
+    if (!originalHref || !code || originalHref.startsWith("#") || /^(?:https?:|mailto:|tel:)/.test(originalHref)) return;
+
+    const targetsReview = view === "review" || /(?:^|\/)review\.html(?:[?#]|$)/.test(originalHref);
+    const href = targetsReview ? "./review.html" : originalHref;
+    const prefix = href.startsWith("../") ? "../" : href.startsWith("./") ? "./" : "";
+    const url = new URL(href, window.location.href);
+    if (view === "compare" || url.pathname.endsWith("compare.html")) {
+      url.searchParams.set("a", code);
+    } else {
+      url.searchParams.set("district", code);
+    }
+    const filename = url.pathname.split("/").pop() || "index.html";
+    link.setAttribute("href", `${prefix}${filename}${url.search}${url.hash}`);
+  }
+
+  function decorateV2Links(code = pageDistrictCode() || storedDistrictCode()) {
+    if (!code) return;
+    document
+      .querySelectorAll('[data-v2-nav], [data-v2-district-link], a[href*="review.html"]')
+      .forEach((link) => updateLink(link, code));
+  }
+
+  function syncDistrictCode(code) {
+    if (!validDistrictCode(code)) return;
+    saveDistrictCode(code);
+    decorateV2Links(code);
+  }
 
   document.querySelectorAll("[data-v2-nav]").forEach((link) => {
     const isCurrent = link.dataset.v2Nav === currentView;
@@ -70,11 +139,27 @@
     });
   });
 
+  document.addEventListener("change", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    if (target.matches("#review-district-code, #district-code, #compare-a")) {
+      syncDistrictCode(target.value);
+    }
+  });
+
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && body.classList.contains("v2-nav-open")) {
       setExpanded(false, true);
     }
   });
+
+  const selectedName = document.getElementById("map-selected-name");
+  if (selectedName && window.MutationObserver) {
+    const syncMapSelection = () => syncDistrictCode(codeForName(selectedName.textContent));
+    const observer = new MutationObserver(syncMapSelection);
+    observer.observe(selectedName, { childList: true, characterData: true, subtree: true });
+    window.setTimeout(syncMapSelection, 0);
+  }
 
   if (typeof mobileQuery.addEventListener === "function") {
     mobileQuery.addEventListener("change", syncViewport);
@@ -82,5 +167,7 @@
     mobileQuery.addListener(syncViewport);
   }
 
+  const initialCode = pageDistrictCode() || storedDistrictCode();
+  if (initialCode) syncDistrictCode(initialCode);
   syncViewport();
 })();

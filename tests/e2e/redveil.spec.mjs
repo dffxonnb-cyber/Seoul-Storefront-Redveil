@@ -118,6 +118,46 @@ test("매물 검토는 사용자 입력을 HTML로 실행하지 않는다", asyn
   expect(runtimeErrors).toEqual([]);
 });
 
+test("V2 지도에서 선택한 구를 V2 매물 검토로 이어간다", async ({ page }) => {
+  const runtimeErrors = watchRuntimeErrors(page);
+  await page.goto("/v2/index.html");
+  await expect(page.locator("[data-v2-risk-map] .v2-map-district")).toHaveCount(25);
+
+  await page.locator('.v2-map-district[data-code="11530"]').click();
+  await expect(page.locator("#map-selected-name")).toHaveText("구로구");
+
+  const reviewNavigation = page.locator('[data-v2-nav="review"]');
+  await expect(reviewNavigation).toHaveAttribute("href", /\.\/review\.html\?district=11530/);
+  await reviewNavigation.click();
+
+  await expect(page).toHaveURL(/\/v2\/review\.html\?district=11530/);
+  await expect(page.locator("body")).toHaveAttribute("data-v2-view", "review");
+  await expect(page.locator('[data-v2-nav="review"]')).toHaveAttribute("aria-current", "page");
+  await expect(page.locator("#review-district-code")).toHaveValue("11530");
+  await expect(page.locator("#v2-review-selected-district")).toContainText("구로구");
+  expect(runtimeErrors).toEqual([]);
+});
+
+test("V2 매물 검토는 기존 기능을 유지하고 결과 문구를 한국어로 표시한다", async ({ page }) => {
+  const runtimeErrors = watchRuntimeErrors(page);
+  await page.goto("/v2/review.html?district=11650");
+
+  await expect(page.locator("#review-district-code")).toHaveValue("11650");
+  await page.locator("#admin-dong-name").fill("서초동");
+  await page.locator("#asking-price-total").fill("92000");
+  await page.locator("#target-tenant").fill("카페");
+  await page.locator("#asset-name").fill("서초동 검토 매물");
+  await page.getByRole("button", { name: "보류 메모 생성" }).click();
+
+  await expect(page.locator("#review-result")).toContainText("서초동 검토 매물");
+  await expect(page.locator("#review-result")).toContainText("보류 판단 메모");
+  await expect(page.locator("#review-result")).not.toContainText("Professional Review Handoff");
+  await expect(page.locator("#review-detail")).toBeVisible();
+  await expect(page.locator("#review-history .review-entry")).toHaveCount(1);
+  await expect(page.locator(".topnav")).toHaveCount(0);
+  expect(runtimeErrors).toEqual([]);
+});
+
 test("V2 모바일 홈은 390px 화면 안에 들어오고 주요 문구를 한국어로 표시한다", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   const runtimeErrors = watchRuntimeErrors(page);
@@ -152,6 +192,36 @@ test("V2 모바일 홈은 390px 화면 안에 들어오고 주요 문구를 한�
   }
 
   await expect(page.locator(".v2-side-nav a")).toHaveCount(5);
+  expect(runtimeErrors).toEqual([]);
+});
+
+test("V2 모바일 매물 검토는 드로어와 본문이 화면 너비를 넘지 않는다", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const runtimeErrors = watchRuntimeErrors(page);
+  await page.goto("/v2/review.html?district=11530");
+
+  await expect(page.locator(".v2-mobile-bar")).toBeVisible();
+  await expect(page.locator("#v2-sidebar")).toHaveAttribute("aria-hidden", "true");
+  await page.locator("[data-v2-menu-open]").click();
+  await expect(page.locator("body")).toHaveClass(/v2-nav-open/);
+  await expect(page.locator('[data-v2-nav="review"]')).toHaveAttribute("aria-current", "page");
+  await page.locator("[data-v2-menu-close]").click();
+  await expect(page.locator("body")).not.toHaveClass(/v2-nav-open/);
+
+  const layout = await page.evaluate(() => ({
+    innerWidth: window.innerWidth,
+    documentWidth: document.documentElement.scrollWidth,
+    bodyWidth: document.body.scrollWidth,
+  }));
+  expect(layout.documentWidth).toBeLessThanOrEqual(layout.innerWidth + 1);
+  expect(layout.bodyWidth).toBeLessThanOrEqual(layout.innerWidth + 1);
+
+  for (const selector of [".review-subhero", ".review-input-panel", ".review-context-card", ".review-output-card", ".review-history-panel"]) {
+    const box = await page.locator(selector).boundingBox();
+    expect(box, `${selector} should have a rendered box`).not.toBeNull();
+    expect(box.x, `${selector} should not escape left`).toBeGreaterThanOrEqual(-1);
+    expect(box.x + box.width, `${selector} should not escape right`).toBeLessThanOrEqual(391);
+  }
   expect(runtimeErrors).toEqual([]);
 });
 

@@ -2,6 +2,22 @@
   const body = document.body;
   if (!body || !body.dataset.v2View) return;
 
+  function ensureResponsiveStylesheets() {
+    [
+      ["redveil-v2-responsive", "./redveil-v2-responsive.css?v=20260712-responsive-matrix"],
+      ["redveil-v2-feature-responsive", "./redveil-v2-feature-responsive.css?v=20260712-feature-matrix"],
+    ].forEach(([id, href]) => {
+      if (document.getElementById(id)) return;
+      const link = document.createElement("link");
+      link.id = id;
+      link.rel = "stylesheet";
+      link.href = href;
+      document.head.appendChild(link);
+    });
+  }
+
+  ensureResponsiveStylesheets();
+
   const STORAGE_KEY = "redveil-selected-district";
   const pageLabels = {
     map: "지도 홈",
@@ -16,7 +32,7 @@
   const menuButton = document.querySelector("[data-v2-menu-open]");
   const closeButton = document.querySelector("[data-v2-menu-close]");
   const backdrop = document.querySelector("[data-v2-menu-backdrop]");
-  const mobileQuery = window.matchMedia("(max-width: 760px)");
+  const mobileQuery = window.matchMedia("(max-width: 820px)");
   let pendingMapRestoreCode = "";
   let mapRestoreFinished = false;
 

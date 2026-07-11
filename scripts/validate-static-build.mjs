@@ -20,12 +20,15 @@ const requiredFiles = [
   "districts.js",
   "v2/index.html",
   "v2/review.html",
+  "v2/assessment.html",
   "v2/redveil-v2.css",
   "v2/redveil-v2-mobile.css",
   "v2/redveil-v2-shell.css",
   "v2/redveil-v2-shell.js",
   "v2/redveil-v2-feature.css",
   "v2/redveil-v2-review.js",
+  "v2/redveil-v2-assessment.css",
+  "v2/redveil-v2-assessment.js",
   "v2/redveil-v2.js",
   "v2/districts.html",
   "v2/redveil-v2-districts.js",
@@ -114,6 +117,37 @@ const obsoleteV2ReviewMarkers = ["HOLD-FIRST REVIEW DESK", "Saved Reviews", "Loc
 for (const marker of obsoleteV2ReviewMarkers) {
   if (v2ReviewHtml.includes(marker)) {
     throw new Error(`v2/review.html still contains obsolete marker: ${marker}`);
+  }
+}
+
+const v2AssessmentHtml = fs.readFileSync(path.join(siteRoot, "v2", "assessment.html"), "utf8");
+const v2AssessmentMarkers = [
+  "매입 전, 3분 안에 보류 신호를 먼저 확인합니다.",
+  'data-v2-view="assessment"',
+  'id="v2-sidebar"',
+  'id="assessment-form"',
+  'id="district-code"',
+  'id="assessment-result"',
+  'href="./redveil-v2-shell.css',
+  'href="./redveil-v2-feature.css',
+  'href="./redveil-v2-assessment.css',
+  'src="../website_payload.js"',
+  'src="../common.js"',
+  'src="../assessment.js"',
+  'src="./redveil-v2-shell.js',
+  'src="./redveil-v2-assessment.js',
+];
+
+for (const marker of v2AssessmentMarkers) {
+  if (!v2AssessmentHtml.includes(marker)) {
+    throw new Error(`v2/assessment.html is missing marker: ${marker}`);
+  }
+}
+
+const obsoleteV2AssessmentMarkers = ["3-Minute Diagnosis", "Quick Risk Check", "Scenario Input", "District Snapshot", "Risk Breakdown"];
+for (const marker of obsoleteV2AssessmentMarkers) {
+  if (v2AssessmentHtml.includes(marker)) {
+    throw new Error(`v2/assessment.html still contains obsolete marker: ${marker}`);
   }
 }
 

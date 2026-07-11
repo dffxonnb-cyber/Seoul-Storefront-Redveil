@@ -1,0 +1,61 @@
+/* Saved review archive: use the available row width and keep compact labels intact. */
+body[data-page="review"] .review-history-panel .history-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: clamp(12px, 1.2vw, 16px) !important;
+}
+
+body[data-page="review"] .review-history-panel .review-entry,
+body[data-page="review"] .review-history-panel article {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+}
+
+body[data-page="review"] .review-entry-head {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+}
+
+body[data-page="review"] .review-entry-head .signal-pill {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  min-width: max-content;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+body[data-page="review"] .review-entry-time {
+  display: block;
+  min-width: 0;
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 900px) {
+  body[data-page="review"] .review-history-panel .history-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-page="review"] .review-history-panel .history-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body[data-page="review"] .review-entry-head {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  body[data-page="review"] .review-entry-time {
+    text-align: left;
+  }
+}

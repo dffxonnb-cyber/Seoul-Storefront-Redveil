@@ -2,16 +2,21 @@
   const body = document.body;
   if (!body || !body.dataset.v2View) return;
 
-  function ensureResponsiveStylesheet() {
-    if (document.getElementById("redveil-v2-responsive")) return;
-    const link = document.createElement("link");
-    link.id = "redveil-v2-responsive";
-    link.rel = "stylesheet";
-    link.href = "./redveil-v2-responsive.css?v=20260712-responsive-matrix";
-    document.head.appendChild(link);
+  function ensureResponsiveStylesheets() {
+    [
+      ["redveil-v2-responsive", "./redveil-v2-responsive.css?v=20260712-responsive-matrix"],
+      ["redveil-v2-feature-responsive", "./redveil-v2-feature-responsive.css?v=20260712-feature-matrix"],
+    ].forEach(([id, href]) => {
+      if (document.getElementById(id)) return;
+      const link = document.createElement("link");
+      link.id = id;
+      link.rel = "stylesheet";
+      link.href = href;
+      document.head.appendChild(link);
+    });
   }
 
-  ensureResponsiveStylesheet();
+  ensureResponsiveStylesheets();
 
   const STORAGE_KEY = "redveil-selected-district";
   const pageLabels = {

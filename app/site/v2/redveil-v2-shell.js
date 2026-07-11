@@ -55,13 +55,21 @@
     }
   }
 
+  function normalizeFeatureHref(view, originalHref) {
+    if (view === "review" || /(?:^|\/)review\.html(?:[?#]|$)/.test(originalHref)) return "./review.html";
+    if (view === "assessment" || /(?:^|\/)assessment\.html(?:[?#]|$)/.test(originalHref)) return "./assessment.html";
+    return originalHref;
+  }
+
   function updateLink(link, code) {
     const originalHref = link.getAttribute("href") || "";
     const view = link.dataset.v2Nav || "";
-    if (!originalHref || !code || originalHref.startsWith("#") || /^(?:https?:|mailto:|tel:)/.test(originalHref)) return;
+    if (!originalHref || originalHref.startsWith("#") || /^(?:https?:|mailto:|tel:)/.test(originalHref)) return;
 
-    const targetsReview = view === "review" || /(?:^|\/)review\.html(?:[?#]|$)/.test(originalHref);
-    const href = targetsReview ? "./review.html" : originalHref;
+    const href = normalizeFeatureHref(view, originalHref);
+    if (href !== originalHref) link.setAttribute("href", href);
+    if (!code) return;
+
     const prefix = href.startsWith("../") ? "../" : href.startsWith("./") ? "./" : "";
     const url = new URL(href, window.location.href);
     if (view === "compare" || url.pathname.endsWith("compare.html")) {
@@ -74,9 +82,10 @@
   }
 
   function decorateV2Links(code = pageDistrictCode() || storedDistrictCode()) {
-    if (!code) return;
     document
-      .querySelectorAll('[data-v2-nav], [data-v2-district-link], a[href*="review.html"]')
+      .querySelectorAll(
+        '[data-v2-nav], [data-v2-district-link], a[href*="review.html"], a[href*="assessment.html"]'
+      )
       .forEach((link) => updateLink(link, code));
   }
 
@@ -167,6 +176,7 @@
     mobileQuery.addListener(syncViewport);
   }
 
+  decorateV2Links();
   const initialCode = pageDistrictCode() || storedDistrictCode();
   if (initialCode) syncDistrictCode(initialCode);
   syncViewport();

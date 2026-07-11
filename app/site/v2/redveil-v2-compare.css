@@ -1,0 +1,351 @@
+/* V2 candidate comparison layout. Loaded after legacy compare styles. */
+
+.v2-compare-page .v2-compare-main {
+  width: 100%;
+  min-width: 0;
+  padding-top: 0 !important;
+}
+
+.v2-compare-page .v2-compare-hero {
+  margin: 0;
+  min-height: 0 !important;
+  padding: 18px !important;
+  border-color: var(--v2-line) !important;
+  border-radius: var(--v2-radius) !important;
+  background:
+    linear-gradient(90deg, rgba(255, 51, 71, 0.06), transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    var(--v2-panel) !important;
+  box-shadow: none !important;
+}
+
+.v2-compare-page .v2-compare-hero::before {
+  opacity: 0.42;
+}
+
+.v2-compare-page .v2-compare-hero .subhero-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 0.32fr);
+  align-items: center;
+  gap: 18px !important;
+}
+
+.v2-compare-page .v2-compare-hero-copy {
+  min-width: 0;
+  max-width: none !important;
+}
+
+.v2-compare-page .v2-compare-hero-copy h1 {
+  max-width: 760px;
+  margin: 6px 0 0;
+  color: #fff;
+  font-size: clamp(1.9rem, 3vw, 2.7rem) !important;
+  line-height: 1.14 !important;
+  letter-spacing: -0.045em !important;
+}
+
+.v2-compare-page .v2-compare-hero-copy > p:last-child {
+  max-width: 760px;
+  margin: 11px 0 0;
+  color: var(--v2-muted) !important;
+  font-size: 0.93rem;
+  line-height: 1.65;
+}
+
+.v2-compare-page .service-status-card {
+  min-width: 0;
+  min-height: 126px;
+  border: 1px solid rgba(255, 51, 71, 0.24) !important;
+  border-radius: var(--v2-radius) !important;
+  padding: 18px !important;
+  background:
+    radial-gradient(circle at 88% 16%, rgba(255, 51, 71, 0.15), transparent 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+    rgba(7, 10, 17, 0.92) !important;
+  box-shadow: none !important;
+}
+
+.v2-compare-page .service-status-card strong {
+  display: block;
+  margin-top: 8px;
+  color: #fff !important;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  line-height: 1.1;
+}
+
+.v2-compare-page .service-status-card p {
+  margin: 9px 0 0;
+}
+
+.v2-compare-page .v2-compare-selector-panel,
+.v2-compare-page .v2-compare-analysis-grid > .panel,
+.v2-compare-page .compare-memo-card {
+  padding: 18px !important;
+  border-color: var(--v2-line) !important;
+  border-radius: var(--v2-radius) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+    var(--v2-panel) !important;
+  box-shadow: none !important;
+}
+
+.v2-compare-page .compare-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 0;
+}
+
+.v2-compare-page .v2-compare-run-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.v2-compare-page #compare-run {
+  min-height: 48px;
+  padding-inline: 22px;
+}
+
+.v2-compare-page .compare-selection-message {
+  margin: 0;
+}
+
+.v2-compare-page .compare-card-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  width: 100%;
+  min-width: 0;
+}
+
+.v2-compare-page .compare-card {
+  display: grid !important;
+  gap: 14px !important;
+  min-width: 0;
+  max-width: 100%;
+  padding: 18px !important;
+  border-color: var(--v2-line) !important;
+  border-radius: var(--v2-radius) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+    var(--v2-panel) !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+.v2-compare-page .compare-card::before {
+  top: 18px !important;
+  bottom: 18px !important;
+}
+
+.v2-compare-page .candidate-title,
+.v2-compare-page .risk-signal-board,
+.v2-compare-page .risk-signal-grid,
+.v2-compare-page .benchmark-line,
+.v2-compare-page .interpretation-strip,
+.v2-compare-page .decision-cue,
+.v2-compare-page .candidate-scan-panel {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.v2-compare-page .candidate-title strong {
+  color: #fff !important;
+  font-size: clamp(1.25rem, 2vw, 1.65rem) !important;
+}
+
+.v2-compare-page .candidate-title p,
+.v2-compare-page .decision-cue p,
+.v2-compare-page .risk-signal-card p,
+.v2-compare-page .metric-compare-card p,
+.v2-compare-page .decision-memo-row p,
+.v2-compare-page .compact-note {
+  overflow-wrap: anywhere;
+}
+
+.v2-compare-page .candidate-scan-panel {
+  min-height: 152px;
+  margin: 0;
+  border-radius: 14px;
+}
+
+.v2-compare-page .risk-signal-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.v2-compare-page .risk-signal-card,
+.v2-compare-page .decision-cue,
+.v2-compare-page .metric-compare-card,
+.v2-compare-page .alternative-board,
+.v2-compare-page .decision-memo-board,
+.v2-compare-page .professional-review-checklist {
+  border-radius: 14px !important;
+}
+
+.v2-compare-page .v2-compare-analysis-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  min-width: 0;
+}
+
+.v2-compare-page #compare-metrics,
+.v2-compare-page #compare-recommendation,
+.v2-compare-page #compare-memo,
+.v2-compare-page .metric-mini-bars,
+.v2-compare-page .alternative-support-grid,
+.v2-compare-page .risk-delta-grid,
+.v2-compare-page .review-export-actions {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.v2-compare-page .metric-mini-row,
+.v2-compare-page .decision-memo-row,
+.v2-compare-page .alternative-support-grid section,
+.v2-compare-page .risk-delta-card {
+  min-width: 0;
+}
+
+.v2-compare-page .review-export-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.v2-compare-page .review-export-actions .compact-note {
+  flex: 1 1 100%;
+}
+
+@media (max-width: 1260px) {
+  .v2-compare-page .compare-card-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .v2-compare-page .compare-card {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
+
+  .v2-compare-page .compare-card-head,
+  .v2-compare-page .candidate-title,
+  .v2-compare-page .candidate-scan-panel {
+    grid-column: 1;
+  }
+
+  .v2-compare-page .benchmark-line,
+  .v2-compare-page .interpretation-strip,
+  .v2-compare-page .risk-signal-board,
+  .v2-compare-page .decision-cue {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 1040px) {
+  .v2-compare-page .v2-compare-analysis-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .v2-compare-page .v2-compare-hero .subhero-copy,
+  .v2-compare-page .compare-selector-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .v2-compare-page .service-status-card {
+    min-height: 0;
+  }
+
+  .v2-compare-page .compare-card {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .v2-compare-page .compare-card-head,
+  .v2-compare-page .candidate-title,
+  .v2-compare-page .candidate-scan-panel,
+  .v2-compare-page .benchmark-line,
+  .v2-compare-page .interpretation-strip,
+  .v2-compare-page .risk-signal-board,
+  .v2-compare-page .decision-cue {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .v2-compare-page .v2-compare-main {
+    gap: 10px;
+    overflow-x: clip;
+  }
+
+  .v2-compare-page .v2-compare-hero,
+  .v2-compare-page .v2-compare-selector-panel,
+  .v2-compare-page .v2-compare-analysis-grid > .panel,
+  .v2-compare-page .compare-memo-card,
+  .v2-compare-page .compare-card {
+    width: 100%;
+    padding: 14px !important;
+    border-radius: 16px !important;
+  }
+
+  .v2-compare-page .v2-compare-hero-copy h1 {
+    max-width: 12ch;
+    font-size: clamp(1.9rem, 9vw, 2.65rem) !important;
+  }
+
+  .v2-compare-page .v2-compare-hero-copy > p:last-child {
+    font-size: 0.9rem;
+  }
+
+  .v2-compare-page .compare-selector-grid,
+  .v2-compare-page .compare-card-grid,
+  .v2-compare-page .v2-compare-analysis-grid,
+  .v2-compare-page .risk-delta-grid,
+  .v2-compare-page .alternative-support-grid,
+  .v2-compare-page .decision-memo-board {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .v2-compare-page .v2-compare-run-row,
+  .v2-compare-page #compare-run,
+  .v2-compare-page .review-export-actions .button {
+    width: 100%;
+  }
+
+  .v2-compare-page .v2-compare-run-row,
+  .v2-compare-page .review-export-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .v2-compare-page .candidate-scan-panel {
+    min-height: 132px;
+  }
+
+  .v2-compare-page select,
+  .v2-compare-page button,
+  .v2-compare-page .compare-card,
+  .v2-compare-page .metric-compare-card,
+  .v2-compare-page .alternative-board,
+  .v2-compare-page .decision-memo-row {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .v2-compare-page .v2-compare-hero,
+  .v2-compare-page .v2-compare-selector-panel,
+  .v2-compare-page .v2-compare-analysis-grid > .panel,
+  .v2-compare-page .compare-memo-card,
+  .v2-compare-page .compare-card {
+    padding: 12px !important;
+  }
+
+  .v2-compare-page .v2-compare-hero-copy h1 {
+    font-size: clamp(1.75rem, 8.8vw, 2.25rem) !important;
+  }
+}

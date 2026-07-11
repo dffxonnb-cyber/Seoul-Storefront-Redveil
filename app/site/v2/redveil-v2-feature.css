@@ -1,0 +1,287 @@
+/* Shared bridge for V1 feature logic rendered inside the Redveil V2 application shell. */
+
+body.v2-feature-page {
+  min-width: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--v2-text);
+  background:
+    linear-gradient(180deg, rgba(255, 51, 71, 0.05), transparent 280px),
+    linear-gradient(115deg, #03050a 0%, #060b15 44%, #05070d 100%);
+}
+
+body.v2-feature-page::before {
+  background-size: 48px 48px;
+  opacity: 0.72;
+}
+
+body.v2-feature-page::after {
+  opacity: 0.38;
+}
+
+.v2-feature-page .v2-shell,
+.v2-feature-page .v2-workspace,
+.v2-feature-page .v2-feature-main,
+.v2-feature-page .review-workspace,
+.v2-feature-page .review-input-panel,
+.v2-feature-page .review-context-card,
+.v2-feature-page .review-output-card,
+.v2-feature-page .review-history-panel,
+.v2-feature-page .review-detail-panel {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.v2-feature-page .v2-feature-main {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+}
+
+.v2-feature-page .panel {
+  border-color: var(--v2-line);
+  border-radius: var(--v2-radius);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+    var(--v2-panel);
+  box-shadow: none;
+}
+
+.v2-feature-page .review-subhero {
+  margin: 0;
+  padding: 18px;
+  background:
+    linear-gradient(90deg, rgba(255, 51, 71, 0.055), transparent 44%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    var(--v2-panel);
+}
+
+.v2-feature-page .review-hero-layout {
+  align-items: center;
+  gap: 18px;
+}
+
+.v2-feature-page .review-hero-main h1 {
+  max-width: 720px;
+  margin: 5px 0 0;
+  color: #fff;
+  font-size: clamp(1.8rem, 3.2vw, 2.65rem);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+
+.v2-feature-page .review-hero-main > p:last-child {
+  max-width: 760px;
+  margin-top: 10px;
+  color: var(--v2-muted);
+  line-height: 1.65;
+}
+
+.v2-feature-page .review-status-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.v2-feature-page .review-status-card {
+  min-width: 0;
+  min-height: 112px;
+  border-radius: var(--v2-radius);
+}
+
+.v2-feature-page .review-status-card strong,
+.v2-feature-page .review-status-card p,
+.v2-feature-page .review-status-card span {
+  overflow-wrap: anywhere;
+}
+
+.v2-feature-page .review-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.v2-feature-page .section-block {
+  padding: 18px;
+}
+
+.v2-feature-page .section-label,
+.v2-feature-page .card-label,
+.v2-feature-page .result-label {
+  color: rgba(255, 91, 108, 0.86);
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.v2-feature-page .section-head h2,
+.v2-feature-page .review-context-card h2 {
+  color: #fff;
+}
+
+.v2-feature-page .section-copy,
+.v2-feature-page .compact-note,
+.v2-feature-page .interpretation-note {
+  color: var(--v2-muted);
+}
+
+.v2-feature-page .review-form-group,
+.v2-feature-page .review-example-panel,
+.v2-feature-page .inline-chart-card,
+.v2-feature-page .review-output-preview,
+.v2-feature-page .review-entry,
+.v2-feature-page .result-card,
+.v2-feature-page .professional-review-checklist,
+.v2-feature-page .review-detail-hero,
+.v2-feature-page .review-detail-chart-card,
+.v2-feature-page .review-detail-sections > section {
+  border-radius: var(--v2-radius);
+}
+
+.v2-feature-page input,
+.v2-feature-page select,
+.v2-feature-page textarea,
+.v2-feature-page button {
+  max-width: 100%;
+}
+
+.v2-feature-page .review-context-card {
+  position: sticky;
+  top: 12px;
+}
+
+.v2-feature-page .review-risk-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.v2-feature-page .review-risk-tag-row span {
+  white-space: normal;
+}
+
+.v2-feature-page .review-detail-panel[hidden] {
+  display: none;
+}
+
+.v2-feature-page .review-detail-panel:not([hidden]) {
+  display: block;
+}
+
+.v2-feature-page .history-grid,
+.v2-feature-page .review-status-grid,
+.v2-feature-page .review-detail-grid,
+.v2-feature-page .review-detail-sections {
+  min-width: 0;
+}
+
+@media (max-width: 1180px) {
+  .v2-feature-page .review-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .v2-feature-page .review-context-card {
+    position: static;
+  }
+}
+
+@media (max-width: 900px) {
+  .v2-feature-page .review-hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .v2-feature-page .review-status-grid {
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  body.v2-feature-page {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .v2-feature-page .v2-feature-main {
+    gap: 10px;
+  }
+
+  .v2-feature-page .review-subhero,
+  .v2-feature-page .section-block {
+    width: 100%;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .v2-feature-page .review-hero-main h1 {
+    max-width: 12ch;
+    font-size: clamp(1.9rem, 9.2vw, 2.7rem);
+    line-height: 1.1;
+  }
+
+  .v2-feature-page .review-hero-main > p:last-child {
+    font-size: 0.9rem;
+  }
+
+  .v2-feature-page .review-status-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .v2-feature-page .review-status-card {
+    min-height: 0;
+  }
+
+  .v2-feature-page .review-workspace {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .v2-feature-page .review-example-list,
+  .v2-feature-page .form-stack,
+  .v2-feature-page .review-form-group,
+  .v2-feature-page .mini-board,
+  .v2-feature-page .history-grid,
+  .v2-feature-page .review-detail-grid,
+  .v2-feature-page .review-detail-sections {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .v2-feature-page .review-example-button,
+  .v2-feature-page .field,
+  .v2-feature-page .button,
+  .v2-feature-page .review-entry,
+  .v2-feature-page .stat-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .v2-feature-page .review-submit-button {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .v2-feature-page .review-output-preview,
+  .v2-feature-page .review-memo-outline,
+  .v2-feature-page .review-result-sections,
+  .v2-feature-page .review-export-actions {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .v2-feature-page svg {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .v2-feature-page .review-subhero,
+  .v2-feature-page .section-block {
+    padding: 12px;
+  }
+
+  .v2-feature-page .review-hero-main h1 {
+    font-size: clamp(1.75rem, 9vw, 2.25rem);
+  }
+}

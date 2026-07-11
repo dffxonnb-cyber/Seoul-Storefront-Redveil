@@ -1,0 +1,138 @@
+/*
+ * Keep the top-right product summary cards visually aligned with the
+ * 3-minute diagnosis card. Loaded after page-specific styles so this file
+ * only resolves the final hero-card presentation.
+ */
+
+body[data-page="compare"] .service-status-card,
+body[data-page="districts"] .service-status-card,
+body[data-page="review"] .review-status-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  align-content: center;
+  gap: 0;
+  min-height: 118px;
+  padding: 16px 18px !important;
+  border: 1px solid rgba(255, 30, 53, 0.28) !important;
+  border-radius: 20px !important;
+  background:
+    radial-gradient(circle at 92% 14%, rgba(255, 30, 53, 0.14), transparent 32%),
+    linear-gradient(180deg, rgba(18, 21, 30, 0.94), rgba(9, 11, 17, 0.92)),
+    var(--card-bg) !important;
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+body[data-page="compare"] .service-status-card,
+body[data-page="districts"] .service-status-card {
+  width: min(184px, 100%) !important;
+  min-width: 176px !important;
+  justify-self: end;
+}
+
+body[data-page="compare"] .service-status-card .card-label,
+body[data-page="districts"] .service-status-card .card-label,
+body[data-page="review"] .review-status-card .card-label {
+  margin: 0 0 5px !important;
+  color: #ff3347 !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+  line-height: 1.25;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase;
+}
+
+body[data-page="compare"] .service-status-card strong,
+body[data-page="districts"] .service-status-card strong,
+body[data-page="review"] .review-status-card strong {
+  margin: 0 !important;
+  color: #fff !important;
+  font-size: 28px !important;
+  font-weight: 850 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  text-shadow: none !important;
+}
+
+body[data-page="compare"] .service-status-card .compact-note,
+body[data-page="districts"] .service-status-card .compact-note,
+body[data-page="review"] .review-status-card .compact-note {
+  margin: 8px 0 0 !important;
+  color: rgba(190, 196, 210, 0.56) !important;
+  font-size: 12.5px !important;
+  line-height: 1.35 !important;
+}
+
+/* Property review keeps three independent cards in one horizontal row. */
+body[data-page="review"] .review-status-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  width: min(100%, 590px);
+  justify-self: end;
+  align-items: stretch;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body[data-page="review"] .review-status-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 150px !important;
+  max-height: 170px;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: repeat(3, auto) !important;
+  justify-items: start !important;
+  justify-self: stretch !important;
+}
+
+body[data-page="review"] .review-status-card strong {
+  font-size: clamp(22px, 2vw, 28px) !important;
+  white-space: nowrap;
+}
+
+body[data-page="review"] .review-status-card::before,
+body[data-page="review"] .review-status-card::after {
+  content: none !important;
+  display: none !important;
+}
+
+body[data-page="review"] .review-status-card > * {
+  width: 100% !important;
+  min-width: 0 !important;
+  grid-column: 1 !important;
+  padding-left: 0 !important;
+}
+
+@media (max-width: 980px) {
+  body[data-page="review"] .review-status-grid {
+    width: 100%;
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 680px) {
+  body[data-page="compare"] .service-status-card,
+  body[data-page="districts"] .service-status-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    justify-self: stretch;
+  }
+
+  body[data-page="review"] .review-status-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  body[data-page="review"] .review-status-card {
+    max-height: none;
+  }
+
+  body[data-page="review"] .review-status-card strong {
+    white-space: normal;
+  }
+}

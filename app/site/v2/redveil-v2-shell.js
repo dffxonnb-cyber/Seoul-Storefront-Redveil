@@ -56,10 +56,12 @@
   }
 
   function updateLink(link, code) {
-    const href = link.getAttribute("href") || "";
+    const originalHref = link.getAttribute("href") || "";
     const view = link.dataset.v2Nav || "";
-    if (!href || !code || href.startsWith("#") || /^(?:https?:|mailto:|tel:)/.test(href)) return;
+    if (!originalHref || !code || originalHref.startsWith("#") || /^(?:https?:|mailto:|tel:)/.test(originalHref)) return;
 
+    const targetsReview = view === "review" || /(?:^|\/)review\.html(?:[?#]|$)/.test(originalHref);
+    const href = targetsReview ? "./review.html" : originalHref;
     const prefix = href.startsWith("../") ? "../" : href.startsWith("./") ? "./" : "";
     const url = new URL(href, window.location.href);
     if (view === "compare" || url.pathname.endsWith("compare.html")) {
@@ -73,7 +75,9 @@
 
   function decorateV2Links(code = pageDistrictCode() || storedDistrictCode()) {
     if (!code) return;
-    document.querySelectorAll("[data-v2-nav], [data-v2-district-link]").forEach((link) => updateLink(link, code));
+    document
+      .querySelectorAll('[data-v2-nav], [data-v2-district-link], a[href*="review.html"]')
+      .forEach((link) => updateLink(link, code));
   }
 
   function syncDistrictCode(code) {

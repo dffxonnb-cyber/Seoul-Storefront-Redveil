@@ -60,6 +60,7 @@ class StaticSitePageTests(unittest.TestCase):
         pages = {
             "index.html": "map",
             "review.html": "review",
+            "assessment.html": "assessment",
             "districts.html": "districts",
         }
 
@@ -90,6 +91,22 @@ class StaticSitePageTests(unittest.TestCase):
         self.assertNotIn('<nav class="topnav"', review_html)
         self.assertNotIn("Saved Reviews", review_html)
         self.assertNotIn("Local archive", review_html)
+
+    def test_v2_assessment_reuses_existing_assessment_logic_inside_v2_shell(self) -> None:
+        assessment_html = (SITE_ROOT / "v2" / "assessment.html").read_text(encoding="utf-8")
+
+        self.assertIn('src="../website_payload.js"', assessment_html)
+        self.assertIn('src="../common.js"', assessment_html)
+        self.assertIn('src="../assessment.js"', assessment_html)
+        self.assertIn('src="./redveil-v2-assessment.js', assessment_html)
+        self.assertIn('href="./redveil-v2-feature.css', assessment_html)
+        self.assertIn('href="./redveil-v2-assessment.css', assessment_html)
+        self.assertIn('id="assessment-form"', assessment_html)
+        self.assertIn('id="district-code"', assessment_html)
+        self.assertIn('id="assessment-result"', assessment_html)
+        self.assertNotIn('<nav class="topnav"', assessment_html)
+        self.assertNotIn("3-Minute Diagnosis", assessment_html)
+        self.assertNotIn("Quick Risk Check", assessment_html)
 
     def test_v2_district_report_keeps_required_mounts_and_scripts(self) -> None:
         report_html = (SITE_ROOT / "v2" / "districts.html").read_text(encoding="utf-8")
@@ -127,6 +144,7 @@ class StaticSitePageTests(unittest.TestCase):
             "districts.html": ["District Report", "District Selector", "Replacement Candidates"],
             "v2/index.html": ["레드베일 V2 지도 대시보드", "서울 리스크 지도", "선택 자치구"],
             "v2/review.html": ["매물 검토", "추천 전에 보류 사유", "보류 메모 생성"],
+            "v2/assessment.html": ["3분 진단", "보류 신호 진단 실행", "assessment-form"],
             "v2/districts.html": ["자치구 리스크 리포트", "핵심 위험 요인", "결정 메모"],
         }
 
@@ -142,9 +160,11 @@ class StaticSitePageTests(unittest.TestCase):
             SITE_ROOT / "home.js",
             SITE_ROOT / "v2" / "index.html",
             SITE_ROOT / "v2" / "review.html",
+            SITE_ROOT / "v2" / "assessment.html",
             SITE_ROOT / "v2" / "redveil-v2.js",
             SITE_ROOT / "v2" / "redveil-v2-shell.js",
             SITE_ROOT / "v2" / "redveil-v2-review.js",
+            SITE_ROOT / "v2" / "redveil-v2-assessment.js",
             SITE_ROOT / "v2" / "districts.html",
             SITE_ROOT / "v2" / "redveil-v2-districts.js",
         ]

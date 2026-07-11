@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#03050a" />
+    <title>Redveil V2 | 매물 검토</title>
+    <meta
+      name="description"
+      content="서울 소형 상가 매물 조건을 입력하고 보류 사유, 다음 확인 항목과 대체 후보를 정리하는 Redveil V2 매물 검토 화면입니다."
+    />
+    <link rel="icon" type="image/png" href="../assets/redveil-logo.png" />
+    <link rel="stylesheet" href="../styles.css?v=20260601-review-console" />
+    <link rel="stylesheet" href="../review-history-nowrap.css?v=20260711" />
+    <link rel="stylesheet" href="../hero-status-unified.css?v=20260711" />
+    <link rel="stylesheet" href="./redveil-v2.css?v=20260606-map-dashboard" />
+    <link rel="stylesheet" href="./redveil-v2-mobile.css?v=20260711-v2-mobile-korean" />
+    <link rel="stylesheet" href="./redveil-v2-shell.css?v=20260711-shared-shell" />
+    <link rel="stylesheet" href="./redveil-v2-feature.css?v=20260711-review-page" />
+  </head>
+  <body data-page="review" data-v2-view="review" class="v2-feature-page v2-review-page">
+    <a class="skip-link" href="#v2-review-main">본문 바로가기</a>
+
+    <div class="v2-shell">
+      <aside id="v2-sidebar" class="v2-sidebar" aria-label="Redveil V2 메뉴">
+        <button class="v2-sidebar-close" type="button" aria-label="메뉴 닫기" data-v2-menu-close></button>
+        <div class="v2-sidebar-primary">
+          <a class="v2-brand" href="./index.html" aria-label="Redveil V2 지도 홈">
+            <img src="../assets/redveil-logo.png" alt="" aria-hidden="true" decoding="async" />
+            <span>
+              <small>서울 상가 리스크 인텔리전스</small>
+              <strong>Redveil V2</strong>
+            </span>
+          </a>
+
+          <nav class="v2-side-nav" aria-label="대시보드 메뉴">
+            <a href="./index.html" data-v2-nav="map">
+              <span>01</span>
+              <strong>지도 홈</strong>
+            </a>
+            <a href="./review.html" data-v2-nav="review">
+              <span>02</span>
+              <strong>매물 검토</strong>
+            </a>
+            <a href="../assessment.html" data-v2-nav="assessment">
+              <span>03</span>
+              <strong>3분 진단</strong>
+            </a>
+            <a href="../compare.html" data-v2-nav="compare">
+              <span>04</span>
+              <strong>후보 비교</strong>
+            </a>
+            <a href="./districts.html" data-v2-nav="districts">
+              <span>05</span>
+              <strong>구별 리포트</strong>
+            </a>
+          </nav>
+        </div>
+
+        <div class="v2-sidebar-status" aria-label="매물 검토 운영 모드">
+          <span>운영 모드</span>
+          <strong>매물 검토</strong>
+          <p>매물 조건을 입력해 보류 사유와 다음 확인 항목을 기록합니다.</p>
+        </div>
+      </aside>
+      <button class="v2-sidebar-backdrop" type="button" aria-label="메뉴 닫기" data-v2-menu-backdrop></button>
+
+      <div class="v2-workspace">
+        <div class="v2-mobile-bar" aria-label="모바일 화면 메뉴">
+          <button
+            class="v2-menu-toggle"
+            type="button"
+            aria-label="화면 메뉴 열기"
+            aria-controls="v2-sidebar"
+            aria-expanded="false"
+            data-v2-menu-open
+          >
+            <span class="v2-menu-toggle-icon" aria-hidden="true"></span>
+          </button>
+          <div class="v2-mobile-bar-copy">
+            <small>Redveil V2</small>
+            <strong data-v2-current-title>매물 검토</strong>
+          </div>
+        </div>
+
+        <header class="v2-topbar" aria-label="상단 상태 바">
+          <div class="v2-topbar-title">
+            <span>매물 검토</span>
+            <strong>매물 조건을 보류 판단과 다음 확인 항목으로 정리</strong>
+          </div>
+          <div class="v2-status-pills" aria-label="검토 상태">
+            <span id="v2-review-selected-district">검토 구 선택 전</span>
+            <span>기기 내 저장</span>
+          </div>
+        </header>
+
+        <main id="v2-review-main" class="page-stack review-page-stack v2-feature-main" aria-label="Redveil V2 매물 검토">
+          <section class="panel subhero review-subhero">
+            <div class="subhero-copy review-hero-layout">
+              <div class="review-hero-main">
+                <p class="section-label">보류 우선 매물 검토</p>
+                <h1>추천 전에 보류 사유를 먼저 남깁니다.</h1>
+                <p>
+                  서울 소형 상가 매입 후보를 입력하면 가격 부담, 거래 유동성, 상권 과밀,
+                  수요 취약도를 기준으로 보류 판단, 다음 확인 항목과 대체 후보를 정리합니다.
+                </p>
+              </div>
+
+              <div class="review-status-grid">
+                <div class="hero-status review-status-card">
+                  <span class="card-label">저장한 검토</span>
+                  <strong id="review-count">0건</strong>
+                  <p class="compact-note">기기 내 저장</p>
+                </div>
+                <div class="hero-status review-status-card">
+                  <span class="card-label">첫 결과물</span>
+                  <strong>보류 메모</strong>
+                  <p class="compact-note">보류 판단 우선</p>
+                </div>
+                <div class="hero-status review-status-card">
+                  <span class="card-label">분석 범위</span>
+                  <strong>자치구</strong>
+                  <p class="compact-note">구별 리스크 기준</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="app-grid-wide review-workspace">
+            <article class="panel section-block review-input-panel">
+              <div class="section-head">
+                <div>
+                  <p class="section-label">입력 단계 · 01</p>
+                  <h2>매물 정보 입력</h2>
+                  <p class="section-copy">
+                    빠른 검토에 필요한 조건만 먼저 입력합니다. 선택값은 검토 메모의 판단 근거를 보강하는 데 사용됩니다.
+                  </p>
+                </div>
+              </div>
+              <form id="review-form" class="form-stack">
+                <div class="review-example-panel full-span">
+                  <div class="review-example-head">
+                    <div>
+                      <span class="card-label">검증 예시</span>
+                      <strong>예시 매물 불러오기</strong>
+                    </div>
+                    <p>위험 후보, 애매 후보, 보수 검토 후보를 불러와 판단 흐름을 빠르게 확인합니다.</p>
+                  </div>
+                  <div class="review-example-list" id="review-example-list"></div>
+                </div>
+
+                <fieldset class="review-form-group review-form-group-required">
+                  <legend>빠른 검토 필수</legend>
+                  <label class="field">
+                    <span>검토 구</span>
+                    <select id="review-district-code" required></select>
+                  </label>
+                  <label class="field">
+                    <span>행정동</span>
+                    <input id="admin-dong-name" type="text" placeholder="예: 서초동" required />
+                  </label>
+                  <label class="field">
+                    <span>예상 매입가 (만원)</span>
+                    <input id="asking-price-total" type="number" min="0" step="100" placeholder="예: 85000" required />
+                  </label>
+                  <label class="field">
+                    <span>가정 업종</span>
+                    <input id="target-tenant" type="text" placeholder="예: 카페, 근린생활 업종" required />
+                  </label>
+                </fieldset>
+
+                <fieldset class="review-form-group review-form-group-optional">
+                  <legend>선택 입력</legend>
+                  <label class="field">
+                    <span>매물명</span>
+                    <input id="asset-name" type="text" placeholder="예: 서초역 대로변 코너 상가" />
+                  </label>
+                  <label class="field">
+                    <span>전용 면적 (㎡)</span>
+                    <input id="exclusive-area" type="number" min="0" step="0.1" placeholder="예: 31.4" />
+                  </label>
+                  <label class="field">
+                    <span>보유 기간</span>
+                    <input id="review-holding-months" type="number" min="6" max="180" step="6" value="36" />
+                  </label>
+                  <label class="field">
+                    <span>우선순위</span>
+                    <select id="review-priority">
+                      <option value="cashflow">현금흐름</option>
+                      <option value="balanced" selected>균형</option>
+                      <option value="growth">가격 상승</option>
+                    </select>
+                  </label>
+                  <label class="field full-span">
+                    <span>메모</span>
+                    <textarea id="review-memo" rows="5" placeholder="예: 중개사가 역세권 수요와 희소성을 강조함"></textarea>
+                  </label>
+                </fieldset>
+
+                <div class="full-span">
+                  <button class="button button-primary button-wide review-submit-button" type="submit">보류 메모 생성</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="panel section-block review-context-card">
+              <div class="section-head">
+                <div>
+                  <p class="section-label">지역 신호 · 02</p>
+                  <h2 id="review-spotlight-name"></h2>
+                  <p class="section-copy">선택한 구의 가격선, 거래 유동성, 상권 과밀 신호를 함께 확인합니다.</p>
+                </div>
+                <span class="signal-pill" id="review-spotlight-grade"></span>
+              </div>
+
+              <div class="review-risk-tag-row">
+                <span>가격 부담</span>
+                <span>낮은 유동성</span>
+                <span>상권 과밀</span>
+                <span>수요 취약</span>
+              </div>
+
+              <div class="inline-chart-card review-chart-card">
+                <div class="chart-head">
+                  <strong>최근 가격선 흐름</strong>
+                  <span id="review-spotlight-type"></span>
+                </div>
+                <svg id="review-spotlight-chart" viewBox="0 0 420 180" aria-label="구 가격 추이"></svg>
+              </div>
+              <div class="mini-board review-spotlight-stats" id="review-spotlight-stats"></div>
+            </article>
+          </section>
+
+          <article class="panel section-block review-output-card" id="review-result">
+            <div class="section-head">
+              <div>
+                <p class="section-label">보류 메모 · 03</p>
+                <h2>저장 후 보류 판단이 먼저 정리됩니다.</h2>
+                <p class="section-copy">저장 전에는 생성될 보류 메모 구조만 미리 보여줍니다.</p>
+              </div>
+            </div>
+            <div class="review-output-preview">
+              <div class="review-memo-outline">
+                <article><span>01 / 보류 판단</span><p>조건을 저장하면 추천보다 보류 여부와 이유가 먼저 정리됩니다.</p></article>
+                <article><span>02 / 핵심 근거</span><p>가격 부담, 유동성, 상권 과밀 같은 근거가 묶입니다.</p></article>
+                <article><span>03 / 다음 확인 항목</span><p>현장에서 다시 볼 체크 포인트가 이어집니다.</p></article>
+                <article><span>04 / 대체 후보</span><p>조건이 더 나은 비교 후보가 함께 표시됩니다.</p></article>
+              </div>
+              <p class="interpretation-note">표본이 적은 구는 데이터 신뢰도 경고를 함께 표시합니다.</p>
+            </div>
+          </article>
+
+          <article class="panel section-block review-detail-panel" id="review-detail" hidden></article>
+
+          <section class="panel section-block review-history-panel">
+            <div class="section-head">
+              <div>
+                <p class="section-label">저장한 검토</p>
+                <h2>최근 저장한 검토</h2>
+                <p class="section-copy">브라우저에 저장된 검토 이력을 다시 열어 보고, 보류 판단의 흐름을 비교합니다.</p>
+              </div>
+            </div>
+            <div class="history-grid" id="review-history"></div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="../website_payload.js"></script>
+    <script src="../common.js"></script>
+    <script src="../review.js"></script>
+    <script src="./redveil-v2-shell.js?v=20260711-shared-shell"></script>
+    <script src="./redveil-v2-review.js?v=20260711-review-page"></script>
+  </body>
+</html>

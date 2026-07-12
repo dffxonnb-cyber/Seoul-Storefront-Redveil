@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -67,7 +67,12 @@ jobs:
         if: github.event_name == 'pull_request' && github.head_ref == 'docs/v2-portfolio-packaging'
         env:
           CAPTURE_V2_PORTFOLIO: "1"
-        run: npx playwright test tests/e2e/redveil-v2-portfolio-screenshots.spec.mjs
+        run: |
+          if [ -f docs/evidence/redveil-v2-desktop-home-2026-07-12.png ]; then
+            echo "V2 portfolio screenshots are already committed."
+            exit 0
+          fi
+          npx playwright test tests/e2e/redveil-v2-portfolio-screenshots.spec.mjs
 
       - name: Upload V2 portfolio screenshots
         if: always() && github.event_name == 'pull_request' && github.head_ref == 'docs/v2-portfolio-packaging'
@@ -75,8 +80,28 @@ jobs:
         with:
           name: redveil-v2-portfolio-screenshots
           path: test-results/v2-portfolio/*.png
-          if-no-files-found: error
+          if-no-files-found: ignore
           retention-days: 7
+
+      - name: Commit V2 portfolio screenshots
+        if: github.event_name == 'pull_request' && github.head_ref == 'docs/v2-portfolio-packaging'
+        run: |
+          if [ -f docs/evidence/redveil-v2-desktop-home-2026-07-12.png ]; then
+            echo "V2 portfolio screenshots are already committed."
+            exit 0
+          fi
+          test -d test-results/v2-portfolio
+          mkdir -p /tmp/redveil-v2-portfolio
+          cp test-results/v2-portfolio/*.png /tmp/redveil-v2-portfolio/
+          git fetch origin "${{ github.head_ref }}"
+          git checkout -B "${{ github.head_ref }}" "origin/${{ github.head_ref }}"
+          mkdir -p docs/evidence
+          cp /tmp/redveil-v2-portfolio/*.png docs/evidence/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/evidence/redveil-v2-*.png
+          git commit -m "docs: add Redveil V2 release screenshots"
+          git push origin "HEAD:${{ github.head_ref }}"
 
       - name: Upload review hero preview
         if: always() && github.event_name == 'pull_request' && github.head_ref == 'agent/redesign-review-hero'

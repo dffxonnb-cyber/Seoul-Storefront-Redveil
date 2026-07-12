@@ -13,7 +13,9 @@ Redveil V2는 서울 자치구를 지도에서 선택한 뒤 리스크 점수와
 - 대체 배포: **[Vercel · Redveil V2](https://redveil.vercel.app/v2/)**
 - V1은 기존 설명형 인터페이스를 보존한 **[Legacy 버전](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/)** 입니다.
 
-![Redveil V2 desktop map dashboard](./docs/evidence/redveil-v2-desktop-home-2026-07-12.png)
+## 대표 화면
+
+![Redveil V2 지도 홈과 선택 자치구 리스크 분석](./docs/evidence/redveil-v2-readme-hero.png)
 
 ## 3분 검토 경로
 
@@ -41,26 +43,32 @@ Redveil은 매입 추천이나 수익률 예측 대신 아래 판단을 지원�
 
 선택한 자치구는 URL과 브라우저 저장 상태를 통해 V2 다섯 화면 사이에서 유지됩니다.
 
-## 핵심 화면
+## 핵심 기능
 
-| 화면 | 역할 |
-| --- | --- |
-| 지도 홈 | 서울 25개 자치구 경계와 선택 구 리스크 요약 |
-| 매물 검토 | 개별 매물 조건을 보류 사유와 판단 메모로 변환 |
-| 3분 진단 | 가격선·보유 기간·우선순위를 반영한 빠른 진단 |
-| 후보 비교 | 최대 3개 자치구의 리스크 축과 대체 기준 비교 |
-| 구별 리포트 | 핵심 위험 요인·대체 후보·다음 확인 항목 제공 |
+### 서울 지도와 리스크 분석
 
 <table>
   <tr>
-    <td width="50%"><img src="./docs/evidence/redveil-v2-mobile-home-2026-07-12.png" alt="Redveil V2 mobile map dashboard" /></td>
-    <td width="50%"><img src="./docs/evidence/redveil-v2-property-review-2026-07-12.png" alt="Redveil V2 property review result" /></td>
+    <td width="68%"><img src="./docs/evidence/redveil-v2-readme-map-focus.png" alt="서울 25개 자치구 리스크 지도" /></td>
+    <td width="32%"><img src="./docs/evidence/redveil-v2-readme-risk-focus.png" alt="선택 자치구 리스크 점수와 위험 사유" /></td>
   </tr>
   <tr>
-    <td align="center"><strong>모바일 지도 홈</strong></td>
-    <td align="center"><strong>매물 검토와 보류 메모</strong></td>
+    <td align="center"><strong>서울 25개 자치구 리스크 지도</strong></td>
+    <td align="center"><strong>점수·위험 사유·검증 근거</strong></td>
   </tr>
 </table>
+
+### 대체 후보 비교
+
+![Redveil V2 후보 비교 화면](./docs/evidence/redveil-v2-readme-compare-focus.png)
+
+### 모바일 지원
+
+<p align="center">
+  <img src="./docs/evidence/redveil-v2-readme-mobile-focus.png" alt="Redveil V2 모바일 지도 홈" width="430" />
+</p>
+
+<p align="center"><sub>모바일에서는 제품 소개와 지도 선택 흐름을 한 열로 재배치합니다.</sub></p>
 
 ## 데이터 범위
 

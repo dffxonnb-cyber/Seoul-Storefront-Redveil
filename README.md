@@ -1,237 +1,181 @@
-# Redveil
+# Redveil V2
 
 [![Deploy Pages](https://github.com/dffxonnb-cyber/Seoul-Storefront-Redveil/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/dffxonnb-cyber/Seoul-Storefront-Redveil/actions/workflows/deploy-pages.yml)
 [![Refresh Public Data](https://github.com/dffxonnb-cyber/Seoul-Storefront-Redveil/actions/workflows/refresh-public-data.yml/badge.svg)](https://github.com/dffxonnb-cyber/Seoul-Storefront-Redveil/actions/workflows/refresh-public-data.yml)
-[![Live](https://img.shields.io/badge/live-GitHub%20Pages-0f766e)](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/)
+[![Live V2](https://img.shields.io/badge/live-Redveil%20V2-ff3347)](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/)
 [![Public Verification](https://img.shields.io/badge/tests-public--safe%20verified-2563eb)](./VERIFY.md)
 
-Redveil is an interactive Seoul storefront risk diagnosis prototype that helps prospective buyers identify caution signals, compare alternative districts, and document why a purchase should be paused or reviewed.
+**서울 소형 상가 매입 전에 보류 사유와 비교 기준을 먼저 확인하는 지도 기반 리스크 분석 제품입니다.**
 
-It is a portfolio-ready frontend-first product prototype, not a production investment advisory service.
+Redveil V2는 서울 자치구를 지도에서 선택한 뒤 리스크 점수와 위험 사유를 확인하고, 매물 검토·3분 진단·후보 비교·구별 리포트·판단 메모까지 하나의 흐름으로 연결합니다.
 
-## 3-Minute Reviewer Path
+- 공식 대표 데모: **[GitHub Pages · Redveil V2](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/)**
+- 대체 배포: **[Vercel · Redveil V2](https://redveil.vercel.app/v2/)**
+- V1은 기존 설명형 인터페이스를 보존한 **[Legacy 버전](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/)** 입니다.
 
-| Step | Open | What to check |
+![Redveil V2 desktop map dashboard](./docs/evidence/redveil-v2-desktop-home-2026-07-12.png)
+
+## 3분 검토 경로
+
+| 순서 | 화면 | 확인할 내용 |
 | --- | --- | --- |
-| 1 | [Live Home](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/) | Pause-first positioning and product surface |
-| 2 | [Property Review](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/review.html) | Risk summary, caution signals, saved review memo |
-| 3 | [Candidate Compare](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/compare.html) | Alternative district comparison and risk axes |
-| 4 | [District Report](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/districts.html) | District-level interpretation and caution points |
-| 5 | [Production Evidence](./docs/evidence/README.md) | Public-safe payload period, deployment proof, screenshot evidence |
+| 1 | [지도 홈](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/) | 서울 25개 자치구 경계, 선택 구 리스크 점수와 위험 사유 |
+| 2 | [매물 검토](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/review.html?district=11650) | 매물 조건 입력, 보류 사유, 저장 가능한 판단 메모 |
+| 3 | [3분 진단](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/assessment.html?district=11650) | 가격선·보유 기간·우선순위를 반영한 빠른 리스크 진단 |
+| 4 | [후보 비교](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/compare.html?a=11650&b=11530&c=11680) | 2~3개 자치구의 동일 리스크 축 비교와 대체 기준 |
+| 5 | [구별 리포트](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/districts.html?district=11650) | 자치구 핵심 위험 요인, 대체 후보, 다음 확인 항목 |
+| 6 | [V2 릴리스 증거](./docs/evidence/v2-release-2026-07-12.md) | 화면 캡처, 배포 경계, 데이터 범위, 검증 결과 |
 
-## Decision Evidence Snapshot
+## 제품이 지원하는 결정
 
-| Question | Evidence |
+> 이 매물을 바로 사기 전에 무엇 때문에 멈추고, 어떤 후보와 비교하며, 무엇을 다시 확인해야 하는가?
+
+Redveil은 매입 추천이나 수익률 예측 대신 아래 판단을 지원합니다.
+
+1. **지도에서 자치구 선택**
+2. **리스크 점수와 핵심 반대 근거 확인**
+3. **매물 조건을 넣어 보류 메모 생성**
+4. **가격선·보유 기간을 반영한 3분 진단**
+5. **대체 자치구와 같은 기준으로 비교**
+6. **구별 리포트와 다음 확인 항목 정리**
+
+선택한 자치구는 URL과 브라우저 저장 상태를 통해 V2 다섯 화면 사이에서 유지됩니다.
+
+## 핵심 화면
+
+| 화면 | 역할 |
 | --- | --- |
-| **What decision does it support?** | Before buying a small Seoul storefront, what should make the reviewer pause, compare, or escalate? |
-| **What did I build?** | Static product experience with review, diagnosis, comparison, district report, and pause memo flows. |
-| **What data boundary is public?** | Seoul 25 districts, 427 admin dongs, 1,520 trade areas, 12,074 transactions in the current public payload. |
-| **What signals are interpreted?** | Price burden, liquidity risk, competition density, price volatility, and demand fragility. |
-| **What is verified?** | Public GitHub Pages deployment, tracked public payload metadata, production screenshots, public-safe verification scripts. |
-| **What is not claimed?** | No investment advice, return prediction, causal business outcome, or individual-property accuracy claim. |
+| 지도 홈 | 서울 25개 자치구 경계와 선택 구 리스크 요약 |
+| 매물 검토 | 개별 매물 조건을 보류 사유와 판단 메모로 변환 |
+| 3분 진단 | 가격선·보유 기간·우선순위를 반영한 빠른 진단 |
+| 후보 비교 | 최대 3개 자치구의 리스크 축과 대체 기준 비교 |
+| 구별 리포트 | 핵심 위험 요인·대체 후보·다음 확인 항목 제공 |
 
-![Redveil production home](./docs/evidence/redveil-production-home-2026-06-15.png)
+<table>
+  <tr>
+    <td width="50%"><img src="./docs/evidence/redveil-v2-mobile-home-2026-07-12.png" alt="Redveil V2 mobile map dashboard" /></td>
+    <td width="50%"><img src="./docs/evidence/redveil-v2-property-review-2026-07-12.png" alt="Redveil V2 property review result" /></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>모바일 지도 홈</strong></td>
+    <td align="center"><strong>매물 검토와 보류 메모</strong></td>
+  </tr>
+</table>
 
-![Redveil production district report](./docs/evidence/redveil-production-districts-2026-06-15.png)
+## 데이터 범위
 
-## Portfolio Positioning
+현재 공개 배포 payload 기준:
 
-Shelter Signal demonstrates public-data pipeline, operational DB, API, and PWA architecture.
+- 거래 데이터: `2025.04~2026.03`
+- 서울 상권 수요 데이터: `2025년 4분기`
+- 점포 경쟁 데이터: `2026.03.31 기준 파일`
+- 자치구: `25`
+- 행정동: `427`
+- 상권: `1,520`
+- 거래: `12,074`
+- 저표본 경고 자치구: `8`
 
-Redveil is intentionally different:
+주요 리스크 축:
 
-```text
-Concept-driven product framing
--> interactive decision UX
--> risk interpretation
--> comparison and pause memo
--> portfolio storytelling
-```
+- 가격 부담
+- 거래 유동성
+- 경쟁 밀도
+- 가격 변동성
+- 수요 취약성
 
-The product asks a narrower question:
+점수는 검토 우선순위를 정리하기 위한 탐색 신호이며, 매수·매도 추천이나 투자 수익률 예측이 아닙니다.
 
-> Before buying this small commercial property, what should make me pause?
+## 구현 구조
 
-## Live Product
-
-- Primary live demo: [GitHub Pages](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/)
-- Alternate deployment: [Vercel](https://redveil.vercel.app/)
-- Property review: [review.html](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/review.html)
-- 3-minute diagnosis: [assessment.html](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/assessment.html)
-- Candidate compare: [compare.html](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/compare.html)
-- District report: [districts.html](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/districts.html)
-
-GitHub Pages is the representative URL because the repository's `Deploy Pages` workflow verifies and publishes `app/site` from `main`. Vercel remains a working alternate deployment. The core HTML pages were identical across both deployments when checked on 2026-06-15.
-
-## V1 Workflow
-
-1. The user lands on Redveil and understands the pause-first concept.
-2. The user selects or reviews a Seoul district or storefront scenario.
-3. Redveil shows a risk summary and factor breakdown.
-4. The interface explains key caution signals.
-5. The user compares alternative areas.
-6. The user leaves with a review memo that explains why the purchase should be paused, compared, or escalated.
-
-## Core Screens
-
-| Screen | Purpose |
+| 영역 | 구현 |
 | --- | --- |
-| Home | Explains the pause-first product concept and shows the decision surface. |
-| Review | Turns one storefront scenario into a saved risk memo. |
-| Diagnosis | Runs a quick district/price/holding-period check. |
-| Compare | Places two or three districts on the same risk axes. |
-| Districts | Provides a district-level risk report with caution points and alternatives. |
+| 프런트엔드 | Static HTML, CSS, JavaScript |
+| 지도 | 서울 25개 자치구 GeoJSON을 SVG 경계 지도로 렌더링 |
+| 제품 로직 | 클라이언트 리스크 해석, 후보 비교, 판단 메모 생성 |
+| 상태 연결 | URL query + `localStorage` |
+| 데이터 준비 | Python, pandas, 공개 배포 payload 생성 |
+| 배포 | GitHub Pages, GitHub Actions, Vercel |
+| 검증 | Python unittest, 정적 빌드, smoke check, Playwright Chromium E2E |
 
-## Data And Logic Overview
+V2는 별도 지도 API나 서버 데이터베이스 없이 정적 배포 환경에서 동작합니다. 기존 V1의 검토·진단·비교 로직을 재사용하되, 모든 화면을 V2 공통 사이드바와 자치구 상태 흐름 안에 통합했습니다.
 
-Redveil uses public-safe, portfolio-oriented payloads derived from Seoul storefront transaction and commercial-area assumptions.
+## 오류와 복구 상태
 
-Current public payload:
+V2는 아래 상황에서 화면이 깨지지 않도록 사용자 안내와 복구 경로를 제공합니다.
 
-- Transaction data: `2025.04~2026.03`
-- Seoul commercial-district demand data: `2025년 4분기`
-- Store competition data: `2026.03.31 기준 파일`
-- Coverage: Seoul `25` districts, `427` admin dongs, `1,520` trade areas, `12,074` transactions
+- 잘못된 자치구 URL 코드
+- 손상된 자치구 선택 저장값
+- 손상된 매물 검토 저장 내역
+- 브라우저 저장 기능 차단
+- 분석 payload 누락
+- 서울 경계 GeoJSON 연결 실패
+- 구별 리포트 데이터 없음
 
-Main signal families:
+## 반응형과 접근성
 
-- Price burden
-- Liquidity risk
-- Competition density
-- Price volatility
-- Demand fragility
+- 검증 너비: `360`, `390`, `430`, `768`, `1366+`
+- 모바일·태블릿: 왼쪽 드로어 사이드바
+- 주요 터치 영역: 최소 `44px`
+- 모바일 입력 글자: 최소 `16px`
+- 전체 페이지 가로 넘침 자동 검사
+- 현재 화면 `aria-current`, 메뉴 `aria-expanded`, 상태 안내 `aria-live` 적용
 
-The score is a screening signal for review priority. It is not an investment-return prediction and should not be interpreted as a buy/sell recommendation.
-
-## Tech Stack
-
-| Area | Stack |
-| --- | --- |
-| Frontend | Static HTML, CSS, JavaScript |
-| Product logic | Client-side interpretation and local review state |
-| Data preparation | Python, pandas, public-safe payload generation |
-| Internal prototype | Streamlit |
-| Deployment | GitHub Pages, GitHub Actions |
-| QA | Python unittest, local smoke tests, Playwright-based browser checks |
-
-## Project Structure
-
-| Path | Description |
-| --- | --- |
-| `app/site/` | Static GitHub Pages product experience |
-| `app/server.py` | Local verification server and lightweight API endpoints |
-| `src/redveil/` | Data preparation and scoring utilities |
-| `docs/` | Product, risk model, data source, and portfolio documentation |
-| `docs/images/` | README screenshots |
-| `scripts/` | Static-site, browser, public-site, and screenshot checks |
-| `tests/` | Unit and static-page verification tests |
-
-## Current Status
-
-Redveil V1 is a polished portfolio product prototype.
-
-Completed:
-
-- Pause-first positioning
-- Static public product site
-- One clear review/diagnosis/compare workflow
-- District-level risk interpretation
-- Alternative candidate framing
-- Decision memo concept
-- Portfolio case study
-- Local and public verification scripts
-
-## V2 Decision Artifact Status
-
-V2 strengthens Redveil's decision artifacts without replacing the existing public V1 flow. The review and compare flows now support copy/exportable Hold Memo and Comparison Memo outputs, plus a Professional Review Checklist for pause-first review and professional handoff.
-
-See [V2 decision artifact evidence](./docs/evidence/v2-decision-artifact.md).
-
-Redveil remains a public-safe portfolio prototype. It is not investment advice, does not provide buy/sell recommendations, does not predict returns, and does not replace legal, tax, financial, brokerage, or on-site professional review.
-
-## Limitations
-
-- Redveil is a portfolio prototype.
-- It is not financial, legal, or real-estate investment advice.
-- Risk signals are exploratory and based on available/static data assumptions.
-- Real-world use would require updated transaction data, verified commercial-area data, professional review, and stronger validation.
-- Building-level lease terms, vacancy, management costs, rights premium, tenant quality, and legal constraints are not fully modeled.
-
-## Local Setup
-
-Install Python dependencies:
+## 검증
 
 ```bash
 pip install -r requirements.txt
-```
-
-Install Node dependencies for Playwright-based checks:
-
-```bash
 npm install
-```
-
-Run the local verification server:
-
-```bash
-python app/server.py --host 127.0.0.1 --port 8030
-```
-
-Open:
-
-```text
-http://127.0.0.1:8030
-```
-
-## Validation
-
-```bash
-git diff --check
 npm run build
 python -m unittest discover -s tests -p "test_*.py"
 python scripts/check_site_smoke.py
+npx playwright test
 ```
 
-Additional browser checks:
+`Deploy Pages` 워크플로는 `main`의 Python 테스트, payload 생성, 프런트 자산 검사, 런타임 검사, smoke check와 Chromium E2E를 통과한 뒤 `app/site`를 GitHub Pages에 배포합니다.
 
-```bash
-python scripts/check_review_e2e.py
-python scripts/check_service_flows_e2e.py
-python scripts/check_responsive_pages.py
-```
+## 프로젝트 구조
 
-Public deployment check:
+| 경로 | 설명 |
+| --- | --- |
+| `app/site/v2/` | 공식 Redveil V2 제품 화면과 공통 셸 |
+| `app/site/` | V1 Legacy 화면과 V2가 재사용하는 공통 로직 |
+| `app/server.py` | 로컬 검증 서버와 경량 API endpoint |
+| `src/redveil/` | 데이터 준비와 점수 산출 유틸리티 |
+| `docs/` | 데이터·모델·제품·포트폴리오 문서 |
+| `docs/evidence/` | 공개 배포 증거, 메타데이터, 화면 캡처 |
+| `scripts/` | 빌드·자산·smoke·공개 사이트 검증 |
+| `tests/` | Python 정적 검사와 Playwright E2E |
 
-```bash
-python scripts/check_public_site.py
-```
+## 한계와 주장 범위
 
-## Production Evidence
+Redveil V2는 공개 데이터를 활용한 포트폴리오 제품이며 다음을 제공하지 않습니다.
 
-Public-safe evidence includes production evidence archived on 2026-06-15 KST and V2 decision artifact evidence archived on 2026-07-02 KST:
+- 투자 자문 또는 매수·매도 추천
+- 수익률 예측
+- 개별 건물의 정확한 공실·임대차·권리금·관리비 판단
+- 법률·세무·금융·중개 자문
+- 실시간 데이터 또는 개별 매물 정확성 보장
+- 현장 조사와 전문가 검토의 대체
 
-- [Production verification summary](./docs/evidence/production-verification-2026-06-15.md)
-- [V2 decision artifact evidence](./docs/evidence/v2-decision-artifact.md)
-- [Public payload metadata](./docs/evidence/public-payload-metadata-2026-06-15.json)
-- [Deploy Pages PASS](./docs/evidence/deploy-pages-verification-2026-06-15.json)
-- [Production home](./docs/evidence/redveil-production-home-2026-06-15.png)
-- [Production district report](./docs/evidence/redveil-production-districts-2026-06-15.png)
+실제 의사결정에는 최신 실거래·호가, 임대차 조건, 공실 현황, 권리관계와 현장 조사를 별도로 확인해야 합니다.
 
-The evidence verifies the public review surface, tracked payload period, and deployment boundary. It does not claim investment performance, causal business outcomes, individual-property accuracy, or complete upstream-data freshness.
+## V1 Legacy
 
-## Portfolio Docs
+V1은 Redveil의 초기 설명형 제품 구조와 기존 기능을 보존합니다. 삭제하지 않지만, 공식 포트폴리오 대표 화면과 최신 기능 흐름은 V2입니다.
 
-- [Portfolio case study](./docs/portfolio-case-study.md)
-- [Production evidence](./docs/evidence/README.md)
-- [Data sources](./docs/DATA_SOURCES.md)
-- [Risk validation](./docs/RISK_VALIDATION.md)
-- [Risk model spec](./docs/RISK_MODEL_SPEC.md)
-- [User journey](./docs/USER_JOURNEY.md)
-- [Validation strategy](./docs/VALIDATION_STRATEGY.md)
+- [V1 Legacy 홈](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/)
+- [V2 공식 홈](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/)
 
-## Portfolio Value
+## 관련 문서
 
-Redveil shows product thinking beyond data plumbing: framing an ambiguous decision, translating risk signals into UX, controlling claims, building a coherent visual identity, and giving a reviewer one complete workflow to understand quickly.
+- [V2 릴리스 증거](./docs/evidence/v2-release-2026-07-12.md)
+- [Production evidence index](./docs/evidence/README.md)
+- [데이터 출처](./docs/DATA_SOURCES.md)
+- [리스크 검증](./docs/RISK_VALIDATION.md)
+- [리스크 모델 명세](./docs/RISK_MODEL_SPEC.md)
+- [사용자 여정](./docs/USER_JOURNEY.md)
+- [검증 전략](./docs/VALIDATION_STRATEGY.md)
+- [포트폴리오 사례 연구](./docs/portfolio-case-study.md)
 
 ## License
 

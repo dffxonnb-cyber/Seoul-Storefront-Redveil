@@ -81,8 +81,8 @@ test("V2 지도와 구별 리포트는 개발자용 표현을 사용자 안내�
   await expect(page.locator("body")).toContainText("분석 시제품");
 
   await page.goto("/v2/districts.html?district=11650");
-  await expect(page.locator("body")).toContainText("연결된 분석 데이터에서 확인되는 위험 점수만 표시합니다.");
-  await expect(page.locator("body")).toContainText("자치구 분석 데이터를 불러오지 못했습니다.");
+  await expect(page.locator("body")).toContainText("분석 데이터에서 확인되는 위험 점수만 표시합니다.");
+  await expect(page.locator("body")).toContainText("자치구 리스크 분석 데이터를 불러오지 못했습니다.");
 });
 
 test("V2 복사와 텍스트 파일 저장 문구도 한국어로 정규화한다", async ({ page }) => {

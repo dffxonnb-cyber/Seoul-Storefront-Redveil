@@ -4,7 +4,7 @@ function watchRuntimeErrors(page) {
   const errors = [];
   page.on("pageerror", (error) => errors.push(`pageerror: ${error.message}`));
   page.on("console", (message) => {
-    if (message.type() === "error") errors.push(`console: ${message.text()}`));
+    if (message.type() === "error") errors.push(`console: ${message.text()}`);
   });
   return errors;
 }
@@ -64,7 +64,7 @@ test("V2는 분석 데이터 파일이 없을 때 입력을 막고 다시 불러
     await route.fulfill({
       status: 200,
       contentType: "application/javascript",
-      body: "window.__REDVEIL_PAYLOAD__ = {};",
+      body: "window.__REDVEIL_PAYLOAD__ = { site: {}, summary: {}, districts: [] };",
     });
   });
   await page.goto("/v2/assessment.html");

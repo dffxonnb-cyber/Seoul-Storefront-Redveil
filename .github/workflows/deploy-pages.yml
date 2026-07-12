@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -66,6 +66,22 @@ jobs:
       - name: Capture refreshed V2 README screenshot options
         if: github.event_name == 'pull_request' && github.head_ref == 'docs/v2-readme-screenshot-refresh'
         run: CAPTURE_V2_README=1 npx playwright test tests/e2e/v2-readme-screenshot-refresh.spec.mjs
+
+      - name: Commit refreshed V2 README desktop image
+        if: success() && github.event_name == 'pull_request' && github.head_ref == 'docs/v2-readme-screenshot-refresh'
+        run: |
+          git fetch origin "${GITHUB_HEAD_REF}"
+          git checkout -B "${GITHUB_HEAD_REF}" "origin/${GITHUB_HEAD_REF}"
+          cp test-results/v2-readme-refresh/redveil-v2-desktop-home-tall.png docs/evidence/redveil-v2-desktop-home-2026-07-12.png
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/evidence/redveil-v2-desktop-home-2026-07-12.png
+          if git diff --cached --quiet; then
+            echo "README desktop image is already current."
+            exit 0
+          fi
+          git commit -m "docs: refresh V2 desktop home screenshot"
+          git push origin "HEAD:${GITHUB_HEAD_REF}"
 
       - name: Upload refreshed V2 README screenshot options
         if: always() && github.event_name == 'pull_request' && github.head_ref == 'docs/v2-readme-screenshot-refresh'

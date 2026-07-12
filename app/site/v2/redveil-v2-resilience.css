@@ -11,6 +11,11 @@
   display: none;
 }
 
+/* The district report owns a dedicated fallback panel and must not surface the generic mount warning. */
+body[data-v2-view="districts"] [data-v2-notice-id="feature-data-empty"] {
+  display: none !important;
+}
+
 .v2-system-notice {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

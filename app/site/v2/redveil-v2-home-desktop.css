@@ -11,6 +11,7 @@
       "candidates side"
       "workflow side"
       "limitations limitations";
+    gap: 14px;
     align-items: start;
   }
 
@@ -32,10 +33,12 @@
 
   body[data-page="redveil-v2"][data-v2-view="map"] .v2-candidate-panel {
     grid-area: candidates;
+    margin: 0 !important;
   }
 
   body[data-page="redveil-v2"][data-v2-view="map"] .v2-workflow-panel {
     grid-area: workflow;
+    margin: 0 !important;
   }
 
   body[data-page="redveil-v2"][data-v2-view="map"] .v2-limitations-panel {

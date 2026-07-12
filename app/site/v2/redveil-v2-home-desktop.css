@@ -4,6 +4,7 @@
 
 @media (min-width: 1181px) {
   body[data-page="redveil-v2"][data-v2-view="map"] .v2-dashboard {
+    position: relative;
     grid-template-columns: minmax(0, 1fr) 330px;
     grid-template-areas:
       "hero hero"
@@ -17,9 +18,17 @@
 
   body[data-page="redveil-v2"][data-v2-view="map"] .v2-map-panel,
   body[data-page="redveil-v2"][data-v2-view="map"] .v2-candidate-panel,
-  body[data-page="redveil-v2"][data-v2-view="map"] .v2-workflow-panel,
-  body[data-page="redveil-v2"][data-v2-view="map"] .v2-side-stack {
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-workflow-panel {
     align-self: start;
+  }
+
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-side-stack {
+    position: absolute;
+    inset: 0;
+    grid-area: side;
+    align-self: stretch;
+    justify-self: stretch;
+    align-content: start;
   }
 
   body[data-page="redveil-v2"][data-v2-view="map"] .v2-map-panel {

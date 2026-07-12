@@ -63,6 +63,19 @@ jobs:
       - name: Run Chromium end-to-end tests
         run: npx playwright test
 
+      - name: Capture refreshed V2 mobile README screenshot options
+        if: github.event_name == 'pull_request' && github.head_ref == 'docs/v2-mobile-readme-screenshot-refresh'
+        run: CAPTURE_V2_MOBILE_README=1 npx playwright test tests/e2e/v2-mobile-readme-screenshot-refresh.spec.mjs
+
+      - name: Upload refreshed V2 mobile README screenshot options
+        if: always() && github.event_name == 'pull_request' && github.head_ref == 'docs/v2-mobile-readme-screenshot-refresh'
+        uses: actions/upload-artifact@v4
+        with:
+          name: v2-mobile-readme-screenshot-options
+          path: test-results/v2-mobile-readme-refresh/*.png
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Upload review hero preview
         if: always() && github.event_name == 'pull_request' && github.head_ref == 'agent/redesign-review-hero'
         uses: actions/upload-artifact@v4

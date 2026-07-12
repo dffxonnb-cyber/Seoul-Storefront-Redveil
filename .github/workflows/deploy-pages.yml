@@ -63,6 +63,15 @@ jobs:
       - name: Run Chromium end-to-end tests
         run: npx playwright test
 
+      - name: Upload V2 portfolio screenshots
+        if: always() && github.event_name == 'pull_request' && github.head_ref == 'docs/v2-portfolio-packaging'
+        uses: actions/upload-artifact@v4
+        with:
+          name: redveil-v2-portfolio-screenshots
+          path: test-results/v2-portfolio/*.png
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Upload review hero preview
         if: always() && github.event_name == 'pull_request' && github.head_ref == 'agent/redesign-review-hero'
         uses: actions/upload-artifact@v4

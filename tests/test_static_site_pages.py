@@ -200,6 +200,28 @@ class StaticSitePageTests(unittest.TestCase):
                 for marker in mojibake_markers:
                     self.assertNotIn(marker, text)
 
+    def test_readme_packages_v2_as_the_representative_product(self) -> None:
+        readme = (PROJECT_ROOT / "README.md").read_text(encoding="utf-8")
+        evidence = PROJECT_ROOT / "docs" / "evidence"
+        screenshots = [
+            "redveil-v2-desktop-home-2026-07-12.png",
+            "redveil-v2-mobile-home-2026-07-12.png",
+            "redveil-v2-property-review-2026-07-12.png",
+            "redveil-v2-assessment-2026-07-12.png",
+            "redveil-v2-candidate-compare-2026-07-12.png",
+            "redveil-v2-district-report-2026-07-12.png",
+        ]
+
+        self.assertIn("# Redveil V2", readme)
+        self.assertIn("Seoul-Storefront-Redveil/v2/", readme)
+        self.assertIn("V1 Legacy", readme)
+        self.assertIn("v2-release-2026-07-12.md", readme)
+        self.assertTrue((evidence / "v2-release-2026-07-12.md").exists())
+        for screenshot in screenshots:
+            with self.subTest(screenshot=screenshot):
+                self.assertIn(screenshot, readme + (evidence / "README.md").read_text(encoding="utf-8"))
+                self.assertTrue((evidence / screenshot).exists())
+
     def test_risk_validation_doc_is_linked(self) -> None:
         doc_path = PROJECT_ROOT / "docs" / "RISK_VALIDATION.md"
         readme = (PROJECT_ROOT / "README.md").read_text(encoding="utf-8")

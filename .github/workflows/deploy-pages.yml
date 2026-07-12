@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -66,6 +66,19 @@ jobs:
       - name: Capture refreshed V2 mobile README screenshot options
         if: github.event_name == 'pull_request' && github.head_ref == 'docs/v2-mobile-readme-screenshot-refresh'
         run: CAPTURE_V2_MOBILE_README=1 npx playwright test tests/e2e/v2-mobile-readme-screenshot-refresh.spec.mjs
+
+      - name: Commit refreshed V2 mobile README image
+        if: github.event_name == 'pull_request' && github.head_ref == 'docs/v2-mobile-readme-screenshot-refresh'
+        run: |
+          cp test-results/v2-mobile-readme-refresh/redveil-v2-mobile-home-fullpage-390.png docs/evidence/redveil-v2-mobile-home-2026-07-12.png
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/evidence/redveil-v2-mobile-home-2026-07-12.png
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "docs: refresh V2 mobile home screenshot"
+          git push origin HEAD:${{ github.head_ref }}
 
       - name: Upload refreshed V2 mobile README screenshot options
         if: always() && github.event_name == 'pull_request' && github.head_ref == 'docs/v2-mobile-readme-screenshot-refresh'

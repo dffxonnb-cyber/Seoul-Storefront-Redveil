@@ -63,6 +63,12 @@ jobs:
       - name: Run Chromium end-to-end tests
         run: npx playwright test
 
+      - name: Capture V2 portfolio screenshots
+        if: github.event_name == 'pull_request' && github.head_ref == 'docs/v2-portfolio-packaging'
+        env:
+          CAPTURE_V2_PORTFOLIO: "1"
+        run: npx playwright test tests/e2e/redveil-v2-portfolio-screenshots.spec.mjs
+
       - name: Upload V2 portfolio screenshots
         if: always() && github.event_name == 'pull_request' && github.head_ref == 'docs/v2-portfolio-packaging'
         uses: actions/upload-artifact@v4

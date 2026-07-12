@@ -55,7 +55,8 @@ test("V2 지도는 경계 데이터 연결 실패를 깨진 화면 대신 복구
   await expect(page.getByText("경계 지도를 불러오지 못했습니다", { exact: true })).toBeVisible({ timeout: 5000 });
   await expect(page.locator("#v2-boundary-status")).toContainText("확인 필요");
   await expect(page.locator("#selected-district-name")).not.toBeEmpty();
-  expect(runtimeErrors).toEqual([]);
+  const unexpectedErrors = runtimeErrors.filter((error) => !error.includes("503 (Service Unavailable)"));
+  expect(unexpectedErrors).toEqual([]);
 });
 
 test("V2는 분석 데이터 파일이 없을 때 입력을 막고 다시 불러오기 안내를 제공한다", async ({ page }) => {
@@ -72,5 +73,15 @@ test("V2는 분석 데이터 파일이 없을 때 입력을 막고 다시 불러
   await expect(page.getByText("분석 데이터를 불러오지 못했습니다", { exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: "다시 불러오기" })).toBeVisible();
   await expect(page.getByRole("button", { name: "보류 신호 진단 실행" })).toBeDisabled();
+  expect(runtimeErrors).toEqual([]);
+});
+
+test("정상 구별 리포트는 전용 결과를 유지하고 일반 오류 안내를 노출하지 않는다", async ({ page }) => {
+  const runtimeErrors = watchRuntimeErrors(page);
+  await page.goto("/v2/districts.html?district=11650");
+  await expect(page.locator("#v2-report-district-name")).toHaveText("서초구");
+  await page.waitForTimeout(900);
+  await expect(page.locator('[data-v2-notice-id="feature-data-empty"]')).not.toBeVisible();
+  await expect(page.locator('[data-v2-notice-id="district-report-unavailable"]')).toHaveCount(0);
   expect(runtimeErrors).toEqual([]);
 });

@@ -1,0 +1,44 @@
+/* Desktop-only reading flow for the V2 map home.
+   Keeps the map, candidate comparison, and workflow cards in one continuous left column
+   while the selected-district analysis stack stays in the right rail. */
+
+@media (min-width: 1181px) {
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-dashboard {
+    grid-template-columns: minmax(0, 1fr) 330px;
+    grid-template-areas:
+      "hero hero"
+      "map side"
+      "candidates side"
+      "workflow side"
+      "limitations limitations";
+    align-items: start;
+  }
+
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-map-panel,
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-candidate-panel,
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-workflow-panel,
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-side-stack {
+    align-self: start;
+  }
+
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-map-panel {
+    min-height: 0;
+  }
+
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-map-canvas,
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-risk-map-svg {
+    min-height: 620px;
+  }
+
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-candidate-panel {
+    grid-area: candidates;
+  }
+
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-workflow-panel {
+    grid-area: workflow;
+  }
+
+  body[data-page="redveil-v2"][data-v2-view="map"] .v2-limitations-panel {
+    grid-area: limitations;
+  }
+}

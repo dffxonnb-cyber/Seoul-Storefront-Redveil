@@ -271,6 +271,34 @@ body.v2-feature-page label {
     max-width: 13ch !important;
     font-size: clamp(1.72rem, 8.5vw, 2.2rem) !important;
   }
+
+  body.v2-review-page .review-status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  body.v2-review-page .review-status-card {
+    min-height: 94px !important;
+    padding: 12px !important;
+    align-content: center;
+  }
+
+  body.v2-review-page .review-status-card:last-child {
+    grid-column: 1 / -1;
+    min-height: 84px !important;
+  }
+
+  body.v2-review-page .review-status-card strong {
+    margin-top: 6px;
+    font-size: clamp(1.05rem, 5vw, 1.3rem);
+    line-height: 1.15;
+  }
+
+  body.v2-review-page .review-status-card .compact-note {
+    margin-top: 5px;
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
 }
 
 @media (max-width: 360px) {

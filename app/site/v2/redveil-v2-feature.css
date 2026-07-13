@@ -138,20 +138,31 @@ body.v2-feature-page::after {
   border-radius: var(--v2-radius);
 }
 
-/* Keep the semantic fieldset legend, but render it as an unambiguous
-   internal group heading instead of letting the browser cut it into the border. */
+/* Keep the semantic legend for assistive technology. A generated first grid
+   row becomes the visible heading so fieldset's special legend layout cannot
+   leave the title hanging across the card border or overlap the first input. */
 .v2-review-page .review-form-group {
   position: relative;
-  padding: 64px 18px 18px;
+  padding: 18px;
 }
 
 .v2-review-page .review-form-group > legend {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  left: 18px;
-  width: auto;
-  margin: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
+
+.v2-review-page .review-form-group::before {
+  grid-column: 1 / -1;
+  display: block;
+  margin: 0 0 2px;
   padding: 0 0 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(245, 247, 251, 0.94);
@@ -160,6 +171,14 @@ body.v2-feature-page::after {
   letter-spacing: 0.02em;
   line-height: 1.35;
   text-transform: none;
+}
+
+.v2-review-page .review-form-group-required::before {
+  content: "빠른 검토 필수";
+}
+
+.v2-review-page .review-form-group-optional::before {
+  content: "선택 입력";
 }
 
 .v2-feature-page input,
@@ -310,13 +329,10 @@ body.v2-feature-page::after {
   }
 
   .v2-review-page .review-form-group {
-    padding: 58px 14px 14px;
+    padding: 14px;
   }
 
-  .v2-review-page .review-form-group > legend {
-    top: 14px;
-    right: 14px;
-    left: 14px;
+  .v2-review-page .review-form-group::before {
     padding-bottom: 10px;
   }
 }

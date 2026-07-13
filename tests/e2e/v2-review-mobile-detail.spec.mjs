@@ -38,7 +38,7 @@ test("V2 모바일 상세 판단 리포트는 다크 표면과 읽히는 KPI 대
   });
 
   expect(heroStyle.backgroundImage).toContain("linear-gradient");
-  expect(heroStyle.backgroundImage).toContain("rgb(18, 20, 29)");
+  expect(heroStyle.backgroundImage).toContain("rgba(18, 20, 29, 0.98)");
   expect(heroStyle.color).toBe("rgb(244, 245, 247)");
 
   const kpiStyles = await kpis.evaluateAll((elements) =>

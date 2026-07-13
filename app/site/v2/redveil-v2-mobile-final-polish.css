@@ -1,0 +1,84 @@
+/* Final mobile-only layout corrections for the V2 assessment and comparison screens. */
+
+@media (max-width: 430px) {
+  .v2-assessment-page .v2-assessment-hero-copy h1 {
+    max-width: none !important;
+    font-size: clamp(1.45rem, 6.7vw, 2rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.055em !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+  }
+
+  .v2-assessment-page .v2-assessment-hero-line {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    white-space: nowrap;
+  }
+
+  .v2-compare-page .risk-signal-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    align-items: stretch;
+  }
+
+  .v2-compare-page .risk-signal-card {
+    display: grid !important;
+    grid-template-rows: auto auto 1fr;
+    align-content: start;
+    min-width: 0 !important;
+    min-height: 132px;
+    padding: 11px 8px !important;
+    border-radius: 12px !important;
+  }
+
+  .v2-compare-page .risk-signal-card > span {
+    font-size: 0.66rem !important;
+    line-height: 1.28 !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+  }
+
+  .v2-compare-page .risk-signal-card > strong {
+    margin-top: 8px !important;
+    font-size: 0.98rem !important;
+    line-height: 1.18 !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+  }
+
+  .v2-compare-page .risk-signal-card > p {
+    margin-top: 8px !important;
+    font-size: 0.68rem !important;
+    line-height: 1.42 !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .v2-assessment-page .v2-assessment-hero-copy h1 {
+    font-size: clamp(1.4rem, 6.45vw, 1.55rem) !important;
+  }
+
+  .v2-compare-page .risk-signal-grid {
+    gap: 6px !important;
+  }
+
+  .v2-compare-page .risk-signal-card {
+    min-height: 126px;
+    padding: 10px 6px !important;
+  }
+
+  .v2-compare-page .risk-signal-card > span,
+  .v2-compare-page .risk-signal-card > p {
+    font-size: 0.62rem !important;
+  }
+
+  .v2-compare-page .risk-signal-card > strong {
+    font-size: 0.9rem !important;
+  }
+}

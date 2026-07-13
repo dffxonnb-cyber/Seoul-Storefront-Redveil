@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -24,8 +24,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -65,17 +63,6 @@ jobs:
       - name: Run Chromium end-to-end tests
         run: npx playwright test
 
-      - name: Upload README mobile screenshots
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'docs/readme-mobile-pair'
-        uses: actions/upload-artifact@v4
-        with:
-          name: readme-mobile-pair
-          path: |
-            test-results/readme-mobile-map.png
-            test-results/readme-mobile-report.png
-          if-no-files-found: error
-          retention-days: 7
-
       - name: Upload review hero preview
         if: always() && github.event_name == 'pull_request' && github.head_ref == 'agent/redesign-review-hero'
         uses: actions/upload-artifact@v4
@@ -105,54 +92,6 @@ jobs:
 
       - name: Check generated site payload
         run: test -f app/site/website_payload.js
-
-      - name: Commit README mobile showcase
-        if: success() && github.event_name == 'pull_request' && github.head_ref == 'docs/readme-mobile-pair'
-        env:
-          HEAD_BRANCH: ${{ github.head_ref }}
-        run: |
-          git fetch origin "+refs/heads/${HEAD_BRANCH}:refs/remotes/origin/${HEAD_BRANCH}" "+refs/heads/main:refs/remotes/origin/main"
-          git checkout -B "${HEAD_BRANCH}" "origin/${HEAD_BRANCH}"
-          mkdir -p docs/evidence
-          cp test-results/readme-mobile-map.png docs/evidence/redveil-v2-readme-mobile-map-2026-07-13.png
-          cp test-results/readme-mobile-report.png docs/evidence/redveil-v2-readme-mobile-report-2026-07-13.png
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path("README.md")
-          text = path.read_text(encoding="utf-8")
-          old = '''### 모바일 지원
-
-          <p align="center">
-            <img src="./docs/evidence/redveil-v2-readme-mobile-focus.png" alt="Redveil V2 모바일 지도 홈" width="430" />
-          </p>
-
-          <p align="center"><sub>모바일에서는 제품 소개와 지도 선택 흐름을 한 열로 재배치합니다.</sub></p>'''
-          new = '''### 모바일 지원
-
-          <table>
-            <tr>
-              <td width="50%"><img src="./docs/evidence/redveil-v2-readme-mobile-map-2026-07-13.png" alt="Redveil V2 모바일 서울 자치구 리스크 지도" /></td>
-              <td width="50%"><img src="./docs/evidence/redveil-v2-readme-mobile-report-2026-07-13.png" alt="Redveil V2 모바일 구별 리포트와 결정 메모" /></td>
-            </tr>
-            <tr>
-              <td align="center"><strong>지도 탐색</strong></td>
-              <td align="center"><strong>구별 리포트·결정 메모</strong></td>
-            </tr>
-          </table>
-
-          <p align="center"><sub>모바일에서도 자치구 선택부터 위험 사유 확인, 결정 메모까지 같은 흐름을 유지합니다.</sub></p>'''
-          if old not in text:
-              raise SystemExit("README mobile section marker was not found")
-          path.write_text(text.replace(old, new, 1), encoding="utf-8")
-          PY
-          git show origin/main:.github/workflows/deploy-pages.yml > .github/workflows/deploy-pages.yml
-          rm tests/e2e/readme-mobile-pair.spec.mjs
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md docs/evidence/redveil-v2-readme-mobile-map-2026-07-13.png docs/evidence/redveil-v2-readme-mobile-report-2026-07-13.png .github/workflows/deploy-pages.yml tests/e2e/readme-mobile-pair.spec.mjs
-          git commit -m "docs: refresh README mobile showcase"
-          git push origin "HEAD:${HEAD_BRANCH}"
 
   deploy:
     if: github.event_name != 'pull_request'

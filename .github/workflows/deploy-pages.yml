@@ -63,6 +63,17 @@ jobs:
       - name: Run Chromium end-to-end tests
         run: npx playwright test
 
+      - name: Upload README mobile screenshots
+        if: always() && github.event_name == 'pull_request' && github.head_ref == 'docs/readme-mobile-pair'
+        uses: actions/upload-artifact@v4
+        with:
+          name: readme-mobile-pair
+          path: |
+            test-results/readme-mobile-map.png
+            test-results/readme-mobile-report.png
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Upload review hero preview
         if: always() && github.event_name == 'pull_request' && github.head_ref == 'agent/redesign-review-hero'
         uses: actions/upload-artifact@v4

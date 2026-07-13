@@ -210,6 +210,39 @@ body.v2-feature-page label {
     min-width: 0 !important;
     max-width: 100% !important;
   }
+
+  /* The legacy review detail uses a light presentation surface. Keep that
+     desktop treatment intact, but restore the V2 dark palette on narrow screens. */
+  body.v2-review-page .review-detail-hero {
+    border: 1px solid rgba(255, 51, 71, 0.26) !important;
+    background:
+      radial-gradient(circle at top right, rgba(255, 51, 71, 0.13), transparent 38%),
+      linear-gradient(180deg, rgba(18, 20, 29, 0.98), rgba(7, 9, 15, 0.98)) !important;
+    color: var(--v2-text) !important;
+    box-shadow: none !important;
+  }
+
+  body.v2-review-page .review-detail-hero > strong {
+    color: #ffffff !important;
+  }
+
+  body.v2-review-page .review-detail-hero > p {
+    color: rgba(205, 211, 224, 0.78) !important;
+  }
+
+  body.v2-review-page .review-detail-kpis > div {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: rgba(13, 16, 24, 0.94) !important;
+    box-shadow: none !important;
+  }
+
+  body.v2-review-page .review-detail-kpis span {
+    color: rgba(172, 180, 198, 0.82) !important;
+  }
+
+  body.v2-review-page .review-detail-kpis strong {
+    color: #ff3347 !important;
+  }
 }
 
 @media (max-width: 430px) {

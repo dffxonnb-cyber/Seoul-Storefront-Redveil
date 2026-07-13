@@ -15,7 +15,7 @@ function watchRuntimeErrors(page) {
 }
 
 for (const viewport of viewports) {
-  test(`V2 매물 검토 그룹 제목은 ${viewport.name}에서 카드 내부 헤더로 표시된다`, async ({ page }) => {
+  test(`V2 매물 검토 그룹 제목은 ${viewport.name}에서 카드 내부 첫 행으로 표시된다`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
     const runtimeErrors = watchRuntimeErrors(page);
 
@@ -26,36 +26,46 @@ for (const viewport of viewports) {
     await expect(groups.nth(0).locator(":scope > legend")).toHaveText("빠른 검토 필수");
     await expect(groups.nth(1).locator(":scope > legend")).toHaveText("선택 입력");
 
+    const expectedHeadings = ["빠른 검토 필수", "선택 입력"];
+
     for (let index = 0; index < 2; index += 1) {
       const group = groups.nth(index);
       const legend = group.locator(":scope > legend");
       const firstField = group.locator(":scope > .field").first();
 
       const groupBox = await group.boundingBox();
-      const legendBox = await legend.boundingBox();
       const fieldBox = await firstField.boundingBox();
 
       expect(groupBox).not.toBeNull();
-      expect(legendBox).not.toBeNull();
       expect(fieldBox).not.toBeNull();
+      expect(fieldBox.y).toBeGreaterThanOrEqual(groupBox.y + 48);
 
-      expect(legendBox.y).toBeGreaterThanOrEqual(groupBox.y + 10);
-      expect(legendBox.x).toBeGreaterThanOrEqual(groupBox.x + 10);
-      expect(legendBox.x + legendBox.width).toBeLessThanOrEqual(groupBox.x + groupBox.width - 10);
-      expect(fieldBox.y).toBeGreaterThanOrEqual(legendBox.y + legendBox.height + 8);
-
-      const style = await legend.evaluate((element) => {
-        const computed = getComputedStyle(element);
+      const styles = await group.evaluate((element) => {
+        const before = getComputedStyle(element, "::before");
+        const legendElement = element.querySelector("legend");
+        const legendStyle = getComputedStyle(legendElement);
         return {
-          position: computed.position,
-          borderBottomWidth: computed.borderBottomWidth,
-          textTransform: computed.textTransform,
+          headingContent: before.content,
+          headingDisplay: before.display,
+          headingBorderBottomWidth: before.borderBottomWidth,
+          headingGridColumnStart: before.gridColumnStart,
+          headingGridColumnEnd: before.gridColumnEnd,
+          legendPosition: legendStyle.position,
+          legendWidth: legendStyle.width,
+          legendHeight: legendStyle.height,
+          legendOverflow: legendStyle.overflow,
         };
       });
 
-      expect(style.position).toBe("absolute");
-      expect(style.borderBottomWidth).toBe("1px");
-      expect(style.textTransform).toBe("none");
+      expect(styles.headingContent).toContain(expectedHeadings[index]);
+      expect(styles.headingDisplay).toBe("block");
+      expect(styles.headingBorderBottomWidth).toBe("1px");
+      expect(styles.headingGridColumnStart).toBe("1");
+      expect(styles.headingGridColumnEnd).toBe("-1");
+      expect(styles.legendPosition).toBe("absolute");
+      expect(styles.legendWidth).toBe("1px");
+      expect(styles.legendHeight).toBe("1px");
+      expect(styles.legendOverflow).toBe("hidden");
     }
 
     const layout = await page.evaluate(() => ({

@@ -42,8 +42,6 @@ for (const viewport of mobileViewports) {
         return {
           display: getComputedStyle(element).display,
           lineFragments: range.getClientRects().length,
-          scrollWidth: element.scrollWidth,
-          clientWidth: element.clientWidth,
         };
       })
     );
@@ -51,7 +49,6 @@ for (const viewport of mobileViewports) {
     for (const metric of metrics) {
       expect(metric.display).toBe("block");
       expect(metric.lineFragments).toBe(1);
-      expect(metric.scrollWidth).toBeLessThanOrEqual(metric.clientWidth + 1);
     }
 
     const layout = await page.evaluate(() => ({

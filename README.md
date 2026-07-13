@@ -64,11 +64,18 @@ Redveil은 매입 추천이나 수익률 예측 대신 아래 판단을 지원�
 
 ### 모바일 지원
 
-<p align="center">
-  <img src="./docs/evidence/redveil-v2-readme-mobile-focus.png" alt="Redveil V2 모바일 지도 홈" width="430" />
-</p>
+<table>
+  <tr>
+    <td width="50%"><img src="./docs/evidence/redveil-v2-readme-mobile-map-2026-07-13.png" alt="Redveil V2 모바일 서울 자치구 리스크 지도" /></td>
+    <td width="50%"><img src="./docs/evidence/redveil-v2-readme-mobile-report-2026-07-13.png" alt="Redveil V2 모바일 구별 리포트와 결정 메모" /></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>지도 탐색</strong></td>
+    <td align="center"><strong>구별 리포트·결정 메모</strong></td>
+  </tr>
+</table>
 
-<p align="center"><sub>모바일에서는 제품 소개와 지도 선택 흐름을 한 열로 재배치합니다.</sub></p>
+<p align="center"><sub>모바일에서도 자치구 선택부터 위험 사유 확인, 결정 메모까지 같은 흐름을 유지합니다.</sub></p>
 
 ## 데이터 범위
 

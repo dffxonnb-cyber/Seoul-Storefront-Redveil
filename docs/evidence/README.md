@@ -18,6 +18,8 @@ GitHub Pages는 repository의 `Deploy Pages` workflow가 `main`을 직접 검증
 - [V2 decision artifact evidence](v2-decision-artifact.md)
 - [V2 desktop map dashboard](redveil-v2-desktop-home-2026-07-12.png)
 - [V2 mobile map dashboard](redveil-v2-mobile-home-2026-07-12.png)
+- [README mobile map excerpt · 2026-07-13](redveil-v2-readme-mobile-map-2026-07-13.png)
+- [README mobile district report excerpt · 2026-07-13](redveil-v2-readme-mobile-report-2026-07-13.png)
 - [V2 property review](redveil-v2-property-review-2026-07-12.png)
 - [V2 3-minute assessment](redveil-v2-assessment-2026-07-12.png)
 - [V2 candidate compare](redveil-v2-candidate-compare-2026-07-12.png)

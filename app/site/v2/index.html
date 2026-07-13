@@ -11,8 +11,42 @@
     />
     <link rel="icon" type="image/png" href="../assets/redveil-logo.png" />
     <link rel="stylesheet" href="./redveil-v2.css?v=20260606-map-dashboard" />
-    <link rel="stylesheet" href="./redveil-v2-mobile.css?v=20260711-v2-mobile-korean" />
+    <link rel="stylesheet" href="./redveil-v2-mobile.css?v=20260713-home-metrics" />
     <link rel="stylesheet" href="./redveil-v2-shell.css?v=20260711-shared-shell" />
+    <style>
+      @media (max-width: 430px) {
+        body[data-v2-view="map"] .v2-mission-strip {
+          display: grid !important;
+          grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+          gap: 7px !important;
+          width: 100% !important;
+        }
+
+        body[data-v2-view="map"] .v2-mission-strip > div,
+        body[data-v2-view="map"] .v2-mission-strip > div:last-child {
+          grid-column: auto !important;
+          min-width: 0 !important;
+          min-height: 72px !important;
+          padding: 10px 6px !important;
+          text-align: center;
+        }
+
+        body[data-v2-view="map"] .v2-mission-strip dt,
+        body[data-v2-view="map"] .v2-mission-strip dd {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        body[data-v2-view="map"] .v2-mission-strip dt {
+          font-size: 0.6rem !important;
+        }
+
+        body[data-v2-view="map"] .v2-mission-strip dd {
+          font-size: 0.84rem !important;
+        }
+      }
+    </style>
     <script src="../website_payload.js" defer></script>
     <script src="./redveil-v2-shell.js?v=20260711-shared-shell" defer></script>
     <script src="./redveil-v2.js" defer></script>
@@ -116,7 +150,7 @@
                   <dd>5</dd>
                 </div>
                 <div>
-                  <dt>판단 모드</dt>
+                  <dt>판단 기준</dt>
                   <dd>보류 우선</dd>
                 </div>
               </dl>

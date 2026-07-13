@@ -65,16 +65,29 @@ for (const viewport of mobileViewports) {
   });
 }
 
-test("V2 홈 데스크톱 구조는 유지된다", async ({ page }) => {
+test("V2 홈 데스크톱 지표 구조는 유지된다", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
+  const runtimeErrors = watchRuntimeErrors(page);
   await page.goto("/v2/index.html?district=11530");
 
   const hero = page.locator(".v2-hero-panel");
-  const cards = page.locator(".v2-mission-strip > div");
+  const strip = page.locator(".v2-mission-strip");
+  const cards = strip.locator(":scope > div");
 
   await expect(hero).toBeVisible();
+  await expect(strip).toBeVisible();
   await expect(cards).toHaveCount(3);
 
-  const columns = await hero.evaluate((element) => getComputedStyle(element).gridTemplateColumns);
-  expect(columns.split(" ").length).toBeGreaterThanOrEqual(3);
+  const boxes = [];
+  for (let index = 0; index < 3; index += 1) {
+    const box = await cards.nth(index).boundingBox();
+    expect(box).not.toBeNull();
+    boxes.push(box);
+  }
+
+  expect(Math.abs(boxes[0].y - boxes[1].y)).toBeLessThanOrEqual(1);
+  expect(Math.abs(boxes[1].y - boxes[2].y)).toBeLessThanOrEqual(1);
+  expect(boxes[0].x).toBeLessThan(boxes[1].x);
+  expect(boxes[1].x).toBeLessThan(boxes[2].x);
+  expect(runtimeErrors).toEqual([]);
 });

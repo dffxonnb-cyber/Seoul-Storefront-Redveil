@@ -1,0 +1,188 @@
+/* Mobile-only stability layer for the V2 district report. */
+
+@media (max-width: 820px) {
+  body[data-page="redveil-v2"].v2-report-page,
+  body[data-page="redveil-v2"].v2-report-page .v2-shell,
+  body[data-page="redveil-v2"].v2-report-page .v2-workspace,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-layout,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-layout > section {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page {
+    width: 100%;
+    overflow-x: clip;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-layout > section {
+    position: relative !important;
+    inset: auto !important;
+    flex: 0 0 auto !important;
+    grid-area: auto !important;
+    grid-column: auto !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    isolation: isolate;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-layout > section[hidden] {
+    display: none !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-layout > .v2-panel {
+    padding: 14px !important;
+    border-radius: 16px !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 40%),
+      rgba(8, 11, 18, 0.98) !important;
+    box-shadow: none !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-summary,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-summary-actions,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-limitations {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-summary-actions {
+    width: 100%;
+    padding: 12px 0 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-left: 0 !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-summary-actions > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-panel-head,
+  body[data-page="redveil-v2"].v2-report-page .v2-panel-head-compact {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 8px !important;
+    align-items: start !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-panel-meta {
+    justify-self: start !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-summary-copy h1,
+  body[data-page="redveil-v2"].v2-report-page .v2-panel-head h2,
+  body[data-page="redveil-v2"].v2-report-page .v2-limitations-panel h2 {
+    color: #ffffff !important;
+    overflow-wrap: anywhere;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-summary-copy > p:not(.v2-section-label),
+  body[data-page="redveil-v2"].v2-report-page .v2-panel-head p,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-numbered-list p,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-alternative-copy p,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-professional-note,
+  body[data-page="redveil-v2"].v2-report-page .v2-limitations-panel > p {
+    color: rgba(222, 227, 238, 0.8) !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-factor-grid,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-alternative-list,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-numbered-list,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-checklist {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-factor-card,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-numbered-list li,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-alternative-card,
+  body[data-page="redveil-v2"].v2-report-page .v2-report-checklist li {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-memo {
+    display: block !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-memo > * {
+    position: static !important;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-decision-question {
+    display: block !important;
+    min-height: 0 !important;
+    margin: 0 0 12px !important;
+    padding: 11px 12px !important;
+    color: rgba(248, 249, 252, 0.94) !important;
+    background: rgba(255, 51, 71, 0.07) !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-checklist li {
+    position: relative !important;
+    display: block !important;
+    padding: 12px 12px 12px 36px !important;
+    color: rgba(237, 240, 247, 0.9) !important;
+    line-height: 1.55 !important;
+    background: rgba(255, 255, 255, 0.035) !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-checklist li::before {
+    top: 12px !important;
+    left: 12px !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-professional-note {
+    display: block !important;
+    margin: 14px 0 0 !important;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    line-height: 1.65 !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-limitations {
+    align-items: start !important;
+  }
+}
+
+@media (max-width: 430px) {
+  body[data-page="redveil-v2"].v2-report-page .v2-report-layout > .v2-panel {
+    padding: 12px !important;
+    border-radius: 14px !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-summary-copy h1 {
+    font-size: clamp(1.65rem, 8.3vw, 2rem) !important;
+    line-height: 1.14 !important;
+  }
+
+  body[data-page="redveil-v2"].v2-report-page .v2-report-score .v2-score-row strong {
+    font-size: 3.6rem !important;
+  }
+}

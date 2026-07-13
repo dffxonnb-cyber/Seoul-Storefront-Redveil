@@ -1,4 +1,5 @@
 /* Shared Redveil V2 application shell. Loaded after page and mobile styles. */
+@import url("./redveil-v2-districts-mobile-fix.css?v=20260713-report-stack");
 
 .v2-mobile-bar,
 .v2-sidebar-close,

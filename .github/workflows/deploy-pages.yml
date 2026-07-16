@@ -34,14 +34,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: npm
 
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      - name: Install Playwright
-        run: |
-          npm install --no-save @playwright/test
-          npx playwright install --with-deps chromium
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Install Chromium browser
+        run: npx playwright install --with-deps chromium
 
       - name: Run Python tests
         run: python -m unittest discover -s tests -p "test_*.py"
@@ -61,7 +63,7 @@ jobs:
         run: python scripts/check_site_smoke.py
 
       - name: Run Chromium end-to-end tests
-        run: npx playwright test
+        run: npm run test:e2e
 
       - name: Upload review hero preview
         if: always() && github.event_name == 'pull_request' && github.head_ref == 'agent/redesign-review-hero'

@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "build": "node scripts/validate-static-build.mjs"
+    "build": "node scripts/validate-static-build.mjs",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
-    "playwright": "^1.60.0"
+    "@playwright/test": "1.60.0"
   }
 }

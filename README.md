@@ -15,7 +15,79 @@ Redveil V2는 서울 자치구를 지도에서 선택한 뒤 리스크 점수와
 
 ## 대표 화면
 
-![Redveil V2 지도 홈과 선택 자치구 리스크 분석](./docs/evidence/redveil-v2-readme-hero.png)
+[![Redveil V2 지도 홈과 선택 자치구 리스크 분석](./docs/evidence/redveil-v2-readme-hero.png)](https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/)
+
+<p align="center"><sub>서울 자치구를 선택하면 리스크 점수, 핵심 반대 근거와 다음 검토 경로를 한 화면에서 확인합니다.</sub></p>
+
+## 화면으로 보는 제품 흐름
+
+화면을 기능별로 따로 나열하지 않고, 사용자가 실제로 판단하는 순서에 맞춰 연결했습니다. 이미지를 누르면 대응하는 공개 화면으로 이동합니다.
+
+### 1. 지도에서 자치구 리스크를 먼저 확인
+
+<table>
+  <tr>
+    <td width="68%"><a href="https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/"><img src="./docs/evidence/redveil-v2-readme-map-focus.png" alt="서울 25개 자치구 리스크 지도" /></a></td>
+    <td width="32%"><a href="https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/"><img src="./docs/evidence/redveil-v2-readme-risk-focus.png" alt="선택 자치구 리스크 점수와 위험 사유" /></a></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>서울 25개 자치구 리스크 지도</strong></td>
+    <td align="center"><strong>점수·위험 사유·검증 근거</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>지도에서 검토할 자치구를 직접 선택하고 같은 공간 단위로 위험 신호를 탐색합니다.</sub></td>
+    <td align="center"><sub>점수만 보여주지 않고 왜 멈춰야 하는지와 무엇을 다시 확인해야 하는지 설명합니다.</sub></td>
+  </tr>
+</table>
+
+### 2. 매물 조건을 검토하고 3분 진단으로 압축
+
+<table>
+  <tr>
+    <td width="50%"><a href="https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/review.html?district=11650"><img src="./docs/evidence/redveil-v2-property-review-2026-07-12.png" alt="Redveil V2 매물 검토 화면" /></a></td>
+    <td width="50%"><a href="https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/assessment.html?district=11650"><img src="./docs/evidence/redveil-v2-assessment-2026-07-12.png" alt="Redveil V2 3분 진단 화면" /></a></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>매물 검토</strong></td>
+    <td align="center"><strong>3분 진단</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>가격과 매물 조건을 입력해 보류 사유와 저장 가능한 판단 메모를 만듭니다.</sub></td>
+    <td align="center"><sub>가격선·보유 기간·우선순위를 반영해 빠르게 재확인할 리스크를 정리합니다.</sub></td>
+  </tr>
+</table>
+
+### 3. 후보를 같은 기준으로 비교하고 구별 리포트로 넘김
+
+<table>
+  <tr>
+    <td width="50%"><a href="https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/compare.html?a=11650&b=11530&c=11680"><img src="./docs/evidence/redveil-v2-candidate-compare-2026-07-12.png" alt="Redveil V2 후보 비교 화면" /></a></td>
+    <td width="50%"><a href="https://dffxonnb-cyber.github.io/Seoul-Storefront-Redveil/v2/districts.html?district=11650"><img src="./docs/evidence/redveil-v2-district-report-2026-07-12.png" alt="Redveil V2 구별 리포트 화면" /></a></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>후보 비교</strong></td>
+    <td align="center"><strong>구별 리포트</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>2~3개 자치구를 동일한 리스크 축으로 비교해 한 후보에 고정되지 않도록 돕습니다.</sub></td>
+    <td align="center"><sub>핵심 위험 요인, 대체 후보와 다음 확인 항목을 하나의 검토 문맥으로 정리합니다.</sub></td>
+  </tr>
+</table>
+
+### 4. 모바일에서도 같은 판단 흐름 유지
+
+<table>
+  <tr>
+    <td width="50%"><img src="./docs/evidence/redveil-v2-readme-mobile-map-2026-07-13.png" alt="Redveil V2 모바일 서울 자치구 리스크 지도" /></td>
+    <td width="50%"><img src="./docs/evidence/redveil-v2-readme-mobile-report-2026-07-13.png" alt="Redveil V2 모바일 구별 리포트와 결정 메모" /></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>지도 탐색</strong></td>
+    <td align="center"><strong>구별 리포트·판단 메모</strong></td>
+  </tr>
+</table>
+
+<p align="center"><sub>모바일에서도 자치구 선택부터 위험 사유 확인, 판단 메모까지 같은 흐름을 유지합니다.</sub></p>
 
 ## 3분 검토 경로
 
@@ -42,40 +114,6 @@ Redveil은 매입 추천이나 수익률 예측 대신 아래 판단을 지원�
 6. **구별 리포트와 다음 확인 항목 정리**
 
 선택한 자치구는 URL과 브라우저 저장 상태를 통해 V2 다섯 화면 사이에서 유지됩니다.
-
-## 핵심 기능
-
-### 서울 지도와 리스크 분석
-
-<table>
-  <tr>
-    <td width="68%"><img src="./docs/evidence/redveil-v2-readme-map-focus.png" alt="서울 25개 자치구 리스크 지도" /></td>
-    <td width="32%"><img src="./docs/evidence/redveil-v2-readme-risk-focus.png" alt="선택 자치구 리스크 점수와 위험 사유" /></td>
-  </tr>
-  <tr>
-    <td align="center"><strong>서울 25개 자치구 리스크 지도</strong></td>
-    <td align="center"><strong>점수·위험 사유·검증 근거</strong></td>
-  </tr>
-</table>
-
-### 대체 후보 비교
-
-![Redveil V2 후보 비교 화면](./docs/evidence/redveil-v2-readme-compare-focus.png)
-
-### 모바일 지원
-
-<table>
-  <tr>
-    <td width="50%"><img src="./docs/evidence/redveil-v2-readme-mobile-map-2026-07-13.png" alt="Redveil V2 모바일 서울 자치구 리스크 지도" /></td>
-    <td width="50%"><img src="./docs/evidence/redveil-v2-readme-mobile-report-2026-07-13.png" alt="Redveil V2 모바일 구별 리포트와 결정 메모" /></td>
-  </tr>
-  <tr>
-    <td align="center"><strong>지도 탐색</strong></td>
-    <td align="center"><strong>구별 리포트·결정 메모</strong></td>
-  </tr>
-</table>
-
-<p align="center"><sub>모바일에서도 자치구 선택부터 위험 사유 확인, 결정 메모까지 같은 흐름을 유지합니다.</sub></p>
 
 ## 데이터 범위
 
